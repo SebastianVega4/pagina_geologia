@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, Play, X } from 'lucide-angular';
+import { LucideAngularModule, Play, X, Volume2, VolumeX } from 'lucide-angular';
 
 @Component({
   selector: 'app-hero',
@@ -10,8 +10,11 @@ import { LucideAngularModule, Play, X } from 'lucide-angular';
   styleUrl: './hero.component.scss'
 })
 export class HeroComponent implements OnInit, OnDestroy {
-  readonly icons = { Play, X };
+  @ViewChild('bgVideo') bgVideo!: ElementRef<HTMLVideoElement>;
+  
+  readonly icons = { Play, X, Volume2, VolumeX };
   showVideoModal = false;
+  isMuted = true;
   
   countdown = {
     days: 0,
@@ -53,8 +56,17 @@ export class HeroComponent implements OnInit, OnDestroy {
     this.showVideoModal = !this.showVideoModal;
     if (this.showVideoModal) {
       document.body.style.overflow = 'hidden';
+      if (this.bgVideo) this.bgVideo.nativeElement.pause();
     } else {
       document.body.style.overflow = 'auto';
+      if (this.bgVideo) this.bgVideo.nativeElement.play();
+    }
+  }
+
+  toggleMute() {
+    this.isMuted = !this.isMuted;
+    if (this.bgVideo) {
+      this.bgVideo.nativeElement.muted = this.isMuted;
     }
   }
 }
