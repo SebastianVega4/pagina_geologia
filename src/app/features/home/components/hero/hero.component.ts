@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Play, X, Volume2, VolumeX } from 'lucide-angular';
 
@@ -9,7 +9,7 @@ import { LucideAngularModule, Play, X, Volume2, VolumeX } from 'lucide-angular';
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss'
 })
-export class HeroComponent implements OnInit, OnDestroy {
+export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('bgVideo') bgVideo!: ElementRef<HTMLVideoElement>;
   
   readonly icons = { Play, X, Volume2, VolumeX };
@@ -29,6 +29,37 @@ export class HeroComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.updateCountdown();
     this.timerId = setInterval(() => this.updateCountdown(), 1000);
+  }
+
+  ngAfterViewInit() {
+    if (this.bgVideo) {
+      this.bgVideo.nativeElement.muted = this.isMuted;
+    }
+    this.setupIntersectionObserver();
+  }
+
+  private setupIntersectionObserver() {
+    if (typeof window === 'undefined' || !this.bgVideo) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Only play if modal is not open
+            if (!this.showVideoModal) {
+              this.bgVideo.nativeElement.play().catch(() => {
+                // Autoplay might be blocked by browser policy
+              });
+            }
+          } else {
+            this.bgVideo.nativeElement.pause();
+          }
+        });
+      },
+      { threshold: 0.1 } // 10% of the video in view is enough to keep playing
+    );
+
+    observer.observe(this.bgVideo.nativeElement);
   }
 
   ngOnDestroy() {
