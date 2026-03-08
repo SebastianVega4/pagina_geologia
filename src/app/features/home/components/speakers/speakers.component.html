@@ -1,7 +1,7 @@
-<section class="pt-32 pb-24 bg-white dark:bg-brand-dark transition-colors duration-300">
+<section class="pt-32 pb-24 bg-white dark:bg-brand-dark transition-colors duration-300 overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div class="text-center mb-20">
+        <div class="text-center mb-20" data-aos="fade-up">
             <h2 class="text-brand-secondary font-bold tracking-widest uppercase text-sm mb-4">Mentes Brillantes</h2>
             <h3 class="text-3xl md:text-5xl font-extrabold text-brand-primary dark:text-white leading-tight">Ponentes
                 Invitados</h3>
@@ -13,8 +13,9 @@
 
         <!-- Speakers Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-            <div *ngFor="let s of speakers"
-                class="group bg-brand-light dark:bg-brand-primary rounded-[2rem] overflow-hidden border border-gray-100 dark:border-white/5 hover:shadow-2xl hover:shadow-brand-secondary/10 transition-all duration-500">
+            <div *ngFor="let s of speakers; let i = index"
+                class="group bg-brand-light dark:bg-brand-primary rounded-[2rem] overflow-hidden border border-gray-100 dark:border-white/5 hover:shadow-2xl hover:shadow-brand-secondary/10 transition-all duration-500"
+                data-aos="fade-up" [attr.data-aos-delay]="i * 100">
 
                 <!-- Speaker Image -->
                 <div class="relative aspect-square overflow-hidden bg-gray-200">
@@ -57,7 +58,7 @@
         </div>
 
         <!-- CTA to full list -->
-        <div class="mt-20 text-center">
+        <div class="mt-20 text-center" data-aos="zoom-in">
             <p class="text-gray-500 dark:text-gray-400 mb-6 italic">¿Te gustaría ser ponente? La convocatoria de
                 trabajos sigue abierta.</p>
             <a href="#contact"

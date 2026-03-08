@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, Calendar, Clock, MapPin, ChevronRight, Image } from 'lucide-angular';
+import { LucideAngularModule, Calendar, Clock, MapPin, ChevronRight, Image, Download } from 'lucide-angular';
 
 interface ScheduleItem {
   time: string;
@@ -23,7 +23,7 @@ interface DaySchedule {
   styleUrl: './schedule.component.scss'
 })
 export class ScheduleComponent {
-  readonly icons = { Calendar, Clock, MapPin, ChevronRight, Image };
+  readonly icons = { Calendar, Clock, MapPin, ChevronRight, Image, Download };
   
   activeDayIndex = 0;
 

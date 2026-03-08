@@ -1,7 +1,7 @@
-<section class="pt-32 pb-24 bg-white dark:bg-brand-dark transition-colors duration-300">
+<section class="pt-32 pb-24 bg-white dark:bg-brand-dark transition-colors duration-300 overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div class="text-center mb-16">
+        <div class="text-center mb-16" data-aos="fade-up">
             <h2 class="text-brand-secondary font-bold tracking-widest uppercase text-sm mb-4">Cronograma de Actividades
             </h2>
             <h3 class="text-3xl md:text-5xl font-extrabold text-brand-primary dark:text-white leading-tight">Agenda del
@@ -13,7 +13,7 @@
         </div>
 
         <!-- Full Flyer Section -->
-        <div class="mb-20 max-w-5xl mx-auto animate-fade-in">
+        <div class="mb-20 max-w-5xl mx-auto animate-fade-in" data-aos="zoom-in" data-aos-delay="200">
             <div
                 class="relative group rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white dark:border-brand-primary/20 bg-gray-100 dark:bg-brand-primary/10">
                 <img src="https://lh3.googleusercontent.com/d/10-rCMMslhvzEMwC9qGi7lhdcwYl5ZKj1"
@@ -37,7 +37,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
 
             <!-- Flyer / Graphic Section -->
-            <div class="lg:col-span-4 lg:sticky lg:top-24 space-y-6">
+            <div class="lg:col-span-4 lg:sticky lg:top-24 space-y-6" data-aos="fade-right">
                 <div
                     class="relative group rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-brand-primary">
                     <img src="https://lh3.googleusercontent.com/d/10-rCMMslhvzEMwC9qGi7lhdcwYl5ZKj1" alt="Flyer Oficial"
@@ -50,12 +50,13 @@
                 </div>
                 <button
                     class="w-full py-4 bg-brand-secondary text-white font-bold rounded-2xl shadow-lg hover:shadow-brand-secondary/40 transition-all flex items-center justify-center gap-2">
+                    <lucide-angular [img]="icons.Download" class="w-5 h-5"></lucide-angular>
                     Descargar PDF completo
                 </button>
             </div>
 
             <!-- Schedule Table Section -->
-            <div class="lg:col-span-8 space-y-8">
+            <div class="lg:col-span-8 space-y-8" data-aos="fade-left">
 
                 <!-- Day Selector Tabs -->
                 <div
@@ -73,8 +74,9 @@
 
                 <!-- Transitions logic (Active Table Display) -->
                 <div class="space-y-4 animate-fade-in">
-                    <div *ngFor="let item of schedule[activeDayIndex].items"
-                        class="group relative flex flex-col md:flex-row md:items-center bg-white dark:bg-brand-primary p-6 rounded-2xl border border-gray-100 dark:border-white/5 hover:border-brand-secondary/20 hover:shadow-xl hover:shadow-brand-secondary/5 transition-all duration-300 overflow-hidden">
+                    <div *ngFor="let item of schedule[activeDayIndex].items; let i = index"
+                        class="group relative flex flex-col md:flex-row md:items-center bg-white dark:bg-brand-primary p-6 rounded-2xl border border-gray-100 dark:border-white/5 hover:border-brand-secondary/20 hover:shadow-xl hover:shadow-brand-secondary/5 transition-all duration-300 overflow-hidden"
+                        data-aos="fade-up" [attr.data-aos-delay]="i * 50">
 
                         <!-- Time Indicator -->
                         <div class="md:w-32 flex-shrink-0 mb-4 md:mb-0">
