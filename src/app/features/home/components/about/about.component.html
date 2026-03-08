@@ -1,1 +1,79 @@
-<p>about works!</p>
+<section class="py-24 bg-brand-light dark:bg-brand-dark transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Title Section -->
+        <div class="text-center mb-20">
+            <h2 class="text-brand-secondary font-bold tracking-widest uppercase text-sm mb-4">Explora el Evento</h2>
+            <h3 class="text-3xl md:text-5xl font-extrabold text-brand-primary dark:text-white">Sobre el Congreso</h3>
+            <div class="w-20 h-1.5 bg-brand-secondary mx-auto mt-6 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <!-- Image Decoration -->
+            <div class="relative group">
+                <div
+                    class="absolute -inset-4 bg-gradient-to-tr from-brand-secondary/30 to-brand-accent/30 rounded-3xl blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000">
+                </div>
+                <img src="https://images.unsplash.com/photo-1544922111-e60d5b62b7cd?q=80&w=2670&auto=format&fit=crop"
+                    alt="Geología UPTC"
+                    class="relative rounded-3xl shadow-2xl object-cover h-[500px] w-full transform group-hover:scale-[1.02] transition-transform duration-500">
+
+                <!-- Floating Stat Card -->
+                <div
+                    class="absolute -bottom-8 -right-8 bg-white dark:bg-brand-primary p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-white/10 hidden md:block animate-fade-in">
+                    <div class="flex items-center gap-4">
+                        <div class="p-3 bg-brand-secondary/10 rounded-xl">
+                            <lucide-angular [img]="icons.Users" class="w-8 h-8 text-brand-secondary"></lucide-angular>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold text-brand-primary dark:text-white">+500</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Asistentes previstos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text Content -->
+            <div class="space-y-8">
+                <div
+                    class="bg-white dark:bg-brand-primary p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="p-2 bg-brand-accent/10 rounded-lg">
+                            <lucide-angular [img]="icons.Target" class="w-6 h-6 text-brand-accent"></lucide-angular>
+                        </div>
+                        <h4 class="text-xl font-bold text-brand-primary dark:text-white">Nuestra Misión</h4>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                        Fomentar el intercambio de conocimientos científicos y técnicos en el área de la geología,
+                        promoviendo la investigación de alto nivel y la vinculación entre la academia y el sector
+                        industrial en Colombia.
+                    </p>
+                </div>
+
+                <div
+                    class="bg-white dark:bg-brand-primary p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="p-2 bg-brand-secondary/10 rounded-lg">
+                            <lucide-angular [img]="icons.Eye" class="w-6 h-6 text-brand-secondary"></lucide-angular>
+                        </div>
+                        <h4 class="text-xl font-bold text-brand-primary dark:text-white">Nuestra Visión</h4>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                        Consolidarnos como el evento geocientífico líder en la región Andina para el 2030, reconocido
+                        por la calidad de sus ponencias magistrales, la rigurosidad científica y su impacto en la
+                        gestión sostenible de recursos.
+                    </p>
+                </div>
+
+                <!-- Org Info Snippet -->
+                <div class="pt-4 border-t border-gray-200 dark:border-gray-800">
+                    <p class="text-sm font-medium text-brand-primary dark:text-gray-300">Organizado por:</p>
+                    <div class="mt-4 flex flex-wrap gap-8 items-center grayscale opacity-70">
+                        <span class="font-bold text-lg text-gray-500">Escuela de Ingeniería de Geología - UPTC</span>
+                        <span class="font-bold text-lg text-gray-500">Sogamoso - Boyacá</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,1 +1,60 @@
-<p>map works!</p>
+<section class="py-24 bg-brand-light dark:bg-brand-primary/20 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center mb-16">
+            <div class="lg:col-span-1 space-y-6">
+                <h2 class="text-brand-secondary font-bold tracking-widest uppercase text-sm">Cómo llegar</h2>
+                <h3 class="text-3xl md:text-5xl font-extrabold text-brand-primary dark:text-white leading-tight">
+                    Ubicaciones Estratégicas</h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                    Sogamoso nos recibe con su riqueza cultural y calidez. Hemos seleccionado puntos clave para
+                    facilitar tu movilidad durante el congreso.
+                </p>
+
+                <!-- Points Legend -->
+                <div class="space-y-4 pt-6 text-sm">
+                    <div *ngFor="let m of markers"
+                        class="flex items-start gap-4 p-4 rounded-xl bg-white dark:bg-brand-primary border border-gray-100 dark:border-white/5 shadow-sm group hover:border-brand-secondary/30 transition-all cursor-pointer">
+                        <div class="p-2 bg-brand-secondary/10 rounded-lg group-hover:scale-110 transition-transform">
+                            <lucide-angular [img]="icons.MapPin" class="w-5 h-5 text-brand-secondary"></lucide-angular>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-brand-primary dark:text-white leading-none mb-1">{{ m.title }}
+                            </h4>
+                            <p class="text-gray-500 dark:text-gray-400 text-xs">{{ m.label }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button
+                    class="w-full py-4 mt-4 bg-brand-primary dark:bg-white text-white dark:text-brand-primary font-bold rounded-2xl flex items-center justify-center gap-2 hover:bg-brand-secondary transition-all">
+                    <lucide-angular [img]="icons.Navigation" class="w-5 h-5"></lucide-angular>
+                    Abrir en Google Maps
+                </button>
+            </div>
+
+            <!-- Map Container -->
+            <div
+                class="lg:col-span-2 relative h-[500px] md:h-[650px] rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white dark:border-brand-primary bg-gray-100 dark:bg-brand-dark/50">
+
+                @if (apiLoaded) {
+                <google-map [height]="'100%'" [width]="'100%'" [center]="center" [zoom]="zoom" [options]="options">
+                    <map-marker *ngFor="let m of markers" [position]="m.position" [title]="m.title" [label]="''">
+                    </map-marker>
+                </google-map>
+                } @else {
+                <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center space-y-4">
+                    <div class="p-4 bg-brand-secondary/10 rounded-full animate-pulse">
+                        <lucide-angular [img]="icons.MapPin" class="w-12 h-12 text-brand-secondary"></lucide-angular>
+                    </div>
+                    <h4 class="text-xl font-bold text-brand-primary dark:text-white">Mapa Interactivo</h4>
+                    <p class="text-gray-500 max-w-xs text-sm">
+                        El mapa se cargará una vez que se configure la API Key de Google Maps o se restaure la conexión.
+                    </p>
+                </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</section>

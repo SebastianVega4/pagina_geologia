@@ -1,1 +1,53 @@
-<p>gallery works!</p>
+<section class="py-24 bg-brand-light dark:bg-brand-dark transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-16 gap-8">
+            <div>
+                <h2 class="text-brand-secondary font-bold tracking-widest uppercase text-sm mb-4">Registro Visual</h2>
+                <h3 class="text-3xl md:text-5xl font-extrabold text-brand-primary dark:text-white leading-tight">Galería
+                    del Congreso</h3>
+            </div>
+
+            <!-- Tab Switcher -->
+            <div
+                class="inline-flex p-1.5 bg-white dark:bg-brand-primary rounded-2xl border border-gray-100 dark:border-white/5 shadow-sm">
+                <button (click)="setTab('actual')"
+                    [ngClass]="activeTab === 'actual' ? 'bg-brand-secondary text-white shadow-lg shadow-brand-secondary/20' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-brand-dark'"
+                    class="flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all duration-300">
+                    <lucide-angular [img]="icons.Image" class="w-4 h-4"></lucide-angular>
+                    Evento Actual
+                </button>
+                <button (click)="setTab('historica')"
+                    [ngClass]="activeTab === 'historica' ? 'bg-brand-secondary text-white shadow-lg shadow-brand-secondary/20' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-brand-dark'"
+                    class="flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all duration-300">
+                    <lucide-angular [img]="icons.History" class="w-4 h-4"></lucide-angular>
+                    Memoria Histórica
+                </button>
+            </div>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8 animate-fade-in">
+            <div *ngFor="let item of filteredItems"
+                class="relative group rounded-[2rem] overflow-hidden break-inside-avoid shadow-lg border-2 border-white dark:border-brand-primary">
+
+                <!-- Skeleton logic placeholder is handled by CSS aspect-ratio and bg-gray -->
+                <img [src]="item.url" [alt]="item.title"
+                    class="w-full h-auto object-cover transform group-hover:scale-110 transition-transform duration-700 brightness-95 group-hover:brightness-100">
+
+                <!-- Overlay on Hover -->
+                <div
+                    class="absolute inset-0 bg-gradient-to-t from-brand-primary/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                    <div class="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <h4 class="text-white font-bold text-xl mb-1">{{ item.title }}</h4>
+                        <div class="flex items-center gap-2 text-brand-secondary text-sm font-medium">
+                            <lucide-angular [img]="icons.Maximize2" class="w-4 h-4"></lucide-angular>
+                            Click para ampliar
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
