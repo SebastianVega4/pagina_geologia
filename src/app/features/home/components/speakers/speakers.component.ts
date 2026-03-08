@@ -24,12 +24,12 @@ export class SpeakersComponent {
 
   speakers: Speaker[] = [
     {
-      name: 'Dr. John Harrison',
-      role: 'Ph.D. en Geociencias',
-      institution: 'University of British Columbia',
-      bio: 'Experto mundial en tectónica de placas con más de 20 años de investigación en la cordillera de los Andes.',
+      name: 'Nombre',
+      role: 'Rol',
+      institution: 'Institucion',
+      bio: 'biografia',
       image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2574&auto=format&fit=crop',
-      topic: 'Evolución Geodinámica de los Andes Centrales',
+      topic: 'tema',
       socials: { linkedin: '#', twitter: '#', web: '#' }
     },
     {

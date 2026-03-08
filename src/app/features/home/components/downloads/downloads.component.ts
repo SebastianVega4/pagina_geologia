@@ -32,25 +32,18 @@ export class DownloadsComponent {
       type: 'PowerPoint / Google Slides'
     },
     {
-      title: 'Guía de Resúmenes',
-      description: 'Normas de estilo y extensiones para el envío de trabajos de investigación.',
-      icon: 'FileText',
-      link: '#',
+      title: 'titulo',
+      description: 'descripcion',
+      icon: 'Presentation',
+      link: 'link',
       type: 'PDF'
     },
     {
-      title: 'Plantilla de Póster',
-      description: 'Dimensiones y legibilidad recomendada para la sesión de posters científicos.',
-      icon: 'Download',
-      link: '#',
+      title: 'titulo',
+      description: 'descripcion',
+      icon: 'Presentation',
+      link: 'link',
       type: 'AI / PDF / PPTX'
-    },
-    {
-      title: 'Guía de Salidas de Campo',
-      description: 'Información logística, equipo necesario y rutas detalladas de las jornadas.',
-      icon: 'MapIcon',
-      link: '#',
-      type: 'PDF'
     }
   ];
 }

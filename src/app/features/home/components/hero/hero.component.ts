@@ -16,7 +16,7 @@ export class HeroComponent implements OnInit, OnDestroy {
     seconds: 0
   };
 
-  private targetDate = new Date('2026-10-25T08:00:00'); // Fecha tentativa del congreso
+  private targetDate = new Date('2026-05-01T08:00:00'); // Fecha tentativa del congreso
   private timerId: any;
 
   ngOnInit() {

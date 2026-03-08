@@ -2,10 +2,10 @@
   {
     "id": 1,
     "fecha": "2026-04-15",
-    "titulo": "Apertura de Inscripciones",
-    "resumen": "Ya están abiertas las inscripciones para la versión 2026 del Congreso de Geología en la UPTC de Sogamoso. Aprovecha el descuento de pronto pago.",
+    "titulo": "titulo",
+    "resumen": "resumen",
     "imagen_url": "https://images.unsplash.com/photo-1541888086425-d81bb19240f5?q=80&w=2670&auto=format&fit=crop",
-    "contenido": "Nos complace anunciar la apertura formal de inscripciones para el Congreso de Geología 2026..."
+    "contenido": "contenido..."
   },
   {
     "id": 2,
