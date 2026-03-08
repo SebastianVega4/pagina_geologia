@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 import { LucideAngularModule, Calendar, ArrowRight } from 'lucide-angular';
 import { Observable } from 'rxjs';
 
@@ -16,7 +17,7 @@ interface Noticia {
 @Component({
   selector: 'app-news',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, RouterModule],
   templateUrl: './news.component.html',
   styleUrl: './news.component.scss'
 })

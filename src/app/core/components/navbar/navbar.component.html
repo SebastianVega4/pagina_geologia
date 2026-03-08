@@ -1,67 +1,98 @@
-<nav [ngClass]="{'bg-white/80 dark:bg-brand-primary/80 backdrop-blur-md shadow-sm': isScrolled, 'bg-transparent': !isScrolled}"
+<nav [ngClass]="(isScrolled || !isHome) ? 'bg-white/95 dark:bg-brand-dark/95 backdrop-blur-md shadow-lg py-4' : 'bg-transparent py-6'"
     class="fixed w-full z-50 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-20">
+        <div class="flex justify-between items-center">
 
             <!-- Logo -->
-            <div class="flex-shrink-0 flex items-center cursor-pointer">
-                <lucide-angular [img]="icons.MapPin" class="h-8 w-8 text-brand-secondary mr-2"></lucide-angular>
-                <span class="font-bold text-xl tracking-tight text-brand-primary dark:text-white">GeoCongreso
-                    UPTC</span>
-            </div>
+            <a routerLink="/" class="flex items-center gap-3 group">
+                <div
+                    class="w-10 h-10 bg-brand-secondary rounded-xl flex items-center justify-center shadow-lg shadow-brand-secondary/20 group-hover:rotate-12 transition-transform">
+                    <lucide-angular [img]="icons.MapPin" class="w-6 h-6 text-white"></lucide-angular>
+                </div>
+                <span class="text-xl font-black tracking-tighter"
+                    [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-white' : 'text-white'">
+                    GEO<span class="text-brand-secondary uppercase">Uptc</span>
+                </span>
+            </a>
 
             <!-- Desktop Menu -->
-            <div class="hidden md:flex space-x-8 items-center">
-                <a href="#hero"
-                    class="text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-brand-accent transition-colors">Inicio</a>
-                <a href="#about"
-                    class="text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-brand-accent transition-colors">Acerca</a>
-                <a href="#schedule"
-                    class="text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-brand-accent transition-colors">Cronograma</a>
-                <a href="#speakers"
-                    class="text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-brand-accent transition-colors">Ponentes</a>
+            <div class="hidden md:flex items-center gap-8">
+                <div class="flex items-center gap-6">
+                    <a routerLink="/" routerLinkActive="text-brand-secondary" [routerLinkActiveOptions]="{exact: true}"
+                        class="text-sm font-extrabold hover:text-brand-secondary transition-colors"
+                        [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-gray-300' : 'text-white/90'">Inicio</a>
+                    <a routerLink="/evento" routerLinkActive="text-brand-secondary"
+                        class="text-sm font-extrabold hover:text-brand-secondary transition-colors"
+                        [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-gray-300' : 'text-white/90'">Evento</a>
+                    <a routerLink="/cronograma" routerLinkActive="text-brand-secondary"
+                        class="text-sm font-extrabold hover:text-brand-secondary transition-colors"
+                        [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-gray-300' : 'text-white/90'">Cronograma</a>
+                    <a routerLink="/conferencistas" routerLinkActive="text-brand-secondary"
+                        class="text-sm font-extrabold hover:text-brand-secondary transition-colors"
+                        [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-gray-300' : 'text-white/90'">Conferencistas</a>
+                    <a routerLink="/galeria" routerLinkActive="text-brand-secondary"
+                        class="text-sm font-extrabold hover:text-brand-secondary transition-colors"
+                        [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-gray-300' : 'text-white/90'">Galería</a>
+                    <a routerLink="/noticias" routerLinkActive="text-brand-secondary"
+                        class="text-sm font-extrabold hover:text-brand-secondary transition-colors"
+                        [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-gray-300' : 'text-white/90'">Noticias</a>
+                    <a routerLink="/ubicacion" routerLinkActive="text-brand-secondary"
+                        class="text-sm font-extrabold hover:text-brand-secondary transition-colors"
+                        [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-gray-300' : 'text-white/90'">Ubicación</a>
+                </div>
 
-                <!-- Theme Toggle -->
-                <button (click)="toggleTheme()"
-                    class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-brand-primary transition-colors focus:outline-none"
-                    aria-label="Toggle Dark Mode">
-                    <lucide-angular *ngIf="!isDarkMode" [img]="icons.Moon"
-                        class="w-5 h-5 text-gray-600"></lucide-angular>
-                    <lucide-angular *ngIf="isDarkMode" [img]="icons.Sun"
-                        class="w-5 h-5 text-yellow-400"></lucide-angular>
-                </button>
+                <div class="h-6 w-px bg-gray-300 dark:bg-gray-700 mx-2"></div>
+
+                <!-- Theme Toggle & CTA -->
+                <div class="flex items-center gap-4">
+                    <button (click)="toggleDarkMode()"
+                        class="p-2.5 rounded-xl hover:bg-brand-secondary/10 transition-colors"
+                        [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-white' : 'text-white'">
+                        <lucide-angular [img]="isDarkMode ? icons.Sun : icons.Moon" class="w-5 h-5"></lucide-angular>
+                    </button>
+                    <a routerLink="/contacto"
+                        class="px-6 py-2.5 bg-brand-secondary text-white text-sm font-bold rounded-xl shadow-lg shadow-brand-secondary/20 hover:shadow-brand-secondary/40 hover:-translate-y-0.5 transition-all">
+                        Contacto
+                    </a>
+                </div>
             </div>
 
             <!-- Mobile Menu Button -->
-            <div class="md:hidden flex items-center">
-                <button (click)="toggleTheme()"
-                    class="p-2 mr-2 rounded-full hover:bg-gray-100 dark:hover:bg-brand-primary transition-colors focus:outline-none">
-                    <lucide-angular *ngIf="!isDarkMode" [img]="icons.Moon"
-                        class="w-5 h-5 text-gray-600"></lucide-angular>
-                    <lucide-angular *ngIf="isDarkMode" [img]="icons.Sun"
-                        class="w-5 h-5 text-yellow-400"></lucide-angular>
+            <div class="md:hidden flex items-center gap-4">
+                <button (click)="toggleDarkMode()" class="p-2"
+                    [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-white' : 'text-white'">
+                    <lucide-angular [img]="isDarkMode ? icons.Sun : icons.Moon" class="w-6 h-6"></lucide-angular>
                 </button>
-
-                <button (click)="toggleMobileMenu()" class="text-gray-700 dark:text-gray-300 focus:outline-none">
-                    <lucide-angular *ngIf="!isMobileMenuOpen" [img]="icons.Menu" class="w-6 h-6"></lucide-angular>
-                    <lucide-angular *ngIf="isMobileMenuOpen" [img]="icons.X" class="w-6 h-6"></lucide-angular>
+                <button (click)="toggleMenu()" class="p-2"
+                    [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-white' : 'text-white'">
+                    <lucide-angular [img]="isMenuOpen ? icons.X : icons.Menu" class="w-7 h-7"></lucide-angular>
                 </button>
             </div>
         </div>
     </div>
 
     <!-- Mobile Menu Dropdown -->
-    <div *ngIf="isMobileMenuOpen"
-        class="md:hidden bg-white dark:bg-brand-dark shadow-xl absolute w-full border-t border-gray-100 dark:border-brand-primary">
-        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="#hero" (click)="toggleMobileMenu()"
-                class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-white hover:bg-gray-50 dark:hover:bg-brand-primary rounded-md">Inicio</a>
-            <a href="#about" (click)="toggleMobileMenu()"
-                class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-white hover:bg-gray-50 dark:hover:bg-brand-primary rounded-md">Acerca</a>
-            <a href="#schedule" (click)="toggleMobileMenu()"
-                class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-white hover:bg-gray-50 dark:hover:bg-brand-primary rounded-md">Cronograma</a>
-            <a href="#speakers" (click)="toggleMobileMenu()"
-                class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-white hover:bg-gray-50 dark:hover:bg-brand-primary rounded-md">Ponentes</a>
+    <div *ngIf="isMenuOpen"
+        class="md:hidden absolute top-full left-0 w-full bg-white dark:bg-brand-primary shadow-2xl border-t border-gray-100 dark:border-white/5 animate-fade-in">
+        <div class="flex flex-col p-6 gap-4">
+            <a routerLink="/" (click)="toggleMenu()"
+                class="text-lg font-bold text-brand-primary dark:text-white">Inicio</a>
+            <a routerLink="/evento" (click)="toggleMenu()"
+                class="text-lg font-bold text-brand-primary dark:text-white">Evento</a>
+            <a routerLink="/cronograma" (click)="toggleMenu()"
+                class="text-lg font-bold text-brand-primary dark:text-white">Cronograma</a>
+            <a routerLink="/conferencistas" (click)="toggleMenu()"
+                class="text-lg font-bold text-brand-primary dark:text-white">Conferencistas</a>
+            <a routerLink="/galeria" (click)="toggleMenu()"
+                class="text-lg font-bold text-brand-primary dark:text-white">Galería</a>
+            <a routerLink="/noticias" (click)="toggleMenu()"
+                class="text-lg font-bold text-brand-primary dark:text-white">Noticias</a>
+            <a routerLink="/ubicacion" (click)="toggleMenu()"
+                class="text-lg font-bold text-brand-primary dark:text-white">Ubicación</a>
+            <a routerLink="/contacto" (click)="toggleMenu()"
+                class="mt-4 w-full py-4 bg-brand-secondary text-white text-center font-bold rounded-2xl shadow-xl">
+                Contacto
+            </a>
         </div>
     </div>
 </nav>

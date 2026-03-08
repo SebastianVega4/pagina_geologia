@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, Image, History, Maximize2 } from 'lucide-angular';
+import { LucideAngularModule, Image, History, Maximize2, X } from 'lucide-angular';
 
 interface GalleryItem {
   url: string;
@@ -16,9 +16,10 @@ interface GalleryItem {
   styleUrl: './gallery.component.scss'
 })
 export class GalleryComponent {
-  readonly icons = { Image, History, Maximize2 };
+  readonly icons = { Image, History, Maximize2, X };
 
   activeTab: 'actual' | 'historica' = 'actual';
+  selectedItem: GalleryItem | null = null;
 
   items: GalleryItem[] = [
     { url: 'https://images.unsplash.com/photo-1541888086425-d81bb19240f5?q=80&w=2670&auto=format&fit=crop', title: 'Salida de Campo 2024', category: 'actual' },
@@ -35,5 +36,16 @@ export class GalleryComponent {
 
   setTab(tab: 'actual' | 'historica') {
     this.activeTab = tab;
+  }
+
+  openLightbox(item: GalleryItem) {
+    this.selectedItem = item;
+    // Prevent scrolling when modal is open
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeLightbox() {
+    this.selectedItem = null;
+    document.body.style.overflow = 'auto';
   }
 }

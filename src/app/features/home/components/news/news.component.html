@@ -1,4 +1,4 @@
-<section class="py-24 bg-white dark:bg-brand-dark transition-colors duration-300">
+<section class="pt-32 pb-24 bg-white dark:bg-brand-dark transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
@@ -49,10 +49,10 @@
 
                 <!-- Newsletter-style footer -->
                 <div class="px-8 pb-8 pt-2">
-                    <button
-                        class="flex items-center gap-2 text-brand-secondary font-bold text-sm uppercase tracking-widest group-hover:gap-3 transition-all">
+                    <a [routerLink]="['/noticias', n.id]"
+                        class="flex items-center gap-2 text-brand-secondary font-bold text-sm uppercase tracking-widest group-hover:gap-3 transition-all cursor-pointer">
                         Leer noticia completa <lucide-angular [img]="icons.ArrowRight" class="w-4 h-4"></lucide-angular>
-                    </button>
+                    </a>
                 </div>
             </article>
         </div>

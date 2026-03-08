@@ -1,4 +1,4 @@
-<section class="py-24 bg-brand-light dark:bg-brand-dark transition-colors duration-300">
+<section class="pt-32 pb-24 bg-brand-light dark:bg-brand-primary/20 transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="flex flex-col md:flex-row md:items-center justify-between mb-16 gap-8">
@@ -28,8 +28,8 @@
 
         <!-- Gallery Grid -->
         <div class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8 animate-fade-in">
-            <div *ngFor="let item of filteredItems"
-                class="relative group rounded-[2rem] overflow-hidden break-inside-avoid shadow-lg border-2 border-white dark:border-brand-primary">
+            <div *ngFor="let item of filteredItems" (click)="openLightbox(item)"
+                class="relative group rounded-[2rem] overflow-hidden break-inside-avoid shadow-lg border-2 border-white dark:border-brand-primary cursor-pointer hover:shadow-brand-secondary/20 transition-all">
 
                 <!-- Skeleton logic placeholder is handled by CSS aspect-ratio and bg-gray -->
                 <img [src]="item.url" [alt]="item.title"
@@ -49,5 +49,30 @@
             </div>
         </div>
 
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div *ngIf="selectedItem" (click)="closeLightbox()"
+        class="fixed inset-0 z-[100] bg-brand-dark/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-12 animate-fade-in">
+
+        <!-- Close Button -->
+        <button (click)="closeLightbox()"
+            class="absolute top-8 right-8 p-3 bg-white/10 hover:bg-brand-secondary text-white rounded-full transition-all hover:rotate-90 z-[110]">
+            <lucide-angular [img]="icons.X" class="w-8 h-8"></lucide-angular>
+        </button>
+
+        <!-- Image Container -->
+        <div class="relative max-w-5xl w-full h-full flex flex-col items-center justify-center gap-6"
+            (click)="$event.stopPropagation()">
+            <img [src]="selectedItem.url" [alt]="selectedItem.title"
+                class="max-w-full max-h-[80vh] object-contain rounded-3xl shadow-2xl animate-scale-up border-4 border-white/10">
+
+            <div class="text-center animate-fade-in-up">
+                <h4 class="text-3xl font-black text-white mb-2">{{ selectedItem.title }}</h4>
+                <p class="text-brand-secondary font-bold uppercase tracking-widest text-sm">
+                    {{ selectedItem.category === 'actual' ? 'Evento Actual' : 'Memoria Histórica' }}
+                </p>
+            </div>
+        </div>
     </div>
 </section>

@@ -1,31 +1,44 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { LucideAngularModule, Menu, X, Moon, Sun, MapPin } from 'lucide-angular';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   isScrolled = false;
-  isMobileMenuOpen = false;
+  isMenuOpen = false;
   isDarkMode = false;
+  isHome = true;
 
   readonly icons = { Menu, X, Moon, Sun, MapPin };
+
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: any) => {
+      this.isHome = event.urlAfterRedirects === '/' || event.urlAfterRedirects === '/home';
+    });
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.isScrolled = window.scrollY > 20;
   }
 
-  toggleMobileMenu() {
-    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
   }
 
-  toggleTheme() {
+  toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
     if (this.isDarkMode) {
       document.documentElement.classList.add('dark');
