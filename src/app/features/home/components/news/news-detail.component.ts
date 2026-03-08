@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Title, Meta } from '@angular/platform-browser';
 import { LucideAngularModule, ArrowLeft, Calendar, User, Clock } from 'lucide-angular';
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 
 interface Noticia {
   id: number;
@@ -68,7 +69,7 @@ interface Noticia {
               
               <!-- Placeholder for more content to make it look "detailed" -->
               <p>
-                Este avance representa un hito significativo para el <strong>VIII Congreso Nacional de Geología</strong>. 
+                Este avance representa un hito significativo para el <strong>XVIII Congreso Nacional de Geología</strong>. 
                 Sogamoso se prepara para recibir a expertos nacionales e internacionales en una jornada que promete 
                 redefinir nuestra comprensión de las geociencias en el contexto actual.
               </p>
@@ -95,13 +96,24 @@ export class NewsDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private titleService: Title,
+    private metaService: Meta
   ) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.noticia$ = this.http.get<Noticia[]>('assets/noticias.json').pipe(
-      map(noticias => noticias.find(n => n.id === id))
+      map(noticias => noticias.find(n => n.id === id)),
+      tap(noticia => {
+        if (noticia) {
+          this.titleService.setTitle(`${noticia.titulo} | XVIII Congreso Geología`);
+          this.metaService.updateTag({ name: 'description', content: noticia.resumen });
+          this.metaService.updateTag({ property: 'og:title', content: noticia.titulo });
+          this.metaService.updateTag({ property: 'og:description', content: noticia.resumen });
+          this.metaService.updateTag({ property: 'og:image', content: noticia.imagen_url });
+        }
+      })
     );
   }
 }
