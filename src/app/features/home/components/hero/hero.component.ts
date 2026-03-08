@@ -1,14 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LucideAngularModule, Play, X } from 'lucide-angular';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LucideAngularModule],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss'
 })
 export class HeroComponent implements OnInit, OnDestroy {
+  readonly icons = { Play, X };
+  showVideoModal = false;
+  
   countdown = {
     days: 0,
     hours: 0,
@@ -43,5 +47,14 @@ export class HeroComponent implements OnInit, OnDestroy {
     this.countdown.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     this.countdown.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     this.countdown.seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  }
+
+  toggleVideoModal() {
+    this.showVideoModal = !this.showVideoModal;
+    if (this.showVideoModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
   }
 }
