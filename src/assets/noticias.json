@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "fecha": "2026-04-15",
+    "titulo": "Apertura de Inscripciones",
+    "resumen": "Ya están abiertas las inscripciones para la versión 2026 del Congreso de Geología en la UPTC de Sogamoso. Aprovecha el descuento de pronto pago.",
+    "imagen_url": "https://images.unsplash.com/photo-1541888086425-d81bb19240f5?q=80&w=2670&auto=format&fit=crop",
+    "contenido": "Nos complace anunciar la apertura formal de inscripciones para el Congreso de Geología 2026..."
+  },
+  {
+    "id": 2,
+    "fecha": "2026-05-02",
+    "titulo": "Lanzamiento de Cronograma Oficial",
+    "resumen": "Conoce los ponentes, las actividades y las temáticas que abordaremos este año.",
+    "imagen_url": "https://images.unsplash.com/photo-1551818255-e6e10975bc17?q=80&w=2573&auto=format&fit=crop",
+    "contenido": "Hemos publicado el cronograma detallado que incluye ponencias magistrales, talleres y salidas de campo..."
+  },
+  {
+    "id": 3,
+    "fecha": "2026-05-15",
+    "titulo": "Confirmación de Ponentes Internacionales",
+    "resumen": "Nos enorgullece recibir a expertos de Canadá, España y México en esta edición.",
+    "imagen_url": "https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=2670&auto=format&fit=crop",
+    "contenido": "Contaremos con la presencia de destacados geólogos internacionales que compartirán sus investigaciones..."
+  }
+]

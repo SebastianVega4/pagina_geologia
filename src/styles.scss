@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-brand-light text-brand-primary font-sans transition-colors duration-300;
+  }
+  
+  .dark body {
+    @apply bg-brand-dark text-brand-light;
+  }
+}
