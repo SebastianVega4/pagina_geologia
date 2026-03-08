@@ -24,12 +24,12 @@ export class SpeakersComponent {
 
   speakers: Speaker[] = [
     {
-      name: 'Nombre',
-      role: 'Rol',
-      institution: 'Institucion',
-      bio: 'biografia',
+      name: 'Dr. John Harrison',
+      role: 'Director de Geociencias',
+      institution: 'University of Toronto (Canadá)',
+      bio: 'Líder mundial en tectónica de placas y evolución de márgenes continentales en Suramérica.',
       image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2574&auto=format&fit=crop',
-      topic: 'tema',
+      topic: 'Geotectónica de los Andes Septentrionales',
       socials: { linkedin: '#', twitter: '#', web: '#' }
     },
     {

@@ -30,7 +30,7 @@ export class ScheduleComponent {
   schedule: DaySchedule[] = [
     {
       date: '25 mar 2026',
-      label: 'Día 1: Apertura texto...',
+      label: 'Día 1: Apertura y Geotectónica',
       items: [
         { time: '08:00 AM', activity: 'Actividad', location: 'Locacion' },
         { time: '09:30 AM', activity: 'Actividad', speaker: 'Speaker/Rector UPTC', location: 'Locacion' },

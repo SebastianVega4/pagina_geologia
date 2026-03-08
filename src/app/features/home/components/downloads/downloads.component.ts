@@ -32,18 +32,18 @@ export class DownloadsComponent {
       type: 'PowerPoint / Google Slides'
     },
     {
-      title: 'titulo',
-      description: 'descripcion',
-      icon: 'Presentation',
-      link: 'link',
+      title: 'Guía del Participante',
+      description: 'Manual completo con la logística, recomendaciones de alojamiento y transporte en Sogamoso.',
+      icon: 'FileText',
+      link: '#',
       type: 'PDF'
     },
     {
-      title: 'titulo',
-      description: 'descripcion',
-      icon: 'Presentation',
-      link: 'link',
-      type: 'AI / PDF / PPTX'
+      title: 'Mapa Geológico de la Región',
+      description: 'Mapa detallado del Sinclinal de Sogamoso para uso en las salidas de campo programadas.',
+      icon: 'MapIcon',
+      link: '#',
+      type: 'PDF / Resolución 4K'
     }
   ];
 }

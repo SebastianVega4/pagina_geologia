@@ -1,59 +1,98 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { GoogleMapsModule } from '@angular/google-maps';
+import { Component, OnInit, AfterViewInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { LucideAngularModule, MapPin, Navigation } from 'lucide-angular';
-import { environment } from '../../../../../environments/environment';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [CommonModule, GoogleMapsModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule],
   templateUrl: './map.component.html',
   styleUrl: './map.component.scss'
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   readonly icons = { MapPin, Navigation };
   
+  private map?: L.Map;
   apiLoaded = false;
-  center: any = { lat: 5.725, lng: -72.915 }; // Sogamoso center
-  zoom = 14;
-
-  options: any = {
-    mapId: 'GEO_CONGRESO_MAP',
-    disableDefaultUI: false,
-    scrollwheel: false,
-    styles: [
-      {
-        "featureType": "all",
-        "elementType": "labels.text.fill",
-        "stylers": [ { "color": "#7c93a3" }, { "lightness": "-10" } ]
-      }
-    ]
-  };
 
   markers = [
     {
-      position: { lat: 5.7288, lng: -72.9095 },
+      lat: 5.7288,
+      lng: -72.9095,
       title: 'UPTC Seccional Sogamoso',
       label: 'Sede Principal del Congreso',
       info: 'Auditorio Cacique Sugamuxi'
     },
     {
-      position: { lat: 5.7155, lng: -72.9304 },
+      lat: 5.7155,
+      lng: -72.9304,
       title: 'Plaza de la Villa',
       label: 'Punto de Encuentro Centro',
       info: 'Centro Histórico'
     },
     {
-      position: { lat: 5.722, lng: -72.923 },
+      lat: 5.722,
+      lng: -72.923,
       title: 'Zona Hotelera Recomendada',
       label: 'Alojamientos Aliados',
       info: 'Calle 11 con Carrera 11'
     }
   ];
 
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   ngOnInit(): void {
-    // Check if google maps script is loaded
-    this.apiLoaded = typeof google !== 'undefined' && typeof google.maps !== 'undefined';
+    this.apiLoaded = isPlatformBrowser(this.platformId);
+  }
+
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.initMap();
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.map) {
+      this.map.remove();
+    }
+  }
+
+  private initMap(): void {
+    const center: L.LatLngExpression = [5.725, -72.915];
+    
+    this.map = L.map('map', {
+      center: center,
+      zoom: 14,
+      scrollWheelZoom: false
+    });
+
+    // Dark tiles (CartoDB Dark Matter) or standard OSM?
+    // Let's use a nice professional look:
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 20
+    }).addTo(this.map);
+
+    // Add markers
+    this.markers.forEach(m => {
+      const marker = L.marker([m.lat, m.lng], {
+        title: m.title
+      }).addTo(this.map!);
+
+      marker.bindPopup(`
+        <div class="p-2">
+          <h5 class="font-bold text-brand-primary mb-1">${m.title}</h5>
+          <p class="text-xs text-brand-secondary font-bold mb-1">${m.label}</p>
+          <p class="text-xs text-gray-600">${m.info}</p>
+        </div>
+      `);
+    });
+
+    // Fix for Leaflet not rendering correctly inside hidden elements initially
+    setTimeout(() => {
+      this.map?.invalidateSize();
+    }, 500);
   }
 }

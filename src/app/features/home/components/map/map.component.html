@@ -37,20 +37,15 @@
             <div
                 class="lg:col-span-2 relative h-[500px] md:h-[650px] rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white dark:border-brand-primary bg-gray-100 dark:bg-brand-dark/50">
 
-                @if (apiLoaded) {
-                <google-map [height]="'100%'" [width]="'100%'" [center]="center" [zoom]="zoom" [options]="options">
-                    <map-marker *ngFor="let m of markers" [position]="m.position" [title]="m.title" [label]="''">
-                    </map-marker>
-                </google-map>
-                } @else {
+                <div id="map" class="w-full h-full z-10 transition-opacity duration-700" [class.opacity-0]="!apiLoaded">
+                </div>
+
+                @if (!apiLoaded) {
                 <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center space-y-4">
                     <div class="p-4 bg-brand-secondary/10 rounded-full animate-pulse">
                         <lucide-angular [img]="icons.MapPin" class="w-12 h-12 text-brand-secondary"></lucide-angular>
                     </div>
-                    <h4 class="text-xl font-bold text-brand-primary dark:text-white">Mapa Interactivo</h4>
-                    <p class="text-gray-500 max-w-xs text-sm">
-                        El mapa se cargará una vez que se configure la API Key de Google Maps o se restaure la conexión.
-                    </p>
+                    <h4 class="text-xl font-bold text-brand-primary dark:text-white">Cargando Mapa...</h4>
                 </div>
                 }
             </div>
