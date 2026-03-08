@@ -1,12 +1,15 @@
 <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
-    <!-- Background Video Placeholder (using a dark gradient with glassmorphism overlay) -->
+    <!-- Background Multimedia (Video) -->
     <div class="absolute inset-0 z-0 bg-brand-dark">
-        <!-- Replace with actual <video> tag when resources are available -->
-        <div class="absolute inset-0 bg-gradient-to-br from-brand-primary/95 via-brand-dark/90 to-black opacity-90">
-        </div>
         <div
-            class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518176259654-82559cc52d6a?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay opacity-40">
+            class="absolute inset-0 bg-gradient-to-br from-brand-primary/95 via-brand-dark/90 to-black opacity-80 z-10">
         </div>
+
+        <video autoplay loop muted playsinline
+            class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-50">
+            <source src="https://drive.google.com/uc?export=view&id=1ZgQ9oH-LxhibxTUkEluy4GhimbEstt7d" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
 
     <!-- Content Overlay -->
@@ -17,7 +20,7 @@
                 Sogamoso, Boyacá • April 2026
             </span>
             <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight tracking-tighter mb-6">
-                VIII Congreso <br class="hidden md:block"> Nacional de <span
+                XVIII Congreso <br class="hidden md:block"> Nacional de <span
                     class="text-brand-secondary">Geología</span>
             </h1>
             <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
