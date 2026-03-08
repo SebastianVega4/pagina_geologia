@@ -90,15 +90,3 @@
         </div>
     </div>
 </section>
-
-<!-- Floating WhatsApp Button -->
-<button (click)="openWhatsApp()"
-    class="fixed bottom-8 right-8 z-[60] w-16 h-16 bg-green-500 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 hover:bg-green-600 transition-all group overflow-hidden">
-    <div
-        class="absolute inset-0 bg-white/20 scale-0 group-hover:scale-150 transition-transform duration-700 rounded-full">
-    </div>
-    <lucide-angular [img]="icons.MessageCircle" class="w-8 h-8 relative z-10"></lucide-angular>
-
-    <!-- Ping Effect -->
-    <span class="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 animate-ping"></span>
-</button>

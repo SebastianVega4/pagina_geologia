@@ -1,59 +1,85 @@
-<section class="pt-32 pb-24 bg-white dark:bg-brand-dark transition-colors duration-300 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="pt-32 pb-32 bg-slate-50 dark:bg-brand-dark transition-colors duration-300 overflow-hidden relative">
 
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6" data-aos="fade-right">
-            <div class="max-w-xl">
-                <h2 class="text-brand-secondary font-bold tracking-widest uppercase text-sm mb-4">Actualidad
-                    Geocientífica</h2>
-                <h3
-                    class="text-3xl md:text-5xl font-extrabold text-brand-primary dark:text-white leading-tight underline decoration-brand-secondary/30">
-                    Noticias del Evento</h3>
+    <!-- Decorative background blobs -->
+    <div class="absolute top-0 left-0 w-64 h-64 bg-brand-secondary/5 blur-[100px] rounded-full pointer-events-none">
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8" data-aos="fade-up">
+            <div class="max-w-2xl">
+                <span class="text-brand-secondary font-black uppercase tracking-[0.3em] text-xs mb-4 block">Actualidad
+                    Geocientífica</span>
+                <h2 class="text-4xl md:text-6xl font-black text-brand-primary dark:text-white leading-tight">
+                    Noticias y <span class="text-brand-secondary">Novedades</span>
+                </h2>
+                <p class="mt-4 text-gray-500 dark:text-gray-400 text-lg">
+                    Mantente al tanto de los últimos preparativos, ponentes confirmados y avances científicos del
+                    congreso.
+                </p>
             </div>
-            <a href="#"
-                class="group flex items-center gap-2 text-brand-secondary font-bold hover:translate-x-2 transition-transform">
-                Explorar todo el blog <lucide-angular [img]="icons.ArrowRight" class="w-5 h-5"></lucide-angular>
-            </a>
         </div>
 
-        <!-- News Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <article *ngFor="let n of noticias$ | async; let i = index"
-                class="flex flex-col bg-brand-light dark:bg-brand-primary rounded-3xl overflow-hidden border border-gray-100 dark:border-white/5 hover:shadow-2xl hover:shadow-brand-secondary/5 transition-all duration-500"
-                data-aos="fade-up" [attr.data-aos-delay]="i * 150">
+        <!-- News Grid: Hybrid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+            <article *ngFor="let n of noticias$ | async; let i = index; let first = first"
+                [ngClass]="first ? 'lg:col-span-2 lg:flex-row' : 'flex-col'"
+                class="group relative flex bg-white dark:bg-brand-primary/40 rounded-[2.5rem] overflow-hidden border border-gray-100 dark:border-white/5 hover:shadow-2xl hover:shadow-brand-secondary/10 transition-all duration-700 hover:-translate-y-2"
+                data-aos="fade-up" [attr.data-aos-delay]="i * 100">
 
-                <!-- News Image with Skeleton Placeholder base -->
-                <div class="relative h-64 overflow-hidden bg-gray-200 dark:bg-gray-800">
+                <!-- Image Section -->
+                <div [ngClass]="first ? 'lg:w-1/2 h-80 lg:h-full' : 'h-64'"
+                    class="relative overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-brand-dark">
                     <img [src]="n.imagen_url" [alt]="n.titulo"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000">
 
-                    <!-- Date Badge -->
-                    <div
-                        class="absolute top-6 left-6 px-4 py-2 bg-white/90 dark:bg-brand-dark/90 backdrop-blur-md rounded-xl shadow-lg border border-white/20">
-                        <div
-                            class="flex items-center gap-2 text-brand-primary dark:text-white font-bold text-xs uppercase tracking-tighter">
-                            <lucide-angular [img]="icons.Calendar"
-                                class="w-3.5 h-3.5 text-brand-secondary"></lucide-angular>
-                            {{ n.fecha | date:'MMM d, y' }}
-                        </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+
+                    <!-- Category Badge -->
+                    <div class="absolute top-6 left-6">
+                        <span
+                            class="px-4 py-1.5 bg-white/90 dark:bg-brand-dark/90 backdrop-blur-md rounded-full text-[10px] font-black uppercase tracking-widest text-brand-secondary shadow-lg border border-white/20">
+                            Geociencias
+                        </span>
                     </div>
                 </div>
 
-                <!-- News Body -->
-                <div class="p-8 flex-grow space-y-4">
-                    <h4 class="text-xl font-extrabold text-brand-primary dark:text-white leading-tight">
+                <!-- Body Section -->
+                <div class="p-8 md:p-10 flex flex-col justify-center flex-grow">
+                    <div class="flex items-center gap-3 text-xs font-bold text-gray-400 mb-4">
+                        <lucide-angular [img]="icons.Calendar" class="w-4 h-4"></lucide-angular>
+                        {{ n.fecha | date:'longDate' }}
+                    </div>
+
+                    <h4 [ngClass]="first ? 'text-2xl md:text-4xl' : 'text-xl'"
+                        class="font-black text-brand-primary dark:text-white leading-tight mb-4 group-hover:text-brand-secondary transition-colors line-clamp-2">
                         {{ n.titulo }}
                     </h4>
-                    <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed line-clamp-3">
+
+                    <p class="text-gray-500 dark:text-gray-400 text-base leading-relaxed line-clamp-3 mb-8">
                         {{ n.resumen }}
                     </p>
+
+                    <div class="mt-auto pt-6 border-t border-gray-50 dark:border-white/5">
+                        <a [routerLink]="['/noticias', n.id]"
+                            class="inline-flex items-center gap-3 text-brand-primary dark:text-white font-black text-sm uppercase tracking-widest group/btn transition-all cursor-pointer">
+                            <span class="relative">
+                                Leer noticia
+                                <span
+                                    class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-secondary group-hover/btn:w-full transition-all duration-300"></span>
+                            </span>
+                            <div
+                                class="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/10 flex items-center justify-center group-hover/btn:bg-brand-secondary group-hover/btn:text-white transition-colors">
+                                <lucide-angular [img]="icons.ArrowRight" class="w-4 h-4"></lucide-angular>
+                            </div>
+                        </a>
+                    </div>
                 </div>
 
-                <!-- Newsletter-style footer -->
-                <div class="px-8 pb-8 pt-2">
-                    <a [routerLink]="['/noticias', n.id]"
-                        class="flex items-center gap-2 text-brand-secondary font-bold text-sm uppercase tracking-widest group-hover:gap-3 transition-all cursor-pointer">
-                        Leer noticia completa <lucide-angular [img]="icons.ArrowRight" class="w-4 h-4"></lucide-angular>
-                    </a>
+                <!-- Decoration for background hover -->
+                <div
+                    class="absolute top-0 right-0 w-32 h-32 bg-brand-secondary/5 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity">
                 </div>
             </article>
         </div>
