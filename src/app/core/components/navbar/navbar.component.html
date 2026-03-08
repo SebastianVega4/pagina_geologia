@@ -1,1 +1,67 @@
-<p>navbar works!</p>
+<nav [ngClass]="{'bg-white/80 dark:bg-brand-primary/80 backdrop-blur-md shadow-sm': isScrolled, 'bg-transparent': !isScrolled}"
+    class="fixed w-full z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+
+            <!-- Logo -->
+            <div class="flex-shrink-0 flex items-center cursor-pointer">
+                <lucide-angular [img]="icons.MapPin" class="h-8 w-8 text-brand-secondary mr-2"></lucide-angular>
+                <span class="font-bold text-xl tracking-tight text-brand-primary dark:text-white">GeoCongreso
+                    UPTC</span>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#hero"
+                    class="text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-brand-accent transition-colors">Inicio</a>
+                <a href="#about"
+                    class="text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-brand-accent transition-colors">Acerca</a>
+                <a href="#schedule"
+                    class="text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-brand-accent transition-colors">Cronograma</a>
+                <a href="#speakers"
+                    class="text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-brand-accent transition-colors">Ponentes</a>
+
+                <!-- Theme Toggle -->
+                <button (click)="toggleTheme()"
+                    class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-brand-primary transition-colors focus:outline-none"
+                    aria-label="Toggle Dark Mode">
+                    <lucide-angular *ngIf="!isDarkMode" [img]="icons.Moon"
+                        class="w-5 h-5 text-gray-600"></lucide-angular>
+                    <lucide-angular *ngIf="isDarkMode" [img]="icons.Sun"
+                        class="w-5 h-5 text-yellow-400"></lucide-angular>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center">
+                <button (click)="toggleTheme()"
+                    class="p-2 mr-2 rounded-full hover:bg-gray-100 dark:hover:bg-brand-primary transition-colors focus:outline-none">
+                    <lucide-angular *ngIf="!isDarkMode" [img]="icons.Moon"
+                        class="w-5 h-5 text-gray-600"></lucide-angular>
+                    <lucide-angular *ngIf="isDarkMode" [img]="icons.Sun"
+                        class="w-5 h-5 text-yellow-400"></lucide-angular>
+                </button>
+
+                <button (click)="toggleMobileMenu()" class="text-gray-700 dark:text-gray-300 focus:outline-none">
+                    <lucide-angular *ngIf="!isMobileMenuOpen" [img]="icons.Menu" class="w-6 h-6"></lucide-angular>
+                    <lucide-angular *ngIf="isMobileMenuOpen" [img]="icons.X" class="w-6 h-6"></lucide-angular>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Dropdown -->
+    <div *ngIf="isMobileMenuOpen"
+        class="md:hidden bg-white dark:bg-brand-dark shadow-xl absolute w-full border-t border-gray-100 dark:border-brand-primary">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a href="#hero" (click)="toggleMobileMenu()"
+                class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-white hover:bg-gray-50 dark:hover:bg-brand-primary rounded-md">Inicio</a>
+            <a href="#about" (click)="toggleMobileMenu()"
+                class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-white hover:bg-gray-50 dark:hover:bg-brand-primary rounded-md">Acerca</a>
+            <a href="#schedule" (click)="toggleMobileMenu()"
+                class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-white hover:bg-gray-50 dark:hover:bg-brand-primary rounded-md">Cronograma</a>
+            <a href="#speakers" (click)="toggleMobileMenu()"
+                class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-white hover:bg-gray-50 dark:hover:bg-brand-primary rounded-md">Ponentes</a>
+        </div>
+    </div>
+</nav>
