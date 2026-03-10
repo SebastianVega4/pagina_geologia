@@ -39,7 +39,7 @@ interface Noticia {
           </a>
           
           <div class="flex items-center gap-2">
-            <span class="text-xs font-black text-brand-secondary uppercase tracking-[0.2em]">Prensa XVIII Congreso</span>
+            <span class="text-xs font-black text-brand-secondary uppercase tracking-[0.2em]">Prensa XVIII Semana Tecnicá.</span>
           </div>
         </nav>
 
@@ -108,7 +108,7 @@ interface Noticia {
                     {{ n.contenido }}
                     
                     <p class="pt-8 border-t border-gray-100 dark:border-white/10 italic text-brand-primary dark:text-gray-400">
-                      "Este avance representa un hito significativo para el <strong>XVIII Congreso Nacional de Geología</strong>. 
+                      "Este avance representa un hito significativo para el <strong>XVIII Semana Tecnicá. geologia, ingenieria geologica y geociencias.</strong>. 
                       Sogamoso se prepara para recibir a expertos internacionales en una jornada que promete 
                       redefinir nuestra comprensión de las geociencias."
                     </p>
@@ -184,7 +184,7 @@ export class NewsDetailComponent implements OnInit {
       map(noticias => noticias.find(n => n.id === id)),
       tap(noticia => {
         if (noticia) {
-          this.titleService.setTitle(`${noticia.titulo} | XVIII Congreso Geología`);
+          this.titleService.setTitle(`${noticia.titulo} | XVIII Semana Tecnicá. geologia, ingenieria geologica y geociencias.`);
           this.metaService.updateTag({ name: 'description', content: noticia.resumen });
           this.metaService.updateTag({ property: 'og:title', content: noticia.titulo });
           this.metaService.updateTag({ property: 'og:description', content: noticia.resumen });

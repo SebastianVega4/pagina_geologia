@@ -1,0 +1,35 @@
+.abstracts-section {
+  .pdf-viewer-wrapper {
+    background: #f8f8f8;
+
+    .pdf-skeleton {
+      min-height: 500px;
+      background: inherit;
+    }
+
+    .pdf-iframe {
+      height: 520px;
+      display: block;
+
+      &.opacity-0 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+      }
+    }
+  }
+
+  .info-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  .submit-btn {
+    letter-spacing: 0.03em;
+  }
+}

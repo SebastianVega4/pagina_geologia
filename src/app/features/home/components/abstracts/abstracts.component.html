@@ -1,0 +1,109 @@
+<section class="abstracts-section py-24 bg-brand-light dark:bg-brand-dark transition-colors duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <p class="text-brand-secondary font-bold tracking-widest uppercase text-sm mb-4">Convocatoria 2026</p>
+      <h2 class="text-3xl md:text-5xl font-extrabold text-brand-primary dark:text-white leading-tight mb-6">
+        Envío de Resúmenes
+      </h2>
+      <p class="max-w-2xl mx-auto text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
+        El Comité Organizador de la <strong>XVIII Semana Tecnicá. geologia, ingenieria geologica y geociencias. 2026</strong>
+        invita a enviar los resúmenes de ponencias para presentaciones orales o posters, en modalidad presencial.
+        Escanea el código QR del documento o usa el botón de abajo para enviar tu resumen.
+      </p>
+    </div>
+
+    <!-- Main Content: PDF Preview + Info Panel -->
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
+
+      <!-- PDF Viewer (3 of 5 columns) -->
+      <div class="lg:col-span-3">
+        <div class="pdf-viewer-wrapper rounded-3xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-2xl relative">
+
+          <!-- Loading Skeleton -->
+          <div *ngIf="!isPreviewLoaded" class="pdf-skeleton flex flex-col items-center justify-center gap-4 py-16">
+            <div class="w-16 h-16 rounded-2xl bg-gray-200 dark:bg-white/10 flex items-center justify-center animate-pulse">
+              <lucide-angular [img]="icons.FileText" class="w-8 h-8 text-gray-400 dark:text-gray-500"></lucide-angular>
+            </div>
+            <p class="text-gray-400 dark:text-gray-500 text-sm animate-pulse">Cargando documento…</p>
+          </div>
+
+          <!-- PDF Embed via Google Drive -->
+          <iframe
+            [src]="pdfEmbedUrl | safe:'resourceUrl'"
+            (load)="onIframeLoad()"
+            [class.opacity-0]="!isPreviewLoaded"
+            class="pdf-iframe w-full transition-opacity duration-500"
+            frameborder="0"
+            allow="autoplay"
+            title="Convocatoria Semana Técnica 2026">
+          </iframe>
+        </div>
+
+        <!-- Open in full tab link -->
+        <div class="mt-4 text-center">
+          <a [href]="pdfEmbedUrl.replace('/preview','/view')"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 text-sm text-brand-secondary hover:underline font-medium">
+            <lucide-angular [img]="icons.ExternalLink" class="w-4 h-4"></lucide-angular>
+            Abrir documento completo
+          </a>
+        </div>
+      </div>
+
+      <!-- Info + CTA Panel (2 of 5 columns) -->
+      <div class="lg:col-span-2 flex flex-col gap-6">
+
+        <!-- QR notice card -->
+        <div class="info-card rounded-3xl border border-brand-secondary/20 bg-white dark:bg-brand-primary p-8 flex flex-col gap-4">
+          <div class="w-12 h-12 bg-brand-secondary/10 rounded-2xl flex items-center justify-center">
+            <lucide-angular [img]="icons.QrCode" class="w-6 h-6 text-brand-secondary"></lucide-angular>
+          </div>
+          <h3 class="text-xl font-bold text-brand-primary dark:text-white">Código QR disponible</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+            Encuentra el <strong>código QR</strong> dentro del documento PDF para ser redirigido directamente al
+            formulario oficial de envío de resúmenes.
+          </p>
+        </div>
+
+        <!-- Divider with "ó" -->
+        <div class="flex items-center gap-4">
+          <div class="flex-1 h-px bg-gray-200 dark:bg-white/10"></div>
+          <span class="text-gray-400 dark:text-gray-500 text-sm font-semibold uppercase tracking-widest">ó</span>
+          <div class="flex-1 h-px bg-gray-200 dark:bg-white/10"></div>
+        </div>
+
+        <!-- Submission CTA card -->
+        <div class="info-card rounded-3xl border border-gray-100 dark:border-white/5 bg-white dark:bg-brand-primary p-8 flex flex-col gap-6">
+          <div class="w-12 h-12 bg-brand-accent/10 rounded-2xl flex items-center justify-center">
+            <lucide-angular [img]="icons.Send" class="w-6 h-6 text-brand-accent"></lucide-angular>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-brand-primary dark:text-white mb-2">Envía tu resumen ahora</h3>
+            <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+              Si no puedes escanear el QR, usa el botón de abajo para acceder directamente al formulario de envío.
+            </p>
+          </div>
+
+          <a [href]="submissionFormUrl"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="submit-btn inline-flex items-center justify-center gap-3 w-full py-4 rounded-2xl
+                    bg-brand-secondary text-white font-bold text-base
+                    hover:brightness-110 active:scale-95 transition-all duration-200 shadow-lg shadow-brand-secondary/30">
+            <lucide-angular [img]="icons.Send" class="w-5 h-5"></lucide-angular>
+            Ir al formulario
+          </a>
+
+          <p class="text-xs text-center text-gray-400 dark:text-gray-500">
+            Presentaciones orales · Posters · Modalidad presencial
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>

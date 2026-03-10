@@ -23,7 +23,8 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
     seconds: 0
   };
 
-  private targetDate = new Date('2026-05-01T08:00:00'); // Fecha tentativa del congreso
+  // Fecha tentativa del congreso
+  private targetDate = new Date('2026-08-21T08:00:00'); 
   private timerId: any;
 
   ngOnInit() {

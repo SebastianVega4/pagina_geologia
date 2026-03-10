@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HeroComponent } from '../components/hero/hero.component';
 import { DownloadsComponent } from '../components/downloads/downloads.component';
 import { SponsorsComponent } from '../components/sponsors/sponsors.component';
+import { AbstractsComponent } from '../components/abstracts/abstracts.component';
+import { OrganizingCommitteeComponent } from '../components/organizing-committee/organizing-committee.component';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +12,9 @@ import { SponsorsComponent } from '../components/sponsors/sponsors.component';
   imports: [
     CommonModule, 
     HeroComponent, 
+    AbstractsComponent,
     DownloadsComponent, 
+    OrganizingCommitteeComponent,
     SponsorsComponent
   ],
   templateUrl: './home.component.html',

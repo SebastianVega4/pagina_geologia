@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
-import { LucideAngularModule, Menu, X, Moon, Sun, MapPin } from 'lucide-angular';
+import { LucideAngularModule, Menu, X, Moon, Sun, MapPin, ChevronDown, ChevronRight } from 'lucide-angular';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -16,8 +16,10 @@ export class NavbarComponent implements OnInit {
   isMenuOpen = false;
   isDarkMode = false;
   isHome = true;
+  isEventoDropdownOpen = false;
+  isConcursosDropdownOpen = false;
 
-  readonly icons = { Menu, X, Moon, Sun, MapPin };
+  readonly icons = { Menu, X, Moon, Sun, MapPin, ChevronDown, ChevronRight };
 
   constructor(private router: Router) {}
 

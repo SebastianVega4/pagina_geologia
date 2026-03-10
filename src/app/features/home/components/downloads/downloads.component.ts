@@ -32,18 +32,25 @@ export class DownloadsComponent {
       type: 'PowerPoint / Google Slides'
     },
     {
-      title: 'Guía del Participante',
-      description: 'Manual completo con la logística, recomendaciones de alojamiento y transporte en Sogamoso.',
+      title: 'Plantilla de Resúmenes',
+      description: 'invita a enviar los resúmenes de ponencias para presentaciones orales o posters, que se llevarán acabo en modalidad presencial.',
       icon: 'FileText',
-      link: '#',
+      link: 'https://docs.google.com/uc?export=download&id=1bRzalDnbFyu4gsaa4IRGfu4OHg5U4U1U',
+      type: 'PDF / Word'
+    },
+    {
+      title: 'Líneas Temáticas',
+      description: 'Guía detallada con los ejes temáticos y áreas de investigación del evento.',
+      icon: 'FileText',
+      link: 'https://docs.google.com/uc?export=download&id=1rCKDAUUCXdq-GwVcHywFeBfxq3xCkiMi',
       type: 'PDF'
     },
     {
-      title: 'Mapa Geológico de la Región',
-      description: 'Mapa detallado del Sinclinal de Sogamoso para uso en las salidas de campo programadas.',
-      icon: 'MapIcon',
-      link: '#',
-      type: 'PDF / Resolución 4K'
+      title: 'Portafolio de Servicios',
+      description: 'Información completa sobre niveles de patrocinio y beneficios comerciales.',
+      icon: 'FileText',
+      link: 'https://docs.google.com/uc?export=download&id=1uROI9_B0bpVaveday1LyKGI-ztLgNU9Q',
+      type: 'PDF'
     }
   ];
 }

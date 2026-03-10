@@ -21,15 +21,63 @@
                     <a routerLink="/" routerLinkActive="text-brand-secondary" [routerLinkActiveOptions]="{exact: true}"
                         class="text-sm font-extrabold hover:text-brand-secondary transition-colors"
                         [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-gray-300' : 'text-white/90'">Inicio</a>
-                    <a routerLink="/evento" routerLinkActive="text-brand-secondary"
-                        class="text-sm font-extrabold hover:text-brand-secondary transition-colors"
-                        [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-gray-300' : 'text-white/90'">Evento</a>
-                    <a routerLink="/cronograma" routerLinkActive="text-brand-secondary"
-                        class="text-sm font-extrabold hover:text-brand-secondary transition-colors"
-                        [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-gray-300' : 'text-white/90'">Cronograma</a>
-                    <a routerLink="/conferencistas" routerLinkActive="text-brand-secondary"
-                        class="text-sm font-extrabold hover:text-brand-secondary transition-colors"
-                        [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-gray-300' : 'text-white/90'">Conferencistas</a>
+
+                    <!-- Evento Dropdown -->
+                    <div class="relative group">
+                        <button class="flex items-center gap-1 text-sm font-extrabold hover:text-brand-secondary transition-colors group"
+                                [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-gray-300' : 'text-white/90'">
+                            Evento
+                            <lucide-angular [img]="icons.ChevronDown" class="w-4 h-4 transition-transform group-hover:rotate-180"></lucide-angular>
+                        </button>
+                        <!-- Dropdown Menu -->
+                        <div class="absolute top-full left-[-1rem] pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2">
+                            <div class="w-64 bg-white dark:bg-brand-primary rounded-2xl shadow-2xl border border-gray-100 dark:border-white/5 overflow-hidden">
+                                <a routerLink="/evento"
+                                   class="flex items-center gap-3 px-5 py-4 text-sm font-bold text-brand-primary dark:text-gray-200 hover:bg-brand-secondary/5 hover:text-brand-secondary transition-colors">
+                                    Información General
+                                </a>
+                                <div class="h-px bg-gray-50 dark:bg-white/5"></div>
+                                <a routerLink="/cronograma"
+                                   class="flex items-center gap-3 px-5 py-4 text-sm font-bold text-brand-primary dark:text-gray-200 hover:bg-brand-secondary/5 hover:text-brand-secondary transition-colors">
+                                    Cronograma
+                                </a>
+                                <div class="h-px bg-gray-50 dark:bg-white/5"></div>
+                                <a routerLink="/conferencistas"
+                                   class="flex items-center gap-3 px-5 py-4 text-sm font-bold text-brand-primary dark:text-gray-200 hover:bg-brand-secondary/5 hover:text-brand-secondary transition-colors">
+                                    Conferencistas
+                                </a>
+                                <div class="h-px bg-gray-50 dark:bg-white/5"></div>
+                                <a routerLink="/evento/portafolio"
+                                   class="flex items-center gap-3 px-5 py-4 text-sm font-bold text-brand-primary dark:text-gray-200 hover:bg-brand-secondary/5 hover:text-brand-secondary transition-colors">
+                                    Portafolio de Servicios
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Concursos Dropdown -->
+                    <div class="relative group">
+                        <button class="flex items-center gap-1 text-sm font-extrabold hover:text-brand-secondary transition-colors group"
+                                [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-gray-300' : 'text-white/90'">
+                            Concursos
+                            <lucide-angular [img]="icons.ChevronDown" class="w-4 h-4 transition-transform group-hover:rotate-180"></lucide-angular>
+                        </button>
+                        <!-- Dropdown Menu -->
+                        <div class="absolute top-full left-[-1rem] pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2">
+                            <div class="w-64 bg-white dark:bg-brand-primary rounded-2xl shadow-2xl border border-gray-100 dark:border-white/5 overflow-hidden">
+                                <a routerLink="/concursos/geolimpiadas"
+                                   class="flex items-center gap-3 px-5 py-4 text-sm font-bold text-brand-primary dark:text-gray-200 hover:bg-brand-secondary/5 hover:text-brand-secondary transition-colors">
+                                    Geolimpiadas
+                                </a>
+                                <div class="h-px bg-gray-50 dark:bg-white/5"></div>
+                                <a routerLink="/concursos/fotografia"
+                                   class="flex items-center gap-3 px-5 py-4 text-sm font-bold text-brand-primary dark:text-gray-200 hover:bg-brand-secondary/5 hover:text-brand-secondary transition-colors">
+                                    Fotografía
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                     <a routerLink="/galeria" routerLinkActive="text-brand-secondary"
                         class="text-sm font-extrabold hover:text-brand-secondary transition-colors"
                         [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-gray-300' : 'text-white/90'">Galería</a>
@@ -77,16 +125,45 @@
         <div class="flex flex-col p-6 gap-4">
             <a routerLink="/" (click)="toggleMenu()"
                 class="text-lg font-bold text-brand-primary dark:text-white">Inicio</a>
-            <a routerLink="/evento" (click)="toggleMenu()"
-                class="text-lg font-bold text-brand-primary dark:text-white">Evento</a>
-            <a routerLink="/cronograma" (click)="toggleMenu()"
-                class="text-lg font-bold text-brand-primary dark:text-white">Cronograma</a>
-            <a routerLink="/conferencistas" (click)="toggleMenu()"
-                class="text-lg font-bold text-brand-primary dark:text-white">Conferencistas</a>
+
+            <!-- Mobile Evento Submenu -->
+            <div class="flex flex-col gap-2">
+                <button (click)="isEventoDropdownOpen = !isEventoDropdownOpen"
+                        class="flex items-center justify-between text-lg font-bold text-brand-primary dark:text-white">
+                    Evento
+                    <lucide-angular [img]="isEventoDropdownOpen ? icons.ChevronDown : icons.ChevronRight" class="w-5 h-5 text-brand-secondary"></lucide-angular>
+                </button>
+                <div *ngIf="isEventoDropdownOpen" class="flex flex-col pl-4 gap-3 mt-1 animate-fade-in">
+                    <a routerLink="/evento" (click)="toggleMenu()"
+                       class="text-base font-semibold text-gray-600 dark:text-gray-400">Información General</a>
+                    <a routerLink="/cronograma" (click)="toggleMenu()"
+                       class="text-base font-semibold text-gray-600 dark:text-gray-400">Cronograma</a>
+                    <a routerLink="/conferencistas" (click)="toggleMenu()"
+                       class="text-base font-semibold text-gray-600 dark:text-gray-400">Conferencistas</a>
+                    <a routerLink="/evento/portafolio" (click)="toggleMenu()"
+                       class="text-base font-semibold text-gray-600 dark:text-gray-400">Portafolio de Servicios</a>
+                </div>
+            </div>
+
+            <!-- Mobile Concursos Submenu -->
+            <div class="flex flex-col gap-2">
+                <button (click)="isConcursosDropdownOpen = !isConcursosDropdownOpen"
+                        class="flex items-center justify-between text-lg font-bold text-brand-primary dark:text-white">
+                    Concursos
+                    <lucide-angular [img]="isConcursosDropdownOpen ? icons.ChevronDown : icons.ChevronRight" class="w-5 h-5 text-brand-secondary"></lucide-angular>
+                </button>
+                <div *ngIf="isConcursosDropdownOpen" class="flex flex-col pl-4 gap-3 mt-1 animate-fade-in">
+                    <a routerLink="/concursos/geolimpiadas" (click)="toggleMenu()"
+                       class="text-base font-semibold text-gray-600 dark:text-gray-400">Geolimpiadas</a>
+                    <a routerLink="/concursos/fotografia" (click)="toggleMenu()"
+                       class="text-base font-semibold text-gray-600 dark:text-gray-400">Fotografía</a>
+                </div>
+            </div>
+
             <a routerLink="/galeria" (click)="toggleMenu()"
                 class="text-lg font-bold text-brand-primary dark:text-white">Galería</a>
             <a routerLink="/noticias" (click)="toggleMenu()"
-                class="text-lg font-bold text-brand-primary dark:text-white">Noticias</a>
+                class="text-lg font-bold text-brand-primary dark:text-white">Circulares</a>
             <a routerLink="/ubicacion" (click)="toggleMenu()"
                 class="text-lg font-bold text-brand-primary dark:text-white">Ubicación</a>
             <a routerLink="/contacto" (click)="toggleMenu()"

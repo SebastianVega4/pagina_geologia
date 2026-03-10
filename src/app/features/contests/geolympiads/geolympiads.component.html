@@ -1,0 +1,37 @@
+<section class="min-h-screen pt-32 pb-24 bg-brand-light dark:bg-brand-dark transition-colors duration-300 flex items-center">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-brand-secondary/10 text-brand-secondary rounded-full text-sm font-bold mb-8 animate-bounce">
+        <lucide-angular [img]="icons.Timer" class="w-4 h-4"></lucide-angular>
+        Próximamente
+      </div>
+      
+      <h1 class="text-5xl md:text-7xl font-black text-brand-primary dark:text-white mb-6 leading-tight">
+        Geolimpiadas <span class="text-brand-secondary">2026</span>
+      </h1>
+      
+      <p class="text-xl text-gray-600 dark:text-gray-400 mb-12 leading-relaxed">
+        Prepárate para el desafío intelectual más grande de las geociencias. 
+        Estamos afinando los detalles para una competencia épica que pondrá a prueba tus conocimientos y habilidades.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 text-left">
+        <div class="p-6 bg-white dark:bg-brand-primary rounded-3xl shadow-xl border border-gray-100 dark:border-white/5">
+          <div class="w-12 h-12 bg-brand-secondary/10 rounded-2xl flex items-center justify-center mb-4">
+            <lucide-angular [img]="icons.Trophy" class="w-6 h-6 text-brand-secondary"></lucide-angular>
+          </div>
+          <h3 class="font-bold text-lg dark:text-white mb-2">Grandes Premios</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Reconocimientos para los mejores equipos y mentes brillantes.</p>
+        </div>
+        <!-- ... more placeholders if needed ... -->
+      </div>
+
+      <a routerLink="/" class="inline-flex items-center gap-2 text-brand-primary dark:text-white font-bold hover:text-brand-secondary transition-colors">
+        <lucide-angular [img]="icons.ChevronLeft" class="w-5 h-5"></lucide-angular>
+        Volver al inicio
+      </a>
+    </div>
+
+  </div>
+</section>
