@@ -5,14 +5,8 @@
 
             <!-- Logo -->
             <a routerLink="/" class="flex items-center gap-3 group">
-                <div
-                    class="w-10 h-10 bg-brand-secondary rounded-xl flex items-center justify-center shadow-lg shadow-brand-secondary/20 group-hover:rotate-12 transition-transform">
-                    <lucide-angular [img]="icons.MapPin" class="w-6 h-6 text-white"></lucide-angular>
-                </div>
-                <span class="text-xl font-black tracking-tighter"
-                    [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-white' : 'text-white'">
-                    GEO<span class="text-brand-secondary uppercase">Uptc</span>
-                </span>
+                <img src="assets/logo.png" alt="Logo XVII Semana Técnica" 
+                     class="h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-300">
             </a>
 
             <!-- Desktop Menu -->
