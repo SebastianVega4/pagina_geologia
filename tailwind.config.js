@@ -7,11 +7,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'brand-primary': '#1E293B',   // Dark Slate
+        'brand-primary': '#005B8C',   // Azul Petróleo / Azul Cerúleo Oscuro
         'brand-secondary': '#3B82F6', // Blue
         'brand-accent': '#F59E0B',    // Amber
         'brand-light': '#F8FAFC',     // Light layout background
-        'brand-dark': '#0F172A',      // Dark layout background
+        'brand-dark': '#003D5E',      // Darker version of petroleum for deep dark mode backgrounds
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'], // Premium font
