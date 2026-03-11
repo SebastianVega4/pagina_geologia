@@ -6,7 +6,8 @@
             <!-- Logo -->
             <a routerLink="/" class="flex items-center gap-3 group">
                 <img src="assets/logo.png" alt="Logo XVII Semana Técnica" 
-                     class="h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-300">
+                     [ngClass]="(isScrolled || !isHome) && !isDarkMode ? 'brightness-0 opacity-80' : 'brightness-100'"
+                     class="h-12 w-auto object-contain group-hover:scale-105 transition-all duration-300">
             </a>
 
             <!-- Desktop Menu -->
