@@ -13,11 +13,8 @@ import { SafePipe } from '../../../../shared/pipes/safe.pipe';
 export class AbstractsComponent {
   readonly icons = { FileText, Send, QrCode, ExternalLink };
 
-  readonly pdfEmbedUrl =
-    'https://drive.google.com/file/d/1bRzalDnbFyu4gsaa4IRGfu4OHg5U4U1U/preview';
-
-  readonly pdfViewUrl =
-    'https://drive.google.com/file/d/1bRzalDnbFyu4gsaa4IRGfu4OHg5U4U1U/view';
+  readonly pdfEmbedUrl = 'assets/Resumenes_XVII_STG_UPTC_2026.pdf';
+  readonly pdfViewUrl = 'assets/Resumenes_XVII_STG_UPTC_2026.pdf';
 
   readonly submissionFormUrl =
     'https://docs.google.com/forms/u/2/d/e/1FAIpQLSdnnnfbpobrjTpSJ0gASH5zsT179I4-A_LEdCpcbVyzf3tfrA/viewform';

@@ -14,14 +14,9 @@ import { RouterModule } from '@angular/router';
 export class PortfolioComponent {
   readonly icons = { FileText, Download, ExternalLink, ChevronLeft };
 
-  readonly pdfEmbedUrl =
-    'https://drive.google.com/file/d/1uROI9_B0bpVaveday1LyKGI-ztLgNU9Q/preview';
-
-  readonly pdfViewUrl =
-    'https://drive.google.com/file/d/1uROI9_B0bpVaveday1LyKGI-ztLgNU9Q/view';
-
-  readonly pdfDownloadUrl =
-    'https://docs.google.com/uc?export=download&id=1uROI9_B0bpVaveday1LyKGI-ztLgNU9Q';
+  readonly pdfEmbedUrl = 'assets/Portafolio_servicios_XVII_STG_UPTC_2026 (1).pdf';
+  readonly pdfViewUrl = 'assets/Portafolio_servicios_XVII_STG_UPTC_2026 (1).pdf';
+  readonly pdfDownloadUrl = 'assets/Portafolio_servicios_XVII_STG_UPTC_2026 (1).pdf';
 
   isPreviewLoaded = false;
 
