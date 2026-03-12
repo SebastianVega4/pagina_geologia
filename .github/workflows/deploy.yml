@@ -33,5 +33,5 @@ jobs:
           # Ajustamos la ruta local basada en lo que me mostraste
           # Subimos el contenido de 'browser' que es donde está el index.html final
           local-dir: ./dist/web-congreso-geologia/browser/
-          server-dir: ./ 
+          server-dir: ./dist/ 
           protocol: sftp
