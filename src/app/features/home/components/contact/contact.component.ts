@@ -28,7 +28,7 @@ export class ContactComponent {
   }
 
   openWhatsApp() {
-    const phoneNumber = '573123456789';
+    const phoneNumber = '573124870684';
     const message = encodeURIComponent('Hola! Quisiera más información sobre el Congreso de Geología UPTC 2026.');
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
   }
