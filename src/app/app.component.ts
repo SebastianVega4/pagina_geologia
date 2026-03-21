@@ -1,9 +1,10 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { FooterComponent } from './core/components/footer/footer.component';
 import { LucideAngularModule, MessageCircle } from 'lucide-angular';
+import { SeoService } from './core/services/seo.service';
 import * as AOS from 'aos';
 
 @Component({
@@ -14,10 +15,13 @@ import * as AOS from 'aos';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
+  private seoService = inject(SeoService);
   title = 'web-congreso-geologia';
   readonly icons = { MessageCircle };
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.seoService.init();
+  }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {

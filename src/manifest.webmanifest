@@ -1,0 +1,21 @@
+{
+  "name": "XVII Semana Técnica de Geología",
+  "short_name": "XVII STG",
+  "description": "Evento líder en geociencias, investigación y sostenibilidad - UPTC Sogamoso 2026",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#002855",
+  "theme_color": "#002855",
+  "icons": [
+    {
+      "src": "assets/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
