@@ -16,6 +16,7 @@
         Estamos afinando los detalles para una competencia épica que pondrá a prueba tus conocimientos y habilidades.
       </p>
 
+      <!-- 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 text-left">
         <div class="p-6 bg-white dark:bg-brand-primary rounded-3xl shadow-xl border border-gray-100 dark:border-white/5">
           <div class="w-12 h-12 bg-brand-secondary/10 rounded-2xl flex items-center justify-center mb-4">
@@ -24,14 +25,21 @@
           <h3 class="font-bold text-lg dark:text-white mb-2">Grandes Premios</h3>
           <p class="text-sm text-gray-500 dark:text-gray-400">Reconocimientos para los mejores equipos y mentes brillantes.</p>
         </div>
-        <!-- ... more placeholders if needed ... -->
       </div>
+      -->
 
-      <a routerLink="/" class="inline-flex items-center gap-2 text-brand-primary dark:text-white font-bold hover:text-brand-secondary transition-colors">
-        <lucide-angular [img]="icons.ChevronLeft" class="w-5 h-5"></lucide-angular>
-        Volver al inicio
-      </a>
+      <div class="flex flex-col items-center gap-6">
+        <div class="p-8 bg-white/50 dark:bg-brand-primary/50 backdrop-blur-sm border-2 border-dashed border-brand-secondary/30 rounded-3xl px-12">
+            <p class="text-lg font-bold text-brand-primary dark:text-white">Las bases y el formulario de inscripción estarán disponibles muy pronto.</p>
+        </div>
+
+        <a routerLink="/" class="inline-flex items-center gap-2 text-brand-primary dark:text-white font-bold hover:text-brand-secondary transition-colors mt-8">
+            <lucide-angular [img]="icons.ChevronLeft" class="w-5 h-5"></lucide-angular>
+            Volver al inicio
+        </a>
+      </div>
     </div>
 
   </div>
 </section>
+

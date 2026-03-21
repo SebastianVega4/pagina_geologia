@@ -9,19 +9,30 @@
     </div>
 
     <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-brand-secondary/10 text-brand-secondary rounded-full text-sm font-bold mb-8 animate-bounce">
+        <lucide-angular [img]="icons.Timer" class="w-4 h-4"></lucide-angular>
+        Próximamente
+      </div>
+
       <p class="text-brand-secondary font-bold tracking-widest uppercase text-sm mb-4">Capturando la Tierra</p>
       <h1 class="text-4xl md:text-6xl font-black text-brand-primary dark:text-white mb-6">
         Concurso de Fotografía
       </h1>
-      <p class="max-w-3xl mx-auto text-gray-600 dark:text-gray-400 text-lg">
+      <p class="max-w-3xl mx-auto text-gray-600 dark:text-gray-400 text-lg mb-12">
         Demuestra tu talento visual capturando la majestuosidad de nuestra geología. 
-        Participa y comparte tu visión única del mundo natural con nuestra comunidad.
+        Estamos preparando las bases para que puedas compartir tu visión única del mundo natural.
       </p>
+
+      <div class="flex flex-col items-center gap-6">
+        <div class="p-10 bg-white/50 dark:bg-brand-primary/50 backdrop-blur-sm border-2 border-dashed border-brand-secondary/30 rounded-3xl max-w-2xl">
+            <p class="text-xl font-bold text-brand-primary dark:text-white">Las bases y el formulario de envío estarán disponibles muy pronto.</p>
+            <p class="text-gray-500 dark:text-gray-400 mt-4 text-sm font-medium uppercase tracking-wider italic">Prepara tu cámara y mantente atento a nuestras noticias.</p>
+        </div>
+      </div>
     </div>
 
+    <!-- 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-      
-      <!-- Card: Template -->
       <div class="p-8 rounded-3xl bg-white dark:bg-brand-primary border border-gray-100 dark:border-white/5 shadow-xl hover:-translate-y-2 transition-all">
         <div class="w-14 h-14 bg-brand-secondary/10 rounded-2xl flex items-center justify-center mb-6">
           <lucide-angular [img]="icons.FileText" class="w-7 h-7 text-brand-secondary"></lucide-angular>
@@ -36,7 +47,6 @@
         </a>
       </div>
 
-      <!-- Card: Form -->
       <div class="p-8 rounded-3xl bg-white dark:bg-brand-primary border border-gray-100 dark:border-white/5 shadow-xl hover:-translate-y-2 transition-all">
         <div class="w-14 h-14 bg-brand-accent/10 rounded-2xl flex items-center justify-center mb-6">
           <lucide-angular [img]="icons.Send" class="w-7 h-7 text-brand-accent"></lucide-angular>
@@ -50,8 +60,9 @@
           Enviar Fotografías
         </a>
       </div>
-
     </div>
+    -->
 
   </div>
 </section>
+
