@@ -53,7 +53,9 @@
               "src/robots.txt",
               "src/sitemap.xml",
               "src/manifest.webmanifest",
-              "src/.htaccess"
+              "src/.htaccess",
+              "src/logo.ico",
+              "src/logo.png"
             ],
             "styles": [
               "src/styles.scss"
