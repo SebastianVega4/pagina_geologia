@@ -1,21 +1,22 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, Play, X, Volume2, VolumeX } from 'lucide-angular';
+import { LucideAngularModule, Mail, X, Volume2, VolumeX } from 'lucide-angular';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, RouterModule],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss'
 })
 export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild('bgVideo') bgVideo!: ElementRef<HTMLVideoElement>;
-  
-  readonly icons = { Play, X, Volume2, VolumeX };
+  @ViewChild('promoVideo') promoVideo!: ElementRef<HTMLVideoElement>;
+
+  readonly icons = { Mail, X, Volume2, VolumeX };
   showVideoModal = false;
-  isMuted = true;
-  
+  isPromoMuted = true;
+
   countdown = {
     days: 0,
     hours: 0,
@@ -24,7 +25,7 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   };
 
   // Fecha tentativa del congreso
-  private targetDate = new Date('2026-08-21T08:00:00'); 
+  private targetDate = new Date('2026-08-21T08:00:00');
   private timerId: any;
 
   ngOnInit() {
@@ -33,34 +34,10 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (this.bgVideo) {
-      this.bgVideo.nativeElement.muted = this.isMuted;
+    // Ensure the video starts muted (some browsers ignore the muted attr)
+    if (this.promoVideo?.nativeElement) {
+      this.promoVideo.nativeElement.muted = true;
     }
-    this.setupIntersectionObserver();
-  }
-
-  private setupIntersectionObserver() {
-    if (typeof window === 'undefined' || !this.bgVideo) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            // Only play if modal is not open
-            if (!this.showVideoModal) {
-              this.bgVideo.nativeElement.play().catch(() => {
-                // Autoplay might be blocked by browser policy
-              });
-            }
-          } else {
-            this.bgVideo.nativeElement.pause();
-          }
-        });
-      },
-      { threshold: 0.1 } // 10% of the video in view is enough to keep playing
-    );
-
-    observer.observe(this.bgVideo.nativeElement);
   }
 
   ngOnDestroy() {
@@ -88,17 +65,15 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
     this.showVideoModal = !this.showVideoModal;
     if (this.showVideoModal) {
       document.body.style.overflow = 'hidden';
-      if (this.bgVideo) this.bgVideo.nativeElement.pause();
     } else {
       document.body.style.overflow = 'auto';
-      if (this.bgVideo) this.bgVideo.nativeElement.play();
     }
   }
 
-  toggleMute() {
-    this.isMuted = !this.isMuted;
-    if (this.bgVideo) {
-      this.bgVideo.nativeElement.muted = this.isMuted;
+  togglePromoMute() {
+    this.isPromoMuted = !this.isPromoMuted;
+    if (this.promoVideo?.nativeElement) {
+      this.promoVideo.nativeElement.muted = this.isPromoMuted;
     }
   }
 }

@@ -8,6 +8,11 @@
                 <img src="assets/logo.png" alt="Logo XVII Semana Técnica" 
                      [ngClass]="(isScrolled || !isHome) && !isDarkMode ? 'brightness-0 opacity-80' : 'brightness-100'"
                      class="h-12 w-auto object-contain group-hover:scale-105 transition-all duration-300">
+                <div class="h-10 w-px bg-white/30 mx-1"
+                     [ngClass]="(isScrolled || !isHome) ? 'bg-gray-300/60' : 'bg-white/30'"></div>
+                <img src="assets/logo_uptc.png" alt="Logo UPTC" 
+                     [ngClass]="(isScrolled || !isHome) && !isDarkMode ? 'brightness-0 opacity-80' : 'brightness-100'"
+                     class="h-12 w-auto object-contain group-hover:scale-105 transition-all duration-300">
             </a>
 
             <!-- Desktop Menu -->
@@ -86,17 +91,13 @@
 
                 <div class="h-6 w-px bg-gray-300 dark:bg-gray-700 mx-2"></div>
 
-                <!-- Theme Toggle & CTA -->
+                <!-- Theme Toggle -->
                 <div class="flex items-center gap-4">
                     <button (click)="toggleDarkMode()"
                         class="p-2.5 rounded-xl hover:bg-brand-secondary/10 transition-colors"
                         [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-white' : 'text-white'">
                         <lucide-angular [img]="isDarkMode ? icons.Sun : icons.Moon" class="w-5 h-5"></lucide-angular>
                     </button>
-                    <a routerLink="/contacto"
-                        class="px-6 py-2.5 bg-brand-secondary text-white text-sm font-bold rounded-xl shadow-lg shadow-brand-secondary/20 hover:shadow-brand-secondary/40 hover:-translate-y-0.5 transition-all">
-                        Contacto
-                    </a>
                 </div>
             </div>
 
