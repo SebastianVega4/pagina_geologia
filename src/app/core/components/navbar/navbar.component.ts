@@ -48,4 +48,19 @@ export class NavbarComponent implements OnInit {
       document.documentElement.classList.remove('dark');
     }
   }
+
+  scrollToRegistration() {
+    this.isMenuOpen = false;
+    const element = document.getElementById('registration');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      // If not on home page, navigate to home and then scroll
+      this.router.navigate(['/']).then(() => {
+        setTimeout(() => {
+          document.getElementById('registration')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      });
+    }
+  }
 }

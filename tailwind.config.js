@@ -14,7 +14,9 @@ module.exports = {
         'brand-dark': '#003D5E',      // Darker version of petroleum for deep dark mode backgrounds
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'], // Premium font
+        sans: ['Inter', 'DM Sans', 'sans-serif'],
+        serif: ['Playfair Display', 'serif'],
+        mono: ['DM Mono', 'monospace'],
       }
     },
   },

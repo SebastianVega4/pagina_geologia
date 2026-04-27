@@ -1,0 +1,16 @@
+.roko-circle {
+    animation: rotate-slow 20s linear infinite;
+}
+
+.roko-orbit, .animate-spin-reverse {
+    animation: rotate-slow 20s linear infinite reverse;
+}
+
+@keyframes rotate-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+    animation: rotate-slow 20s linear infinite;
+}

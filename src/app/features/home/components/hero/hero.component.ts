@@ -76,4 +76,11 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
       this.promoVideo.nativeElement.muted = this.isPromoMuted;
     }
   }
+
+  scrollToRegistration() {
+    const element = document.getElementById('registration');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 }
