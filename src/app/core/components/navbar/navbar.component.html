@@ -142,8 +142,6 @@
                        class="text-base font-semibold text-gray-600 dark:text-gray-400">Cronograma</a>
                     <a routerLink="/conferencistas" (click)="toggleMenu()"
                        class="text-base font-semibold text-gray-600 dark:text-gray-400">Conferencistas</a>
-                    <a routerLink="/evento/portafolio" (click)="toggleMenu()"
-                       class="text-base font-semibold text-gray-600 dark:text-gray-400">Portafolio de Servicios</a>
                 </div>
             </div>
 
@@ -165,13 +163,13 @@
             <a routerLink="/galeria" (click)="toggleMenu()"
                 class="text-lg font-bold text-brand-primary dark:text-white">Galería</a>
             <a routerLink="/noticias" (click)="toggleMenu()"
-                class="text-lg font-bold text-brand-primary dark:text-white">Circulares</a>
+                class="text-lg font-bold text-brand-primary dark:text-white">Noticias</a>
             <a routerLink="/ubicacion" (click)="toggleMenu()"
                 class="text-lg font-bold text-brand-primary dark:text-white">Ubicación</a>
-            <a routerLink="/contacto" (click)="toggleMenu()"
-                class="mt-4 w-full py-4 bg-brand-secondary text-white text-center font-bold rounded-2xl shadow-xl">
-                Contacto
-            </a>
+            <button (click)="scrollToRegistration()"
+                class="px-5 py-2.5 bg-brand-accent hover:bg-brand-accent/90 text-white text-xs font-black uppercase tracking-widest rounded-xl transition-all shadow-lg hover:shadow-brand-accent/20 hover:-translate-y-0.5">
+                Inscribirme
+            </button>
         </div>
     </div>
 </nav>

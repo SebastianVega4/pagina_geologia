@@ -73,7 +73,63 @@
                         <span class="font-bold text-lg text-gray-500">Sogamoso - Boyacá</span>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
+                </div>
+                </div>
+
+                <!-- FAQ Section -->
+                <div class="mt-32 max-w-4xl mx-auto">
+                <div class="text-center mb-12" data-aos="fade-up">
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <div class="p-2 bg-brand-secondary/10 rounded-lg">
+                        <lucide-angular [img]="icons.HelpCircle" class="w-6 h-6 text-brand-secondary"></lucide-angular>
+                    </div>
+                    <h2 class="text-brand-secondary font-bold tracking-widest uppercase text-sm">Resolviendo Dudas</h2>
+                </div>
+                <h3 class="text-3xl md:text-4xl font-extrabold text-brand-primary dark:text-white mb-4">Preguntas Frecuentes</h3>
+                <p class="text-gray-500 dark:text-gray-400">Todo lo que necesita saber antes de participar en la XVII Semana Técnica.</p>
+                </div>
+
+                <div class="space-y-4">
+                <div *ngFor="let faq of faqs; let i = index" 
+                     class="bg-white dark:bg-brand-primary/20 rounded-2xl border border-gray-100 dark:border-white/5 overflow-hidden transition-all duration-300"
+                     [ngClass]="{'shadow-lg border-brand-secondary/20': faq.open}"
+                     data-aos="fade-up" [attr.data-aos-delay]="i * 50">
+
+                    <button (click)="toggleFaq(i)"
+                            class="w-full flex items-center justify-between p-6 text-left group">
+                        <span class="font-bold text-gray-800 dark:text-white group-hover:text-brand-secondary transition-colors pr-8">
+                            {{ faq.question }}
+                        </span>
+                        <div class="shrink-0 p-2 bg-gray-50 dark:bg-brand-dark/50 rounded-lg group-hover:bg-brand-secondary/10 transition-colors">
+                            <lucide-angular [img]="faq.open ? icons.ChevronUp : icons.ChevronDown" 
+                                            class="w-5 h-5 text-gray-400 group-hover:text-brand-secondary transition-colors">
+                            </lucide-angular>
+                        </div>
+                    </button>
+
+                    <div class="px-6 pb-6 animate-fade-in" *ngIf="faq.open">
+                        <div class="h-px bg-gray-100 dark:bg-white/5 mb-6"></div>
+                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-sm md:text-base" [innerHTML]="faq.answer"></p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="mt-12 p-8 rounded-3xl bg-brand-primary text-white relative overflow-hidden" data-aos="zoom-in">
+                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">¿Tiene alguna otra pregunta?</h4>
+                        <p class="text-white/70 text-sm">Nuestro equipo académico y logístico está listo para apoyarle.</p>
+                    </div>
+                    <a href="mailto:xviisemanatecnica&#64;uptc.edu.co" 
+                       class="px-8 py-4 bg-white text-brand-primary font-black rounded-xl hover:scale-105 transition-all shadow-xl">
+                        Contactar Soporte
+                    </a>
+                </div>
+                <!-- Background decoration -->
+                <div class="absolute -right-12 -bottom-12 opacity-10">
+                    <lucide-angular [img]="icons.HelpCircle" class="w-48 h-48"></lucide-angular>
+                </div>
+                </div>
+                </div>
+                </div>
+                </section>
