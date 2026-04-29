@@ -1,0 +1,244 @@
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md p-4 md:p-6" (click)="onClose()">
+    <div class="bg-white dark:bg-brand-dark w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl relative border border-gray-200 dark:border-white/10 animate-scale-up" (click)="stopPropagation($event)">
+        
+        <!-- Close Button -->
+        <button (click)="onClose()" class="absolute top-4 right-4 text-gray-500 hover:text-brand-primary dark:text-white/50 dark:hover:text-white transition-colors p-2 z-20">
+            <lucide-angular [img]="icons.X" class="w-6 h-6"></lucide-angular>
+        </button>
+
+        <div class="p-6 md:p-10 space-y-10">
+            <!-- Header -->
+            <div class="text-center space-y-4">
+                <h2 class="text-3xl md:text-4xl font-black text-brand-primary dark:text-white uppercase tracking-tight">
+                    XVII Semana Técnica
+                </h2>
+                <p class="text-xl font-bold text-brand-secondary dark:text-brand-accent">
+                    Geología, Ingeniería Geológica y Geociencias
+                </p>
+                <div class="h-1 w-20 bg-brand-accent mx-auto rounded-full"></div>
+            </div>
+
+            <!-- What's Included -->
+            <div class="space-y-6">
+                <h3 class="text-xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
+                    <lucide-angular [img]="icons.CheckCircle2" class="w-6 h-6 text-green-500"></lucide-angular>
+                    ¿QUÉ INCLUYE LA INSCRIPCIÓN?
+                </h3>
+                <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <li class="flex items-start gap-3 text-gray-600 dark:text-gray-300">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brand-accent mt-2 shrink-0"></span>
+                        Ingreso al acto social de apertura
+                    </li>
+                    <li class="flex items-start gap-3 text-gray-600 dark:text-gray-300">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brand-accent mt-2 shrink-0"></span>
+                        Refrigerios (uno en la jornada mañana y uno en la jornada tarde)
+                    </li>
+                    <li class="flex items-start gap-3 text-gray-600 dark:text-gray-300">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brand-accent mt-2 shrink-0"></span>
+                        Souvenirs de bienvenida
+                    </li>
+                    <li class="flex items-start gap-3 text-gray-600 dark:text-gray-300">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brand-accent mt-2 shrink-0"></span>
+                        Acceso a muestra comercial
+                    </li>
+                    <li class="flex items-start gap-3 text-gray-600 dark:text-gray-300">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brand-accent mt-2 shrink-0"></span>
+                        Actividades especiales de networking
+                    </li>
+                    <li class="flex items-start gap-3 text-gray-600 dark:text-gray-300">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brand-accent mt-2 shrink-0"></span>
+                        Ingreso a actividades academicas
+                    </li>
+                    <li class="flex items-start gap-3 text-gray-600 dark:text-gray-300">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brand-accent mt-2 shrink-0"></span>
+                        Ingreso al acto social de culminación
+                    </li>
+                    <li class="flex items-start gap-3 text-gray-600 dark:text-gray-300">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brand-accent mt-2 shrink-0"></span>
+                        Otros beneficios exclusivos
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Rates -->
+            <div class="space-y-6">
+                <h3 class="text-xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
+                    <lucide-angular [img]="icons.Info" class="w-6 h-6 text-brand-secondary"></lucide-angular>
+                    TARIFAS DE INSCRIPCIÓN (INSCRIPCIONES ABIERTAS)
+                </h3>
+                
+                <div class="space-y-8">
+                    <!-- Stage 1 -->
+                    <div class="overflow-hidden rounded-xl border border-gray-200 dark:border-white/10">
+                        <div class="bg-brand-primary p-3 text-white font-bold text-sm uppercase tracking-wider">
+                            PRIMERA ETAPA (1 MAYO - 31 MAYO)
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left">
+                                <thead class="bg-gray-50 dark:bg-white/5 text-gray-500 dark:text-gray-400 text-xs uppercase font-bold">
+                                    <tr>
+                                        <th class="px-6 py-3">Categoría</th>
+                                        <th class="px-6 py-3">Hasta 31-Mayo</th>
+                                        <th class="px-6 py-3">Estándar</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100 dark:divide-white/5 text-sm dark:text-gray-300">
+                                    <tr>
+                                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Estudiante</td>
+                                        <td class="px-6 py-4">$280.000 COP</td>
+                                        <td class="px-6 py-4">$340.000 COP</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Jóven Profesional</td>
+                                        <td class="px-6 py-4">$320.000 COP</td>
+                                        <td class="px-6 py-4">$400.000 COP</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Profesional</td>
+                                        <td class="px-6 py-4">$380.000 COP</td>
+                                        <td class="px-6 py-4">$470.000 COP</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Stage 2 -->
+                    <div class="overflow-hidden rounded-xl border border-gray-200 dark:border-white/10">
+                        <div class="bg-brand-secondary p-3 text-white font-bold text-sm uppercase tracking-wider">
+                            SEGUNDA ETAPA (1 JUNIO - 30 JUNIO)
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left">
+                                <thead class="bg-gray-50 dark:bg-white/5 text-gray-500 dark:text-gray-400 text-xs uppercase font-bold">
+                                    <tr>
+                                        <th class="px-6 py-3">Categoría</th>
+                                        <th class="px-6 py-3">Hasta 30-Junio</th>
+                                        <th class="px-6 py-3">Estándar</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100 dark:divide-white/5 text-sm dark:text-gray-300">
+                                    <tr>
+                                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Estudiante</td>
+                                        <td class="px-6 py-4">$310.000 COP</td>
+                                        <td class="px-6 py-4">$340.000 COP</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Jóven Profesional</td>
+                                        <td class="px-6 py-4">$360.000 COP</td>
+                                        <td class="px-6 py-4">$400.000 COP</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Profesional</td>
+                                        <td class="px-6 py-4">$410.000 COP</td>
+                                        <td class="px-6 py-4">$470.000 COP</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Stage 3 -->
+                    <div class="overflow-hidden rounded-xl border border-gray-200 dark:border-white/10">
+                        <div class="bg-gray-600 p-3 text-white font-bold text-sm uppercase tracking-wider">
+                            TERCERA ETAPA (1 JULIO - 18 AGOSTO)
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left">
+                                <thead class="bg-gray-50 dark:bg-white/5 text-gray-500 dark:text-gray-400 text-xs uppercase font-bold">
+                                    <tr>
+                                        <th class="px-6 py-3">Categoría</th>
+                                        <th class="px-6 py-3">Estándar</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100 dark:divide-white/5 text-sm dark:text-gray-300">
+                                    <tr>
+                                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Estudiante</td>
+                                        <td class="px-6 py-4">$340.000 COP</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Jóven Profesional</td>
+                                        <td class="px-6 py-4">$400.000 COP</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Profesional</td>
+                                        <td class="px-6 py-4">$470.000 COP</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Info -->
+            <div class="bg-brand-primary/5 dark:bg-white/5 border border-brand-primary/20 dark:border-white/10 rounded-2xl p-6 md:p-8 space-y-6">
+                <h3 class="text-xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
+                    <lucide-angular [img]="icons.CreditCard" class="w-6 h-6 text-brand-primary dark:text-brand-accent"></lucide-angular>
+                    INFORMACIÓN DE PAGO
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm italic">
+                    Para realizar tu inscripción, debes hacer el pago a la siguiente cuenta:
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <div class="space-y-3">
+                        <p class="text-gray-500 dark:text-gray-400">Banco: <span class="text-gray-900 dark:text-white font-bold">CONFIAR Cooperativa Financiera</span></p>
+                        <p class="text-gray-500 dark:text-gray-400">Tipo de cuenta: <span class="text-gray-900 dark:text-white font-bold">Cuenta de ahorros</span></p>
+                        <p class="text-gray-500 dark:text-gray-400">No. de cuenta: <span class="text-gray-900 dark:text-white font-bold">117197491</span></p>
+                    </div>
+                    <div class="space-y-3">
+                        <p class="text-gray-500 dark:text-gray-400">Titular: <span class="text-gray-900 dark:text-white font-bold uppercase">Asociación de Ingenieros Geólogos de la Uptc</span></p>
+                        <p class="text-gray-500 dark:text-gray-400">NIT: <span class="text-gray-900 dark:text-white font-bold">902028987-8</span></p>
+                        <p class="text-gray-500 dark:text-gray-400">Bre-B Llave: <span class="text-gray-900 dark:text-white font-bold">0092335192</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex items-center gap-4 p-4 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10">
+                    <div class="p-3 rounded-full bg-brand-primary/10 text-brand-primary dark:text-brand-accent">
+                        <lucide-angular [img]="icons.Mail" class="w-5 h-5"></lucide-angular>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 uppercase font-bold tracking-widest">Correo electrónico</p>
+                        <a href="mailto:xviisemanatecnica&#64;uptc.edu.co" class="text-sm font-medium hover:text-brand-primary transition-colors">xviisemanatecnica&#64;uptc.edu.co</a>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 p-4 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10">
+                    <div class="p-3 rounded-full bg-pink-500/10 text-pink-500">
+                        <lucide-angular [img]="icons.Instagram" class="w-5 h-5"></lucide-angular>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 uppercase font-bold tracking-widest">Instagram</p>
+                        <a href="https://instagram.com/xvii_stg.sog" target="_blank" class="text-sm font-medium hover:text-pink-500 transition-colors">&#64;xvii_stg.sog</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Institutions -->
+            <div class="pt-8 border-t border-gray-100 dark:border-white/10">
+                <p class="text-center text-xs text-gray-400 uppercase font-bold tracking-[0.2em] mb-6">Instituciones Organizadoras / Apoyos</p>
+                <div class="flex flex-wrap justify-center items-center gap-8 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
+                    <span class="font-black text-xl text-gray-600 dark:text-gray-400">UPTC</span>
+                    <span class="font-black text-xl text-gray-600 dark:text-gray-400">Somos Todos</span>
+                    <span class="font-black text-lg text-gray-600 dark:text-gray-400 text-center">Facultad Seccional Sogamoso</span>
+                    <span class="font-black text-xl text-gray-600 dark:text-gray-400 tracking-widest">GCS</span>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="pt-10">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSf2zs661wDJ5n0-6xYEhSezBCk73ot3d_oWQ1XmhLvINRG4tQ/viewform" 
+                   target="_blank"
+                   class="flex items-center justify-center gap-3 w-full py-5 bg-brand-accent hover:bg-brand-accent/90 text-white text-xl font-black rounded-2xl transition-all shadow-xl shadow-brand-accent/20 hover:scale-[1.02] active:scale-[0.98]">
+                    IR AL FORMULARIO DE INSCRIPCIÓN
+                    <lucide-angular [img]="icons.CreditCard" class="w-6 h-6"></lucide-angular>
+                </a>
+                <p class="text-center mt-4 text-xs text-gray-400">
+                    Se requiere comprobante de pago para completar el formulario.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
