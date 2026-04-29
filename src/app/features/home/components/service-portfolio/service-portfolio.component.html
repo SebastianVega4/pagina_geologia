@@ -1,0 +1,85 @@
+<section id="service-portfolio" class="py-24 bg-brand-light dark:bg-brand-dark transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="text-center mb-16" data-aos="fade-down">
+            <h2 class="text-brand-secondary font-bold tracking-widest uppercase text-sm mb-4">Patrocinios</h2>
+            <h3 class="text-3xl md:text-5xl font-extrabold text-brand-primary dark:text-white leading-tight">
+                Porfolio de <span class="text-brand-accent italic">servicios</span>
+            </h3>
+            <div class="h-1.5 w-20 bg-brand-accent mx-auto mt-6 rounded-full"></div>
+            <p class="max-w-2xl mx-auto mt-8 text-gray-600 dark:text-gray-400">
+                Posiciona tu marca ante la próxima generación de geólogos y profesionales de las geociencias.
+            </p>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+            <button (click)="setCategory('nacional')"
+                [ngClass]="activeCategory === 'nacional' ? 'bg-brand-primary text-white shadow-lg' : 'bg-white dark:bg-brand-primary/20 text-brand-primary dark:text-gray-400 border border-gray-100 dark:border-white/10'"
+                class="px-6 py-3 rounded-xl font-bold transition-all uppercase text-xs tracking-widest">
+                Empresa Nacional
+            </button>
+            <button (click)="setCategory('grande')"
+                [ngClass]="activeCategory === 'grande' ? 'bg-brand-primary text-white shadow-lg' : 'bg-white dark:bg-brand-primary/20 text-brand-primary dark:text-gray-400 border border-gray-100 dark:border-white/10'"
+                class="px-6 py-3 rounded-xl font-bold transition-all uppercase text-xs tracking-widest">
+                Gran Empresa / Multinacional
+            </button>
+            <button (click)="setCategory('internacional')"
+                [ngClass]="activeCategory === 'internacional' ? 'bg-brand-primary text-white shadow-lg' : 'bg-white dark:bg-brand-primary/20 text-brand-primary dark:text-gray-400 border border-gray-100 dark:border-white/10'"
+                class="px-6 py-3 rounded-xl font-bold transition-all uppercase text-xs tracking-widest">
+                International Company
+            </button>
+        </div>
+
+        <!-- Active Category Panel -->
+        <div class="animate-fade-in">
+            <!-- Hint Box -->
+            <div class="bg-brand-primary/5 dark:bg-white/5 border-l-4 border-brand-accent p-6 mb-12 rounded-r-2xl">
+                <p class="text-sm md:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {{ portfolioData[activeCategory].hint }}
+                </p>
+            </div>
+
+            <!-- Tiers Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div *ngFor="let tier of portfolioData[activeCategory].tiers"
+                    [ngClass]="tier.featured ? 'border-brand-accent bg-brand-primary/5 dark:bg-brand-accent/5' : 'border-gray-100 dark:border-white/10 bg-white dark:bg-brand-primary/20'"
+                    class="relative p-8 rounded-[2rem] border-2 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 group">
+                    
+                    <div *ngIf="tier.featured" class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-accent text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+                        Recomendado
+                    </div>
+
+                    <div class="mb-6 p-4 rounded-2xl bg-white dark:bg-brand-dark shadow-inner inline-block text-brand-accent group-hover:scale-110 transition-transform">
+                        <!-- Map dynamic icon name to actual icon from icons object -->
+                        <lucide-angular [img]="$any(icons)[tier.icon]" class="w-8 h-8"></lucide-angular>
+                    </div>
+
+                    <h4 class="text-xl font-black text-brand-primary dark:text-white mb-6 uppercase tracking-tight">
+                        {{ tier.name }}
+                    </h4>
+
+                    <ul class="space-y-4 mb-8">
+                        <li *ngFor="let benefit of tier.benefits" class="flex items-start gap-3 text-sm text-gray-500 dark:text-gray-400 leading-tight">
+                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-brand-accent shrink-0"></span>
+                            {{ benefit }}
+                        </li>
+                    </ul>
+
+                    <a href="mailto:xviisemanatecnica&#64;uptc.edu.co" 
+                       class="flex items-center justify-center gap-2 w-full py-4 bg-brand-primary dark:bg-white text-white dark:text-brand-primary font-bold rounded-xl text-xs uppercase tracking-widest hover:brightness-110 transition-all">
+                        <lucide-angular [img]="icons.Mail" class="w-4 h-4"></lucide-angular>
+                        Contactar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-16 text-center">
+            <p class="text-sm text-gray-500">
+                También disponibles patrocinios personalizados · <a href="mailto:xviisemanatecnica&#64;uptc.edu.co" class="text-brand-secondary font-bold hover:underline">Escríbenos para el portafolio completo</a>
+            </p>
+        </div>
+    </div>
+</section>

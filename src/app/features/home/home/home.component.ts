@@ -10,23 +10,28 @@ import { AudienceComponent } from '../components/audience/audience.component';
 import { ReasonsComponent } from '../components/reasons/reasons.component';
 import { TestimonialsComponent } from '../components/testimonials/testimonials.component';
 import { RegistrationComponent } from '../components/registration/registration.component';
+import { MapComponent } from '../components/map/map.component';
+import { ServicePortfolioComponent } from '../components/service-portfolio/service-portfolio.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
-    CommonModule, 
-    HeroComponent, 
+    CommonModule,
+    HeroComponent,
     RokoComponent,
     AudienceComponent,
     ReasonsComponent,
     TestimonialsComponent,
     RegistrationComponent,
     AbstractsComponent,
-    DownloadsComponent, 
+    DownloadsComponent,
     OrganizingCommitteeComponent,
-    SponsorsComponent
+    SponsorsComponent,
+    MapComponent,
+    ServicePortfolioComponent
   ],
+
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

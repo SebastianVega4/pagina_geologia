@@ -17,6 +17,13 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   showVideoModal = false;
   isPromoMuted = true;
 
+  registeredParticipants = 74;
+  totalCapacity = 500;
+
+  get progressPercentage() {
+    return (this.registeredParticipants / this.totalCapacity) * 100;
+  }
+
   countdown = {
     days: 0,
     hours: 0,
