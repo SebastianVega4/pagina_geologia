@@ -1,16 +1,17 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, X, CheckCircle2, CreditCard, Info, Mail, Instagram } from 'lucide-angular';
+import { LucideAngularModule, X, CheckCircle2, CreditCard, Info, Mail, Instagram, ArrowLeft, ZoomIn, UserCheck, Search, Wallet, FileText, Send, ClipboardList } from 'lucide-angular';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-registration-info',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, RouterLink],
   templateUrl: './registration-info.component.html',
   styleUrl: './registration-info.component.scss'
 })
-export class RegistrationInfoComponent {
-  @Output() close = new EventEmitter<void>();
+export class RegistrationInfoComponent implements OnInit {
+  showZoom = false;
 
   readonly icons = {
     X,
@@ -18,14 +19,27 @@ export class RegistrationInfoComponent {
     CreditCard,
     Info,
     Mail,
-    Instagram
+    Instagram,
+    ArrowLeft,
+    ZoomIn,
+    UserCheck,
+    Search,
+    Wallet,
+    FileText,
+    Send,
+    ClipboardList
   };
 
-  onClose() {
-    this.close.emit();
+  ngOnInit() {
+    window.scrollTo(0, 0);
   }
 
-  stopPropagation(event: Event) {
-    event.stopPropagation();
+  toggleZoom() {
+    this.showZoom = !this.showZoom;
+    if (this.showZoom) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
   }
 }

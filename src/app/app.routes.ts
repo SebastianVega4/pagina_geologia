@@ -13,12 +13,20 @@ import { PortfolioComponent } from './features/portfolio/portfolio.component';
 import { GeolympiadsComponent } from './features/contests/geolympiads/geolympiads.component';
 import { PhotographyComponent } from './features/contests/photography/photography.component';
 
+import { RegistrationInfoComponent } from './features/home/components/registration/registration-info/registration-info.component';
+
 export const routes: Routes = [
   { 
     path: '', 
     component: HomeComponent, 
     title: 'Inicio | XVII Semana Técnica de Geología',
     data: { description: 'Bienvenido a la XVII Semana Técnica de Geología, Ingeniería Geológica y Geociencias en la UPTC Sogamoso.' }
+  },
+  {
+    path: 'inscripciones',
+    component: RegistrationInfoComponent,
+    title: 'Inscripciones | XVII Semana Técnica de Geología',
+    data: { description: 'Instrucciones detalladas y tarifas para la inscripción a la XVII Semana Técnica.' }
   },
   { 
     path: 'evento', 
