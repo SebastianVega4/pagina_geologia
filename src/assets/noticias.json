@@ -1,26 +1,42 @@
 [
   {
     "id": 1,
-    "fecha": "2026-04-15",
-    "titulo": "titulo",
-    "resumen": "resumen",
-    "imagen_url": "https://images.unsplash.com/photo-1541888086425-d81bb19240f5?q=80&w=2670&auto=format&fit=crop",
-    "contenido": "contenido..."
+    "fecha": "2026-04-28",
+    "titulo": "Apertura Oficial de Inscripciones - Etapa I",
+    "resumen": "A partir del 1 de mayo se habilita el proceso de inscripción para la XVII Semana Técnica. Conozca el protocolo de registro y formalización.",
+    "imagen_url": "assets/gallery/actual/Etapa 1.webp",
+    "contenido": "Nos complace anunciar que el próximo 1 de mayo daremos inicio a la primera etapa de inscripciones para la XVII Semana Técnica de Geología, Ingeniería Geológica y Geociencias. Durante esta fase inicial, los asistentes podrán acceder a las tarifas más preferenciales del evento. Es fundamental que cada participante identifique su categoría (Estudiante, Joven Profesional o Profesional) y siga rigurosamente el protocolo de 5 pasos que incluye el pago bancario y el registro del soporte en nuestro formulario oficial. ¡Asegure su cupo en este encuentro de vanguardia científica!"
   },
   {
     "id": 2,
-    "fecha": "2026-05-02",
-    "titulo": "Lanzamiento de Cronograma Oficial",
-    "resumen": "Conoce los ponentes, las actividades y las temáticas que abordaremos este año.",
-    "imagen_url": "https://images.unsplash.com/photo-1551818255-e6e10975bc17?q=80&w=2573&auto=format&fit=crop",
-    "contenido": "Hemos publicado el cronograma detallado que incluye ponencias magistrales, talleres y salidas de campo..."
+    "fecha": "2026-04-20",
+    "titulo": "Protocolo de Recepción de Resúmenes para Ponencias",
+    "resumen": "Se extiende la convocatoria para el envío de resúmenes técnicos en las modalidades oral y poster. Consulte los lineamientos aquí.",
+    "imagen_url": "assets/gallery/actual/envio de resumenes.webp",
+    "contenido": "El Comité Académico invita a estudiantes, investigadores y profesionales a postular sus trabajos técnicos para la XVII Semana Técnica. Los ejes temáticos incluyen Geotecnia, Geofísica Aplicada, Minería Sostenible y Geociencias Ambientales. Los resúmenes deben cumplir con la estructura técnica establecida (máximo 500 palabras, palabras clave y filiación institucional). La participación en modalidad presencial permitirá el intercambio directo de conocimientos con expertos nacionales e internacionales."
   },
   {
     "id": 3,
-    "fecha": "2026-05-15",
-    "titulo": "Confirmación de Ponentes Internacionales",
-    "resumen": "Nos enorgullece recibir a expertos de Canadá, España y México en esta edición.",
-    "imagen_url": "https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=2670&auto=format&fit=crop",
-    "contenido": "Contaremos con la presencia de destacados geólogos internacionales que compartirán sus investigaciones..."
+    "fecha": "2026-04-10",
+    "titulo": "Lanzamiento de la Guía de Networking para Geólogos",
+    "resumen": "Todos los inscritos recibirán acceso exclusivo a la guía estratégica de networking para fortalecer sus redes de contacto profesional.",
+    "imagen_url": "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=2670&auto=format&fit=crop",
+    "contenido": "En esta edición, la XVII Semana Técnica no solo es un espacio de actualización académica, sino una plataforma de crecimiento profesional. Al formalizar su inscripción, los participantes recibirán de forma gratuita la 'Guía de Networking para Geólogos Emergentes'. Este documento técnico ofrece estrategias para maximizar su presencia en la muestra comercial y las actividades especiales de networking que se llevarán a cabo en la UPTC Sogamoso."
+  },
+  {
+    "id": 4,
+    "fecha": "2026-03-25",
+    "titulo": "Historia ROKO: Tradición en Geociencias",
+    "resumen": "Conozca los orígenes y la evolución de nuestra identidad científica en la UPTC a través de la historia de ROKO.",
+    "imagen_url": "assets/gallery/actual/Historia ROKO.jpg",
+    "contenido": "ROKO representa más que una imagen; es el símbolo de la evolución geológica y el compromiso institucional de la Escuela de Ingeniería Geológica de la UPTC. En el marco de la XVII Semana Técnica, rendiremos homenaje a nuestra trayectoria académica, recordando cómo el espíritu de investigación ha formado a generaciones de geólogos que hoy lideran el sector en Colombia y el mundo. Próximamente compartiremos el cronograma de actividades culturales relacionadas."
+  },
+  {
+    "id": 5,
+    "fecha": "2026-03-15",
+    "titulo": "Confirmación de Muestra Comercial y Alianzas Estratégicas",
+    "resumen": "Empresas líderes del sector minero-energético confirman su participación en la muestra comercial del evento.",
+    "imagen_url": "assets/gallery/actual/Incluye.png",
+    "contenido": "La XVII Semana Técnica contará con un pabellón dedicado a la muestra comercial, donde empresas proveedoras de tecnología, servicios geológicos y equipos de exploración presentarán sus últimas innovaciones. Este espacio está diseñado para facilitar el diálogo entre la academia y la industria, permitiendo a los asistentes conocer de primera mano las demandas actuales del mercado laboral y los avances tecnológicos en geociencias."
   }
 ]

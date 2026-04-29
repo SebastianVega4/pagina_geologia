@@ -18,25 +18,32 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   markers = [
     {
-      lat: 5.7288,
-      lng: -72.9095,
-      title: 'UPTC Seccional Sogamoso',
-      label: 'Sede Principal del Congreso',
-      info: 'Auditorio Cacique Sugamuxi'
+      lat: 5.704709,
+      lng: -72.941443,
+      title: 'Auditorio Cacique Sugamuxi',
+      label: 'Sede Magistral',
+      info: 'Ubicación de ponencias magistrales y actos de apertura/clausura.'
     },
     {
-      lat: 5.7155,
-      lng: -72.9304,
+      lat: 5.704917,
+      lng: -72.942006,
+      title: 'UPTC - Facultad Seccional Sogamoso',
+      label: 'Acceso Principal',
+      info: 'Sede oficial de la XVII Semana Técnica de Geología.'
+    },
+    {
+      lat:5.705051,
+      lng: -72.942076,
+      title: 'Edificio de Ingeniería Geológica',
+      label: 'Centro Operativo',
+      info: 'Muestra comercial, registro de participantes y sesiones técnicas.'
+    },
+    {
+      lat: 5.714721,
+      lng: -72.927698,
       title: 'Plaza de la Villa',
-      label: 'Punto de Encuentro Centro',
-      info: 'Centro Histórico'
-    },
-    {
-      lat: 5.722,
-      lng: -72.923,
-      title: 'Zona Hotelera Recomendada',
-      label: 'Alojamientos Aliados',
-      info: 'Calle 11 con Carrera 11'
+      label: 'Centro de Sogamoso',
+      info: 'Punto de referencia cultural y turístico de la ciudad.'
     }
   ];
 
@@ -59,7 +66,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private initMap(): void {
-    const center: L.LatLngExpression = [5.725, -72.915];
+    const center: L.LatLngExpression = [5.722, -72.915];
     
     this.map = L.map('map', {
       center: center,
