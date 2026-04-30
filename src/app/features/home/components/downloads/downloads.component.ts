@@ -32,8 +32,8 @@ export class DownloadsComponent {
       type: 'PowerPoint / Google Slides'
     },
     {
-      title: 'Plantilla de Resúmenes',
-      description: 'invita a enviar los resúmenes de ponencias para presentaciones orales o posters, que se llevarán acabo en modalidad presencial.',
+      title: 'Resúmenes, Ponenecias y Posters',
+      description: 'Resúmenes de ponencias para presentaciones orales o posters, que se llevarán acabo en modalidad presencial.',
       icon: 'FileText',
       link: 'https://docs.google.com/uc?export=download&id=1bRzalDnbFyu4gsaa4IRGfu4OHg5U4U1U',
       type: 'PDF / Word'
@@ -46,10 +46,10 @@ export class DownloadsComponent {
       type: 'PDF'
     },
     {
-      title: 'Portafolio de Servicios',
-      description: 'Información completa sobre niveles de patrocinio y beneficios comerciales.',
+      title: 'Cursos',
+      description: 'Mantente actualizado.',
       icon: 'FileText',
-      link: 'https://docs.google.com/uc?export=download&id=1uROI9_B0bpVaveday1LyKGI-ztLgNU9Q',
+      link: 'https://docs.google.com/uc?export=download&id=1SWtNBWGbdWbCs1SqGmb7pci0qq-SJGCP',
       type: 'PDF'
     }
   ];

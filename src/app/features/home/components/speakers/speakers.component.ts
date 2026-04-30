@@ -9,6 +9,7 @@ interface Speaker {
   bio: string;
   image: string;
   topic: string;
+  thematicLine: string;
   socials: { linkedin?: string; twitter?: string; web?: string };
 }
 
@@ -22,6 +23,16 @@ interface Speaker {
 export class SpeakersComponent {
   readonly icons = { Linkedin, Twitter, Globe };
 
+  readonly thematicLines = [
+    'ENERGÍAS Y RECURSOS MINERALES',
+    'GEODINÁMICA',
+    'GEOFÍSICA Y GEOQUÍMICA',
+    'AMBIENTE, SOCIEDAD Y EDUCACIÓN',
+    'INTELIGENCIA ARTIFICIAL Y SIG',
+    'GEOLOGÍA HISTÓRICA Y ESTRATIGRAFÍA',
+    'GEOTECNIA E HIDROGEOLOGÍA'
+  ];
+
   speakers: Speaker[] = [
     {
       name: 'Dr. John Harrison',
@@ -30,6 +41,7 @@ export class SpeakersComponent {
       bio: 'Líder mundial en tectónica de placas y evolución de márgenes continentales en Suramérica.',
       image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2574&auto=format&fit=crop',
       topic: 'Geotectónica de los Andes Septentrionales',
+      thematicLine: 'GEODINÁMICA',
       socials: { linkedin: '#', twitter: '#', web: '#' }
     },
     {
@@ -39,6 +51,7 @@ export class SpeakersComponent {
       bio: 'Especialista en hidrogeología y gestión sostenible de acuíferos en zonas de alta montaña.',
       image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2576&auto=format&fit=crop',
       topic: 'Resiliencia Hídrica en el Altiplano Boyacense',
+      thematicLine: 'GEOTECNIA E HIDROGEOLOGÍA',
       socials: { linkedin: '#', web: '#' }
     },
     {
@@ -48,6 +61,7 @@ export class SpeakersComponent {
       bio: 'Líder en modelamiento geológico 3D para la industria de hidrocarburos y minería.',
       image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=2574&auto=format&fit=crop',
       topic: 'Nuevas Fronteras en la Exploración de Hidrocarburos',
+      thematicLine: 'ENERGÍAS Y RECURSOS MINERALES',
       socials: { linkedin: '#' }
     },
     {
@@ -57,7 +71,12 @@ export class SpeakersComponent {
       bio: 'Pionera en la aplicación de IA para el mapeo mineralógico automatizado.',
       image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=2561&auto=format&fit=crop',
       topic: 'Inteligencia Artificial aplicada al Mapeo de Campo',
+      thematicLine: 'INTELIGENCIA ARTIFICIAL Y SIG',
       socials: { linkedin: '#', twitter: '#' }
     }
   ];
+
+  getSpeakersByLine(line: string): Speaker[] {
+    return this.speakers.filter(s => s.thematicLine === line);
+  }
 }

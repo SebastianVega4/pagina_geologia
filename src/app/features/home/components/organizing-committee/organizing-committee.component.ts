@@ -55,7 +55,7 @@ export class OrganizingCommitteeComponent {
     },
     {
       role: 'Líder Comité Institucional',
-      name: '',
+      name: 'Tomas Cuesta',
       image: 'assets/Organizadores del evento estudiantes/Líder Comité Institucional.JPG'
     }
   ];
