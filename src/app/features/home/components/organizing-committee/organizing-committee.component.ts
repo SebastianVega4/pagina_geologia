@@ -39,6 +39,11 @@ export class OrganizingCommitteeComponent {
       image: 'assets/Organizadores del evento estudiantes/Representante de Ingeniería Geológica Julián Robles.JPG'
     },
     {
+      role: 'Vicepresidente y Secretario',
+      name: 'Camilo Pedraza',
+      image: 'assets/Organizadores del evento estudiantes/Camilo Pedraza. Vicepresidente y Secretario.jpg'
+    },
+    {
       role: 'Líder Comité Comunicaciones',
       name: 'Diego Acevedo',
       image: 'assets/Organizadores del evento estudiantes/Líder Comité Comunicaciones Diego Acevedo.JPG'
