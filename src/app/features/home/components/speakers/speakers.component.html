@@ -15,13 +15,14 @@
         <div *ngFor="let line of thematicLines" class="mb-20 last:mb-0">
             <div class="flex items-center gap-4 mb-10" data-aos="fade-right">
                 <div class="h-px flex-1 bg-gradient-to-r from-transparent to-brand-secondary/30"></div>
-                <h4 class="text-xl md:text-2xl font-bold text-brand-primary dark:text-white text-center px-4 uppercase tracking-wider">
+                <h4
+                    class="text-xl md:text-2xl font-bold text-brand-primary dark:text-white text-center px-4 uppercase tracking-wider">
                     {{ line }}
                 </h4>
                 <div class="h-px flex-1 bg-gradient-to-l from-transparent to-brand-secondary/30"></div>
             </div>
 
-            <div *ngIf="getSpeakersByLine(line).length > 0; else noSpeakers" 
+            <div *ngIf="getSpeakersByLine(line).length > 0; else noSpeakers"
                 class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
                 <div *ngFor="let s of getSpeakersByLine(line); let i = index"
                     class="group bg-brand-light dark:bg-brand-primary rounded-[2rem] overflow-hidden border border-gray-100 dark:border-white/5 hover:shadow-2xl hover:shadow-brand-secondary/10 transition-all duration-500"
@@ -43,6 +44,10 @@
                                 class="p-3 bg-white/90 dark:bg-brand-dark/90 text-brand-secondary rounded-xl backdrop-blur-md shadow-lg hover:bg-brand-secondary hover:text-white transition-colors">
                                 <lucide-angular [img]="icons.Twitter" class="w-5 h-5"></lucide-angular>
                             </a>
+                            <a *ngIf="s.socials.web" [href]="s.socials.web" target="_blank"
+                                class="p-3 bg-white/90 dark:bg-brand-dark/90 text-brand-secondary rounded-xl backdrop-blur-md shadow-lg hover:bg-brand-secondary hover:text-white transition-colors">
+                                <lucide-angular [img]="icons.Globe" class="w-5 h-5"></lucide-angular>
+                            </a>
                         </div>
                     </div>
 
@@ -50,7 +55,8 @@
                     <div class="p-8 space-y-4">
                         <div>
                             <h4 class="text-xl font-bold text-brand-primary dark:text-white mb-1">{{ s.name }}</h4>
-                            <p class="text-brand-secondary text-sm font-semibold tracking-wide uppercase">{{ s.role }}</p>
+                            <p class="text-brand-secondary text-sm font-semibold tracking-wide uppercase">{{ s.role }}
+                            </p>
                             <p class="text-gray-400 dark:text-gray-500 text-xs">{{ s.institution }}</p>
                         </div>
 
@@ -68,8 +74,10 @@
             </div>
 
             <ng-template #noSpeakers>
-                <div class="text-center py-10 bg-gray-50/50 dark:bg-white/5 rounded-[2rem] border border-dashed border-gray-200 dark:border-white/10" data-aos="fade-up">
-                    <p class="text-gray-500 dark:text-gray-400 font-medium italic">Ponentes por confirmar para esta línea temática</p>
+                <div class="text-center py-10 bg-gray-50/50 dark:bg-white/5 rounded-[2rem] border border-dashed border-gray-200 dark:border-white/10"
+                    data-aos="fade-up">
+                    <p class="text-gray-500 dark:text-gray-400 font-medium italic">Ponentes por confirmar para esta
+                        línea temática</p>
                 </div>
             </ng-template>
         </div>

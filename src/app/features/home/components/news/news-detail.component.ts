@@ -176,7 +176,7 @@ export class NewsDetailComponent implements OnInit {
     private http: HttpClient,
     private titleService: Title,
     private metaService: Meta
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));

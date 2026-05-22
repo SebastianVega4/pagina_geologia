@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { LucideAngularModule, Calendar, ArrowRight } from 'lucide-angular';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 interface Noticia {
   id: number;
@@ -28,6 +28,8 @@ export class NewsComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.noticias$ = this.http.get<Noticia[]>('assets/noticias.json');
+    this.noticias$ = this.http.get<Noticia[]>('assets/noticias.json').pipe(
+      map(noticias => [...noticias].sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime()))
+    );
   }
 }

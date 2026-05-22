@@ -35,44 +35,54 @@ export class SpeakersComponent {
 
   speakers: Speaker[] = [
     {
-      name: 'Dr. John Harrison',
-      role: 'Director de Geociencias',
-      institution: 'University of Toronto (Canadá)',
-      bio: 'Líder mundial en tectónica de placas y evolución de márgenes continentales en Suramérica.',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2574&auto=format&fit=crop',
-      topic: 'Geotectónica de los Andes Septentrionales',
-      thematicLine: 'GEODINÁMICA',
-      socials: { linkedin: '#', twitter: '#', web: '#' }
-    },
-    {
-      name: 'Dra. Elena Ruiz',
-      role: 'Investigadora Principal',
-      institution: 'Instituto Geológico y Minero (España)',
-      bio: 'Especialista en hidrogeología y gestión sostenible de acuíferos en zonas de alta montaña.',
-      image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2576&auto=format&fit=crop',
-      topic: 'Resiliencia Hídrica en el Altiplano Boyacense',
-      thematicLine: 'GEOTECNIA E HIDROGEOLOGÍA',
-      socials: { linkedin: '#', web: '#' }
-    },
-    {
-      name: 'MSc. Carlos Mendoza',
-      role: 'Consultor Senior',
-      institution: 'PetroExplora Corp.',
-      bio: 'Líder en modelamiento geológico 3D para la industria de hidrocarburos y minería.',
-      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=2574&auto=format&fit=crop',
-      topic: 'Nuevas Fronteras en la Exploración de Hidrocarburos',
+      name: 'Jaime Checa Jiménez',
+      role: 'Presidente ACGGP',
+      institution: 'Asociación Colombiana de Geólogos y Geofísicos de la Energía',
+      bio: 'Ingeniero Civil con especializaciones en Exploración Geofísica y Gerencia de Hidrocarburos. Con 35 años de carrera profesional como geofísico de exploración, se ha destacado por gestionar exitosamente grupos interdisciplinarios para adquisición de datos sísmicos.',
+      image: 'assets/speakers/Jaime Checa Jiménez.jpeg',
+      topic: 'Elementos para entender el fracking en Colombia',
       thematicLine: 'ENERGÍAS Y RECURSOS MINERALES',
-      socials: { linkedin: '#' }
+      socials: { web: 'https://www.acggp.org/' }
     },
     {
-      name: 'Dra. Sofia Chen',
-      role: 'Profesora Asociada',
-      institution: 'National University of Singapore',
-      bio: 'Pionera en la aplicación de IA para el mapeo mineralógico automatizado.',
-      image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=2561&auto=format&fit=crop',
-      topic: 'Inteligencia Artificial aplicada al Mapeo de Campo',
+      name: 'Flover Rodriguez-Portillo',
+      role: 'Director Ejecutivo ACGGP',
+      institution: 'Asociación Colombiana de Geólogos y Geofísicos de la Energía',
+      bio: 'Geólogo, especialista en gestión energética y ambiental, máster en responsabilidad social corporativa. Motiva a la renovación de la industria y sus modelos de relacionamiento, promoviendo la transferencia de conocimiento.',
+      image: 'assets/speakers/Flover Rodriguez Portillo.jpeg',
+      topic: 'Territorio, energía y decisiones: las geociencias como brújula del Estado',
+      thematicLine: 'ENERGÍAS Y RECURSOS MINERALES',
+      socials: { web: 'https://www.acggp.org/' }
+    },
+    {
+      name: 'Cesar Augusto Otálvaro sierra',
+      role: 'Docente / Investigador',
+      institution: 'Universidad Nacional de Colombia',
+      bio: 'Profesional de antropología, maestra estudiosos urbano regionales y doctorado en geografia. Especialista en la interacción con comunidades y los retos sociales en proyectos de geociencias.',
+      image: 'assets/speakers/Cesar Augusto Otálvaro sierra.jpg',
+      topic: 'La otra falla geológica: nuestra relación con las comunidades y el ingreso a territorio',
+      thematicLine: 'AMBIENTE, SOCIEDAD Y EDUCACIÓN',
+      socials: { web: 'https://unal.edu.co/' }
+    },
+    {
+      name: 'Danny José Useche Infante',
+      role: 'PhD. en Ingeniería',
+      institution: 'UPTC Sogamoso',
+      bio: 'Doctor en ingeniería con hallazgos recientes sobre el comportamiento de cimentaciones profundas mejoradas mediante inyección de lechada (post grouting) y modelos probabilísticos.',
+      image: 'assets/speakers/DANNY JOSE USECHE INFANTE.jpeg',
+      topic: 'Pilotes con Inyección de Lechada: Modelos Físicos, Numéricos y Métodos Probabilísticos para Suelos Colapsables',
+      thematicLine: 'GEOTECNIA E HIDROGEOLOGÍA',
+      socials: { web: 'https://www.uptc.edu.co/' }
+    },
+    {
+      name: 'Ivan Rodrigo Plata Arango',
+      role: 'Ingeniero Geólogo',
+      institution: 'Ecopetrol S.A.',
+      bio: 'Magister en Geomatica y Especialista en SIG. Experto en caracterización de rezumaderos a partir de productos de sensores remotos y análisis de espectros de absorción.',
+      image: 'assets/speakers/Ivan Rodrigo Plata Arango.jpeg',
+      topic: 'Caracterización de rezumaderos a partir de productos de sensores remotos',
       thematicLine: 'INTELIGENCIA ARTIFICIAL Y SIG',
-      socials: { linkedin: '#', twitter: '#' }
+      socials: { web: 'https://www.ecopetrol.com.co/' }
     }
   ];
 

@@ -73,6 +73,24 @@ export class ScheduleComponent {
         { time: 'Todo el día', activity: 'Salida geológica especial — Región carbonífera', location: 'Región Carbonífera' },
         { time: 'Todo el día', activity: 'Visita técnica a operación minera activa', location: 'Mina Operativa' }
       ]
+    },
+    {
+      date: 'Pre-Evento',
+      label: 'Cursos Certificados',
+      items: [
+        { time: '08:00 AM - 05:00 PM', activity: 'Curso: Modelamiento Geoespacial Avanzado con Python', speaker: 'Por confirmar', location: 'Laboratorio de Geoinformática' },
+        { time: '08:00 AM - 05:00 PM', activity: 'Curso: Interpretación Sísmica en Zonas de Complejidad Estructural', speaker: 'Jaime Checa Jiménez', location: 'Sala de Cómputo Especializado' },
+        { time: '08:00 AM - 12:00 PM', activity: 'Taller: Geoética y Relacionamiento con Comunidades', speaker: 'Cesar Augusto Otálvaro', location: 'Auditorio B' }
+      ]
+    },
+    {
+      date: 'Post-Evento',
+      label: 'Salidas de Campo',
+      items: [
+        { time: '3 Días', activity: 'Travesía Geológica: Cordillera Oriental y Piedemonte Llanero', speaker: 'Guías: Expertos UPTC/SGC', location: 'Salida desde Sogamoso' },
+        { time: '1 Día', activity: 'Visita Técnica: Operaciones Mineras Subterráneas de Boyacá', speaker: 'Comité de Logística', location: 'Valle de Sugamuxi' },
+        { time: '2 Días', activity: 'Excursión: Macizo de Floresta y Paleontología Regional', speaker: 'Grupo de Investigación Geociencias', location: 'Floresta, Boyacá' }
+      ]
     }
   ];
 
