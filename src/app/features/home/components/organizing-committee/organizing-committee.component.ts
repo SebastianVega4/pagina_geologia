@@ -66,8 +66,8 @@ export class OrganizingCommitteeComponent {
   ];
 
   members = [
-    { name: 'UPTC', logo: 'assets/UPTC.jpeg' },
-    { name: 'UPTC - Facultad de Seccional Sogamoso', logo: 'assets/Facultad Sogamoso.jpeg' },
+    { name: 'UPTC', logo: 'assets/UPTC.png' },
+    { name: 'UPTC - Facultad de Seccional Sogamoso', logo: 'assets/Facultad Sogamoso.png' },
     { name: 'Escuela de Ingeniería Geológica', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcdflFJKcrAfJ_GzdxbkhfxbxiXAyNBCJEsw&s' },
     { name: 'Capítulo Estudiantil ACGP - UPTC', logo: 'assets/ACGGP.png' },
     { name: 'Servicio Geológico Colombiano', logo: 'assets/Servicio_Geológico_Colombiano.png' },
