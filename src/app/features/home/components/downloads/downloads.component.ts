@@ -28,15 +28,15 @@ export class DownloadsComponent {
       title: 'Plantilla de Diapositivas',
       description: 'Formato oficial para presentaciones magistrales y técnicas (16:9).',
       icon: 'Presentation',
-      link: '#', // Drive link placeholder
+      link: '#', 
       type: 'PowerPoint / Google Slides'
     },
     {
-      title: 'Resúmenes, Ponenecias y Posters',
-      description: 'Resúmenes de ponencias para presentaciones orales o posters, que se llevarán acabo en modalidad presencial.',
-      icon: 'FileText',
+      title: 'Plantilla de Póster',
+      description: 'Plantilla oficial para la presentación de trabajos en formato póster.',
+      icon: 'Presentation',
       link: 'https://docs.google.com/uc?export=download&id=1bRzalDnbFyu4gsaa4IRGfu4OHg5U4U1U',
-      type: 'PDF / Word'
+      type: 'PowerPoint'
     },
     {
       title: 'Líneas Temáticas',

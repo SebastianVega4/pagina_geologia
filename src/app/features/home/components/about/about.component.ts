@@ -50,7 +50,7 @@ export class AboutComponent {
     },
     {
       question: '¿Cómo puedo patrocinar el evento?',
-      answer: 'Contamos con un <a href="/#service-portfolio" class="text-brand-secondary font-bold hover:underline">Porfolio de Servicios</a> con diferentes niveles de vinculación (Esmeralda, Platino, Oro y Cuarzo). Puede contactarnos directamente a xviisemanatecnica&#64;uptc.edu.co.',
+      answer: 'Contamos con un <a href="/#service-portfolio" class="text-brand-secondary font-bold hover:underline">Porfolio de Servicios</a> con diferentes niveles de vinculación (Esmeralda, Platino, Oro y Cuarzo). Puede contactarnos directamente a xvii.semanatecnica&#64;uptc.edu.co.',
       open: false
     }
   ];
