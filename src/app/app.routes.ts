@@ -15,7 +15,6 @@ import { PhotographyComponent } from './features/contests/photography/photograph
 
 import { RegistrationInfoComponent } from './features/home/components/registration/registration-info/registration-info.component';
 import { CursosComponent } from './features/cursos/cursos.component';
-import { SalidasComponent } from './features/salidas/salidas.component';
 
 export const routes: Routes = [
   { 
@@ -43,17 +42,13 @@ export const routes: Routes = [
     data: { description: 'Consulta nuestro portafolio de servicios para la XVII Semana Técnica.' }
   },
   { 
-    path: 'evento/cursos', 
+    path: 'evento/cursos-salidas-charlas', 
     component: CursosComponent, 
-    title: 'Cursos Especializados | XVII Semana Técnica de Geología',
-    data: { description: 'Consulta el material y programas de los cursos especializados del evento.' }
+    title: 'Cursos, Salidas y Charlas | XVII Semana Técnica de Geología',
+    data: { description: 'Consulta los cursos especializados, salidas de campo y charlas magistrales de la XVII Semana Técnica.' }
   },
-  { 
-    path: 'evento/salidas', 
-    component: SalidasComponent, 
-    title: 'Salidas de Campo | XVII Semana Técnica de Geología',
-    data: { description: 'Consulta las guías e itinerarios de las salidas de campo geológicas.' }
-  },
+  { path: 'evento/cursos', redirectTo: 'evento/cursos-salidas-charlas', pathMatch: 'full' },
+  { path: 'evento/salidas', redirectTo: 'evento/cursos-salidas-charlas', pathMatch: 'full' },
   { 
     path: 'concursos/geolimpiadas', 
     component: GeolympiadsComponent, 

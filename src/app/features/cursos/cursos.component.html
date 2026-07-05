@@ -1,121 +1,177 @@
-<section class="cursos-section pt-32 pb-24 bg-brand-light dark:bg-brand-dark min-h-screen transition-colors duration-300">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="combined-container">
+  
+  <!-- Secondary Nav -->
+  <nav class="local-nav">
+    <a routerLink="/" class="nav-back">← XVII STG 2026</a>
+    <ul class="nav-links">
+      <li><a (click)="scrollToSection('cursos')" class="cursor-pointer">Cursos</a></li>
+      <li><a (click)="scrollToSection('salidas')" class="cursor-pointer">Salidas</a></li>
+      <li><a (click)="scrollToSection('charlas')" class="cursor-pointer">Charlas</a></li>
+    </ul>
+  </nav>
 
-    <!-- Header Navigation -->
-    <div class="mb-8">
-      <a routerLink="/evento" class="inline-flex items-center gap-2 text-brand-secondary hover:translate-x-[-4px] transition-transform font-bold text-sm">
-        <lucide-angular [img]="icons.ChevronLeft" class="w-4 h-4"></lucide-angular>
-        Volver a Evento
-      </a>
-    </div>
-
-    <!-- Section Header -->
-    <div class="mb-12">
-      <p class="text-brand-secondary font-bold tracking-widest uppercase text-xs mb-3">Pre-Semana</p>
-      <h1 class="text-3xl md:text-5xl font-extrabold text-brand-primary dark:text-white leading-tight mb-4">
-        Cursos Especializados
-      </h1>
-      <p class="max-w-3xl text-gray-600 dark:text-gray-400 text-base md:text-lg leading-relaxed">
-        Explora la programación académica y guías temáticas de los cursos que se llevarán a cabo. Selecciona un curso de la lista para visualizar su folleto técnico completo.
-      </p>
-    </div>
-
-    <!-- Mobile Dropdown Selector (visible on small screens) -->
-    <div class="block lg:hidden mb-6">
-      <label for="course-select" class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Seleccionar Curso:</label>
-      <select id="course-select"
-              (change)="onMobileSelectChange($event)"
-              class="w-full bg-white dark:bg-brand-primary text-brand-primary dark:text-white border border-gray-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-secondary">
-        <option *ngFor="let c of cursos" [value]="c.url" [selected]="c.url === selectedCurso.url">
-          {{ c.name }}
-        </option>
-      </select>
-    </div>
-
-    <!-- Main Workspace Layout -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-
-      <!-- Left Sidebar (Desktop only) -->
-      <div class="hidden lg:flex lg:col-span-4 flex-col gap-3 max-h-[750px] overflow-y-auto pr-2 custom-scrollbar">
-        <button *ngFor="let c of cursos"
-                (click)="selectCurso(c)"
-                [ngClass]="selectedCurso.url === c.url 
-                           ? 'bg-brand-secondary text-white border-brand-secondary shadow-lg shadow-brand-secondary/20' 
-                           : 'bg-white dark:bg-brand-primary text-brand-primary dark:text-gray-300 border-gray-100 dark:border-white/5 hover:border-brand-secondary/30'"
-                class="text-left p-5 rounded-2xl border transition-all duration-300 flex items-start gap-4 hover:-translate-y-0.5">
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-               [ngClass]="selectedCurso.url === c.url ? 'bg-white/20 text-white' : 'bg-brand-light dark:bg-brand-dark text-brand-secondary'">
-            <lucide-angular [img]="icons.BookOpen" class="w-5 h-5"></lucide-angular>
-          </div>
-          <div>
-            <h3 class="text-sm font-extrabold leading-snug line-clamp-2 mb-1">
-              {{ c.name }}
-            </h3>
-            <p class="text-xs line-clamp-2"
-               [ngClass]="selectedCurso.url === c.url ? 'text-white/80' : 'text-gray-500 dark:text-gray-400'">
-              {{ c.description }}
-            </p>
-          </div>
-        </button>
-      </div>
-
-      <!-- Right Viewer (Desktop & Mobile) -->
-      <div class="lg:col-span-8">
-        <div class="pdf-container rounded-3xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-2xl bg-white dark:bg-brand-primary relative">
-
-          <!-- Loading Skeleton -->
-          <div *ngIf="!isPreviewLoaded" class="pdf-skeleton absolute inset-0 flex flex-col items-center justify-center gap-4 bg-white dark:bg-brand-primary z-20 py-32">
-            <div class="w-16 h-16 rounded-2xl bg-gray-100 dark:bg-white/5 flex items-center justify-center animate-pulse">
-              <lucide-angular [img]="icons.FileText" class="w-8 h-8 text-gray-400 dark:text-gray-500"></lucide-angular>
-            </div>
-            <div class="text-center gap-1 flex flex-col">
-              <p class="text-gray-500 dark:text-gray-400 font-bold animate-pulse text-sm">Cargando documento...</p>
-              <p class="text-gray-400 dark:text-gray-500 text-xs">Preparando visor de PDF</p>
-            </div>
-          </div>
-
-          <!-- Top Action Bar -->
-          <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/5 relative z-30">
-            <div class="flex items-center gap-3 min-w-0">
-              <div class="w-8 h-8 bg-brand-secondary/10 rounded-lg flex items-center justify-center shrink-0">
-                <lucide-angular [img]="icons.FileText" class="w-4 h-4 text-brand-secondary"></lucide-angular>
-              </div>
-              <span class="text-xs font-bold text-brand-primary dark:text-white truncate pr-4">
-                {{ selectedCurso.filename }}
-              </span>
-            </div>
-            <div class="flex items-center gap-2 shrink-0">
-              <!-- Small Elegant Download Button -->
-              <a [href]="selectedCurso.url"
-                 [download]="selectedCurso.filename"
-                 class="inline-flex items-center justify-center p-2 bg-brand-secondary/10 hover:bg-brand-secondary/20 text-brand-secondary rounded-lg transition-colors border border-brand-secondary/20"
-                 title="Descargar archivo">
-                <lucide-angular [img]="icons.Download" class="w-4 h-4"></lucide-angular>
-              </a>
-              <a [href]="selectedCurso.url"
-                 target="_blank"
-                 class="inline-flex items-center justify-center p-2 bg-brand-secondary/10 hover:bg-brand-secondary/20 text-brand-secondary rounded-lg transition-colors border border-brand-secondary/20"
-                 title="Ver pantalla completa">
-                <lucide-angular [img]="icons.ExternalLink" class="w-4 h-4"></lucide-angular>
-              </a>
-            </div>
-          </div>
-
-          <!-- PDF Embed Frame -->
-          <div class="aspect-[21/29.7] w-full min-h-[500px] md:min-h-[700px] relative z-10">
-            <iframe
-              [src]="selectedCurso.url | safe:'resourceUrl'"
-              (load)="onIframeLoad()"
-              class="w-full h-full border-0"
-              allow="autoplay"
-              [title]="selectedCurso.name">
-            </iframe>
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-
+  <!-- Hero Section -->
+  <div class="hero">
+    <span class="tag">Pre y post-semana · 16–22 agosto 2026</span>
+    <h1>No es el congreso.<br><em>Es la certificación.</em></h1>
+    <p>9 cursos cortos y 7 salidas de campo dictados por especialistas del sector, con cupo limitado y certificado con horas académicas. Además, charlas magistrales dentro del evento principal.</p>
+    <div class="note"><strong>No necesitas inscribirte al evento magistral</strong> para tomar un curso o una salida de campo. Son actividades independientes — pagas solo por la actividad y su certificado, sin acceso a souvenirs ni beneficios del evento.</div>
   </div>
-</section>
+
+  <!-- Cursos Section -->
+  <section class="section" id="cursos">
+    <div class="section-head">
+      <h2>Cursos <em>técnicos</em> especializados</h2>
+      <p>Cupos limitados por curso. Precio "Egresado" aplica a egresados UPTC y posgrado. Toca una imagen para ver el flyer completo (temario, ficha del instructor y link de inscripción).</p>
+    </div>
+    <div class="carousel">
+      <div class="carousel-track" id="grid-cursos" #gridCursos (scroll)="updateNavState('cursos')">
+        <ng-container *ngFor="let item of CURSOS">
+          <!-- Placeholder Curso -->
+          <div *ngIf="item.proximamente" class="card placeholder">
+            <div class="thumb-wrap"></div>
+            <div class="card-body">
+              <div class="card-title">{{ item.titulo }}</div>
+              <div class="card-meta">
+                {{ item.instructor }}<br>Fecha tentativa: {{ item.fecha }} · {{ item.duracion }}
+              </div>
+              <div class="card-prices" *ngIf="TIERS[item.tier] as p">
+                <span>Estudiante <b>{{ p.est }}</b> COP</span>
+                <span>Egresado <b>{{ p.egr }}</b> COP</span>
+                <span>Profesional <b>{{ p.prof }}</b> COP</span>
+              </div>
+              <a [href]="getMailtoLink(item.titulo)" class="card-cta">Quiero que me avisen →</a>
+            </div>
+          </div>
+
+          <!-- Normal Curso -->
+          <div *ngIf="!item.proximamente" class="card">
+            <div class="thumb-wrap" (click)="openLightbox('curso', item.folder, item.imgs)">
+              <img [src]="imgPath('curso', item.folder, 1)" [alt]="item.titulo" loading="lazy">
+              <span class="thumb-count">{{ item.cupos }} cupos</span>
+            </div>
+            <div class="card-body">
+              <div class="card-title">{{ item.titulo }}</div>
+              <div class="card-meta">
+                {{ item.instructor }}<br>{{ item.fecha }} · {{ item.duracion }}
+              </div>
+              <div class="card-prices" *ngIf="TIERS[item.tier] as p">
+                <span>Estudiante <b>{{ p.est }}</b> COP</span>
+                <span>Egresado <b>{{ p.egr }}</b> COP</span>
+                <span>Profesional <b>{{ p.prof }}</b> COP</span>
+              </div>
+              <a [href]="item.form" target="_blank" rel="noopener noreferrer" class="card-cta">Inscribirme →</a>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <button class="carousel-nav prev" [disabled]="isPrevDisabled.cursos" (click)="scrollCarousel(gridCursos, -1, 'cursos')" aria-label="Anterior">‹</button>
+      <button class="carousel-nav next" [disabled]="isNextDisabled.cursos" (click)="scrollCarousel(gridCursos, 1, 'cursos')" aria-label="Siguiente">›</button>
+    </div>
+  </section>
+
+  <!-- Salidas Section -->
+  <section class="section alt" id="salidas">
+    <div class="section-head">
+      <h2>Salidas de <em>campo</em></h2>
+      <p>Salidas guiadas en el corredor geológico de Boyacá y los Llanos.</p>
+    </div>
+    <div class="carousel">
+      <div class="carousel-track" id="grid-salidas" #gridSalidas (scroll)="updateNavState('salidas')">
+        <ng-container *ngFor="let item of SALIDAS">
+          <!-- Placeholder Salida -->
+          <div *ngIf="item.placeholder" class="card placeholder">
+            <div class="thumb-wrap"></div>
+            <div class="card-body">
+              <div class="card-title">{{ item.titulo }}</div>
+              <div class="card-meta">{{ item.instructor }}<br>{{ item.fecha }}</div>
+              <div class="card-prices" *ngIf="item.precios">
+                <span>Estudiante <b>{{ item.precios.est }}</b> COP</span>
+                <span>Egresado <b>{{ item.precios.egr }}</b> COP</span>
+                <span>Profesional <b>{{ item.precios.prof }}</b> COP</span>
+              </div>
+              <a [href]="getMailtoLink(item.titulo, true)" class="card-cta">Preguntar por cupo →</a>
+            </div>
+          </div>
+
+          <!-- Normal Salida -->
+          <div *ngIf="!item.placeholder" class="card">
+            <div class="thumb-wrap" (click)="openLightbox('salida', item.folder, item.imgs)">
+              <img [src]="imgPath('salida', item.folder, 1)" [alt]="item.titulo" loading="lazy">
+              <span class="thumb-badge waitlist" *ngIf="item.casiAgotado">Casi agotado</span>
+              <span class="thumb-badge" *ngIf="!item.casiAgotado">Cupos abiertos</span>
+              <span class="thumb-count">{{ item.cupos }} cupos</span>
+            </div>
+            <div class="card-body">
+              <div class="card-title">{{ item.titulo }}</div>
+              <div class="card-meta">{{ item.instructor }}<br>{{ item.fecha }}</div>
+              <div class="card-prices" *ngIf="item.precios">
+                <span>Estudiante <b>{{ item.precios.est }}</b> COP</span>
+                <span>Egresado <b>{{ item.precios.egr }}</b> COP</span>
+                <span>Profesional <b>{{ item.precios.prof }}</b> COP</span>
+              </div>
+              <a [href]="item.form" target="_blank" rel="noopener noreferrer" class="card-cta">Inscribirme →</a>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <button class="carousel-nav prev" [disabled]="isPrevDisabled.salidas" (click)="scrollCarousel(gridSalidas, -1, 'salidas')" aria-label="Anterior">‹</button>
+      <button class="carousel-nav next" [disabled]="isNextDisabled.salidas" (click)="scrollCarousel(gridSalidas, 1, 'salidas')" aria-label="Siguiente">›</button>
+    </div>
+  </section>
+
+  <!-- Charlas Section -->
+  <section class="section" id="charlas">
+    <div class="section-head">
+      <h2>Charlas <em>magistrales</em></h2>
+      <p>Incluidas en la inscripción al evento magistral (19–21 agosto) — no se venden por separado. Programación aún por confirmar.</p>
+    </div>
+    <div class="carousel">
+      <div class="carousel-track" id="grid-charlas" #gridCharlas (scroll)="updateNavState('charlas')">
+        <ng-container *ngFor="let item of CHARLAS">
+          <!-- Placeholder/No-Folder Charla -->
+          <div *ngIf="!item.folder" class="card placeholder">
+            <div class="thumb-wrap"></div>
+            <div class="card-body">
+              <div class="card-title">{{ item.titulo }}</div>
+              <div class="card-meta">
+                {{ item.instructor }}<br>Fecha tentativa: {{ item.fecha }} · Incluida en el evento magistral
+              </div>
+              <a [href]="EVENTO_FORM" target="_blank" rel="noopener noreferrer" class="card-cta">Inscribirme al evento magistral →</a>
+            </div>
+          </div>
+
+          <!-- Normal Charla with image -->
+          <div *ngIf="item.folder" class="card">
+            <div class="thumb-wrap" (click)="openLightbox('charla', item.folder, 1)">
+              <img [src]="imgPath('charla', item.folder, 1)" [alt]="item.titulo" loading="lazy">
+              <span class="thumb-badge waitlist">Próximamente</span>
+            </div>
+            <div class="card-body">
+              <div class="card-title">{{ item.titulo }}</div>
+              <div class="card-meta">
+                {{ item.instructor }}<br>Fecha tentativa: {{ item.fecha }} · Incluida en el evento magistral
+              </div>
+              <a [href]="EVENTO_FORM" target="_blank" rel="noopener noreferrer" class="card-cta">Inscribirme al evento magistral →</a>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <button class="carousel-nav prev" [disabled]="isPrevDisabled.charlas" (click)="scrollCarousel(gridCharlas, -1, 'charlas')" aria-label="Anterior">‹</button>
+      <button class="carousel-nav next" [disabled]="isNextDisabled.charlas" (click)="scrollCarousel(gridCharlas, 1, 'charlas')" aria-label="Siguiente">›</button>
+    </div>
+    <div class="cta-row">
+      <a [href]="EVENTO_FORM" target="_blank" rel="noopener noreferrer" class="btn-gold">Inscribirme al evento magistral →</a>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" [class.open]="currentLightbox !== null" (click)="onLightboxContainerClick($event)">
+    <button class="lightbox-close" (click)="closeLightbox()">✕ Cerrar</button>
+    <button class="lightbox-prev" *ngIf="currentLightbox && currentLightbox.imgs > 1" (click)="prevLightbox(); $event.stopPropagation()">‹</button>
+    <img *ngIf="currentLightbox" [src]="imgPath(currentLightbox.kind, currentLightbox.folder, currentLightbox.idx + 1)" [alt]="currentLightbox.folder">
+    <button class="lightbox-next" *ngIf="currentLightbox && currentLightbox.imgs > 1" (click)="nextLightbox(); $event.stopPropagation()">›</button>
+    <span class="lightbox-count" *ngIf="currentLightbox">{{ currentLightbox.idx + 1 }} / {{ currentLightbox.imgs }}</span>
+  </div>
+
+</div>

@@ -23,4 +23,15 @@ export class PortfolioComponent {
   onIframeLoad(): void {
     this.isPreviewLoaded = true;
   }
+
+  getMobilePdfUrl(pdfUrl: string): string {
+    const baseUrl = 'https://xviisemanatecnicadegeologia.com/';
+    if (!pdfUrl) return '';
+    const absoluteUrl = pdfUrl.startsWith('http') 
+      ? pdfUrl 
+      : (window.location.origin.includes('localhost') 
+          ? baseUrl + pdfUrl 
+          : window.location.origin + '/' + pdfUrl);
+    return `https://docs.google.com/viewer?url=${encodeURIComponent(absoluteUrl)}&embedded=true`;
+  }
 }

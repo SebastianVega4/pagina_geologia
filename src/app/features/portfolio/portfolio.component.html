@@ -24,8 +24,8 @@
     <!-- Main Content: Large PDF Viewer -->
     <div class="pdf-container rounded-3xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-2xl bg-white dark:bg-brand-primary relative">
 
-      <!-- Loading Skeleton -->
-      <div *ngIf="!isPreviewLoaded" class="pdf-skeleton flex flex-col items-center justify-center gap-6 py-32">
+      <!-- Loading Skeleton (Desktop/Tablet only) -->
+      <div *ngIf="!isPreviewLoaded" class="hidden md:flex pdf-skeleton flex-col items-center justify-center gap-6 py-32">
         <div class="w-20 h-20 rounded-2xl bg-gray-100 dark:bg-white/5 flex items-center justify-center animate-pulse">
           <lucide-angular [img]="icons.FileText" class="w-10 h-10 text-gray-400 dark:text-gray-500"></lucide-angular>
         </div>
@@ -60,14 +60,24 @@
         </div>
       </div>
 
-      <!-- PDF Embed via Google Drive -->
-      <div class="aspect-[21/29.7] w-full min-h-[600px] md:min-h-[800px]">
+      <!-- PDF Embed via Google Drive (Desktop/Tablet only) -->
+      <div class="hidden md:block aspect-[21/29.7] w-full min-h-[600px] md:min-h-[800px]">
         <iframe
           [src]="pdfEmbedUrl | safe:'resourceUrl'"
           (load)="onIframeLoad()"
           [class.opacity-0]="!isPreviewLoaded"
           class="pdf-iframe w-full h-full transition-opacity duration-700"
           frameborder="0"
+          allow="autoplay"
+          title="Portafolio de Servicios Semana Técnica 2026">
+        </iframe>
+      </div>
+
+      <!-- PDF Embed via Google Drive (Mobile using Google Docs Viewer) -->
+      <div class="block md:hidden aspect-[21/29.7] w-full min-h-[450px]">
+        <iframe
+          [src]="getMobilePdfUrl(pdfEmbedUrl) | safe:'resourceUrl'"
+          class="w-full h-full border-0"
           allow="autoplay"
           title="Portafolio de Servicios Semana Técnica 2026">
         </iframe>

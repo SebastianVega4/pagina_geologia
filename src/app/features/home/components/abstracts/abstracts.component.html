@@ -21,24 +21,45 @@
       <div class="lg:col-span-3">
         <div class="pdf-viewer-wrapper rounded-3xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-2xl relative">
 
-          <!-- Loading Skeleton -->
-          <div *ngIf="!isPreviewLoaded" class="pdf-skeleton flex flex-col items-center justify-center gap-4 py-16">
+           <!-- Loading Skeleton (Desktop/Tablet only) -->
+          <div *ngIf="!isPreviewLoaded" class="hidden md:flex pdf-skeleton flex-col items-center justify-center gap-4 py-16">
             <div class="w-16 h-16 rounded-2xl bg-gray-200 dark:bg-white/10 flex items-center justify-center animate-pulse">
               <lucide-angular [img]="icons.FileText" class="w-8 h-8 text-gray-400 dark:text-gray-500"></lucide-angular>
             </div>
             <p class="text-gray-400 dark:text-gray-500 text-sm animate-pulse">Cargando documento…</p>
           </div>
 
-          <!-- PDF Embed via Google Drive -->
-          <iframe
-            [src]="pdfEmbedUrl | safe:'resourceUrl'"
-            (load)="onIframeLoad()"
-            [class.opacity-0]="!isPreviewLoaded"
-            class="pdf-iframe w-full transition-opacity duration-500"
-            frameborder="0"
-            allow="autoplay"
-            title="Convocatoria Semana Técnica 2026">
-          </iframe>
+          <!-- PDF Embed via Google Drive (Desktop/Tablet only) -->
+          <div class="hidden md:block">
+            <iframe
+              [src]="pdfEmbedUrl | safe:'resourceUrl'"
+              (load)="onIframeLoad()"
+              [class.opacity-0]="!isPreviewLoaded"
+              class="pdf-iframe w-full transition-opacity duration-500"
+              frameborder="0"
+              allow="autoplay"
+              title="Convocatoria Semana Técnica 2026">
+            </iframe>
+          </div>
+
+          <!-- Mobile Fallback Card (Mobile only) -->
+          <div class="block md:hidden p-8 text-center bg-white dark:bg-brand-primary relative z-10 flex flex-col items-center justify-center min-h-[300px]">
+            <div class="w-16 h-16 bg-brand-secondary/10 rounded-2xl flex items-center justify-center mb-6">
+              <lucide-angular [img]="icons.FileText" class="w-8 h-8 text-brand-secondary"></lucide-angular>
+            </div>
+            <h3 class="text-lg font-extrabold text-brand-primary dark:text-white mb-2">Previsualización en Móvil</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 max-w-sm mx-auto">
+              Para una lectura cómoda en pantallas móviles, abre la convocatoria en pantalla completa.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3 w-full max-w-xs justify-center mx-auto">
+              <a [href]="pdfViewUrl"
+                 target="_blank"
+                 class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-secondary text-white font-bold rounded-xl hover:brightness-110 active:scale-95 transition-all text-sm shadow-lg shadow-brand-secondary/20">
+                <lucide-angular [img]="icons.ExternalLink" class="w-4 h-4"></lucide-angular>
+                Ver Convocatoria
+              </a>
+            </div>
+          </div>
         </div>
 
         <!-- Open in full tab link -->
