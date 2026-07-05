@@ -14,7 +14,7 @@ import { filter } from 'rxjs/operators';
 export class NavbarComponent implements OnInit {
   isScrolled = false;
   isMenuOpen = false;
-  isDarkMode = false;
+  isDarkMode = true;
   isHome = true;
   isEventoDropdownOpen = false;
   isConcursosDropdownOpen = false;
