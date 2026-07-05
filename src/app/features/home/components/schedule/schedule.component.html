@@ -1,90 +1,18 @@
 <section class="schedule-section pt-32 pb-24 bg-white dark:bg-brand-dark transition-colors duration-300 overflow-hidden">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-12" data-aos="fade-up">
+    <div class="text-center mb-8" data-aos="fade-up">
       <p class="text-brand-secondary font-bold tracking-[0.35em] uppercase text-xs mb-4">Cronograma de Actividades</p>
       <h3 class="text-3xl md:text-5xl font-extrabold text-brand-primary dark:text-white leading-tight">
-        Agenda del congreso
+        Cronograma oficial del congreso
       </h3>
       <p class="mt-6 text-gray-600 dark:text-gray-400 text-lg max-w-3xl mx-auto">
-        Una vista organizada de las ponencias, charlas magistrales, talleres y cierres del evento, inspirada en el cronograma oficial pero adaptada a la identidad visual de la página.
+        Se muestra directamente el cronograma publicado por la organización para mantener la vista oficial y coherente con el material guía.
       </p>
     </div>
 
-    <div class="schedule-shell rounded-[2rem] border border-gray-200/70 dark:border-white/10 bg-brand-light/70 dark:bg-brand-primary/60 p-6 md:p-8 shadow-[0_25px_80px_-35px_rgba(15,23,42,0.45)]">
-      <div class="grid gap-4 md:grid-cols-3 mb-8">
-        <div class="summary-card">
-          <div class="summary-card__value">72</div>
-          <div class="summary-card__label">Ponencias</div>
-        </div>
-        <div class="summary-card">
-          <div class="summary-card__value">15</div>
-          <div class="summary-card__label">Charlas magistrales</div>
-        </div>
-        <div class="summary-card">
-          <div class="summary-card__value">77</div>
-          <div class="summary-card__label">Pósters</div>
-        </div>
-      </div>
-
-      <div class="flex flex-wrap items-center gap-3 mb-6 text-sm text-gray-600 dark:text-gray-400">
-        <span class="legend-pill"><span class="legend-dot legend-dot--ponencia"></span> Ponencia</span>
-        <span class="legend-pill"><span class="legend-dot legend-dot--magistral"></span> Magistral</span>
-        <span class="legend-pill"><span class="legend-dot legend-dot--panel"></span> Panel</span>
-        <span class="legend-pill"><span class="legend-dot legend-dot--poster"></span> Póster</span>
-      </div>
-
-      <div class="schedule-tabs mb-6">
-        <button
-          *ngFor="let day of days"
-          type="button"
-          class="schedule-tab"
-          [class.active]="activeTab === day.id"
-          (click)="setActiveTab(day.id)"
-        >
-          <span class="schedule-tab__date">{{ day.date }}</span>
-          <span class="schedule-tab__label">{{ day.label }}</span>
-        </button>
-      </div>
-
-      <div class="schedule-card rounded-[1.5rem] border border-gray-200/80 dark:border-white/10 bg-white/90 dark:bg-brand-dark/70 p-6 md:p-8">
-        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between mb-8">
-          <div>
-            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-brand-secondary mb-2">{{ activeDay.subtitle }}</p>
-            <h4 class="text-2xl font-bold text-brand-primary dark:text-white">{{ activeDay.label }}</h4>
-            <p class="mt-2 text-sm text-gray-600 dark:text-gray-400 max-w-2xl">{{ activeDay.description }}</p>
-          </div>
-          <div class="inline-flex items-center gap-2 rounded-full border border-brand-secondary/20 bg-brand-secondary/10 px-4 py-2 text-sm font-semibold text-brand-secondary">
-            <lucide-angular [img]="icons.Calendar" class="w-4 h-4"></lucide-angular>
-            {{ activeDay.date }}
-          </div>
-        </div>
-
-        <div class="timeline">
-          <article
-            *ngFor="let block of activeDay.blocks"
-            class="timeline-item"
-            [ngClass]="'timeline-item--' + block.type"
-          >
-            <div class="timeline-item__time">
-              <span class="timeline-item__clock">
-                <lucide-angular [img]="icons.Clock" class="w-4 h-4"></lucide-angular>
-              </span>
-              {{ block.time }}
-            </div>
-            <div class="timeline-item__content">
-              <div class="flex flex-wrap items-center gap-2 mb-2">
-                <span class="timeline-item__badge">{{ block.type === 'magistral' ? 'Magistral' : block.type === 'panel' ? 'Panel' : block.type === 'poster' ? 'Póster' : block.type === 'ponencia' ? 'Ponencia' : 'Información' }}</span>
-                <span *ngIf="block.room" class="timeline-item__room">
-                  <lucide-angular [img]="icons.MapPin" class="w-3.5 h-3.5"></lucide-angular>
-                  {{ block.room }}
-                </span>
-              </div>
-              <h5 class="timeline-item__title">{{ block.title }}</h5>
-              <p *ngIf="block.speaker" class="timeline-item__speaker">{{ block.speaker }}</p>
-              <p *ngIf="block.note" class="timeline-item__note">{{ block.note }}</p>
-            </div>
-          </article>
-        </div>
+    <div class="schedule-shell rounded-[2rem] border border-gray-200/70 dark:border-white/10 bg-brand-light/70 dark:bg-brand-primary/60 p-4 md:p-6 shadow-[0_25px_80px_-35px_rgba(15,23,42,0.45)]">
+      <div class="official-shell">
+        <div #officialRoot class="official-root"></div>
       </div>
     </div>
   </div>

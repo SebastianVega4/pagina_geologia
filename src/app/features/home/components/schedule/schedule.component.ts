@@ -1,101 +1,98 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, Calendar, Clock, MapPin, ChevronRight, Image, Download } from 'lucide-angular';
-
-interface ScheduleBlock {
-  time: string;
-  title: string;
-  type: 'ponencia' | 'magistral' | 'panel' | 'poster' | 'info';
-  room?: string;
-  speaker?: string;
-  note?: string;
-}
-
-interface ScheduleDay {
-  id: string;
-  label: string;
-  date: string;
-  subtitle: string;
-  description: string;
-  blocks: ScheduleBlock[];
-}
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-schedule',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './schedule.component.html',
-  styleUrl: './schedule.component.scss'
+  styleUrl: './schedule.component.scss',
 })
-export class ScheduleComponent {
-  readonly icons = { Calendar, Clock, MapPin, ChevronRight, Image, Download };
+export class ScheduleComponent implements AfterViewInit {
+  @ViewChild('officialRoot', { static: true }) officialRoot!: ElementRef<HTMLDivElement>;
 
-  activeTab = 'general';
+  constructor(private http: HttpClient, private renderer: Renderer2) {}
 
-  readonly days: ScheduleDay[] = [
-    {
-      id: 'general',
-      label: 'Horario general',
-      date: '19–21 ago 2026',
-      subtitle: 'Vista general del programa',
-      description: 'Bloques principales del congreso con ponencias, charlas magistrales, pósters y actividades de cierre.',
-      blocks: [
-        { time: '08:00', title: 'Registro e ingreso', type: 'info', room: 'Lobby principal', note: 'Inscripción, bienvenida y entrega de credenciales.' },
-        { time: '09:30', title: 'Charla magistral de apertura', type: 'magistral', room: 'Auditorio', speaker: 'Ponente principal por confirmar' },
-        { time: '11:00', title: 'Sesión de ponencias temáticas', type: 'ponencia', room: 'Salas 201–206', note: 'Cinco líneas temáticas en paralelo.' },
-        { time: '14:30', title: 'Pósteres y networking', type: 'poster', room: 'Hall central', note: 'Presentación de posters y espacios de conversación.' },
-        { time: '17:30', title: 'Panel de transición energética', type: 'panel', room: 'Auditorio', speaker: 'Investigadores y profesionales del sector' }
-      ]
-    },
-    {
-      id: 'miercoles',
-      label: 'Miércoles',
-      date: '19 ago',
-      subtitle: 'Apertura y líneas de investigación',
-      description: 'Jornada inaugural con geología aplicada, geoamenazas, geofísica y minería.',
-      blocks: [
-        { time: '08:00', title: 'Registro y bienvenida del comité', type: 'info', room: 'Lobby principal' },
-        { time: '09:00', title: 'Inauguración oficial XVII STG', type: 'magistral', room: 'Auditorio principal', speaker: 'Comité organizador' },
-        { time: '10:15', title: 'Geoamenazas y gestión del riesgo', type: 'ponencia', room: 'Sala 201', speaker: 'Equipo de geología aplicada' },
-        { time: '11:30', title: 'Geofísica y tecnologías emergentes', type: 'ponencia', room: 'Sala 202', speaker: 'Investigadores UPTC' },
-        { time: '15:00', title: 'Sesión de pósters', type: 'poster', room: 'Hall central', note: 'Exposición de trabajos estudiantiles y profesionales.' }
-      ]
-    },
-    {
-      id: 'jueves',
-      label: 'Jueves',
-      date: '20 ago',
-      subtitle: 'Talleres y trabajo en salas temáticas',
-      description: 'Día dedicado a talleres, charlas magistrales y participación activa en las salas.',
-      blocks: [
-        { time: '08:30', title: 'Charla magistral: recursos y transición', type: 'magistral', room: 'Auditorio', speaker: 'Ponente invitado' },
-        { time: '10:00', title: 'Paleontología y patrimonio geológico', type: 'ponencia', room: 'Sala 204', speaker: 'Grupo de investigación' },
-        { time: '12:00', title: 'Taller de análisis de datos geológicos', type: 'info', room: 'Sala 206', note: 'Actividad práctica guiada.' },
-        { time: '14:30', title: 'Panel: minería, energía y sostenibilidad', type: 'panel', room: 'Auditorio', speaker: 'Representantes de la industria y academia' },
-        { time: '16:30', title: 'Cierre de jornada técnica', type: 'info', room: 'Hall central', note: 'Espacio abierto para preguntas y networking.' }
-      ]
-    },
-    {
-      id: 'viernes',
-      label: 'Viernes',
-      date: '21 ago',
-      subtitle: 'Cierre y premiación',
-      description: 'Última jornada con ponencias de cierre, reconocimiento de trabajos y ceremonia final.',
-      blocks: [
-        { time: '08:30', title: 'Ponencias de cierre', type: 'ponencia', room: 'Salas 201–206', note: 'Casos de aplicación y resultados de investigación.' },
-        { time: '10:45', title: 'Mesa de empleabilidad y oportunidades', type: 'panel', room: 'Auditorio', speaker: 'Empresas del sector y entidades aliadas' },
-        { time: '12:30', title: 'Premiación de mejores trabajos', type: 'info', room: 'Auditorio principal' },
-        { time: '14:00', title: 'Charla magistral final', type: 'magistral', room: 'Auditorio', speaker: 'Conductor del cierre' },
-        { time: '16:00', title: 'Cierre institucional', type: 'info', room: 'Auditorio principal', note: 'Palabras finales del comité organizador.' }
-      ]
-    }
-  ];
-
-  get activeDay(): ScheduleDay {
-    return this.days.find((day) => day.id === this.activeTab) ?? this.days[0];
+  ngAfterViewInit(): void {
+    this.loadOfficialHtml();
   }
 
-  setActiveTab(id: string): void {
-    this.activeTab = id;
+  private loadOfficialHtml(): void {
+    this.http.get('assets/cronograma_ponencias_publico.html', { responseType: 'text' }).subscribe({
+      next: (html) => this.renderOfficialHtml(html),
+      error: () => {
+        this.officialRoot.nativeElement.innerHTML = '<div class="official-error">No se pudo cargar el cronograma oficial.</div>';
+      },
+    });
+  }
+
+  private renderOfficialHtml(html: string): void {
+    const container = this.officialRoot.nativeElement;
+    container.innerHTML = '';
+
+    const template = document.createElement('div');
+    template.innerHTML = html;
+
+    const styleBlocks = Array.from(template.querySelectorAll('style'));
+    styleBlocks.forEach((style) => {
+      const styleEl = this.renderer.createElement('style');
+      styleEl.textContent = this.scopeStyles(style.textContent ?? '');
+      this.renderer.appendChild(document.head, styleEl);
+    });
+
+    const linkTags = Array.from(template.querySelectorAll('link[rel="stylesheet"], link[rel="preconnect"]'));
+    linkTags.forEach((link) => {
+      const href = link.getAttribute('href');
+      if (!href || document.head.querySelector(`link[href="${href}"]`)) {
+        return;
+      }
+
+      const linkEl = this.renderer.createElement('link');
+      this.renderer.setAttribute(linkEl, 'rel', link.getAttribute('rel') ?? 'stylesheet');
+      this.renderer.setAttribute(linkEl, 'href', href);
+      this.renderer.appendChild(document.head, linkEl);
+    });
+
+    const bodyInnerHtml = template.querySelector('body')?.innerHTML ?? html;
+    container.innerHTML = bodyInnerHtml;
+
+    const scripts = Array.from(template.querySelectorAll('script'));
+    scripts.forEach((script) => {
+      const scriptEl = document.createElement('script');
+      scriptEl.textContent = this.scopeScript(script.textContent ?? '');
+      document.body.appendChild(scriptEl);
+    });
+  }
+
+  private scopeStyles(styleText: string): string {
+    return styleText.replace(/([^{]+)\{/g, (match, rawSelector) => {
+      const selectors = rawSelector
+        .split(',')
+        .map((selector: string) => selector.trim())
+        .filter(Boolean);
+
+      const scopedSelectors = selectors.map((selector: string) => {
+        if (!selector || selector.startsWith('@')) {
+          return selector;
+        }
+        if (selector === ':root') {
+          return '.official-root';
+        }
+        if (selector === '*') {
+          return '.official-root *';
+        }
+        if (selector.startsWith('body')) {
+          return `.official-root${selector.slice(4)}`;
+        }
+        return `.official-root ${selector}`;
+      });
+
+      return `${scopedSelectors.join(', ')} {`;
+    });
+  }
+
+  private scopeScript(scriptText: string): string {
+    return scriptText.replace(/document\.body/g, 'document.querySelector(".official-root")');
   }
 }
