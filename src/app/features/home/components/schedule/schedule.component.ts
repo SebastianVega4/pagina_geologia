@@ -661,10 +661,10 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     }
 
     const saved = localStorage.getItem('stg-theme');
-    if (saved === 'night') {
-      this.applyNight();
-    } else {
+    if (saved === 'day') {
       this.applyDay();
+    } else {
+      this.applyNight();
     }
   }
 

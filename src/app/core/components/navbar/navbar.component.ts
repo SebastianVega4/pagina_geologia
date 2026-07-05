@@ -14,7 +14,7 @@ import { filter } from 'rxjs/operators';
 export class NavbarComponent implements OnInit {
   isScrolled = false;
   isMenuOpen = false;
-  isDarkMode = true;
+  isDarkMode!: boolean;
   isHome = true;
   isEventoDropdownOpen = false;
   isConcursosDropdownOpen = false;
@@ -24,6 +24,12 @@ export class NavbarComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
+    const savedTheme = localStorage.getItem('theme');
+    // Por defecto es dark, a menos que esté guardado como 'light'
+    this.isDarkMode = savedTheme !== 'light';
+    this.updateTheme();
+
+
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
@@ -42,6 +48,11 @@ export class NavbarComponent implements OnInit {
 
   toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
+    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
+    this.updateTheme();
+  }
+
+  private updateTheme() {
     if (this.isDarkMode) {
       document.documentElement.classList.add('dark');
     } else {
