@@ -2,17 +2,22 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Calendar, Clock, MapPin, ChevronRight, Image, Download } from 'lucide-angular';
 
-interface ScheduleItem {
+interface ScheduleBlock {
   time: string;
-  activity: string;
+  title: string;
+  type: 'ponencia' | 'magistral' | 'panel' | 'poster' | 'info';
+  room?: string;
   speaker?: string;
-  location: string;
+  note?: string;
 }
 
-interface DaySchedule {
-  date: string;
+interface ScheduleDay {
+  id: string;
   label: string;
-  items: ScheduleItem[];
+  date: string;
+  subtitle: string;
+  description: string;
+  blocks: ScheduleBlock[];
 }
 
 @Component({
@@ -24,77 +29,73 @@ interface DaySchedule {
 })
 export class ScheduleComponent {
   readonly icons = { Calendar, Clock, MapPin, ChevronRight, Image, Download };
-  
-  activeDayIndex = 0;
 
-  schedule: DaySchedule[] = [
+  activeTab = 'general';
+
+  readonly days: ScheduleDay[] = [
     {
-      date: '17 – 18 Ago',
-      label: 'Pre-semana: Cursos y Salidas',
-      items: [
-        { time: 'Todo el día', activity: 'Cursos técnicos especializados', location: 'Instalaciones UPTC' },
-        { time: 'Mañana', activity: 'Salida de campo — zona norte de Boyacá', location: 'Zona Norte' },
-        { time: 'Tarde', activity: 'Reconocimiento de formaciones geológicas', location: 'Zona Norte' }
+      id: 'general',
+      label: 'Horario general',
+      date: '19–21 ago 2026',
+      subtitle: 'Vista general del programa',
+      description: 'Bloques principales del congreso con ponencias, charlas magistrales, pósters y actividades de cierre.',
+      blocks: [
+        { time: '08:00', title: 'Registro e ingreso', type: 'info', room: 'Lobby principal', note: 'Inscripción, bienvenida y entrega de credenciales.' },
+        { time: '09:30', title: 'Charla magistral de apertura', type: 'magistral', room: 'Auditorio', speaker: 'Ponente principal por confirmar' },
+        { time: '11:00', title: 'Sesión de ponencias temáticas', type: 'ponencia', room: 'Salas 201–206', note: 'Cinco líneas temáticas en paralelo.' },
+        { time: '14:30', title: 'Pósteres y networking', type: 'poster', room: 'Hall central', note: 'Presentación de posters y espacios de conversación.' },
+        { time: '17:30', title: 'Panel de transición energética', type: 'panel', room: 'Auditorio', speaker: 'Investigadores y profesionales del sector' }
       ]
     },
     {
-      date: '19 Ago',
-      label: 'Día 1: Magistral',
-      items: [
-        { time: '08:00 AM', activity: 'Registro e icebreaker de bienvenida', location: 'Lobby Principal' },
-        { time: '10:00 AM', activity: 'Inauguración oficial XVII STG', location: 'Auditorio Principal' },
-        { time: '11:00 AM', activity: 'Conferencia magistral de apertura', location: 'Auditorio Principal' },
-        { time: '02:00 PM', activity: 'Panel: Geología y transición energética en Colombia', location: 'Auditorio Principal' },
-        { time: '07:00 PM', activity: 'Networking nocturno — Cocktail de bienvenida', location: 'Zona Lounge' }
+      id: 'miercoles',
+      label: 'Miércoles',
+      date: '19 ago',
+      subtitle: 'Apertura y líneas de investigación',
+      description: 'Jornada inaugural con geología aplicada, geoamenazas, geofísica y minería.',
+      blocks: [
+        { time: '08:00', title: 'Registro y bienvenida del comité', type: 'info', room: 'Lobby principal' },
+        { time: '09:00', title: 'Inauguración oficial XVII STG', type: 'magistral', room: 'Auditorio principal', speaker: 'Comité organizador' },
+        { time: '10:15', title: 'Geoamenazas y gestión del riesgo', type: 'ponencia', room: 'Sala 201', speaker: 'Equipo de geología aplicada' },
+        { time: '11:30', title: 'Geofísica y tecnologías emergentes', type: 'ponencia', room: 'Sala 202', speaker: 'Investigadores UPTC' },
+        { time: '15:00', title: 'Sesión de pósters', type: 'poster', room: 'Hall central', note: 'Exposición de trabajos estudiantiles y profesionales.' }
       ]
     },
     {
-      date: '20 Ago',
-      label: 'Día 2: Talleres',
-      items: [
-        { time: '07:30 AM', activity: 'Salida de campo — Corredor minero de Boyacá', location: 'Corredor Minero' },
-        { time: '02:00 PM', activity: 'Talleres técnicos paralelos (elige 2 de 6)', location: 'Salones Técnicos' },
-        { time: '05:30 PM', activity: 'Sesión de pósters — investigación estudiantil', location: 'Hall Central' }
+      id: 'jueves',
+      label: 'Jueves',
+      date: '20 ago',
+      subtitle: 'Talleres y trabajo en salas temáticas',
+      description: 'Día dedicado a talleres, charlas magistrales y participación activa en las salas.',
+      blocks: [
+        { time: '08:30', title: 'Charla magistral: recursos y transición', type: 'magistral', room: 'Auditorio', speaker: 'Ponente invitado' },
+        { time: '10:00', title: 'Paleontología y patrimonio geológico', type: 'ponencia', room: 'Sala 204', speaker: 'Grupo de investigación' },
+        { time: '12:00', title: 'Taller de análisis de datos geológicos', type: 'info', room: 'Sala 206', note: 'Actividad práctica guiada.' },
+        { time: '14:30', title: 'Panel: minería, energía y sostenibilidad', type: 'panel', room: 'Auditorio', speaker: 'Representantes de la industria y academia' },
+        { time: '16:30', title: 'Cierre de jornada técnica', type: 'info', room: 'Hall central', note: 'Espacio abierto para preguntas y networking.' }
       ]
     },
     {
-      date: '21 Ago',
-      label: 'Día 3: Cierre',
-      items: [
-        { time: '09:00 AM', activity: 'Ponencias finales — proyectos aplicados', location: 'Sala A' },
-        { time: '12:00 PM', activity: 'Mesa de empleabilidad — empresas del sector', location: 'Hall Central' },
-        { time: '03:00 PM', activity: 'Ceremonia de cierre y premiación', location: 'Auditorio Principal' }
-      ]
-    },
-    {
-      date: '22 – 23 Ago',
-      label: 'Post-semana: Salidas',
-      items: [
-        { time: 'Todo el día', activity: 'Salida geológica especial — Región carbonífera', location: 'Región Carbonífera' },
-        { time: 'Todo el día', activity: 'Visita técnica a operación minera activa', location: 'Mina Operativa' }
-      ]
-    },
-    {
-      date: 'Pre-Evento',
-      label: 'Cursos Certificados',
-      items: [
-        { time: '08:00 AM - 05:00 PM', activity: 'Curso: Modelamiento Geoespacial Avanzado con Python', speaker: 'Por confirmar', location: 'Laboratorio de Geoinformática' },
-        { time: '08:00 AM - 05:00 PM', activity: 'Curso: Interpretación Sísmica en Zonas de Complejidad Estructural', speaker: 'Jaime Checa Jiménez', location: 'Sala de Cómputo Especializado' },
-        { time: '08:00 AM - 12:00 PM', activity: 'Taller: Geoética y Relacionamiento con Comunidades', speaker: 'Cesar Augusto Otálvaro', location: 'Auditorio B' }
-      ]
-    },
-    {
-      date: 'Post-Evento',
-      label: 'Salidas de Campo',
-      items: [
-        { time: '3 Días', activity: 'Travesía Geológica: Cordillera Oriental y Piedemonte Llanero', speaker: 'Guías: Expertos UPTC/SGC', location: 'Salida desde Sogamoso' },
-        { time: '1 Día', activity: 'Visita Técnica: Operaciones Mineras Subterráneas de Boyacá', speaker: 'Comité de Logística', location: 'Valle de Sugamuxi' },
-        { time: '2 Días', activity: 'Excursión: Macizo de Floresta y Paleontología Regional', speaker: 'Grupo de Investigación Geociencias', location: 'Floresta, Boyacá' }
+      id: 'viernes',
+      label: 'Viernes',
+      date: '21 ago',
+      subtitle: 'Cierre y premiación',
+      description: 'Última jornada con ponencias de cierre, reconocimiento de trabajos y ceremonia final.',
+      blocks: [
+        { time: '08:30', title: 'Ponencias de cierre', type: 'ponencia', room: 'Salas 201–206', note: 'Casos de aplicación y resultados de investigación.' },
+        { time: '10:45', title: 'Mesa de empleabilidad y oportunidades', type: 'panel', room: 'Auditorio', speaker: 'Empresas del sector y entidades aliadas' },
+        { time: '12:30', title: 'Premiación de mejores trabajos', type: 'info', room: 'Auditorio principal' },
+        { time: '14:00', title: 'Charla magistral final', type: 'magistral', room: 'Auditorio', speaker: 'Conductor del cierre' },
+        { time: '16:00', title: 'Cierre institucional', type: 'info', room: 'Auditorio principal', note: 'Palabras finales del comité organizador.' }
       ]
     }
   ];
 
-  setActiveDay(index: number) {
-    this.activeDayIndex = index;
+  get activeDay(): ScheduleDay {
+    return this.days.find((day) => day.id === this.activeTab) ?? this.days[0];
+  }
+
+  setActiveTab(id: string): void {
+    this.activeTab = id;
   }
 }
