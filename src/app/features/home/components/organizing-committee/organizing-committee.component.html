@@ -57,8 +57,7 @@
             <div
                 class="flex flex-wrap items-center justify-center gap-12 md:gap-20 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-700">
                 <div *ngFor="let m of members" class="group relative flex flex-col items-center">
-                    <div class="h-16 md:h-20 w-32 md:w-40 flex items-center justify-center p-3 rounded-2xl transition-all duration-300"
-                         [ngClass]="m.logo.includes('UPTC.png') || m.logo.includes('Facultad Sogamoso.png') ? 'bg-brand-primary dark:bg-transparent shadow-md border border-brand-primary/10 dark:border-transparent' : ''">
+                    <div class="h-16 md:h-20 w-32 md:w-40 flex items-center justify-center p-3 rounded-2xl transition-all duration-300">
                         <img [src]="m.logo" [alt]="m.name"
                             class="max-h-full max-w-full object-contain transform group-hover:scale-110 transition-transform duration-500">
                     </div>
