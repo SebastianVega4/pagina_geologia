@@ -11,8 +11,39 @@
     </div>
 
     <div class="schedule-shell rounded-[2rem] border border-gray-200/70 dark:border-white/10 bg-brand-light/70 dark:bg-brand-primary/60 p-4 md:p-6 shadow-[0_25px_80px_-35px_rgba(15,23,42,0.45)]">
-      <div class="official-shell">
-        <div #officialRoot class="official-root"></div>
+      <div #officialRoot class="official-root">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:4px;flex-wrap:wrap;">
+          <div>
+            <h1>Cronograma de Ponencias — XVII STG 2026</h1>
+            <p class="subtitle">UPTC Seccional Sogamoso · 19–21 ago 2026 · Mié–Vie salas 201–206</p>
+          </div>
+          <button class="theme-btn" id="themeBtn" title="Cambiar tema">
+            <span class="theme-icon" id="themeIcon">☀️</span>
+            <span id="themeLabel">Modo día</span>
+          </button>
+        </div>
+
+        <div class="toolbar">
+          <div class="legend">
+            <span><span class="dot confirmado"></span> Ponencia</span>
+            <span><span class="dot cm"></span> Charla magistral</span>
+            <span><span class="dot panel"></span> Panel</span>
+            <span><span class="dot poster"></span> Pósters</span>
+          </div>
+        </div>
+
+        <div class="tabs" id="tabs"></div>
+        <div id="panels"></div>
+
+        <div class="modal-bg" id="modalBg">
+          <div class="modal">
+            <div id="modalBadge" class="badge"></div>
+            <h3 id="modalTitle"></h3>
+            <div class="row" id="modalRoom"></div>
+            <div class="row" id="modalAuthors"></div>
+            <button class="close">Cerrar</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
