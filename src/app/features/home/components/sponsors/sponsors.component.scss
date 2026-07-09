@@ -1,0 +1,26 @@
+:host {
+    display: block;
+    padding: 4rem 0;
+    background-color: var(--background-alt);
+}
+
+.logo-cloud {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 2.5rem;
+    align-items: center;
+
+    .logo-item img {
+        max-height: 85px; // Aumentado un poco más
+        margin: 0 auto;
+        filter: grayscale(100%);
+        opacity: 0.8;
+        transition: all 0.3s ease;
+
+        &:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+    }
+}
