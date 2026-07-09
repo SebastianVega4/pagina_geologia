@@ -119,6 +119,20 @@
   font-weight: 700;
 }
 
+:host ::ng-deep .official-root .tab-desc {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+
+:host ::ng-deep .official-root .tab-desc b {
+  color: var(--gold);
+}
+
 // ===== Toolbar / legend =====
 :host ::ng-deep .official-root .toolbar {
   display: flex;
@@ -416,6 +430,14 @@
   margin-top: 3px;
 }
 
+:host ::ng-deep .official-root .auditorio-cell .au-item.clickable {
+  cursor: pointer;
+}
+
+:host ::ng-deep .official-root .auditorio-cell .au-item.clickable:hover {
+  opacity: 0.8;
+}
+
 :host ::ng-deep .official-root .auditorio-cell .au-tbd {
   font-style: italic;
   opacity: .7;
@@ -494,6 +516,15 @@
   border-left-color: var(--amber);
 }
 
+:host ::ng-deep .official-root tr.info-row.cat-bienvenida td {
+  background: rgba(212, 160, 23, 0.18);
+  border-left-color: var(--gold);
+}
+
+:host ::ng-deep .official-root tr.info-row.cat-bienvenida .info-title {
+  color: var(--gold);
+}
+
 :host ::ng-deep .official-root tr.info-row.cat-apertura td {
   background: rgba(212, 160, 23, 0.18);
   border-left-color: var(--gold);
@@ -523,6 +554,66 @@
   background: repeating-linear-gradient(135deg, rgba(42, 175, 176, 0.14) 0 10px, rgba(42, 175, 176, 0.06) 10px 20px);
   border-left-color: var(--teal);
   border-left-style: dotted;
+}
+
+:host ::ng-deep .official-root tr.info-row.cat-evento td {
+  background: rgba(42, 175, 176, 0.14);
+  border-left-color: var(--teal);
+}
+
+// ===== Poster rows (day tables) =====
+:host ::ng-deep .official-root tr.poster-row td {
+  background: linear-gradient(90deg, rgba(42, 175, 176, 0.16), rgba(42, 175, 176, 0.05));
+  border-left: 4px solid var(--teal);
+  padding: 10px 14px;
+}
+
+:host ::ng-deep .official-root tr.poster-row .poster-title {
+  font-family: 'Playfair Display', serif;
+  color: var(--teal);
+  font-size: 14px;
+}
+
+:host ::ng-deep .official-root tr.poster-row .poster-meta {
+  font-size: 11.5px;
+  color: var(--text-dim);
+  font-family: 'DM Mono', monospace;
+  margin-top: 2px;
+}
+
+:host ::ng-deep .official-root tr.poster-row details {
+  margin-top: 8px;
+}
+
+:host ::ng-deep .official-root tr.poster-row summary {
+  cursor: pointer;
+  color: var(--teal);
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+}
+
+:host ::ng-deep .official-root tr.poster-row .poster-list {
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 1.5;
+  padding-right: 6px;
+}
+
+:host ::ng-deep .official-root tr.poster-row .poster-list .p-item {
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+:host ::ng-deep .official-root tr.poster-row .poster-list .p-item b {
+  color: var(--text);
+  font-weight: 500;
+}
+
+:host ::ng-deep .official-root tr.poster-row .poster-counts {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-family: 'DM Mono', monospace;
+  margin-top: 4px;
 }
 
 // ===== Panel rows =====
@@ -645,8 +736,14 @@
   background: rgba(224, 123, 42, .2);
   border: 1px solid var(--amber);
   color: var(--amber);
-  overflow: visible;
+  overflow: hidden;
   z-index: 2;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+:host ::ng-deep .official-root .hb-cm:hover {
+  background: rgba(224, 123, 42, .3);
 }
 
 :host ::ng-deep .official-root .hb-pan {

@@ -6,1538 +6,1759 @@ export const STATUS_LABEL = {
 };
 
 export const DAYS = [
-  {
-    id: 'estado',
-    label: 'Horario General',
-    type: 'dashboard',
-    sub: 'Vista general del programa por bloques — XVII STG 2026',
-    desc: 'Cronograma reestructurado a partir de PROGRAMACION SEMANA TECNICA.xlsx (versión final, 26-jun-2026): los pósters se concentran en un único bloque el miércoles en la mañana (en paralelo a Geolimpiadas); las ponencias se distribuyen por línea temática en 6 salas (201-206, reutilizadas entre días sin choque de horario) repartidas entre miércoles, jueves y viernes; las 15 charlas magistrales (CM-1 a CM-15) quedan fijadas en sus bloques, 10 ya confirmadas y 5 con cupo reservado por confirmar (ESRI, SGC/OSCAR, ANH, SCG, ACH). Solo se programaron las 68 ponencias y 74 pósters que ya tienen algún autor inscrito (Sí o Parcial); las 40 ponencias y 50 pósters aún sin ningún autor inscrito no tienen cupo en este cronograma. Ver DATOS/CRONOGRAMA_CONFIRMADO_2026-06-26.md.',
-    registro: {
-      formularioIndividual: {
-        personas: 186,
-        filas: 134,
-        perfil: {
-          Estudiante: 155,
-          Profesional: 23,
-          'Egresado/Posgrado (UPTC u otra)': 8,
-        },
-        expositor: { Sí: 102, No: 12, 'Sin responder': 20 },
-      },
-      universidad: [],
-      totalGeneral: 186,
+    {
+        "id":  "estado",
+        "label":  "Horario General",
+        "type":  "dashboard",
+        "sub":  "Vista general del programa por bloques â€” XVII STG 2026",
+        "desc":  "Cronograma actualizado (jul-2026) segÃºn el nuevo esquema general: 7 charlas magistrales (CM-1 a CM-7) y 9 charlas especiales (CE-1 a CE-9), la mayorÃ­a en paralelo con otras actividades. Ponencias: miÃ©rcoles un bloque Ãºnico 2:00â€“4:00 PM (6Ã—20 min por sala); jueves y viernes en la maÃ±ana 8:10â€“9:25 (3Ã—25 min por sala). PÃ³sters: miÃ©rcoles 5:10â€“6:10 PM (54, 2 salones) y jueves 5:10â€“6:20 PM (30, 1 salÃ³n). SGC todo el dÃ­a jueves; ACGGP viernes en la maÃ±ana y SCG viernes en la tarde (salones de Bienestar).",
+        "registro":  {
+                         "formularioIndividual":  {
+                                                      "personas":  186,
+                                                      "filas":  134,
+                                                      "perfil":  {
+                                                                     "Estudiante":  155,
+                                                                     "Profesional":  23,
+                                                                     "Egresado/Posgrado (UPTC u otra)":  8
+                                                                 },
+                                                      "expositor":  {
+                                                                        "SÃ­":  102,
+                                                                        "No":  12,
+                                                                        "Sin responder":  20
+                                                                    }
+                                                  },
+                         "universidad":  [
+
+                                         ],
+                         "totalGeneral":  186
+                     },
+        "ponencias":  {
+                          "counts":  {
+                                         "confirmado":  63,
+                                         "parcial":  5,
+                                         "pendiente":  40,
+                                         "tbd":  3
+                                     },
+                          "total":  111
+                      },
+        "posters":  {
+                        "counts":  {
+                                       "confirmado":  72,
+                                       "parcial":  2,
+                                       "pendiente":  50
+                                   },
+                        "total":  124
+                    },
+        "cmTotal":  7,
+        "cmConfirmadas":  5,
+        "cmPorConfirmar":  2,
+        "panelTotal":  3,
+        "ceTotal":  9,
+        "ceConfirmadas":  5,
+        "cePorConfirmar":  4
     },
-    ponencias: {
-      counts: { confirmado: 63, parcial: 5, pendiente: 40, tbd: 3 },
-      total: 111,
+    {
+        "id":  "mie",
+        "label":  "MiÃ©rcoles 19",
+        "sub":  "6 salas Â· CM-1 y CM-2 Â· CE-1 a CE-3 Â· Geolimpiadas AM Â· pÃ³sters PM",
+        "desc":  "Actualizado jul-2026 segÃºn el nuevo esquema general: CM-1 (10:00) y CM-2 (4:30 PM) para todo el evento; Geolimpiadas 10:30â€“12:30 en paralelo con la CE-1; un Ãºnico bloque de ponencias 2:00â€“4:00 PM (6Ã—20 min, 15 min exposiciÃ³n + 5 preguntas, sin margen) con CE-2 y CE-3 en paralelo; pÃ³sters 5:10â€“6:10 PM en 2 salones.",
+        "rooms":  [
+                      "201",
+                      "202",
+                      "203",
+                      "204",
+                      "205",
+                      "206"
+                  ],
+        "themes":  {
+                       "201":  "Geoamenazas Â· GRD Â· GeodivulgaciÃ³n",
+                       "202":  "GeofÃ­sica Â· TecnologÃ­a Â· IA Aplicada",
+                       "203":  "MineralogÃ­a Â· PetrologÃ­a Ãgnea Â· GeoquÃ­mica",
+                       "204":  "PaleontologÃ­a Â· Geopatrimonio Â· GeoarqueologÃ­a",
+                       "205":  "EstratigrafÃ­a Â· SedimentologÃ­a Â· Source-to-Sink",
+                       "206":  "GeoeducaciÃ³n Â· TecnologÃ­a GeolÃ³gica"
+                   },
+        "rows":  [
+                     {
+                         "type":  "info",
+                         "time":  "8:00â€“9:00",
+                         "title":  "Registro",
+                         "category":  "registro"
+                     },
+                     {
+                         "type":  "info",
+                         "time":  "9:00â€“10:00",
+                         "title":  "Bienvenida y apertura del evento",
+                         "category":  "apertura"
+                     },
+                     {
+                         "type":  "block",
+                         "time":  "10:00â€“10:30",
+                         "auditorio":  {
+                                           "cms":  [
+                                                       {
+                                                           "code":  "CM-1",
+                                                           "time":  "10:00â€“10:30",
+                                                           "title":  "Simulando la corteza y el manto en el laboratorio: uso de la petrologÃ­a experimental para entender la distribuciÃ³n de los elementos quÃ­micos",
+                                                           "speaker":  "AndrÃ©s Salazar",
+                                                           "org":  "Universidad de SÃ£o Paulo"
+                                                       }
+                                                   ]
+                                       },
+                         "cells":  null,
+                         "altBlock":  {
+                                          "time":  "",
+                                          "title":  "Charla magistral en el auditorio",
+                                          "sub":  "Asistencia general â€” sin ponencias en salones"
+                                      }
+                     },
+                     {
+                         "type":  "block",
+                         "time":  "10:30â€“12:30",
+                         "auditorio":  {
+                                           "cms":  [
+                                                       {
+                                                           "code":  "",
+                                                           "time":  "10:40â€“11:20",
+                                                           "title":  "Break â€” entrega primer refrigerio",
+                                                           "speaker":  ""
+                                                       },
+                                                       {
+                                                           "code":  "CE-1",
+                                                           "time":  "11:20â€“12:30",
+                                                           "title":  "TectÃ³nica y fuentes sismogÃ©nicas el NE de Colombia",
+                                                           "speaker":  "Francisco Velandia",
+                                                           "org":  "UIS"
+                                                       }
+                                                   ]
+                                       },
+                         "cells":  null,
+                         "altBlock":  {
+                                          "time":  "10:30â€“12:30",
+                                          "title":  "Geolimpiadas",
+                                          "sub":  "Competencia por equipos â€” en los salones"
+                                      }
+                     },
+                     {
+                         "type":  "info",
+                         "time":  "12:30â€“14:00",
+                         "title":  "Almuerzo",
+                         "category":  "almuerzo"
+                     },
+                     {
+                         "type":  "block",
+                         "time":  "14:00â€“16:00",
+                         "cells":  {
+                                       "201":  [
+                                                   {
+                                                       "title":  "GeodivulgaciÃ³n comunitaria para la gestiÃ³n del riesgo: una estrategia desde el Museo de IngenierÃ­a y Geociencias de la UPTC",
+                                                       "authors":  "Nikolle Valentina Soto Correa",
+                                                       "email":  "nikolle.soto@uptc.edu.co",
+                                                       "linea":  "Geoamenazas Â· GRD Â· GeodivulgaciÃ³n",
+                                                       "status":  "confirmado",
+                                                       "time":  "14:00â€“14:20"
+                                                   },
+                                                   {
+                                                       "title":  "EvaluaciÃ³n multitemporal de subsidencia minera mediante InSAR en el tÃ­tulo 009-91, Paipa, BoyacÃ¡",
+                                                       "status":  "parcial",
+                                                       "authors":  "Milton Fabricio RodrÃ­guez Celis, Heider NicolÃ¡s Aunta Molina",
+                                                       "email":  "milton.rodriguez03@uptc.edu.co",
+                                                       "note":  "Parcial 23-jun: coautores Milton RodrÃ­guez Celis y Heider NicolÃ¡s Aunta Molina inscritos (registro grupal) â€” ver CRONOGRAMA_CONFIRMADO_2026-06-23.md",
+                                                       "time":  "14:20â€“14:40"
+                                                   },
+                                                   {
+                                                       "title":  "ANÃLISIS HIDROGEOMORFOLÃ“GICO PRE â€“ POST HIDROELÃ‰CTRICA MIEL I: CASO DE ESTUDIO CUENCA RÃO LA MIEL",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Valencia-Madrigal, Julieth* Â· Hazet, Paul Â· CalderÃ³n-DÃ­az, Laura Â· Ãvila-DÃ­az, Ãlvaro",
+                                                       "email":  "Julieth.valencia@urosario.edu.co",
+                                                       "note":  "TÃ­tulo tomado de la hoja maestra (coincidencia por similitud 99%); el cronograma usaba una versiÃ³n truncada/distinta. | Confirmado 23-jun (revisiÃ³n ampliada, criterio: autor/coautor inscrito sin requerir que declare este tÃ­tulo exacto) â€” Julieth Valencia Madrigal â€” ver CRONOGRAMA_CONFIRMADO_2026-06-23.md",
+                                                       "time":  "14:40â€“15:00"
+                                                   },
+                                                   {
+                                                       "title":  "ZonificaciÃ³n de la susceptibilidad ante movimientos en masa e inundaciones en la microcuenca La Patilla (Salazar de las Palmas)",
+                                                       "status":  "confirmado",
+                                                       "authors":  "MARIA JOSE GARAY PAEZ",
+                                                       "email":  "majostar720@gmail.com",
+                                                       "note":  "TÃ­tulo emparejado por similitud (63%) con hoja maestra; revisar redacciÃ³n exacta. | Confirmado 23-jun (revisiÃ³n ampliada, criterio: autor/coautor inscrito sin requerir que declare este tÃ­tulo exacto) â€” Maria Jose Garay Paez â€” ver CRONOGRAMA_CONFIRMADO_2026-06-23.md",
+                                                       "time":  "15:00â€“15:20"
+                                                   },
+                                                   {
+                                                       "title":  "GeologÃ­a del ciclismo: Control Estructural y MorfolÃ³gico en los Escenarios Ãconos del Ciclismo",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Juan SebastiÃ¡n Luengas Jaimes",
+                                                       "email":  "sebluengas20@gmail.com",
+                                                       "time":  "15:20â€“15:40"
+                                                   },
+                                                   {
+                                                       "title":  "MODELACIÃ“N DEM DEL REBOTE DE BLOQUES ROCOSOS EN TERRAPLENES DE PROTECCIÃ“N CONTRA CAÃDA DE ROCAS MEDIANTE MATDEM",
+                                                       "authors":  "Luis Alejandro NiÃ±o Saavedra, Nikolle Valentina Soto Correa, Danny Useche Infante",
+                                                       "email":  "luis.nino09@uptc.edu.co",
+                                                       "linea":  "Geoamenazas Â· GRD Â· GeodivulgaciÃ³n",
+                                                       "status":  "confirmado",
+                                                       "time":  "15:40â€“16:00"
+                                                   }
+                                               ],
+                                       "202":  [
+                                                   {
+                                                       "title":  "EvaluaciÃ³n multitemporal de coberturas vegetales mediante super-resoluciÃ³n satelital (S2DR3), aplicable en la detecciÃ³n de anomalÃ­as",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Erluan Andres Zabaleta Benavides, John William Branch Bedoya, AndrÃ©s Mauricio MuÃ±oz GarcÃ­a, Fredy Mauricio GutiÃ©rrez Ãlvarez",
+                                                       "email":  "ezabaleta@unal.edu.co",
+                                                       "note":  "TÃ­tulo emparejado por similitud (82%) con hoja maestra; revisar redacciÃ³n exacta. | Confirmado 23-jun (revisiÃ³n ampliada, criterio: autor/coautor inscrito sin requerir que declare este tÃ­tulo exacto) â€” Erluan Andres Zabaleta Benavides; AndrÃ©s Mauricio MuÃ±oz GarcÃ­a â€” ver CRONOGRAMA_CONFIRMADO_2026-06-23.md",
+                                                       "time":  "14:00â€“14:20"
+                                                   },
+                                                   {
+                                                       "title":  "MÃ¡s allÃ¡ del Ã­ndice de oleanano: un enfoque de aprendizaje automÃ¡tico para la clasificaciÃ³n de la edad del petrÃ³leo en cuencas colombianas",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Daniel Esteban Quintana GutiÃ©rrez",
+                                                       "email":  "dquintana@unal.edu.co",
+                                                       "time":  "14:20â€“14:40"
+                                                   },
+                                                   {
+                                                       "title":  "DistribuciÃ³n espacial y vertical de la susceptibilidad magnÃ©tica en depÃ³sito cuaternario del Valle de Sogamoso",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Javier DarÃ­o Guerra MuÃ±oz, Daniel Alexander Vargas BolÃ­var, AndrÃ©s Felipe Cifuentes Castro",
+                                                       "email":  "daniel.vargas20@uptc.edu.co (contacto, NO inscrito)",
+                                                       "note":  "Coautor inscrito #57 lista este mismo tÃ­tulo. TÃ­tulo emparejado por similitud (72%) con hoja maestra; revisar redacciÃ³n exacta. | Confirmado 26-jun (autodeclaraciÃ³n directa en el formulario de inscripciÃ³n actualizado / cruce por email-contacto y coautores) â€” Autodeclarado por Andres cifuentes, laura cifuentes, milton rodriguez, nicolas aunta, michelle farelo en el campo \u0027Nombre de la Ponencia o Poster\u0027 (similitud 79%). â€” ver CRONOGRAMA_CONFIRMADO_2026-06-26.md",
+                                                       "time":  "14:40â€“15:00"
+                                                   },
+                                                   {
+                                                       "title":  "TransformaciÃ³n del anÃ¡lisis geoespacial mediante inteligencia artificial y automatizaciÃ³n",
+                                                       "status":  "confirmado",
+                                                       "authors":  "David Felipe RincÃ³n CÃ¡rdenas",
+                                                       "email":  "David.rincon03@uptc.edu.co",
+                                                       "time":  "15:00â€“15:20"
+                                                   },
+                                                   {
+                                                       "title":  "Efectos crÃ­ticos del tratamiento de muestras minerales en tÃ©cnicas analÃ­ticas",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Diana Isabel Nieto Patarroyo",
+                                                       "email":  "Dnieto@inclaygeology.com",
+                                                       "note":  "Confirmado 23-jun (revisiÃ³n ampliada, criterio: autor/coautor inscrito sin requerir que declare este tÃ­tulo exacto) â€” Diana Isabel Nieto Patarroyo â€” ver CRONOGRAMA_CONFIRMADO_2026-06-23.md",
+                                                       "time":  "15:20â€“15:40"
+                                                   },
+                                                   {
+                                                       "title":  "EvaluaciÃ³n comparativa de la estimaciÃ³n de materia orgÃ¡nica del suelo a partir de imÃ¡genes multiespectrales e hiperespectrales",
+                                                       "authors":  "Por confirmar",
+                                                       "email":  "",
+                                                       "linea":  "TecnologÃ­a: SIG Â· ML Â· IA Â· Sensores Remotos",
+                                                       "status":  "confirmado",
+                                                       "time":  "15:40â€“16:00"
+                                                   }
+                                               ],
+                                       "203":  [
+                                                   {
+                                                       "title":  "CaracterÃ­sticas MineralÃ³gicas de la Euclasa de la vereda Palomas, GachalÃ¡, Cundinamarca (Colombia)",
+                                                       "status":  "parcial",
+                                                       "authors":  "AndrÃ©s Camilo Barreto Gordillo, Mariana Catalina LÃ³pez Villamil, Fernando Heli Romero OrdÃ³Ã±ez",
+                                                       "email":  "anbarretog@unal.edu.co (contacto, NO inscrito)",
+                                                       "note":  "Coautor inscrito (#39, No expositor): Mariana Catalina LÃ³pez Villamil.",
+                                                       "time":  "14:00â€“14:20"
+                                                   },
+                                                   {
+                                                       "title":  "Metamorfismo y significado tectÃ³nico del Neis de la IguanÃ¡ (Valle de AburrÃ¡): Â¿Un granitoide JurÃ¡sico fuera de lugar?",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Sara Del Carmen Villa Hoyos, Alejandra Bedoya, AgustÃ­n Cardona, AndrÃ©s Bustamante, SebastiÃ¡n Zapata Henao",
+                                                       "email":  "savillah@unal.edu.co",
+                                                       "note":  "InscripciÃ³n formalizada por la universidad (UNAL).",
+                                                       "time":  "14:20â€“14:40"
+                                                   },
+                                                   {
+                                                       "title":  "Britholita, el principal portador de REE en las rocas alcalinas de San JosÃ© del Guaviare: relaciones texturales, quimismo, e implicaciones petrogenÃ©ticas",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Mildre Saray Saenz De La Ossa ; MarÃ­a Paula SÃ¡nchez SuÃ¡rez ; Astrid Siachoque Velandia",
+                                                       "email":  "saraysaenz2005@gmail.com",
+                                                       "note":  "TÃ­tulo tomado de la hoja maestra (coincidencia por similitud 91%); el cronograma usaba una versiÃ³n truncada/distinta. | Confirmado 23-jun (revisiÃ³n ampliada, criterio: autor/coautor inscrito sin requerir que declare este tÃ­tulo exacto) â€” Mildre Saray SÃ¡enz De La Ossa â€” ver CRONOGRAMA_CONFIRMADO_2026-06-23.md",
+                                                       "time":  "14:40â€“15:00"
+                                                   },
+                                                   {
+                                                       "title":  "Emplazamiento sintectÃ³nico y transiciÃ³n de fÃ¡bricas magmÃ¡ticas a sÃ³lidas en el plutÃ³n MarcabelÃ­, suroccidente del Ecuador",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Cesar Vinasco, carlos Archanjo, Umberto Cordani",
+                                                       "email":  "cvinasco@unal.edu.co",
+                                                       "note":  "TÃ­tulo tomado de la hoja maestra (coincidencia por similitud 100%); el cronograma usaba una versiÃ³n truncada/distinta. | Confirmado 23-jun vÃ­a auditorÃ­a por coautor (CÃ©sar Vinasco se inscribiÃ³ declarando este tÃ­tulo exacto) â€” ver CRONOGRAMA_CONFIRMADO_2026-06-23.md",
+                                                       "time":  "15:00â€“15:20"
+                                                   },
+                                                   {
+                                                       "title":  "CaracterizaciÃ³n mineralÃ³gica y geoquÃ­mica de los fluorapatitos asociados a las Ã¡reas esmeraldÃ­feras en los distritos mineros de La Marina y Chivor (Colombia).",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Juan Alejandro GonzÃ¡lez SÃ¡nchez, Karoll Samantha DÃ­az PeÃ±uela, Fernando HelÃ­ Romero OrdÃ³Ã±ez",
+                                                       "email":  "kdiazpe@unal.edu.co",
+                                                       "note":  "TÃ­tulo tomado de la hoja maestra (coincidencia por similitud 94%); el cronograma usaba una versiÃ³n truncada/distinta.",
+                                                       "time":  "15:20â€“15:40"
+                                                   },
+                                                   {
+                                                       "title":  "CaracterÃ­sticas MicrotermomÃ©tricas de las Inclusiones Fluidas en las Ocurrencias de Topacio del Vichada (Colombia).",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Evelyn Mariana RÃ­os Franco, Fernando HelÃ­ Romero OrdÃ³Ã±ez",
+                                                       "email":  "eriosf@unal.edu.co",
+                                                       "time":  "15:40â€“16:00"
+                                                   }
+                                               ],
+                                       "204":  [
+                                                   {
+                                                       "title":  "ArqueometrÃ­a de Ã¡gatas arqueolÃ³gicas en la Sierra Nevada de Santa Marta: procedencia mineral, geodiversidad y redes de intercambio",
+                                                       "status":  "confirmado",
+                                                       "authors":  "MarÃ­a Camila PÃ¡jaro, Mariangel GirÃ³n",
+                                                       "email":  "mpajaro@unal.edu.co",
+                                                       "note":  "TÃ­tulo emparejado por similitud (84%) con hoja maestra; revisar redacciÃ³n exacta.",
+                                                       "time":  "14:00â€“14:20"
+                                                   },
+                                                   {
+                                                       "title":  "Caminos Reales de Santander: una aproximaciÃ³n desde el patrimonio geolÃ³gico",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Aldo JuliÃ¡n Molano Sierra",
+                                                       "email":  "aldojulian15@gmail.com",
+                                                       "note":  "Confirmado 23-jun (revisiÃ³n ampliada, criterio: autor/coautor inscrito sin requerir que declare este tÃ­tulo exacto) â€” Aldo Julian Molano Sierra â€” ver CRONOGRAMA_CONFIRMADO_2026-06-23.md",
+                                                       "time":  "14:20â€“14:40"
+                                                   },
+                                                   {
+                                                       "title":  "Localidades fosilÃ­feras del Cretacico Marino de Tena Cundinamarca- Reconocimiento paleontologico a partir de Moluscos Fosiles del Grupo Villeta",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Antonio Eliseo Silva Castro, Astrid MuÃ±oz, Javier Luque",
+                                                       "email":  "aesilva95@unisalle.edu.co",
+                                                       "note":  "TÃ­tulo tomado de la hoja maestra (coincidencia por similitud 88%); el cronograma usaba una versiÃ³n truncada/distinta.",
+                                                       "time":  "14:40â€“15:00"
+                                                   },
+                                                   {
+                                                       "title":  "DIRECTRICES PARA LA GESTIÃ“N INTEGRAL DE SITIOS DE INTERÃ‰S GEOLÃ“GICO CON VOCACIÃ“N TURÃSTICA, EN EL DEPARTAMENTO DE ANTIOQUIA",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Albeiro RendÃ³n Rivera, Heiner HernÃ¡n Cardona Polanco, Carlos Alberto LÃ³pez PÃ©rez, Liced PulgarÃ­n Zuleta, Camilo AndrÃ©s SÃ¡nchez Vargas",
+                                                       "email":  "lpulgarinz@unal.edu.co",
+                                                       "note":  "TÃ­tulo tomado de la hoja maestra (coincidencia por similitud 95%); el cronograma usaba una versiÃ³n truncada/distinta.",
+                                                       "time":  "15:00â€“15:20"
+                                                   },
+                                                   {
+                                                       "title":  "El arte de la geologÃ­a, la geologÃ­a en el arte",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Clemencia GÃ³mez",
+                                                       "email":  "clgomezgo@unal.edu.co",
+                                                       "time":  "15:20â€“15:40"
+                                                   },
+                                                   {
+                                                       "title":  "Arcillas, minerales y cerÃ¡mica: una perspectiva de proveniencia GeoarqueolÃ³gica en la Sierra Nevada de Santa Marta",
+                                                       "authors":  "MarÃ­a Carolina Sosa GarcÃ©s, Kevin Granados, Thomas Heinrich Cramer",
+                                                       "email":  "mcsosa@unimagdalena.edu.co",
+                                                       "linea":  "PaleontologÃ­a Â· Geopatrimonio Â· GeoarqueologÃ­a",
+                                                       "status":  "confirmado",
+                                                       "time":  "15:40â€“16:00"
+                                                   }
+                                               ],
+                                       "205":  [
+                                                   {
+                                                       "title":  "AnÃ¡lisis petrofÃ­sico, petrogrÃ¡fico, sedimentolÃ³gico y litogeoquÃ­mico en la FormaciÃ³n Chipaque y el Grupo Guadalupe",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Granados-Sabio, Kevin Felipe; VÃ©lez-Hoyos, Juan David",
+                                                       "email":  "kfgranadoss@unal.edu.co",
+                                                       "note":  "TÃ­tulo emparejado por similitud (70%) con hoja maestra; revisar redacciÃ³n exacta. | Confirmado 23-jun (revisiÃ³n ampliada, criterio: autor/coautor inscrito sin requerir que declare este tÃ­tulo exacto) â€” Kevin Felipe Granados Sabio â€” ver CRONOGRAMA_CONFIRMADO_2026-06-23.md",
+                                                       "time":  "14:00â€“14:20"
+                                                   },
+                                                   {
+                                                       "title":  "AnÃ¡lisis geolÃ³gico y estructural a escala 1:10 000 en la zona bananera, flanco noroeste del SNSM",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Franklin David Cueto Jaime, Rafael Aldair Montero Moreno, Ivan Ramith Montero Arias",
+                                                       "email":  "imontero3@estudiantes.areandina.edu.co",
+                                                       "note":  "InscripciÃ³n formalizada por la universidad (Areandina). TÃ­tulo emparejado por similitud (60%) con hoja maestra; revisar redacciÃ³n exacta.",
+                                                       "time":  "14:20â€“14:40"
+                                                   },
+                                                   {
+                                                       "title":  "Procedencia sedimentaria en la cuenca del rÃ­o GualÃ­: una perspectiva Source-to-Sink desde el Mioceno al presente",
+                                                       "authors":  "Valentina Agudelo, SalomÃ© LÃ³pez, Jesmy MartÃ­nez, Samuel CaÃ±as, MarÃ­a Isabel Sierra",
+                                                       "email":  "m.sierrarojas@uniandes.edu.co",
+                                                       "linea":  "EstratigrafÃ­a y SedimentologÃ­a",
+                                                       "status":  "confirmado",
+                                                       "time":  "14:40â€“15:00"
+                                                   },
+                                                   {
+                                                       "title":  "EstratigrafÃ­a y procedencia multi-tÃ©cnica del Complejo Quebradagrande: implicaciones para la evoluciÃ³n tectonosedimentaria del margen noroccidental suramericano y su relaciÃ³n con la colisiÃ³n de la placa Caribe.",
+                                                       "status":  "confirmado",
+                                                       "authors":  "AnamarÃ­a Vera GonzÃ¡lez, SebastiÃ¡n Zapata Henao, GermÃ¡n Alonso Bayona Chaparro, AgustÃ­n Cardona Molina, Ana MarÃ­a Valencia LondoÃ±o, Jhonathan Steven Tovar Tovar, Juan Camilo Valencia GÃ³mez, HernÃ¡n Felipe Morales Contreras",
+                                                       "email":  "anamaria.vera@urosario.edu.co",
+                                                       "note":  "Contacto AnamarÃ­a Vera con inscripciÃ³n formalizada por su universidad (Rosario).",
+                                                       "time":  "15:00â€“15:20"
+                                                   },
+                                                   {
+                                                       "title":  "Relatos de una SerranÃ­a: caracterizaciÃ³n geolÃ³gica, estructural y mineralÃ³gica de la vereda Cerrito (Barrancas, La Guajira)",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Carlos Manuel Martinez Ballesteros, Ana Cristina Ruiz Sequeda, Maria Camila Perdomo Geney",
+                                                       "email":  "cmartinez193@estudiantes.areandina.edu.co",
+                                                       "note":  "InscripciÃ³n formalizada por la universidad (Areandina). TÃ­tulo emparejado por similitud (72%) con hoja maestra; revisar redacciÃ³n exacta.",
+                                                       "time":  "15:20â€“15:40"
+                                                   },
+                                                   {
+                                                       "title":  "FACIES ESTRATIGRÃFICAS, PROXIES GEOQUÃMICOS Y REGISTRO FOSILÃFERO PARA LA RECONSTRUCCIÃ“N DEL PALEOAMBIENTE DE LA FORMACIÃ“N LA PAJA: VÃ‰LEZ, SANTANDER, COLOMBIA",
+                                                       "authors":  "German Reyes Mendoza, Jose Maria Cantillo De la Hoz, Josep Anton Moreno Bedmar",
+                                                       "email":  "jcantillo@unal.edu.co",
+                                                       "linea":  "EstratigrafÃ­a y SedimentologÃ­a",
+                                                       "status":  "confirmado",
+                                                       "time":  "15:40â€“16:00"
+                                                   }
+                                               ],
+                                       "206":  [
+                                                   {
+                                                       "title":  "De la Mina al Debate Social: AnÃ¡lisis Multidimensional de los Hidrocarburos y el CarbÃ³n en Colombia.",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Samir Elier BermÃºdez Castellanos",
+                                                       "email":  "sbermudezc@unal.edu.co",
+                                                       "note":  "Confirmado 26-jun (autodeclaraciÃ³n directa en el formulario de inscripciÃ³n actualizado / cruce por email-contacto y coautores) â€” Autodeclarado por Felipe Espinosa OrdoÃ±ez - Jank Carlos Rosero Otalvaro - Juan SebastiÃ¡n MuÃ±oz BenÃ­tez - Samir Elier BermudezCastellanos - Juan SebastiÃ¡n MuÃ±oz BenÃ­tez en el campo \u0027Nombre de la Ponencia o Poster\u0027 (similitud 100%). â€” ver CRONOGRAMA_CONFIRMADO_2026-06-26.md",
+                                                       "time":  "14:00â€“14:20"
+                                                   },
+                                                   {
+                                                       "title":  "La cartografÃ­a como lectura territorial: puentes entre geografÃ­a y geologÃ­a",
+                                                       "status":  "parcial",
+                                                       "authors":  "Juanita PÃ©rez",
+                                                       "email":  "juaperezbo@unal.edu.co",
+                                                       "note":  "Hallada en CORREOS PONENCIAS.xlsx (aprobada) sin cupo asignado en ninguna versiÃ³n previa del cronograma; aÃ±adida en la reestructuraciÃ³n del 2026-06-17. | Confirmado 23-jun (revisiÃ³n ampliada, criterio: autor/coautor inscrito sin requerir que declare este tÃ­tulo exacto) â€” Juanita Valentina RodrÃ­guez Villamil  - Heilin Sophie Bohada Larrota - Danna Valentina Perez Velandia - Esteban Alejandro Huertas Huertas - Samuel CristÃ³bal Alba Villarraga â€” ver CRONOGRAMA_CONFIRMADO_2026-06-23.md",
+                                                       "time":  "14:20â€“14:40"
+                                                   },
+                                                   {
+                                                       "title":  "Mi Primer Libro de...: educaciÃ³n inclusiva, informada y resiliente en Ciencias de la Tierra",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Clemencia GÃ³mez",
+                                                       "email":  "clgomezgo@unal.edu.co",
+                                                       "time":  "14:40â€“15:00"
+                                                   },
+                                                   {
+                                                       "title":  "PresentaciÃ³n de la cartilla MAMA CUMBAL: VOLCÃN, MEMORIA Y TERRITORIO",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Karen SofÃ­a Alpala Cumbal, MarÃ­a Camila BeltrÃ¡n Rueda, MarÃ­a JosÃ© Triana, Juan SebastiÃ¡n Mosquera, Juan SebastiÃ¡n MuÃ±oz BenÃ­tez, Juliana Sanabria CastaÃ±eda, Daniel Felipe GÃ³mez Hoyos, David Fernando Bucheli Rosero, Vincent EfrÃ©n TarapuÃ©s Taimal",
+                                                       "email":  "etnogeocu_bog@unal.edu.co (contacto, NO inscrito)",
+                                                       "note":  "Coautor inscrito: Juan SebastiÃ¡n MuÃ±oz BenÃ­tez (#42). | Confirmado 26-jun (autodeclaraciÃ³n directa en el formulario de inscripciÃ³n actualizado / cruce por email-contacto y coautores) â€” Autodeclarado por Felipe Espinosa OrdoÃ±ez - Jank Carlos Rosero Otalvaro - Juan SebastiÃ¡n MuÃ±oz BenÃ­tez - Samir Elier BermudezCastellanos - Juan SebastiÃ¡n MuÃ±oz BenÃ­tez en el campo \u0027Nombre de la Ponencia o Poster\u0027 (similitud 87%). | Coautor inscrito: Felipe Espinosa OrdoÃ±ez - Jank Carlos Rosero Otalvaro - Juan SebastiÃ¡n MuÃ±oz BenÃ­tez - Samir Elier BermudezCastellanos - Juan SebastiÃ¡n MuÃ±oz BenÃ­tez â€” ver CRONOGRAMA_CONFIRMADO_2026-06-26.md",
+                                                       "time":  "15:00â€“15:20"
+                                                   },
+                                                   {
+                                                       "title":  "AnÃ¡lisis de procedencia de las rocas turbidÃ­ticas del Miembro Urrao (FormaciÃ³n Penderisco), Cordillera Occidental: implicaciones para el reconocimiento de fuentes mÃ¡ficasâ€“ultramÃ¡ficas en condiciones tropicales",
+                                                       "authors":  "Juan Felipe Granados Cardona, GermÃ¡n Bayona, SebastiÃ¡n Zapata, AgustÃ­n Cardona, Ana MarÃ­a Valencia LondoÃ±o, AnamarÃ­a Vera GonzÃ¡lez, Jhonathan Tovar, Felipe Morales",
+                                                       "email":  "jugranadosc@unal.edu.co",
+                                                       "linea":  "EstratigrafÃ­a y SedimentologÃ­a",
+                                                       "status":  "confirmado",
+                                                       "time":  "15:20â€“15:40"
+                                                   }
+                                               ]
+                                   },
+                         "auditorio":  {
+                                           "cms":  [
+                                                       {
+                                                           "code":  "CE-2",
+                                                           "time":  "14:10â€“14:50",
+                                                           "title":  "Transfigura",
+                                                           "speaker":  "Por confirmar",
+                                                           "org":  "Transfigura",
+                                                           "note":  "Tema y ponente por confirmar â€” Transfigura."
+                                                       },
+                                                       {
+                                                           "code":  "CE-3",
+                                                           "time":  "15:00â€“15:40",
+                                                           "title":  "Collective Mining",
+                                                           "speaker":  "Por confirmar",
+                                                           "org":  "Collective Mining",
+                                                           "note":  "Tema y ponente por confirmar â€” Collective Mining."
+                                                       }
+                                                   ]
+                                       }
+                     },
+                     {
+                         "type":  "info",
+                         "time":  "16:00â€“16:30",
+                         "title":  "Break (entrega segundo refrigerio)",
+                         "category":  "break"
+                     },
+                     {
+                         "type":  "block",
+                         "time":  "16:30â€“17:10",
+                         "auditorio":  {
+                                           "cms":  [
+                                                       {
+                                                           "code":  "CM-2",
+                                                           "time":  "16:30â€“17:10",
+                                                           "title":  "CPG",
+                                                           "speaker":  "Por confirmar",
+                                                           "org":  "CPG",
+                                                           "note":  "Tema y ponente por confirmar â€” CPG."
+                                                       }
+                                                   ]
+                                       },
+                         "cells":  null,
+                         "altBlock":  {
+                                          "time":  "",
+                                          "title":  "Charla magistral en el auditorio",
+                                          "sub":  "Asistencia general â€” sin ponencias en salones"
+                                      }
+                     },
+                     {
+                         "type":  "block",
+                         "time":  "17:10â€“18:10",
+                         "cells":  null,
+                         "auditorio":  null,
+                         "posterBatch":  [
+                                             {
+                                                 "title":  "ANÃLISIS SEDIMENTOLÃ“GICO DE LAS EOLIANITAS CUATERNARIAS (?) DE LA ALTA GUAJIRA (SECTOR ARCOIRIS-PILÃ“N DE AZÃšCAR) Y SU RELACIÃ“N CON EL PALEOCLIMA",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Valentina Espinel Arias y Carlos Alberto GuzmÃ¡n LÃ³pez",
+                                                 "email":  "valentina.espinel@ucaldas.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "ANÃLISIS SEDIMENTOLÃ“GICO PRELIMINAR DE LOS DEPÃ“SITOS LACUSTRES EN LA LAGUNA LOS ORTICES, SANTANDER, COLOMBIA",
+                                                 "status":  "parcial",
+                                                 "authors":  "Nicolas Santamaria Jaimes, Edward Duarte, Juan Felipe Franco, Jaime Escobar, Diego Suescun Carvajal, Marly Karina Garcia, Giovanny Jimenez, Victoria Mousalli",
+                                                 "email":  "nikolsant73@gmail.com",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "Almacenamiento de hidrÃ³geno blanco en unidades clÃ¡sticas asociadas a rocas serpentinizadas en el flanco occidental de la Cordillera Central: Influencia de la mineralogÃ­a, la materia orgÃ¡nica y condiciones termodinÃ¡micas.",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Mayerly Alejandra Ariza Caro, SebastiÃ¡n Zapata Henao, AgustÃ­n Cardona Molina, German A. Bayona, Juan David Guzman",
+                                                 "email":  "marizac@unal.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "AnÃ¡lisis MorfolÃ³gico y Paleoambiental de CrustÃ¡ceos FÃ³siles en Los Santos y Guane, Santander",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Eimy Valentina Quintana Mantilla",
+                                                 "email":  "quintanamantillaeimyvalentina@gmail.com",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "AnÃ¡lisis Preliminar de la Sismicidad Inducida por el Embalse Topocoro, HidroelÃ©ctrica Sogamoso, Santander, Colombia (2005â€“2017)",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Maria Gabriela Sanabria Murgas",
+                                                 "email":  "sanabriamariagabriela@gmail.com",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "AnÃ¡lisis comparativo de mapas composicionales antes y despuÃ©s de la inyecciÃ³n de COâ‚‚ en rocas almacenadoras",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Astrid Yuliana Echavarria Carmona \n  Samanta Gomez Lopez",
+                                                 "email":  "aechavarriac@unal.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "AnÃ¡lisis de anomalÃ­as radioactivas asociadas a mineralizaciones secundarias en el distrito aurÃ­fero de Vetasâ€“California",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Brayan Alejandro Cujaban Salamanca, Santiago Useche Luna",
+                                                 "email":  "susechel@unal.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "AnÃ¡lisis de carbonataciÃ³n mineral ex situ a escala nanomÃ©trica en rocas ultramÃ¡ficas",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Rashed Torres; Ana RoldÃ¡n; Cesar Vinasco",
+                                                 "email":  "rmtorresro@unal.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "AnÃ¡lisis de geometrÃ­as de adquisiciÃ³n de Tomografia 3D para la caracterizaciÃ³n del subsuelo superficial",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Karen Gabriela Barragan Riveros, Maria Paula BohÃ³rquez, Paul Goyes PeÃ±afiel",
+                                                 "email":  "geogaby.barragan@gmail.com",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "AnÃ¡lisis de subsidencia en la Sabana de BogotÃ¡ entre 2017 y 2025 mediante interferometrÃ­a SAR",
+                                                 "status":  "confirmado",
+                                                 "authors":  "ThomÃ¡s Leopoldo QuiÃ±onez Pineda, Laura Marcela CÃ©spedes GÃ³mez, Angie Katherine GonzÃ¡lez CalderÃ³n",
+                                                 "email":  "thomas1212ttt@gmail.com",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "AnÃ¡lisis del efecto textural en propiedades petrofÃ­sicas de rocas almacenadoras de COâ‚‚ mediante elipsoides de forma derivada de fotografÃ­a convencional.",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Leidy Estefania Cadavid Arango, Sairandelly Gil MartÃ­nez, Camila Goez Osorio, Astrid Yuliana EchavarrÃ­a Carmona, Carlos AndrÃ©s MuÃ±oz Arrieta",
+                                                 "email":  "lcadavida@unal.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "AnÃ¡lisis e interpretaciÃ³n de la gÃ©nesis y el emplazamiento de la mineralizaciÃ³n aurÃ­fera mediante cartografÃ­a geolÃ³gica a escala 1:10.000 en Minas del Vapor, Buenos Aires, El Brasil y La Palmera (Antioquia, Colombia)",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Juan David Calderon Nieves, Yhostik Guillermo Gomez Galarza, Wilmar David Montero Figueroa, Laura Lucia Ospina OrdoÃ±ez, Karen Lorena Payares Carrasco",
+                                                 "email":  "kpayares4@estudiantes.areandina.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "AnÃ¡lisis estructural de las litologÃ­as aflorantes entre La LejÃ­a y Alto La Laguna, Pamplona, Norte de Santander, Colombia",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Britney Perez-Varela y Ilich Villamizar-Solano",
+                                                 "email":  "byvarela02@gmail.com",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "Aprendizaje profundo guiado por la fÃ­sica para la inversiÃ³n no supervisada de datos de resistividad elÃ©ctrica 1D",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Adrian Alvercy Perez Montejo; Yesid Paul Goyes PeÃ±afiel; Sait Khurama-VelÃ¡squez",
+                                                 "email":  "aapm132630@gmail.com",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "CARACTERIZACIÃ“N GEOMECÃNICA Y EVALUACIÃ“N DE LA POSIBILIDAD GEOMÃ‰TRICA DE FALLA DEL MACIZO ROCOSO EN LA FORMACIÃ“N LA LUNA, VEREDAS VALDERRAMA Y TEHERÃN, GRAMALOTE, NORTE DE SANTANDER",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Brayan Steven RodrÃ­guez RincÃ³n; Ilich SebastiÃ¡n Villamizar Solano, MarÃ­a Jose Garay Paez; Jhan Carlos Contreras Leal",
+                                                 "email":  "brayan.rodriguezbra@unipamplona.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "CUMBAL: AGUA Y SALUD. CaracterizaciÃ³n hidrotermal superficial y anÃ¡lisis geoquÃ­mico de aguas asociadas al complejo volcÃ¡nico Cumbal-Chiles (NariÃ±o, Colombia)",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Angy Emilsen Chinguad Tapie \n  Daniel Santiago CortÃ©s BarÃ³n",
+                                                 "email":  "achinguad@unal.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "Cambios morfolÃ³gicos del delta del rÃ­o SinÃº a partir de anÃ¡lisis multitemporal de imÃ¡genes satelitales",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Rashed Torres; Maria Clara Zuluaga; Liliana Betancourth",
+                                                 "email":  "rmtorresro@unal.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "CaracterizaciÃ³n composicional y textural de algunos sedimentos litorales colombianos, su origen y afectaciÃ³n por procesos antropogÃ©nicos.",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Sebastian Alzate Arango, Yenifer Camila Alzate Arbelaez, Brayan Bejarano Bejarano, Brayan Sneider Betancur Rivera, Angela Daniela BolaÃ±os MuÃ±oz, Juan Diego Cardona Ardila, Juan Esteban DurÃ¡n Quintero, Ana MarÃ­a GarcÃ­a GÃ³ngora, Santiago Hurtado RamÃ­rez, Carlos Mario MarÃ­n Moncada, Edison Stiven Mendez Vasquez, Mariana Ocampo Carmona, Camilo AndrÃ©s PatiÃ±o GarcÃ­a, Juliana Pineda Largo, Maria Paula Quintero Cardenas, Camila Alejandra Rodriguez Ruiz, Juan JosÃ© Valencia Gallego, Paula Andrea Zuluaga Cruz, Luisa MarÃ­a GÃ³mez Oliveros, Carlos Alberto GuzmÃ¡n LÃ³pez.",
+                                                 "email":  "luisa.602012205@ucaldas.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "CaracterizaciÃ³n de los basaltos de la FormaciÃ³n VolcÃ¡nica en la Vereda Carbonera y su relaciÃ³n con la generaciÃ³n de hidrÃ³geno natural",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Santiago Betancur Restrepo",
+                                                 "email":  "sabetancurr@unal.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "CaracterizaciÃ³n geoquÃ­mica, termodinÃ¡mica de las rocas metamÃ³rficas del Complejo ArquÃ­a en el sector la cabaÃ±a.",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Espinal-Pardo, Camilo (*), Casallas-HernÃ¡ndez, V. (*), Enriquez, K.D (*), PÃ©rez-Prieto, J.E (*), GonzÃ¡lez, V. (*), TimarÃ¡n, D. (*), Zaque-Escobar, N. (*), Tovar-Hoyos, N.E (*), Reyes-Rojas, J.(*), Ocampo-Hoyos, V.(*), Arenas-Naranjo, S. (*), Juajibioy-Malte, A. (*), Sarrias-GarcÃ­a, B.A(*), LeÃ³n-Barrera, L.(*), Arias-GarcÃ­a, L.F(*), MuÃ±oz-Ruiz,J.(*), Loza-Acosta, D.(*), Obando-RamÃ­rez, D.L(*), Aguas-MuÃ±oz, C.A.(*), Restrepo-Echavarria, Jorge Luis (**).\n  \n  (*) Programa de GeologÃ­a, Universidad de Caldas. (**) Departamento de Ciencias GeolÃ³gicas, Universidad de Caldas.",
+                                                 "email":  "juan.espinal5953@ucaldas.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "CaracterizaciÃ³n inicial con potencial para carbonataciÃ³n ex situ de la Metahazburgita de MedellÃ­n",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Manuel JosÃ© Hurtado Osorio, Leidy Estefania Cadavid Arango, Camila Goez Osorio, Laura Liliana MuÃ±oz Eraso, Cesar Javier Vinasco Vallejo",
+                                                 "email":  "lcadavida@unal.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "CaracterizaciÃ³n mediante espectroscopia Raman y anÃ¡lisis de DRX de las diferentes fases de serpentinizaciÃ³n y su potencial de generaciÃ³n de hidrÃ³geno en las rocas ultramÃ¡ficas del sistema Caucaâ€“Romeral",
+                                                 "status":  "confirmado",
+                                                 "authors":  "HernÃ¡n Felipe Morales Contreras, Juan Pablo Zapata Villada, Sebastian Zapata Henao, Agustin Cardona Molina, Juan Sebastian Jaramillo Rios",
+                                                 "email":  "felipe.morales226@outlook.com",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "CaracterizaciÃ³n mineralÃ³gica y textural de Ã¡gatas asociadas a la FormaciÃ³n YavÃ­, Departamentos de Huila y Tolima, Colombia.",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Maryei Urrego, Sophia Ruiz, Leidy Maldonado, Felipe Gonzalez, Andres Franco, Alejando Vasquez, Camila Pajaro, Mariangel Giron, Yery Presiga, Marion weber, Natalia Acevedo",
+                                                 "email":  "soruizm@unal.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "CaracterizaciÃ³n petrogrÃ¡fica de cobaltita en un skarn de PayandÃ© y su implicaciÃ³n metalogenÃ©tica",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Santiago Grajales Loaiza, Camila Andrea Montoya, Cristian Santiago Benavides, Juan David RÃ­os Gonzales, Valery Casallas HernÃ¡ndez",
+                                                 "email":  "santiago.grajales23158@ucaldas.edu.co",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "CaracterizaciÃ³n petrogrÃ¡fica preliminar de asociaciones minerales y relaciones paragenÃ©ticas en rocas del Complejo ArquÃ­a, en el RÃ­o ArquÃ­a.",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Valentina Agudelo DurÃ¡n, SebastiÃ¡n Zapata, Alejandra MarÃ­a Bedoya, Sara Villa, Agustin Cardona",
+                                                 "email":  "v.agudelo@uniandes.edu.co",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "CaracterizaciÃ³n petrogrÃ¡fica, diagenÃ©tica y de inclusiones fluidas en arenitas de la FormaciÃ³n Cinta de Piedra (sector La Tebaida-Zarzal)",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Felipe Espinosa OrdoÃ±ez, Juan Carlos Molano Mendoza, Manuel Arnulfo PÃ¡ez Reyes, Andrea Milena Mayor Amador, Santiago Daniel Jimenez Diaz, Yael Natalia Mendez Chaparro",
+                                                 "email":  "anespinosao@unal.edu.co",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "CaracterizaciÃ³n y anÃ¡lisis mineral del sistema hidrotermal de alta ley de plata del proyecto Santa Ana â€“ Outcrop Silver",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Johan Camilo Aros JimÃ©nez, Alex Julian Insuasty EspaÃ±a",
+                                                 "email":  "alex.insuasty23424@ucaldas.edu.co",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "Controles EstratigrÃ¡ficos Y Estructurales Del Sistema GeotÃ©rmico Paipa-Iza En El Area De Iza (BoyacÃ¡)",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Valeria Vargas Velandia; Ãlvaro Alejandro Villar Cepeda; CÃ©sar Augusto GÃ³mez Vanegas",
+                                                 "email":  "valeriavargasvelandia@gmail.com",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "CorrelaciÃ³n, estratigrafÃ­a, y procedencia de las unidades del CretÃ¡cico inferior en el occidente colombiano",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Jhonathan Steven Tovar Tovar",
+                                                 "email":  "jhosto1997lo@hotmail.com",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "DetecciÃ³n, segmentaciÃ³n y anÃ¡lisis espacio-temporal de manchas de hidrocarburos en imÃ¡genes SAR mediante aprendizaje profundo",
+                                                 "status":  "confirmado",
+                                                 "authors":  "David GÃ¼iza-Vanegas; Juan Vesga-Figueroa; MarÃ­a Roa-Archila; ThomÃ¡s QuiÃ±onez- Pineda; Sanin CeledÃ³n del Prado; Kevin Tarazona-Balaguera; AdriÃ¡n PÃ©rez-Montejo; Sait Khurama-VelÃ¡squez",
+                                                 "email":  "sanin2230580@correo.uis.edu.co",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "DeterminaciÃ³n de los rasgos morfotectÃ³nicos utilizando sensores remotos y sistemas de informaciÃ³n geogrÃ¡ficas (SIG), en la provincia tectÃ³nica de Sierra nevada y Santa Marta ; Sierra Nevada de Santa Marta, Colombia.",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Juan Miguel FernÃ¡ndez, Omar Orlando silva, ElÃ­as Ernesto rojas",
+                                                 "email":  "jfernandez74@estudiantes.areandina.edu.co",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "DeterminaciÃ³n de los rasgos morfotectÃ³nicos utilizando sensores remotos y sistemas de informaciÃ³n geogrÃ¡ficas (SIG), en las provincia tectÃ³nica de Sevilla; Sierra Nevada de Santa Marta, Colombia.",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Jesus Manuel Vizcaino Martinez\n  Elias Ernesto Rojas Martinez\n  Frank Lascarro Navarro",
+                                                 "email":  "jvizcaino4@estudiantes.areandina.edu.co",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "DeterminaciÃ³n del Ã­ndice de erosiÃ³n hÃ­drica en la cuenca PanamÃ¡ en el municipio de San JoaquÃ­n, Santander",
+                                                 "status":  "confirmado",
+                                                 "authors":  "MarÃ­a Juliana ChacÃ³n Porras,\n  Manuel GonzÃ¡lez RodrÃ­guez,\n  Silvia Alejandra Vargas Cano,\n  Johan Enrique PÃ¡ez Romero",
+                                                 "email":  "mariajuchaconp@gmail.com",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "Diversidad de foraminÃ­feros bentÃ³nicos de la BahÃ­a Hondita, Alta Guajira: un recorrido por los Ãºltimos 1800 aÃ±os",
+                                                 "status":  "confirmado",
+                                                 "authors":  "CÃ¡rdenas Naranjo Mariana Valentina, BriceÃ±o Zuluaga Francisco Javier",
+                                                 "email":  "est.marianav.carde1@unimilitar.edu.co",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "Equinodermos (Blastoidea) del CarbonÃ­fero de Labateca, Norte de Santander, Colombia",
+                                                 "status":  "parcial",
+                                                 "authors":  "Arley de J. GÃ³mez-Cruz\n  Alexander Lemus-Restrepo\n  Jorge Luis Restrepo-EchavarrÃ­a\n  Mario Moreno-SÃ¡nchez",
+                                                 "email":  "arley.gomez@ucaldas.edu.co",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "Estrategia de divulgaciÃ³n interactiva sobre transiciÃ³n energÃ©tica dirigida a estudiantes de educaciÃ³n secundaria",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Valeria Vargas Velandia1 ; YasmÃ­n Pelayo Serrano2 ; Juan Carlos RamÃ­rez Arias3",
+                                                 "email":  "01220641026@mail.udes.edu.co1 ; yas.pelayo@mail.udes.edu.co2 ; jua.ramirez@mail.udes.edu.co3",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "EvaluaciÃ³n comparativa entre modelos lineales y aprendizaje automÃ¡tico para la predicciÃ³n de la porosidad a partir de registros de pozo",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Francisco Gamboa Ortega;  Jonathas da Silva Maciel ",
+                                                 "email":  "â€”",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "EvaluaciÃ³n de ParÃ¡metros FisicoquÃ­micos como Indicadores de la Calidad del Agua en la Cuenca Media del RÃ­o de Oro",
+                                                 "status":  "confirmado",
+                                                 "authors":  "MarÃ­a Juliana ChacÃ³n Porras, Oscar Esteban Fonseca PÃ©rez, Johan Enrique PÃ¡ez Romero, David Blanco Quiroga, Angy Stephany Plata, Juan Diego Colegial GutiÃ©rrez, Mayra Isabel Vargas CÃ¡ceres",
+                                                 "email":  "mariajuchaconp@gmail.com",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "EvaluaciÃ³n de la actividad neo-tectÃ²nica de la Falla de BoyacÃ , en el sector SotaquirÃ  - Duitama mediante anÃ¡lisis geomorfomÃ©trico",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Maria Fernanda Camargo Pacheco\n  Michell Jannin Romero Cano",
+                                                 "email":  "maria.camargo13@uptc.edu.co",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "EvaluaciÃ³n del efecto textural de rocas potencialmente almacenadoras de CO2 en las propiedades petrofÃ­sicas fundamentales usadas para estudios de geoalmacenamiento de CO2 a travÃ©s de anÃ¡lisis de tÃ©cnicas de AnisotropÃ­a de Susceptibilidad MagnÃ©tica (ASM)",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Juliana Andrea BolÃ­var Tovar, Sairandelly, CÃ©sar Vinasco",
+                                                 "email":  "julianabolivar12345@gmail.com",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "EvaluaciÃ³n del impacto de la extracciÃ³n intensiva en el acuÃ­fero del Golfo de UrabÃ¡ mediante modelaciÃ³n numÃ©rica en FloPy",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Andres Felipe DurÃ¡n Lascarro, Maria Paula Roa Archila",
+                                                 "email":  "paularoa2105@gmail.com",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "EvaluaciÃ³n del potencial de gas metano en mantos de carbÃ³n de Socha (BoyacÃ¡) como alternativa energÃ©tica, control de riesgos y mitigaciÃ³n de huella de carbono",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Laura M. MontaÃ±ez S. (Laura.montaÃ±ez@uptc.edu.co), Jorge Eliecer MariÃ±o Martinez (Jorge.marino@uptc.edu.co), Laura C. MontaÃ±a S. (Laura.montana03@uptc.edu.co), Julied A. Melo S. (julied.melo@uptc.edu.co)",
+                                                 "email":  "jorge.marino@uptc.edu.co",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "EvaluaciÃ³n integral a travÃ©s del sistema GTP para la articulaciÃ³n del componente hidrogeolÃ³gico en la planificaciÃ³n territorial de la cuenca alta del rÃ­o Chicamocha (BoyacÃ¡)",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Maria Alejandra Galvis NiÃ±o",
+                                                 "email":  "maria.galvis@uptc.edu.co",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "Gemelos digitales como insumo para la enseÃ±anza y divulgaciÃ³n de las geociencias",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Liseth Leal; Juan GarcÃ­a; David Inguilan; Holman DueÃ±as; Daniel Romero; Cristhian Cuadros; Juliana RodrÃ­guez; AngÃ©lica Alvarez; Sergio AndrÃ©s GarcÃ­a-Arias",
+                                                 "email":  "gaira.geo.uis@gmail.com",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "GeneraciÃ³n de registros sintÃ©ticos para la caracterizaciÃ³n petrofÃ­sica de pozos mediante Python",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Esteban Fonseca PÃ©rez; Gabriela Majthenyi Correa; Sophia Madiedo Cala",
+                                                 "email":  "sophiamadiedo.c@gmail.com",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "GeocronologÃ­a y caracterizaciÃ³n estructural de las milonitas asociadas al sistema de fallas Cauca-Romeral en el segmento norte del CaÃ±Ã³n del Cauca.",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Daniel Ortiz, SebastiÃ¡n Zapata, Laura CalderÃ³n, AgustÃ­n Cardona, Alejandra Bedoya",
+                                                 "email":  "danielale.ortiz@urosario.edu.co",
+                                                 "salon":  "B"
+                                             },
+                                             {
+                                                 "title":  "AnÃ¡lisis de la anomalÃ­a residual gravimÃ©trica en el valle de Sogamoso, BoyacÃ¡, Colombia",
+                                                 "authors":  "Samuel David Castellanos Toledo",
+                                                 "status":  "confirmado",
+                                                 "email":  "samuel.castellanos@uptc.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "Sistema Integral de Registro GeolÃ³gico en Campo como Herramienta de GeoeducaciÃ³n en IngenierÃ­a GeolÃ³gica",
+                                                 "authors":  "Giselle Camila Cordoba Orozco, Jose Eduardo Sotelo Suarez, Durlandy David Meza MejÃ­a",
+                                                 "status":  "confirmado",
+                                                 "salon":  "A",
+                                                 "email":  "gcordoba13@estudiantes.areandina.edu.co",
+                                                 "linea":  "TecnologÃ­a: SIG Â· ML Â· IA Â· Sensores Remotos"
+                                             },
+                                             {
+                                                 "title":  "Geopicnic: una estrategia participativa para la comunicaciÃ³n y divulgaciÃ³n de las geociencias",
+                                                 "authors":  "Andres Felipe Abaunza Jolianis",
+                                                 "status":  "pendiente",
+                                                 "salon":  "A",
+                                                 "email":  "sipg.uis@outlook.com"
+                                             },
+                                             {
+                                                 "title":  "Estrategia de geoeducaciÃ³n y apropiaciÃ³n del patrimonio geolÃ³gico en estudiantes de bÃ¡sica secundaria de CepitÃ¡, Santander",
+                                                 "authors":  "Jose Ferney Mantilla Silva; Cristian Bravo; Santiago Chavez Rivera; Juan Felipe Rojas GÃ³mez; Jorge Alexander PÃ©rez BermÃºdez",
+                                                 "status":  "pendiente",
+                                                 "salon":  "A",
+                                                 "email":  "sipg.uis@outlook.com"
+                                             },
+                                             {
+                                                 "title":  "GalerÃ­a Chicamocha: una experiencia didÃ¡ctica para la divulgaciÃ³n de la historia de la Tierra",
+                                                 "authors":  "Nicolle Dayanna Acosta Galindo; Maria Camila Rangel; Santiago Morales Rangel; Victoria Isaza Gamboa; Gabriel Salamanca Vargas",
+                                                 "status":  "pendiente",
+                                                 "salon":  "A",
+                                                 "email":  "sipg.uis@outlook.com"
+                                             },
+                                             {
+                                                 "title":  "Georuta lineal y geoeducaciÃ³n en el CaÃ±Ã³n del Chicamocha: una propuesta pedagÃ³gica para la apropiaciÃ³n del patrimonio geolÃ³gico en CepitÃ¡",
+                                                 "authors":  "Santiago Chavez Rivera; Felipe Rojas Rivera; JosÃ© Ferney Mantilla; Jorge Alexander PÃ©rez; Cristian Bravo",
+                                                 "status":  "pendiente",
+                                                 "salon":  "A",
+                                                 "email":  "sipg.uis@outlook.com"
+                                             },
+                                             {
+                                                 "title":  "DiseÃ±o de una georuta interpretativa en Los Santos como estrategia de divulgaciÃ³n de las geociencias",
+                                                 "authors":  "JosÃ© Manolo GÃ³mez Silva; Sharon Ximena Vargas Martinez; Valentina Zapata; Hernando GarcÃ­a",
+                                                 "status":  "pendiente",
+                                                 "salon":  "A",
+                                                 "email":  "sipg.uis@outlook.com"
+                                             },
+                                             {
+                                                 "title":  "Guardianes de las rocas y la vida: GeoeducaciÃ³n y divulgaciÃ³n cientÃ­fica con niÃ±os en la Ludoteca Municipal del Alto del Viento, Barichara, Santander",
+                                                 "authors":  "Lina Antares Tachai EchavarrÃ­a-Plata; Maria Camila Rangel; Nicolas Santamaria; Danna Katherine Acevedo Vargas",
+                                                 "status":  "pendiente",
+                                                 "salon":  "A",
+                                                 "email":  "sipg.uis@outlook.com"
+                                             }
+                                         ]
+                     },
+                     {
+                         "type":  "info",
+                         "time":  "18:00â€“19:00",
+                         "title":  "Salida Termales (mÃ¡x. 7:00 PM)",
+                         "category":  "cierre"
+                     }
+                 ]
     },
-    posters: {
-      counts: { confirmado: 72, parcial: 2, pendiente: 50 },
-      total: 124,
+    {
+        "id":  "jue",
+        "label":  "Jueves 20",
+        "sub":  "6 salas (maÃ±ana) Â· CM-3 y CM-4 Â· CE-4 a CE-6 Â· paneles Â· pÃ³sters PM Â· SGC todo el dÃ­a",
+        "desc":  "Actualizado jul-2026: ponencias en la maÃ±ana (3Ã—25 min por sala, 8:10â€“9:25) con CE-4 y CE-5 en paralelo; CM-3 a las 9:50; Panel de GestiÃ³n del Riesgo 11:00â€“12:30; GeologÃ­a en Vivo 2:00â€“3:00 PM; CM-4 y CE-6 en la tarde; pÃ³sters 5:10â€“6:20 PM (1 salÃ³n). SGC todo el dÃ­a en 1 salÃ³n de Bienestar.",
+        "rooms":  [
+                      "201",
+                      "202",
+                      "203",
+                      "204",
+                      "205",
+                      "206"
+                  ],
+        "themes":  {
+                       "201":  "Estructural Â· TectÃ³nica",
+                       "202":  "GeologÃ­a Regional Â· Magmatismo Â· Termal",
+                       "203":  "EstratigrafÃ­a Â· SedimentologÃ­a",
+                       "204":  "PetrologÃ­a MetamÃ³rfica e Ãgnea",
+                       "205":  "HidrogeologÃ­a Â· Geotecnia",
+                       "206":  "Historia GeolÃ³gica Â· PetrologÃ­a MetamÃ³rfica"
+                   },
+        "sgcColumn":  true,
+        "sgcHeader":  "SGC",
+        "rows":  [
+                     {
+                         "type":  "block",
+                         "time":  "8:10â€“9:40",
+                         "cells":  {
+                                       "201":  [
+                                                   {
+                                                       "title":  "EvoluciÃ³n tectono-paleogeogrÃ¡fica del basamento Meso-Neoproterozoico del norte de los Andes y MÃ©xico",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Jorge Luis Restrepo Echavarria, Mario Moreno SÃ¡nchez, Alexander Lemus Restrepo, Arley de JesÃºs GÃ³mez Cruz",
+                                                       "email":  "jorge.restrepo_e@ucaldas.edu.co",
+                                                       "note":  "TÃ­tulo emparejado por similitud (69%) con hoja maestra; revisar redacciÃ³n exacta. | Confirmado 23-jun (revisiÃ³n ampliada, criterio: autor/coautor inscrito sin requerir que declare este tÃ­tulo exacto) â€” Jorge Luis Restrepo Echavarria â€” ver CRONOGRAMA_CONFIRMADO_2026-06-23.md",
+                                                       "time":  "8:10â€“8:35"
+                                                   },
+                                                   {
+                                                       "title":  "SecciÃ³n estructural a escala 1:10.000 entre la Quebrada Chiracoca (Vereda Buenavista Parte Baja) â€“ Vereda Lobatica ChinÃ¡cota, sur de la cuenca del Catatumbo, Norte de Santander",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Paula Fernanda Leal PeÃ±a, Paula Valentina FlÃ³rez Rozo (Coautores: Alejandra MejÃ­a-Molina, Ilich Villamizar-Solano)",
+                                                       "email":  "paula.lealpau@unipamplona.edu.co",
+                                                       "note":  "InscripciÃ³n grupal (Combo Parche, 5 personas) confirmada el 2026-06-16 â€” Universidad de Pamplona. Postulado tambiÃ©n como pÃ³ster; el comitÃ© (Angela Ramos, coordinadora Univ. Pamplona) confirmÃ³ esta modalidad como PONENCIA el 17-jun-2026 â€” la copia de pÃ³ster fue retirada del cronograma.",
+                                                       "time":  "8:35â€“9:00"
+                                                   },
+                                                   {
+                                                       "title":  "EvoluciÃ³n de las cuencas de antearco en Ecuador: relaciÃ³n entre las cuencas sedimentarias en el onshore y en el offshore",
+                                                       "authors":  "MarÃ­a JosÃ© HernÃ¡ndez, FranÃ§ois Michaud, Elia d\u0027Acremont, Jean-Yves Collot, Jean-NoÃ«l Proust, Diego Barba",
+                                                       "email":  "maria.hernandez@epn.edu.ec",
+                                                       "linea":  "Estructural Â· TectÃ³nica",
+                                                       "status":  "confirmado",
+                                                       "time":  "9:00â€“9:25"
+                                                   }
+                                               ],
+                                       "202":  [
+                                                   {
+                                                       "title":  "EvoluciÃ³n magmÃ¡tica y relaciones estructurales del Complejo Quebradagrande en la regiÃ³n de Filadelfia (Dpto. Caldas)",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Daniela Molina, Eliana Botello, AgustÃ­n Cardona, Juan SebastiÃ¡n Jaramillo, Catalina Salgado, SebastiÃ¡n Zapata",
+                                                       "email":  "dmolinaa@unal.edu.co",
+                                                       "note":  "InscripciÃ³n formalizada por la universidad (UNAL). No se encontrÃ³ coincidencia en PONENTES/CORREOS PONENCIAS.xlsx â€” falta agregarlo a la hoja maestra.",
+                                                       "time":  "8:10â€“8:35"
+                                                   },
+                                                   {
+                                                       "title":  "CONFIGURACIÃ“N ESTRUCTURAL Y EVOLUCIÃ“N TERMOCINEMÃTICA DEL PIEDEMONTE DE LA SIERRA NEVADA DE EL COCUY, CORDILLERA ORIENTAL DE COLOMBIA",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Juan SebastiÃ¡n BohÃ³rquez Rozo, Juan Carlos RamÃ­rez Arias, Jairo Torres",
+                                                       "email":  "01210642017@mail.udes.edu.co",
+                                                       "time":  "8:35â€“9:00"
+                                                   },
+                                                   {
+                                                       "title":  "EVALUACIÃ“N DEL EFECTO TERMAL ASOCIADO A LA ZONA DE SUBDUCCIÃ“N DE LA PLACA CARIBE EN LA EXPRESIÃ“N TERMOCRONOLÃ“GICA DE LA SIERRA NEVADA DE SANTA MARTA",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Catalina FlÃ³rez PabÃ³n, Yasmin Pelayo Serrano, Juan Carlos RamÃ­rez Arias",
+                                                       "email":  "buc21641001@mail.udes.edu.co",
+                                                       "time":  "9:00â€“9:25"
+                                                   }
+                                               ],
+                                       "203":  [
+                                                   {
+                                                       "title":  "EstratigrafÃ­a integrada de la transiciÃ³n Barremiano-Aptiano en Villanueva (Santander): implicaciones del registro del Evento AnÃ³xico OceÃ¡nico-1a (EAO1a) en la Cordillera Oriental",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Cantillo de la Hoz, Jose Maria; PÃ¡ez Reyes, Manuel Arnulfo; Gaona NarvÃ¡ez, Tatiana",
+                                                       "note":  "Posible duplicado en el cronograma (verificar). Duplicado 1/2 â€” mismo tÃ­tulo repetido a las 14:30. ComitÃ© debe definir versiÃ³n oficial (autores: Cantillo de la Hoz / PÃ¡ez Reyes et al.). No se encontrÃ³ coincidencia en PONENTES/CORREOS PONENCIAS.xlsx â€” falta agregarlo a la hoja maestra. | Confirmado 23-jun: JosÃ© MarÃ­a Cantillo de la Hoz inscrito como contacto â€” duplicado de fila pendiente de resolver con el comitÃ©, ver CRONOGRAMA_CONFIRMADO_2026-06-23.md",
+                                                       "email":  "jcantillo@unal.edu.co",
+                                                       "time":  "8:10â€“8:35"
+                                                   },
+                                                   {
+                                                       "title":  "Usando geoquÃ­mica en rocas detrÃ­ticas para trazar Ã¡reas fuente de composiciones mÃ¡ficas y ultramÃ¡ficas",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Ana MarÃ­a Valencia LondoÃ±o, GermÃ¡n Bayona, SebastiÃ¡n Zapata, AgustÃ­n Cardona, AnamarÃ­a Vera GonzÃ¡lez, Felipe Granados, Jhonatan Tovar, Felipe Morales",
+                                                       "email":  "anvalencial@unal.edu.co",
+                                                       "note":  "InscripciÃ³n formalizada por la universidad (UNAL). TÃ­tulo emparejado por similitud (73%) con hoja maestra; revisar redacciÃ³n exacta.",
+                                                       "time":  "8:35â€“9:00"
+                                                   },
+                                                   {
+                                                       "title":  "EvoluciÃ³n tectonoestratigrÃ¡fica NeÃ³gena de la Cordillera Occidental (1Â°â€“4Â° N).",
+                                                       "status":  "parcial",
+                                                       "authors":  "SebastiÃ¡n Echeverri, AndrÃ©s Pardo-Trujillo, SebastiÃ¡n Zapata, Sergio A. Celis, Ãngel Barbosa-Espitia, MÃ³nica Carvalho",
+                                                       "email":  "jecheverrisa@unal.edu.co",
+                                                       "note":  "Confirmado 23-jun (revisiÃ³n ampliada, criterio: autor/coautor inscrito sin requerir que declare este tÃ­tulo exacto) â€” Sebastian Zapata Henao â€” ver CRONOGRAMA_CONFIRMADO_2026-06-23.md",
+                                                       "time":  "9:00â€“9:25"
+                                                   }
+                                               ],
+                                       "204":  [
+                                                   {
+                                                       "title":  "CaracterizaciÃ³n estructural de los basamentos Permo-TriÃ¡sicos del norte de la Cordillera Central: implicaciones tectÃ³nicas",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Maria Alejandra Parra Maldonado, SebastiÃ¡n Zapata, Laura CalderÃ³n Diaz, AgustÃ­n Cardona, Alejandra Bedoya",
+                                                       "email":  "mariaalejandr.parra@urosario.edu.co",
+                                                       "note":  "InscripciÃ³n formalizada por la universidad (Rosario). No se encontrÃ³ coincidencia en PONENTES/CORREOS PONENCIAS.xlsx â€” falta agregarlo a la hoja maestra.",
+                                                       "time":  "8:10â€“8:35"
+                                                   },
+                                                   {
+                                                       "title":  "Metamorfismo de muy bajo grado en el registro volcano-sedimentario CretÃ¡cico del flanco occidental de la Cordillera Central colombiana.",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Paulina MuÃ±oz Duque, AgustÃ­n Cardona Molina, SebastiÃ¡n Zapata Henao, Klaus Wemmer, Catalina Salgado Olascuaga, David PatiÃ±o Valencia",
+                                                       "email":  "pmunozdu@unal.edu.co",
+                                                       "note":  "Contacto Paulina MuÃ±oz con inscripciÃ³n formalizada por su universidad (UNAL).",
+                                                       "time":  "8:35â€“9:00"
+                                                   },
+                                                   {
+                                                       "title":  "EvaluaciÃ³n de los protolitos y el metamorfismo de los Esquistos de Sabaletas en Armenia Mantequilla (Dpto. Caldas)",
+                                                       "authors":  "Catalina Salgado, AgustÃ­n Cardona, David PatiÃ±o, JuliÃ¡n Parra, Juan Pablo Zapata, Juan SebastiÃ¡n Jaramillo, Paulina MuÃ±oz, Daniela Molina, SebastiÃ¡n Zapata",
+                                                       "email":  "csalgadoo@unal.edu.co",
+                                                       "linea":  "PetrologÃ­a MetamÃ³rfica Â· GeocronologÃ­a",
+                                                       "status":  "confirmado",
+                                                       "time":  "9:00â€“9:25"
+                                                   }
+                                               ],
+                                       "205":  [
+                                                   {
+                                                       "title":  "RelaciÃ³n entre la mineralogÃ­a de arcillas, la expansiÃ³n de suelos y la ocurrencia de deslizamientos en Colombia",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Juan Esteban Cabarcas Fajardo",
+                                                       "email":  "jcabarcasfajardo@gmail.com",
+                                                       "note":  "Confirmado 23-jun (revisiÃ³n ampliada, criterio: autor/coautor inscrito sin requerir que declare este tÃ­tulo exacto) â€” Juan Esteban Cabarcas Fajardo â€” ver CRONOGRAMA_CONFIRMADO_2026-06-23.md",
+                                                       "time":  "8:10â€“8:35"
+                                                   },
+                                                   {
+                                                       "title":  "CaracterizaciÃ³n geomecÃ¡nica multiescala de Bimrocks, ladera oriental del Valle de AburrÃ¡",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Sara Castro Ortiz, Juan Esteban FlÃ³rez Rueda, Juan Esteban PabÃ³n Cruz, Diego Armando RendÃ³n Giraldo, SebastiÃ¡n SÃ¡nchez Gil",
+                                                       "email":  "scastroo@unal.edu.co",
+                                                       "time":  "8:35â€“9:00"
+                                                   },
+                                                   {
+                                                       "title":  "PredicciÃ³n de la Respuesta Carga-Asentamiento en Cimentaciones Corridas sobre Arena usando el MÃ©todo de Elementos Finitos y Machine Learning",
+                                                       "authors":  "Felipe Tiria Castro, Daniel Esteban GalÃ¡n Palacios, Deibyd Yesid Rosas Mesa, Danny Jose Useche Infante",
+                                                       "email":  "felipe.tiria01@uptc.edu.co",
+                                                       "linea":  "HidrogeologÃ­a Â· Geotecnia",
+                                                       "status":  "confirmado",
+                                                       "time":  "9:00â€“9:25"
+                                                   }
+                                               ],
+                                       "206":  [
+                                                   {
+                                                       "title":  "Territorios del Tiempo Profundo: integraciÃ³n del patrimonio geolÃ³gico, fÃ³sil y minero en la Cuenca Cesar-RancherÃ­a",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Laura Lucia Ospina OrdÃ³Ã±ez, Karen Lorena Payares Carrasco",
+                                                       "email":  "kpayares4@estudiantes.areandina.edu.co",
+                                                       "note":  "InscripciÃ³n formalizada por la universidad (Areandina). TÃ­tulo emparejado por similitud (74%) con hoja maestra; revisar redacciÃ³n exacta.",
+                                                       "time":  "8:10â€“8:35"
+                                                   },
+                                                   {
+                                                       "title":  "Protolitos y metamorfismo de las rocas de afinidad ofiolÃ­tica del Occidente de la Cordillera Central en San BartolomÃ©",
+                                                       "authors":  "Edward SebastiÃ¡n Mora Torres, AgustÃ­n Cardona Molina, Juan SebastiÃ¡n Jaramillo, Juan Pablo Zapata",
+                                                       "email":  "emorat@unal.edu.co",
+                                                       "linea":  "PetrologÃ­a MetamÃ³rfica Â· GeocronologÃ­a",
+                                                       "status":  "confirmado",
+                                                       "time":  "8:35â€“9:00"
+                                                   },
+                                                   {
+                                                       "title":  "Registro Volcano-EstratigrÃ¡fico de la FormaciÃ³n SaldaÃ±a en el Alto de Natagaima, Valle Superior del Magdalena",
+                                                       "authors":  "Kevin Santiago MontaÃ±ez Valencia, SebastiÃ¡n Zapata Henao, Juan SebastiÃ¡n Jaramillo RÃ­os, Manuela Botero, Daniel Alejandro Ortiz RÃ­os, MÃ³nica Carvalho, Robert Holder",
+                                                       "email":  "kevin.montanez@urosario.edu.co",
+                                                       "linea":  "EstratigrafÃ­a y SedimentologÃ­a",
+                                                       "status":  "confirmado",
+                                                       "time":  "9:00â€“9:25"
+                                                   }
+                                               ]
+                                   },
+                         "auditorio":  {
+                                           "cms":  [
+                                                       {
+                                                           "code":  "CE-4",
+                                                           "time":  "8:10â€“8:50",
+                                                           "title":  "La otra falla geolÃ³gica: nuestra relaciÃ³n con las comunidades y el ingreso a territorio",
+                                                           "speaker":  "CÃ©sar OtÃ¡lvaro",
+                                                           "org":  "Universidad Nacional"
+                                                       },
+                                                       {
+                                                           "code":  "CE-5",
+                                                           "time":  "9:00â€“9:40",
+                                                           "title":  "Servicio GeolÃ³gico Colombiano",
+                                                           "speaker":  "Por confirmar",
+                                                           "org":  "SGC",
+                                                           "note":  "Tema y ponente por confirmar â€” SGC."
+                                                       }
+                                                   ]
+                                       },
+                         "sgc":  "start",
+                         "sgcSpan":  4,
+                         "sgcTitle":  "SGC",
+                         "sgcDesc":  "Servicio GeolÃ³gico Colombiano â€” programaciÃ³n propia, 1 salÃ³n de Bienestar"
+                     },
+                     {
+                         "type":  "block",
+                         "time":  "9:50â€“10:30",
+                         "auditorio":  {
+                                           "cms":  [
+                                                       {
+                                                           "code":  "CM-3",
+                                                           "time":  "9:50â€“10:30",
+                                                           "title":  "Artificial Intelligence and Seismic Networks in the Ecuador-Colombia Subduction Zone",
+                                                           "speaker":  "Alexander Wickham-Piotrowski",
+                                                           "org":  "Institut de France"
+                                                       }
+                                                   ]
+                                       },
+                         "cells":  null,
+                         "altBlock":  {
+                                          "time":  "",
+                                          "title":  "Charla magistral en el auditorio",
+                                          "sub":  "Asistencia general â€” sin ponencias en salones"
+                                      },
+                         "sgc":  "continue"
+                     },
+                     {
+                         "type":  "info",
+                         "time":  "10:30â€“11:00",
+                         "title":  "Break (entrega tercer refrigerio)",
+                         "category":  "break",
+                         "sgc":  "continue"
+                     },
+                     {
+                         "type":  "panel",
+                         "time":  "11:00â€“12:30",
+                         "title":  "Panel - GestiÃ³n del Riesgo",
+                         "note":  "Panel de DiscusiÃ³n",
+                         "sgc":  "continue"
+                     },
+                     {
+                         "type":  "info",
+                         "time":  "12:30â€“14:00",
+                         "title":  "Almuerzo",
+                         "category":  "almuerzo"
+                     },
+                     {
+                         "type":  "panel",
+                         "time":  "14:00â€“15:00",
+                         "title":  "GeologÃ­a en Vivo: Dos Expertos, Un Viaje al CorazÃ³n de la Tierra",
+                         "note":  "Italo Reyes Â· Mauricio Reyes",
+                         "sgc":  "start",
+                         "sgcSpan":  6,
+                         "sgcTitle":  "SGC",
+                         "sgcDesc":  "Servicio GeolÃ³gico Colombiano â€” programaciÃ³n propia, 1 salÃ³n de Bienestar"
+                     },
+                     {
+                         "type":  "info",
+                         "time":  "15:00â€“15:30",
+                         "title":  "Break (entrega cuarto refrigerio)",
+                         "category":  "break",
+                         "sgc":  "continue"
+                     },
+                     {
+                         "type":  "block",
+                         "time":  "15:30â€“16:10",
+                         "auditorio":  {
+                                           "cms":  [
+                                                       {
+                                                           "code":  "CM-4",
+                                                           "time":  "15:30â€“16:10",
+                                                           "title":  "La temperatura: un factor subestimado en la interpretaciÃ³n estructural",
+                                                           "speaker":  "Eduardo Rossello",
+                                                           "org":  "Servicio GeolÃ³gico Argentina"
+                                                       }
+                                                   ]
+                                       },
+                         "cells":  null,
+                         "altBlock":  {
+                                          "time":  "",
+                                          "title":  "Charla magistral en el auditorio",
+                                          "sub":  "Asistencia general â€” sin ponencias en salones"
+                                      },
+                         "sgc":  "continue"
+                     },
+                     {
+                         "type":  "block",
+                         "time":  "16:10â€“17:00",
+                         "auditorio":  {
+                                           "cms":  [
+                                                       {
+                                                           "code":  "CE-6",
+                                                           "time":  "16:10â€“17:00",
+                                                           "title":  "Elementos para entender el fracking en Colombia",
+                                                           "speaker":  "Jaime Checa",
+                                                           "org":  "ACGGP"
+                                                       }
+                                                   ]
+                                       },
+                         "cells":  null,
+                         "altBlock":  {
+                                          "time":  "",
+                                          "title":  "Charla especial en el auditorio",
+                                          "sub":  "Asistencia general â€” sin ponencias en salones"
+                                      },
+                         "sgc":  "continue"
+                     },
+                     {
+                         "type":  "block",
+                         "time":  "17:10â€“18:20",
+                         "cells":  null,
+                         "auditorio":  null,
+                         "posterBatch":  [
+                                             {
+                                                 "title":  "GeoeducaciÃ³n y divulgaciÃ³n de las geociencias: una revisiÃ³n sistemÃ¡tica de enfoques y metodologÃ­as",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Aldo Molano",
+                                                 "email":  "aldojulian15@gmail.com",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "GeologÃ­a que transforma: educaciÃ³n y claridad para un territorio consciente",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Cristian Santiago Benavides Burgos, Camila Alejandra RodrÃ­guez, Yessika Aristizabal, David Andres Timaran.",
+                                                 "email":  "cristian.benavides28737@ucaldas.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "HidroVetas: ComparaciÃ³n de los Sistemas GeotÃ©rmicos de Paipa, Vetas y MÃ¡laga como Potencial EstratÃ©gico para la TransiciÃ³n EnergÃ©tica en Colombia",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Laura Valentina Solis Narvaez y Rafael Camilo Venecia Ardila",
+                                                 "email":  "lsolisn@unal.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "HidrogeodÃ­a 2026: comunidad, ciencia y recurso hÃ­drico",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Manuel GonzÃ¡lez RodrÃ­guez y Silvia Alejandra Vargas Cano",
+                                                 "email":  "silvialeja04canovargas@gmail.com",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "Historia de exhumaciÃ³n del PlutÃ³n de Pance y Danubio: implicaciones para la historia de deformaciÃ³n Miocena de la cordillera occidental de Colombia.",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Lina MarÃ­a MogollÃ³n GÃ³mez, Natalia Gonzalez Rojas",
+                                                 "email":  "nataliagonzalezrojas23@gmail.com",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "IdentificaciÃ³n Automatizada de Formaciones GeolÃ³gicas Aptas para Almacenamiento de COâ‚‚ Mediante Machine Learning Usando Registros de Pozo de Acceso Abierto",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Oscar Andres Mendoza Gonzalez, Esteban Alejandro Huertas Huertas",
+                                                 "email":  "omendozag@unal.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "IdentificaciÃ³n de Zonas Potenciales de Recarga de AcuÃ­feros en la Mesa de los Santos, Santander",
+                                                 "status":  "confirmado",
+                                                 "authors":  "MarÃ­a Juliana ChacÃ³n Porras, \n  Johan Enrique PÃ¡ez Romero, \n  Sergio AndrÃ©s GarcÃ­a Arias, \n  MarÃ­a Alejandra Cetina Tarazona",
+                                                 "email":  "parrajoan2004@gmail.com",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "IdentificaciÃ³n de zonas con potencial de generaciÃ³n de hidrÃ³geno natural mediante anÃ¡lisis multicriterio en SIG en el sector centro-sur del departamento de NariÃ±o, Colombia",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Valeria Vargas Velandia; David Alejandro Prada Tinoco",
+                                                 "email":  "valeriavargasvelandia@gmail.com",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "IdentificaciÃ³n de zonas potenciales de recarga de acuÃ­feros en la cuenca del rÃ­o Fonce, Santander, implementando la GuÃ­a MetodolÃ³gica para la IdentificaciÃ³n de Zonas Potenciales de Recarga de AcuÃ­feros para la gestiÃ³n hÃ­drica territorial.",
+                                                 "status":  "confirmado",
+                                                 "authors":  "David Blanco Quiroga y Oscar Esteban Fonseca PÃ©rez",
+                                                 "email":  "dbquiroga10@gmail.com",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "IntegraciÃ³n de fotogrametrÃ­a y modelado 3D para la comprensiÃ³n y el anÃ¡lisis de la geologÃ­a estructural",
+                                                 "status":  "confirmado",
+                                                 "authors":  "AngÃ©lica MarÃ­a Cappacho Alvarez - ThomÃ¡s Leopoldo QuiÃ±onez Pineda",
+                                                 "email":  "angelicacappacho@gmail.com",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "Litoestratigrafia y petrogafÃ­a de las rocas de afinidad ofiolitica en la Quebrada la Honda (Filadelfia, Caldas): origen y correlaciones tectÃ³nicas.",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Julian Parra, Alejandra Bedoya, Eliana Botello, AgustÃ­n Cardona, Juan Pablo Zapata.",
+                                                 "email":  "jparrava@unal.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "MetodologÃ­a para la separaciÃ³n de minerales densos y circones detrÃ­ticos en arenas, aplicada a estudios de procedencia sedimentaria",
+                                                 "status":  "confirmado",
+                                                 "authors":  "SalomÃ© LÃ³pez, Valentina Agudelo, Jesmy MartÃ­nez, MarÃ­a Isabel Sierra",
+                                                 "email":  "m.sierrarojas@uniandes.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "MÂ¿QuÃ© nos dicen los fÃ³siles de Miraflores? Una nueva localidad del CretÃ¡cico Inferior en BoyacÃ¡",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Sergio IvÃ¡n Sarmiento RomeroÂ¹*; Cristian AndrÃ©s MartÃ­nez AraqueÂ¹",
+                                                 "email":  "sergio.sarmiento01@uptc.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "PEGMATITAS COLOMBIANAS COMO FUENTE DE TIERRAS RARAS (REE) Y MINERALES ESTRATÃ‰GICOS: CARACTERIZACIÃ“N GEOQUÃMICA DEL COMPLEJO DE MITÃš Y EL COMPLEJO ULTRAMÃFICO DE BOLÃVAR.",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Angie Roshel PabÃ³n Soler",
+                                                 "email":  "apabons@unal.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "Paleoambientes sedimentarios generales de las â€œSedimentitas de Ladrillerosâ€ (Mioceno) en el sector de Ladrilleros (Buenaventura, Valle del Cauca)",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Carlos Alberto GuzmÃ¡n LÃ³pez",
+                                                 "email":  "carlosguzman@ucaldas.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "Patrimonio GeolÃ³gico del Departamento del Cesar: Un Recurso para la ConservaciÃ³n y el Desarrollo Sostenible",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Luis Fernando Molina Contreras, Luis Pablo Pacheco Gerardino",
+                                                 "email":  "lmolina47@estudiantes.areandina.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "PetrogÃ©nesis y evoluciÃ³n de productos volcÃ¡nicos y subvolcÃ¡nicos bÃ¡sicos e intermedios de edad miocena asociados al Complejo VolcÃ¡nico de Combia mediante el uso de petrografÃ­a, quÃ­mica mineral y geoquÃ­mica de roca total",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Jank Carlos Rosero Otalvaro\n  Santiago NicolÃ¡s LÃ³pez Bravo\n  Danna Julieth Reyes Escobar",
+                                                 "email":  "jroseroo@unal.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "PetrologÃ­a y GeoquÃ­mica orgÃ¡nica de los carbones de la FormaciÃ³n AmagÃ¡ aflorantes en el Ã¡rea QuinchÃ­a-Riosucio y su potencial de generaciÃ³n de hidrocarburos.",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Luisa MarÃ­a GÃ³mez Oliveros",
+                                                 "email":  "luisa.gomez9479@gmail.com",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "REVISIÃ“N PRELIMINAR DE LAS ESTRUCTURAS SEDIMENTARIAS BIOGÃ‰NICAS (ICNOLOGÃA) DE LA FORMACIÃ“N TIBASOSA â€“ CRETÃCICO INFERIOR DE BOYACÃ COLOMBIA. SECCIÃ“N VÃA DUITAMA â€“ NOBSA.",
+                                                 "status":  "confirmado",
+                                                 "authors":  "MIGUEL ÃNGEL FRANCO MORENO*, NATALIA LUCIA ZAQUE ESCOBAR, ALEXANDER LEMUS RESTREPO",
+                                                 "email":  "miguel.franco29375@ucaldas.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "Relaciones entre Velocidades SÃ­smicas y Resistividad ElÃ©ctrica en el Subsuelo Somero mediante RefracciÃ³n SÃ­smica, MASW y TomografÃ­a ElÃ©ctrica",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Narayana Rishi Salazar Vega, Dr. Francisco Gamboa Ortega, David AndrÃ©s FlÃ³rez Rojas",
+                                                 "email":  "narisave29@gmail.com",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "RelaciÃ³n de mineralizaciones tipo pÃ³rfido con la Brecha Apollo - CartografÃ­a geolÃ³gica en el Proyecto Guayabales - Collective Mining",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Mario AndrÃ©s CastaÃ±o Castro, Marcelo Arango Trujillo, Valery Casallas HernÃ¡ndez, SebastiÃ¡n GutiÃ©rrez SÃ¡nchez, SebastiÃ¡n Arenas Naranjo, Juan Daniel Burbano Salazar, Alex JuliÃ¡n Insuasty EspaÃ±a",
+                                                 "email":  "seg_uc@ucaldas.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "Saberes de piedra y camino: diÃ¡logo entre la geologÃ­a y la memoria del CaÃ±Ã³n del Chicamocha en los Caminos Reales",
+                                                 "status":  "confirmado",
+                                                 "authors":  "MarÃ­a Gabriela Sanabria Murgas, Lady Johanna RÃ­os Guerrero \n  Semillero de InvestigaciÃ³n en PetrologÃ­a (SEPET) â€“ Escuela de GeologÃ­a, Universidad Industrial de Santander",
+                                                 "email":  "sanabriamariagabriela@gmail.com",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "SecciÃ³n EstratigrÃ¡fica de la FormaciÃ³n La Luna a escala 1:100 de La Quebrada La Marta, Salazar de la Palmas - Norte de Santander - Sur de la Cuenca del Catatumbo",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Autores: Daniela Diaz-Ariza, Gabriela Chavarro-Morales Coautores: Alejandra MejÃ­a-Molina, Ilich Villamizar-Solano y Jhan Contreras-Leal",
+                                                 "email":  "daniela.diazdan@unipamplona.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "ZonificaciÃ³n de la susceptibilidad ante movimientos en masa e inundaciones en la microcuenca La Patilla (Salazar de las Palmas, Norte de Santander) mediante anÃ¡lisis multitemporal y componentes fÃ­sicos",
+                                                 "status":  "confirmado",
+                                                 "authors":  "MARIA JOSE GARAY PAEZ",
+                                                 "email":  "majostar720@gmail.com",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "ZonificaciÃ³n de susceptibilidad por movimientos en masa en la zona rural de la cuenca alta del rÃ­o Manaure (Cesar)",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Karoll Viviana Ãvila RincÃ³n\n  JesÃºs Manuel VizcaÃ­no Martinez \n  Luis Carlos tapia vela",
+                                                 "email":  "jvizcaino4@estudiantes.areandina.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "ZonificaciÃ³n preliminar de amenaza por movimientos en masa en la cuenca de la quebrada Minas del Vapor, Puerto BerrÃ­o, Antioquia.",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Jhassai Sharith Epiayu Corrales, MarÃ­a Camila Perdomo Geney, Emanuel AndrÃ©s CÃ¡ceres Aroca",
+                                                 "email":  "jepiayu@estudiantes.areandina.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "â€œMi libro secreto de la Tierraâ€: Estrategia de GeoeducaciÃ³n para la EnseÃ±anza de las Geociencias y su ApropiaciÃ³n Social en la Infancia",
+                                                 "status":  "confirmado",
+                                                 "authors":  "Giselle Cordoba, Gabriela Florez, Samuel Ospino, William Ruiz, Jose Sotelo",
+                                                 "email":  "gcordoba13@estudiantes.areandina.edu.co",
+                                                 "salon":  "A"
+                                             },
+                                             {
+                                                 "title":  "ANÃLISIS COMPARATIVO DE ANÃLOGOS DE SISTEMAS VULCANOâ€‘SEDIMENTARIOS ENTRE MARTE Y LA TIERRA",
+                                                 "authors":  "Santiago Baruch Rojas GarcÃ­a, Juan Carlos RamÃ­rez Arias, Yasmin Pelayo Serrano",
+                                                 "email":  "Buc21641032@mail.udes.edu.co",
+                                                 "salon":  "A",
+                                                 "status":  "pendiente"
+                                             },
+                                             {
+                                                 "title":  "GEOLOGÃA, ANÃLISIS ESTRUCTURAL Y CARACTERIZACIÃ“N MINERALÃ“GICA DEL RESGUARDO INDÃGENA ESCOPETERA Y PIRZA (RISARALDAâ€‘CALDAS) EN COLOMBIA: UNA HERRAMIENTA TÃ‰CNICA PARA LA GESTIÃ“N TERRITORIAL",
+                                                 "authors":  "Karen Victoria Melchor PinzÃ³n, Yasmin Pelayo Serrano, Juan Carlos RamÃ­rez Arias",
+                                                 "email":  "01210642018@mail.udes.edu.co",
+                                                 "salon":  "A",
+                                                 "status":  "pendiente"
+                                             },
+                                             {
+                                                 "code":  "P-077",
+                                                 "title":  "CARACTERIZACIÃ“N Y ANÃLISIS CINEMÃTICO DE FRACTURAS DEL BLOQUE ORIENTAL DE LA FALLA DE BUCARAMANGA EN EL FLANCO NORORIENTAL DEL SINCLINAL DE FLORESTA",
+                                                 "authors":  "Jaider Pradilla Quintero; Juan Carlos RamÃ­rez Arias; YasmÃ­n Pelayo Serrano",
+                                                 "email":  "jaiderpra@gmail.com",
+                                                 "linea":  "Estructural y GeologÃ­a Regional",
+                                                 "salon":  "A",
+                                                 "status":  "confirmado",
+                                                 "note":  "Contacto real registrado (jaiderpra@gmail.com, 2026-07-02); el correo institucional que traia el cronograma no esta inscrito. Titulo del formulario: \"...entre Curos y El Roble\" (ligera variacion de redaccion)."
+                                             }
+                                         ],
+                         "sgc":  "continue"
+                     },
+                     {
+                         "type":  "info",
+                         "time":  "19:00â€“",
+                         "title":  "Canelazo (cierre)",
+                         "category":  "cierre",
+                         "sgc":  "continue"
+                     }
+                 ]
     },
-    cmTotal: 16,
-    cmConfirmadas: 11,
-    cmPorConfirmar: 5,
-    panelTotal: 2,
-  },
-  {
-    id: 'mie',
-    label: 'Miércoles 19',
-    rooms: ['201', '202', '203', '204', '205', '206'],
-    sub: '201 Geoamenazas · 202 Geofísica · 204 Paleontología · 205 Minerales (4 salas activas)',
-    desc: 'Reestructurado 26-jun-2026 a partir de PROGRAMACION SEMANA TECNICA.xlsx: pósters únicos de la semana (mañana, en paralelo a Geolimpiadas); 2 bloques de charlas magistrales pareadas (CM-1/2 y CM-3/4) en paralelo a 2 bloques de 4x20min de ponencias.',
-    themes: {
-      '201': 'Geoamenazas · GRD · Geodivulgación',
-      '202': 'Geofísica · Tecnología · IA Aplicada',
-      '203': 'Mineralogía · Petrología Ígnea · Geoquímica',
-      '204': 'Paleontología · Geopatrimonio · Geoarqueología',
-      '205': 'Estratigrafía · Sedimentología · Source-to-Sink',
-      '206': 'Geoeducación · Tecnología Geológica',
-    },
-    rows: [
-      {
-        type: 'info',
-        time: '8:00–9:00',
-        title: 'Registro (entrega primer refrigerio)',
-        category: 'registro',
-      },
-      {
-        type: 'info',
-        time: '9:00–10:00',
-        title: 'Bienvenida y apertura del evento',
-        category: 'apertura',
-      },
-      {
-        type: 'block',
-        time: '10:00–12:30',
-        title: 'Geolimpiadas (en paralelo) + Pósters',
-        auditorio: null,
-        posterBatch: [
-          {
-            title:
-              'ANÁLISIS SEDIMENTOLÓGICO DE LAS EOLIANITAS CUATERNARIAS (?) DE LA ALTA GUAJIRA (SECTOR ARCOIRIS-PILÓN DE AZÚCAR) Y SU RELACIÓN CON EL PALEOCLIMA',
-            status: 'confirmado',
-            authors: 'Valentina Espinel Arias y Carlos Alberto Guzmán López',
-            salon: 'A',
-          },
-          {
-            title:
-              'ANÁLISIS SEDIMENTOLÓGICO PRELIMINAR DE LOS DEPÓSITOS LACUSTRES EN LA LAGUNA LOS ORTICES, SANTANDER, COLOMBIA',
-            status: 'confirmado',
-            authors:
-              'Nicolas Santamaria Jaimes, Edward Duarte, Juan Felipe Franco, Jaime Escobar, Diego Suescun Carvajal, Marly Karina Garcia, Giovanny Jimenez, Victoria Mousalli',
-            salon: 'A',
-          },
-          {
-            title:
-              'Almacenamiento de hidrógeno blanco en unidades clásticas asociadas a rocas serpentinizadas en el flanco occidental de la Cordillera Central: Influencia de la mineralogía, la materia orgánica y condiciones termodinámicas.',
-            status: 'confirmado',
-            authors:
-              'Mayerly Alejandra Ariza Caro, Sebastián Zapata Henao, Agustín Cardona Molina, German A. Bayona, Juan David Guzman',
-            salon: 'A',
-          },
-          {
-            title:
-              'Análisis Morfológico y Paleoambiental de Crustáceos Fósiles en Los Santos y Guane, Santander',
-            status: 'confirmado',
-            authors: 'Eimy Valentina Quintana Mantilla',
-            salon: 'A',
-          },
-          {
-            title:
-              'Análisis Preliminar de la Sismicidad Inducida por el Embalse Topocoro, Hidroeléctrica Sogamoso, Santander, Colombia (2005–2017)',
-            status: 'confirmado',
-            authors: 'Maria Gabriela Sanabria Murgas',
-            salon: 'A',
-          },
-          {
-            title:
-              'Análisis comparativo de mapas composicionales antes y después de la inyección de CO₂ en rocas almacenadoras',
-            status: 'confirmado',
-            authors:
-              'Astrid Yuliana Echavarria Carmona \n  Samanta Gomez Lopez',
-            salon: 'A',
-          },
-          {
-            title:
-              'Análisis de anomalías radioactivas asociadas a mineralizaciones secundarias en el distrito aurífero de Vetas–California',
-            status: 'confirmado',
-            authors: 'Brayan Alejandro Cujaban Salamanca, Santiago Useche Luna',
-            salon: 'A',
-          },
-          {
-            title:
-              'Análisis de carbonatación mineral ex situ a escala nanométrica en rocas ultramáficas',
-            status: 'confirmado',
-            authors: 'Rashed Torres; Ana Roldán; Cesar Vinasco',
-            salon: 'A',
-          },
-          {
-            title:
-              'Análisis de geometrías de adquisición de Tomografia 3D para la caracterización del subsuelo superficial',
-            status: 'confirmado',
-            authors:
-              'Karen Gabriela Barragan Riveros, Maria Paula Bohórquez, Paul Goyes Peñafiel',
-            salon: 'A',
-          },
-          {
-            title:
-              'Análisis de subsidencia en la Sabana de Bogotá entre 2017 y 2025 mediante interferometría SAR',
-            status: 'confirmado',
-            authors:
-              'Thomás Leopoldo Quiñonez Pineda, Laura Marcela Céspedes Gómez, Angie Katherine González Calderón',
-            salon: 'A',
-          },
-          {
-            title:
-              'Análisis del efecto textural en propiedades petrofísicas de rocas almacenadoras de CO₂ mediante elipsoides de forma derivada de fotografía convencional.',
-            status: 'confirmado',
-            authors:
-              'Leidy Estefania Cadavid Arango, Sairandelly Gil Martínez, Camila Goez Osorio, Astrid Yuliana Echavarría Carmona, Carlos Andrés Muñoz Arrieta',
-            salon: 'A',
-          },
-          {
-            title:
-              'Análisis e interpretación de la génesis y el emplazamiento de la mineralización aurífera mediante cartografía geológica a escala 1:10.000 en Minas del Vapor, Buenos Aires, El Brasil y La Palmera (Antioquia, Colombia)',
-            status: 'confirmado',
-            authors:
-              'Juan David Calderon Nieves, Yhostik Guillermo Gomez Galarza, Wilmar David Montero Figueroa, Laura Lucia Ospina Ordoñez, Karen Lorena Payares Carrasco',
-            salon: 'A',
-          },
-          {
-            title:
-              'Análisis estructural de las litologías aflorantes entre La Lejía y Alto La Laguna, Pamplona, Norte de Santander, Colombia',
-            status: 'confirmado',
-            authors: 'Britney Perez-Varela y Ilich Villamizar-Solano',
-            salon: 'A',
-          },
-          {
-            title:
-              'Aprendizaje profundo guiado por la física para la inversión no supervisada de datos de resistividad eléctrica 1D',
-            status: 'confirmado',
-            authors:
-              'Adrian Alvercy Perez Montejo; Yesid Paul Goyes Peñafiel; Sait Khurama-Velásquez',
-            salon: 'A',
-          },
-          {
-            title:
-              'CARACTERIZACIÓN GEOMECÁNICA Y EVALUACIÓN DE LA POSIBILIDAD GEOMÉTRICA DE FALLA DEL MACIZO ROCOSO EN LA FORMACIÓN LA LUNA, VEREDAS VALDERRAMA Y TEHERÁN, GRAMALOTE, NORTE DE SANTANDER',
-            status: 'confirmado',
-            authors:
-              'Brayan Steven Rodríguez Rincón; Ilich Sebastián Villamizar Solano, María Jose Garay Paez; Jhan Carlos Contreras Leal',
-            salon: 'A',
-          },
-          {
-            title:
-              'CUMBAL: AGUA Y SALUD. Caracterización hidrotermal superficial y análisis geoquímico de aguas asociadas al complejo volcánico Cumbal-Chiles (Nariño, Colombia)',
-            status: 'confirmado',
-            authors:
-              'Angy Emilsen Chinguad Tapie \n  Daniel Santiago Cortés Barón',
-            salon: 'A',
-          },
-          {
-            title:
-              'Cambios morfológicos del delta del río Sinú a partir de análisis multitemporal de imágenes satelitales',
-            status: 'confirmado',
-            authors: 'Rashed Torres; Maria Clara Zuluaga; Liliana Betancourth',
-            salon: 'A',
-          },
-          {
-            title:
-              'Caracterización composicional y textural de algunos sedimentos litorales colombianos, su origen y afectación por procesos antropogénicos.',
-            status: 'confirmado',
-            authors:
-              'Sebastian Alzate Arango, Yenifer Camila Alzate Arbelaez, Brayan Bejarano Bejarano, Brayan Sneider Betancur Rivera, Angela Daniela Bolaños Muñoz, Juan Diego Cardona Ardila, Juan Esteban Durán Quintero, Ana María García Góngora, Santiago Hurtado Ramírez, Carlos Mario Marín Moncada, Edison Stiven Mendez Vasquez, Mariana Ocampo Carmona, Camilo Andrés Patiño García, Juliana Pineda Largo, Maria Paula Quintero Cardenas, Camila Alejandra Rodriguez Ruiz, Juan José Valencia Gallego, Paula Andrea Zuluaga Cruz, Luisa María Gómez Oliveros, Carlos Alberto Guzmán López.',
-            salon: 'A',
-          },
-          {
-            title:
-              'Caracterización de los basaltos de la Formación Volcánica en la Vereda Carbonera y su relación con la generación de hidrógeno natural',
-            status: 'confirmado',
-            authors: 'Santiago Betancur Restrepo',
-            salon: 'A',
-          },
-          {
-            title:
-              'Caracterización geoquímica, termodinámica de las rocas metamórficas del Complejo Arquía en el sector la cabaña.',
-            status: 'confirmado',
-            authors:
-              'Espinal-Pardo, Camilo (*), Casallas-Hernández, V. (*), Enriquez, K.D (*), Pérez-Prieto, J.E (*), González, V. (*), Timarán, D. (*), Zaque-Escobar, N. (*), Tovar-Hoyos, N.E (*), Reyes-Rojas, J.(*), Ocampo-Hoyos, V.(*), Arenas-Naranjo, S. (*), Juajibioy-Malte, A. (*), Sarrias-García, B.A(*), León-Barrera, L.(*), Arias-García, L.F(*), Muñoz-Ruiz,J.(*), Loza-Acosta, D.(*), Obando-Ramírez, D.L(*), Aguas-Muñoz, C.A.(*), Restrepo-Echavarria, Jorge Luis (**).\n  \n  (*) Programa de Geología, Universidad de Caldas. (**) Departamento de Ciencias Geológicas, Universidad de Caldas.',
-            salon: 'A',
-          },
-          {
-            title:
-              'Caracterización inicial con potencial para carbonatación ex situ de la Metahazburgita de Medellín',
-            status: 'confirmado',
-            authors:
-              'Manuel José Hurtado Osorio, Leidy Estefania Cadavid Arango, Camila Goez Osorio, Laura Liliana Muñoz Eraso, Cesar Javier Vinasco Vallejo',
-            salon: 'A',
-          },
-          {
-            title:
-              'Caracterización mediante espectroscopia Raman y análisis de DRX de las diferentes fases de serpentinización y su potencial de generación de hidrógeno en las rocas ultramáficas del sistema Cauca–Romeral',
-            status: 'confirmado',
-            authors:
-              'Hernán Felipe Morales Contreras, Juan Pablo Zapata Villada, Sebastian Zapata Henao, Agustin Cardona Molina, Juan Sebastian Jaramillo Rios',
-            salon: 'A',
-          },
-          {
-            title:
-              'Caracterización mineralógica y textural de ágatas asociadas a la Formación Yaví, Departamentos de Huila y Tolima, Colombia.',
-            status: 'confirmado',
-            authors:
-              'Maryei Urrego, Sophia Ruiz, Leidy Maldonado, Felipe Gonzalez, Andres Franco, Alejando Vasquez, Camila Pajaro, Mariangel Giron, Yery Presiga, Marion weber, Natalia Acevedo',
-            salon: 'A',
-          },
-          {
-            title:
-              'Caracterización petrográfica de cobaltita en un skarn de Payandé y su implicación metalogenética',
-            status: 'confirmado',
-            authors:
-              'Santiago Grajales Loaiza, Camila Andrea Montoya, Cristian Santiago Benavides, Juan David Ríos Gonzales, Valery Casallas Hernández',
-            salon: 'B',
-          },
-          {
-            title:
-              'Caracterización petrográfica preliminar de asociaciones minerales y relaciones paragenéticas en rocas del Complejo Arquía, en el Río Arquía.',
-            status: 'confirmado',
-            authors:
-              'Valentina Agudelo Durán, Sebastián Zapata, Alejandra María Bedoya, Sara Villa, Agustin Cardona',
-            salon: 'B',
-          },
-          {
-            title:
-              'Caracterización petrográfica, diagenética y de inclusiones fluidas en arenitas de la Formación Cinta de Piedra (sector La Tebaida-Zarzal)',
-            status: 'confirmado',
-            authors:
-              'Felipe Espinosa Ordoñez, Juan Carlos Molano Mendoza, Manuel Arnulfo Páez Reyes, Andrea Milena Mayor Amador, Santiago Daniel Jimenez Diaz, Yael Natalia Mendez Chaparro',
-            salon: 'B',
-          },
-          {
-            title:
-              'Caracterización y análisis mineral del sistema hidrotermal de alta ley de plata del proyecto Santa Ana – Outcrop Silver',
-            status: 'confirmado',
-            authors: 'Johan Camilo Aros Jiménez, Alex Julian Insuasty España',
-            salon: 'B',
-          },
-          {
-            title:
-              'Controles Estratigráficos Y Estructurales Del Sistema Geotérmico Paipa-Iza En El Area De Iza (Boyacá)',
-            status: 'confirmado',
-            authors:
-              'Valeria Vargas Velandia; Álvaro Alejandro Villar Cepeda; César Augusto Gómez Vanegas',
-            salon: 'B',
-          },
-          {
-            title:
-              'Correlación, estratigrafía, y procedencia de las unidades del Cretácico inferior en el occidente colombiano',
-            status: 'confirmado',
-            authors: 'Jhonathan Steven Tovar Tovar',
-            salon: 'B',
-          },
-          {
-            title:
-              'Detección, segmentación y análisis espacio-temporal de manchas de hidrocarburos en imágenes SAR mediante aprendizaje profundo',
-            status: 'confirmado',
-            authors:
-              'David Güiza-Vanegas; Juan Vesga-Figueroa; María Roa-Archila; Thomás Quiñonez- Pineda; Sanin Celedón del Prado; Kevin Tarazona-Balaguera; Adrián Pérez-Montejo; Sait Khurama-Velásquez',
-            salon: 'B',
-          },
-          {
-            title:
-              'Determinación de los rasgos morfotectónicos utilizando sensores remotos y sistemas de información geográficas (SIG), en la provincia tectónica de Sierra nevada y Santa Marta ; Sierra Nevada de Santa Marta, Colombia.',
-            status: 'confirmado',
-            authors:
-              'Juan Miguel Fernández, Omar Orlando silva, Elías Ernesto rojas',
-            salon: 'B',
-          },
-          {
-            title:
-              'Determinación de los rasgos morfotectónicos utilizando sensores remotos y sistemas de información geográficas (SIG), en las provincia tectónica de Sevilla; Sierra Nevada de Santa Marta, Colombia.',
-            status: 'confirmado',
-            authors:
-              'Jesus Manuel Vizcaino Martinez\n  Elias Ernesto Rojas Martinez\n  Frank Lascarro Navarro',
-            salon: 'B',
-          },
-          {
-            title:
-              'Determinación del índice de erosión hídrica en la cuenca Panamá en el municipio de San Joaquín, Santander',
-            status: 'confirmado',
-            authors:
-              'María Juliana Chacón Porras,\n  Manuel González Rodríguez,\n  Silvia Alejandra Vargas Cano,\n  Johan Enrique Páez Romero',
-            salon: 'B',
-          },
-          {
-            title:
-              'Diversidad de foraminíferos bentónicos de la Bahía Hondita, Alta Guajira: un recorrido por los últimos 1800 años',
-            status: 'confirmado',
-            authors:
-              'Cárdenas Naranjo Mariana Valentina, Briceño Zuluaga Francisco Javier',
-            salon: 'B',
-          },
-          {
-            title:
-              'Equinodermos (Blastoidea) del Carbonífero de Labateca, Norte de Santander, Colombia',
-            status: 'confirmado',
-            authors:
-              'Arley de J. Gómez-Cruz\n  Alexander Lemus-Restrepo\n  Jorge Luis Restrepo-Echavarría\n  Mario Moreno-Sánchez',
-            salon: 'B',
-          },
-          {
-            title:
-              'Estrategia de divulgación interactiva sobre transición energética dirigida a estudiantes de educación secundaria',
-            status: 'confirmado',
-            authors:
-              'Valeria Vargas Velandia1 ; Yasmín Pelayo Serrano2 ; Juan Carlos Ramírez Arias3',
-            salon: 'B',
-          },
-          {
-            title:
-              'Evaluación comparativa entre modelos lineales y aprendizaje automático para la predicción de la porosidad a partir de registros de pozo',
-            status: 'confirmado',
-            authors: 'Francisco Gamboa Ortega;  Jonathas da Silva Maciel ',
-            salon: 'B',
-          },
-          {
-            title:
-              'Evaluación de Parámetros Fisicoquímicos como Indicadores de la Calidad del Agua en la Cuenca Media del Río de Oro',
-            status: 'confirmado',
-            authors:
-              'María Juliana Chacón Porras, Oscar Esteban Fonseca Pérez, Johan Enrique Páez Romero, David Blanco Quiroga, Angy Stephany Plata, Juan Diego Colegial Gutiérrez, Mayra Isabel Vargas Cáceres',
-            salon: 'B',
-          },
-          {
-            title:
-              'Evaluación de la actividad neo-tectònica de la Falla de Boyacà, en el sector Sotaquirà - Duitama mediante análisis geomorfométrico',
-            status: 'confirmado',
-            authors:
-              'Maria Fernanda Camargo Pacheco\n  Michell Jannin Romero Cano',
-            salon: 'B',
-          },
-          {
-            title:
-              'Evaluación del efecto textural de rocas potencialmente almacenadoras de CO2 en las propiedades petrofísicas fundamentales usadas para estudios de geoalmacenamiento de CO2 a través de análisis de técnicas de Anisotropía de Susceptibilidad Magnética (ASM)',
-            status: 'confirmado',
-            authors: 'Juliana Andrea Bolívar Tovar, Sairandelly, César Vinasco',
-            salon: 'B',
-          },
-          {
-            title:
-              'Evaluación del impacto de la extracción intensiva en el acuífero del Golfo de Urabá mediante modelación numérica en FloPy',
-            status: 'confirmado',
-            authors: 'Andres Felipe Durán Lascarro, Maria Paula Roa Archila',
-            salon: 'B',
-          },
-          {
-            title:
-              'Evaluación del potencial de gas metano en mantos de carbón de Socha (Boyacá) como alternativa energética, control de riesgos y mitigación de huella de carbono',
-            status: 'confirmado',
-            authors:
-              'Laura M. Montañez S. (Laura.montañez@uptc.edu.co), Jorge Eliecer Mariño Martinez (Jorge.marino@uptc.edu.co), Laura C. Montaña S. (Laura.montana03@uptc.edu.co), Julied A. Melo S. (julied.melo@uptc.edu.co)',
-            salon: 'B',
-          },
-          {
-            title:
-              'Evaluación integral a través del sistema GTP para la articulación del componente hidrogeológico en la planificación territorial de la cuenca alta del río Chicamocha (Boyacá)',
-            status: 'confirmado',
-            authors: 'Maria Alejandra Galvis Niño',
-            salon: 'B',
-          },
-          {
-            title:
-              'Gemelos digitales como insumo para la enseñanza y divulgación de las geociencias',
-            status: 'confirmado',
-            authors:
-              'Liseth Leal; Juan García; David Inguilan; Holman Dueñas; Daniel Romero; Cristhian Cuadros; Juliana Rodríguez; Angélica Alvarez; Sergio Andrés García-Arias',
-            salon: 'B',
-          },
-          {
-            title:
-              'Generación de registros sintéticos para la caracterización petrofísica de pozos mediante Python',
-            status: 'confirmado',
-            authors:
-              'Esteban Fonseca Pérez; Gabriela Majthenyi Correa; Sophia Madiedo Cala',
-            salon: 'B',
-          },
-          {
-            title:
-              'Geocronología y caracterización estructural de las milonitas asociadas al sistema de fallas Cauca-Romeral en el segmento norte del Cañón del Cauca.',
-            status: 'confirmado',
-            authors:
-              'Daniel Ortiz, Sebastián Zapata, Laura Calderón, Agustín Cardona, Alejandra Bedoya',
-            salon: 'B',
-          },
-        ],
-      },
-      {
-        type: 'info',
-        time: '12:30–14:00',
-        title: 'Almuerzo',
-        category: 'almuerzo',
-      },
-      {
-        type: 'block',
-        time: '14:10–15:40',
-        auditorio: {
-          cms: [
-            {
-              code: 'CM-1',
-              time: '14:10–14:50',
-              title:
-                'Simulando la corteza y el manto en el laboratorio: uso de la petrología experimental para entender la distribución de los elementos químicos',
-              speaker: 'Andrés Salazar',
-              org: 'Universidad de São Paulo',
-            },
-            {
-              code: 'CM-2',
-              time: '15:00–15:40',
-              title: 'Tectónica y fuentes sismogénicas el NE de Colombia',
-              speaker: 'Francisco Velandia',
-              org: 'UIS',
-            },
-          ],
-        },
-        cells: {
-          '201': [
-            {
-              title:
-                'Geodivulgación comunitaria para la gestión del riesgo: una estrategia desde el Museo de Ingeniería y Geociencias de la UPTC',
-              authors: 'Nikolle Valentina Soto Correa',
-              linea: 'Geoamenazas · GRD · Geodivulgación',
-              status: 'confirmado',
-              time: '14:10–14:25',
-            },
-            {
-              title:
-                'Evaluación multitemporal de subsidencia minera mediante InSAR en el título 009-91, Paipa, Boyacá',
-              status: 'confirmado',
-              authors:
-                'Milton Fabricio Rodríguez Celis, Heider Nicolás Aunta Molina',
-              time: '14:40–14:55',
-            },
-            {
-              title:
-                'ANÁLISIS HIDROGEOMORFOLÓGICO PRE – POST HIDROELÉCTRICA MIEL I: CASO DE ESTUDIO CUENCA RÍO LA MIEL',
-              status: 'confirmado',
-              authors:
-                'Valencia-Madrigal, Julieth* · Hazet, Paul · Calderón-Díaz, Laura · Ávila-Díaz, Álvaro',
-              time: '15:10–15:25',
-            },
-          ],
-          '202': [
-            {
-              title:
-                'Evaluación multitemporal de coberturas vegetales mediante super-resolución satelital (S2DR3), aplicable en la detección de anomalías',
-              status: 'confirmado',
-              authors:
-                'Erluan Andres Zabaleta Benavides, John William Branch Bedoya, Andrés Mauricio Muñoz García, Fredy Mauricio Gutiérrez Álvarez',
-              time: '14:10–14:25',
-            },
-            {
-              title:
-                'Más allá del índice de oleanano: un enfoque de aprendizaje automático para la clasificación de la edad del petróleo en cuencas colombianas',
-              status: 'confirmado',
-              authors: 'Daniel Esteban Quintana Gutiérrez',
-              time: '14:40–14:55',
-            },
-            {
-              title:
-                'Distribución espacial y vertical de la susceptibilidad magnética en depósito cuaternario del Valle de Sogamoso',
-              status: 'confirmado',
-              authors:
-                'Javier Darío Guerra Muñoz, Daniel Alexander Vargas Bolívar, Andrés Felipe Cifuentes Castro',
-              time: '15:10–15:25',
-            },
-          ],
-          '203': [
-            {
-              title:
-                'Características Mineralógicas de la Euclasa de la vereda Palomas, Gachalá, Cundinamarca (Colombia)',
-              status: 'confirmado',
-              authors:
-                'Andrés Camilo Barreto Gordillo, Mariana Catalina López Villamil, Fernando Heli Romero Ordóñez',
-              time: '14:10–14:25',
-            },
-            {
-              title:
-                'Metamorfismo y significado tectónico del Neis de la Iguaná (Valle de Aburrá): ¿Un granitoide Jurásico fuera de lugar?',
-              status: 'confirmado',
-              authors:
-                'Sara Del Carmen Villa Hoyos, Alejandra Bedoya, Agustín Cardona, Andrés Bustamante, Sebastián Zapata Henao',
-              time: '14:40–14:55',
-            },
-            {
-              title:
-                'Britholita, el principal portador de REE en las rocas alcalinas de San José del Guaviare: relaciones texturales, quimismo, e implicaciones petrogenéticas',
-              status: 'confirmado',
-              authors:
-                'Mildre Saray Saenz De La Ossa ; María Paula Sánchez Suárez ; Astrid Siachoque Velandia',
-              time: '15:10–15:25',
-            },
-          ],
-          '204': [
-            {
-              title:
-                'Arqueometría de ágatas arqueológicas en la Sierra Nevada de Santa Marta: procedencia mineral, geodiversidad y redes de intercambio',
-              status: 'confirmado',
-              authors: 'María Camila Pájaro, Mariangel Girón',
-              time: '14:10–14:25',
-            },
-            {
-              title:
-                'Caminos Reales de Santander: una aproximación desde el patrimonio geológico',
-              status: 'confirmado',
-              authors: 'Aldo Julián Molano Sierra',
-              time: '14:40–14:55',
-            },
-            {
-              title:
-                'Localidades fosilíferas del Cretacico Marino de Tena Cundinamarca- Reconocimiento paleontologico a partir de Moluscos Fosiles del Grupo Villeta',
-              status: 'confirmado',
-              authors:
-                'Antonio Eliseo Silva Castro, Astrid Muñoz, Javier Luque',
-              time: '15:10–15:25',
-            },
-          ],
-          '205': [
-            {
-              title:
-                'Análisis petrofísico, petrográfico, sedimentológico y litogeoquímico en la Formación Chipaque y el Grupo Guadalupe',
-              status: 'confirmado',
-              authors: 'Granados-Sabio, Kevin Felipe; Vélez-Hoyos, Juan David',
-              time: '14:10–14:25',
-            },
-            {
-              title:
-                'Análisis geológico y estructural a escala 1:10 000 en la zona bananera, flanco noroeste del SNSM',
-              status: 'confirmado',
-              authors:
-                'Franklin David Cueto Jaime, Rafael Aldair Montero Moreno, Ivan Ramith Montero Arias',
-              time: '14:40–14:55',
-            },
-            {
-              title:
-                'Procedencia sedimentaria en la cuenca del río Gualí: una perspectiva Source-to-Sink desde el Mioceno al presente',
-              authors:
-                'Valentina Agudelo, Salomé López, Jesmy Martínez, Samuel Cañas, María Isabel Sierra',
-              linea: 'Estratigrafía y Sedimentología',
-              status: 'confirmado',
-              time: '15:10–15:25',
-            },
-          ],
-          '206': [
-            {
-              title:
-                'De la Mina al Debate Social: Análisis Multidimensional de los Hidrocarburos y el Carbón en Colombia.',
-              status: 'confirmado',
-              authors: 'Samir Elier Bermúdez Castellanos',
-              time: '14:10–14:25',
-            },
-            {
-              title:
-                'La cartografía como lectura territorial: puentes entre geografía y geología',
-              status: 'confirmado',
-              authors: 'Juanita Pérez',
-              time: '14:40–14:55',
-            },
-            {
-              title:
-                'Sistema Integral de Registro Geológico en Campo como Herramienta de Geoeducación en Ingeniería Geológica',
-              authors:
-                'Giselle Camila Cordoba Orozco, Jose Eduardo Sotelo Suarez, Durlandy David Meza Mejía',
-              linea: 'Tecnología: SIG · ML · IA · Sensores Remotos',
-              status: 'confirmado',
-              time: '15:10–15:25',
-            },
-          ],
-        },
-      },
-      {
-        type: 'info',
-        time: '15:50–16:20',
-        title: 'Break (entrega segundo refrigerio)',
-        category: 'break',
-      },
-      {
-        type: 'block',
-        time: '16:30–18:00',
-        auditorio: {
-          cms: [
-            {
-              code: 'CM-3',
-              time: '16:30–17:10',
-              title:
-                'La otra falla geológica: nuestra relación con las comunidades y el ingreso a territorio',
-              speaker: 'César Otálvaro',
-              org: 'Universidad Nacional',
-            },
-            {
-              code: 'CM-4',
-              time: '17:20–18:00',
-              title: 'Transfigura',
-              speaker: 'Por confirmar',
-              org: 'Transfigura',
-            },
-          ],
-        },
-        cells: {
-          '201': [
-            {
-              title:
-                'Zonificación de la susceptibilidad ante movimientos en masa e inundaciones en la microcuenca La Patilla (Salazar de las Palmas)',
-              status: 'confirmado',
-              authors: 'MARIA JOSE GARAY PAEZ',
-              time: '16:30–16:45',
-            },
-            {
-              title:
-                'Geología del ciclismo: Control Estructural y Morfológico en los Escenarios Íconos del Ciclismo',
-              status: 'confirmado',
-              authors: 'Juan Sebastián Luengas Jaimes',
-              time: '17:00–17:15',
-            },
-            {
-              title:
-                'MODELACIÓN DEM DEL REBOTE DE BLOQUES ROCOSOS EN TERRAPLENES DE PROTECCIÓN CONTRA CAÍDA DE ROCAS MEDIANTE MATDEM',
-              authors:
-                'Luis Alejandro Niño Saavedra, Nikolle Valentina Soto Correa, Danny Useche Infante',
-              linea: 'Geoamenazas · GRD · Geodivulgación',
-              status: 'confirmado',
-              time: '17:30–17:45',
-            },
-          ],
-          '202': [
-            {
-              title:
-                'Transformación del análisis geoespacial mediante inteligencia artificial y automatización',
-              status: 'confirmado',
-              authors: 'David Felipe Rincón Cárdenas',
-              time: '16:30–16:45',
-            },
-            {
-              title:
-                'Efectos críticos del tratamiento de muestras minerales en técnicas analíticas',
-              status: 'confirmado',
-              authors: 'Diana Isabel Nieto Patarroyo',
-              time: '17:00–17:15',
-            },
-            {
-              title:
-                'Evaluación comparativa de la estimación de materia orgánica del suelo a partir de imágenes multiespectrales e hiperespectrales',
-              authors: 'Por confirmar',
-              linea: 'Tecnología: SIG · ML · IA · Sensores Remotos',
-              status: 'confirmado',
-              time: '17:30–17:45',
-            },
-          ],
-          '203': [
-            {
-              title:
-                'Emplazamiento sintectónico y transición de fábricas magmáticas a sólidas en el plutón Marcabelí, suroccidente del Ecuador',
-              status: 'confirmado',
-              authors: 'Cesar Vinasco, carlos Archanjo, Umberto Cordani',
-              time: '16:30–16:45',
-            },
-            {
-              title:
-                'Caracterización mineralógica y geoquímica de los fluorapatitos asociados a las áreas esmeraldíferas en los distritos mineros de La Marina y Chivor (Colombia).',
-              status: 'confirmado',
-              authors:
-                'Juan Alejandro González Sánchez, Karoll Samantha Díaz Peñuela, Fernando Helí Romero Ordóñez',
-              time: '17:00–17:15',
-            },
-            {
-              title:
-                'Características Microtermométricas de las Inclusiones Fluidas en las Ocurrencias de Topacio del Vichada (Colombia).',
-              status: 'confirmado',
-              authors:
-                'Evelyn Mariana Ríos Franco, Fernando Helí Romero Ordóñez',
-              time: '17:30–17:45',
-            },
-          ],
-          '204': [
-            {
-              title:
-                'DIRECTRICES PARA LA GESTIÓN INTEGRAL DE SITIOS DE INTERÉS GEOLÓGICO CON VOCACIÓN TURÍSTICA, EN EL DEPARTAMENTO DE ANTIOQUIA',
-              status: 'confirmado',
-              authors:
-                'Albeiro Rendón Rivera, Heiner Hernán Cardona Polanco, Carlos Alberto López Pérez, Liced Pulgarín Zuleta, Camilo Andrés Sánchez Vargas',
-              time: '16:30–16:45',
-            },
-            {
-              title: 'El arte de la geología, la geología en el arte',
-              status: 'confirmado',
-              authors: 'Clemencia Gómez',
-              time: '17:00–17:15',
-            },
-            {
-              title:
-                'Arcillas, minerales y cerámica: una perspectiva de proveniencia Geoarqueológica en la Sierra Nevada de Santa Marta',
-              authors:
-                'María Carolina Sosa Garcés, Kevin Granados, Thomas Heinrich Cramer',
-              linea: 'Paleontología · Geopatrimonio · Geoarqueología',
-              status: 'confirmado',
-              time: '17:30–17:45',
-            },
-          ],
-          '205': [
-            {
-              title:
-                'Estratigrafía y procedencia multi-técnica del Complejo Quebradagrande: implicaciones para la evolución tectonosedimentaria del margen noroccidental suramericano y su relación con la colisión de la placa Caribe.',
-              status: 'confirmado',
-              authors:
-                'Anamaría Vera González, Sebastián Zapata Henao, Germán Alonso Bayona Chaparro, Agustín Cardona Molina, Ana María Valencia Londoño, Jhonathan Steven Tovar Tovar, Juan Camilo Valencia Gómez, Hernán Felipe Morales Contreras',
-              time: '16:30–16:45',
-            },
-            {
-              title:
-                'Relatos de una Serranía: caracterización geológica, estructural y mineralógica de la vereda Cerrito (Barrancas, La Guajira)',
-              status: 'confirmado',
-              authors:
-                'Carlos Manuel Martinez Ballesteros, Ana Cristina Ruiz Sequeda, Maria Camila Perdomo Geney',
-              time: '17:00–17:15',
-            },
-            {
-              title:
-                'FACIES ESTRATIGRÁFICAS, PROXIES GEOQUÍMICOS Y REGISTRO FOSILÍFERO PARA LA RECONSTRUCCIÓN DEL PALEOAMBIENTE DE LA FORMACIÓN LA PAJA: VÉLEZ, SANTANDER, COLOMBIA',
-              authors:
-                'German Reyes Mendoza, Jose Maria Cantillo De la Hoz, Josep Anton Moreno Bedmar',
-              linea: 'Estratigrafía y Sedimentología',
-              status: 'confirmado',
-              time: '17:30–17:45',
-            },
-          ],
-          '206': [
-            {
-              title:
-                'Mi Primer Libro de...: educación inclusiva, informada y resiliente en Ciencias de la Tierra',
-              status: 'confirmado',
-              authors: 'Clemencia Gómez',
-              time: '16:30–16:45',
-            },
-            {
-              title:
-                'Presentación de la cartilla MAMA CUMBAL: VOLCÁN, MEMORIA Y TERRITORIO',
-              status: 'confirmado',
-              authors:
-                'Karen Sofía Alpala Cumbal, María Camila Beltrán Rueda, María José Triana, Juan Sebastián Mosquera, Juan Sebastián Muñoz Benítez, Juliana Sanabria Castañeda, Daniel Felipe Gómez Hoyos, David Fernando Bucheli Rosero, Vincent Efrén Tarapués Taimal',
-              time: '17:00–17:15',
-            },
-            {
-              title:
-                'Análisis de procedencia de las rocas turbidíticas del Miembro Urrao (Formación Penderisco), Cordillera Occidental: implicaciones para el reconocimiento de fuentes máficas–ultramáficas en condiciones tropicales',
-              authors:
-                'Juan Felipe Granados Cardona, Germán Bayona, Sebastián Zapata, Agustín Cardona, Ana María Valencia Londoño, Anamaría Vera González, Jhonathan Tovar, Felipe Morales',
-              linea: 'Estratigrafía y Sedimentología',
-              status: 'confirmado',
-              time: '17:30–17:45',
-            },
-          ],
-        },
-      },
-      {
-        type: 'info',
-        time: '18:00–19:00',
-        title: 'Salida Termales (máx. 7:00 PM)',
-        category: 'cierre',
-      },
-    ],
-  },
-  {
-    id: 'jue',
-    label: 'Jueves 20',
-    rooms: ['201', '202', '203', '204', '205', '206'],
-    sub: '201 Estructural · 203 Estratigrafía y Sedimentología · 205 Hidrogeología+Geotecnia · 206 Tecnología (4 salas activas)',
-    desc: 'Reestructurado 26-jun-2026: sin pósters (se concentraron el miércoles). 3 charlas individuales en la mañana (CM-5/6/7, en paralelo al bloque de 6x20min de ponencias) + 2 charlas pareadas en la tarde (CM-8/9) + 1 charla suelta al final de la tarde (CM-10, bloque corregido — antes mal numerado como \'9 y 10\').',
-    themes: {
-      '201': 'Estructural · Tectónica',
-      '202': 'Geología Regional · Magmatismo · Termal',
-      '203': 'Estratigrafía · Sedimentología',
-      '204': 'Petrología Metamórfica e Ígnea',
-      '205': 'Hidrogeología · Geotecnia',
-      '206': 'Historia Geológica · Petrología Metamórfica',
-    },
-    rows: [
-      {
-        type: 'block',
-        time: '8:10–10:30',
-        auditorio: {
-          cms: [
-            {
-              code: 'CM-5',
-              time: '8:10–8:50',
-              title: 'Artificial Intelligence and Seismic Networks in the Ecuador-Colombia Subduction Zone',
-              speaker: 'Alexander Wickham',
-              org: 'Institut de France',
-            },
-            {
-              code: 'CM-6',
-              time: '9:00–9:40',
-              title: '(Sin título — pendiente)',
-              speaker: 'Por confirmar',
-            },
-            {
-              code: 'CM-7',
-              time: '9:50–10:30',
-              title: 'Servicio Geológico Colombiano',
-              speaker: 'Por confirmar',
-              org: 'SGC',
-            },
-          ],
-        },
-        cells: null,
-        posterBatch: [
-          {
-            title:
-              'Geoeducación y divulgación de las geociencias: una revisión sistemática de enfoques y metodologías',
-            status: 'confirmado',
-            authors: 'Aldo Molano',
-            salon: 'A',
-          },
-          {
-            title:
-              'Geología que transforma: educación y claridad para un territorio consciente',
-            status: 'confirmado',
-            authors:
-              'Cristian Santiago Benavides Burgos, Camila Alejandra Rodríguez, Yessika Aristizabal, David Andres Timaran.',
-            salon: 'A',
-          },
-          {
-            title:
-              'HidroVetas: Comparación de los Sistemas Geotérmicos de Paipa, Vetas y Málaga como Potencial Estratégico para la Transición Energética en Colombia',
-            status: 'confirmado',
-            authors:
-              'Laura Valentina Solis Narvaez y Rafael Camilo Venecia Ardila',
-            salon: 'A',
-          },
-          {
-            title: 'Hidrogeodía 2026: comunidad, ciencia y recurso hídrico',
-            status: 'confirmado',
-            authors: 'Manuel González Rodríguez y Silvia Alejandra Vargas Cano',
-            salon: 'A',
-          },
-          {
-            title:
-              'Historia de exhumación del Plutón de Pance y Danubio: implicaciones para la historia de deformación Miocena de la cordillera occidental de Colombia.',
-            status: 'confirmado',
-            authors: 'Lina María Mogollón Gómez, Natalia Gonzalez Rojas',
-            salon: 'A',
-          },
-          {
-            title:
-              'Identificación Automatizada de Formaciones Geológicas Aptas para Almacenamiento de CO₂ Mediante Machine Learning Usando Registros de Pozo de Acceso Abierto',
-            status: 'confirmado',
-            authors:
-              'Oscar Andres Mendoza Gonzalez, Esteban Alejandro Huertas Huertas',
-            salon: 'A',
-          },
-          {
-            title:
-              'Identificación de Zonas Potenciales de Recarga de Acuíferos en la Mesa de los Santos, Santander',
-            status: 'confirmado',
-            authors:
-              'María Juliana Chacón Porras, \n  Johan Enrique Páez Romero, \n  Sergio Andrés García Arias, \n  María Alejandra Cetina Tarazona',
-            salon: 'A',
-          },
-          {
-            title:
-              'Identificación de zonas con potencial de generación de hidrógeno natural mediante análisis multicriterio en SIG en el sector centro-sur del departamento de Nariño, Colombia',
-            status: 'confirmado',
-            authors: 'Valeria Vargas Velandia; David Alejandro Prada Tinoco',
-            salon: 'A',
-          },
-          {
-            title:
-              'Identificación de zonas potenciales de recarga de acuíferos en la cuenca del río Fonce, Santander, implementando la Guía Metodológica para la Identificación de Zonas Potenciales de Recarga de Acuíferos para la gestión hídrica territorial.',
-            status: 'confirmado',
-            authors: 'David Blanco Quiroga y Oscar Esteban Fonseca Pérez',
-            salon: 'A',
-          },
-          {
-            title:
-              'Integración de fotogrametría y modelado 3D para la comprensión y el análisis de la geología estructural',
-            status: 'confirmado',
-            authors:
-              'Angélica María Cappacho Alvarez - Thomás Leopoldo Quiñonez Pineda',
-            salon: 'A',
-          },
-          {
-            title:
-              'Litoestratigrafia y petrogafía de las rocas de afinidad ofiolitica en la Quebrada la Honda (Filadelfia, Caldas): origen y correlaciones tectónicas.',
-            status: 'confirmado',
-            authors:
-              'Julian Parra, Alejandra Bedoya, Eliana Botello, Agustín Cardona, Juan Pablo Zapata.',
-            salon: 'A',
-          },
-          {
-            title:
-              'Metodología para la separación de minerales densos y circones detríticos en arenas, aplicada a estudios de procedencia sedimentaria',
-            status: 'confirmado',
-            authors:
-              'Salomé López, Valentina Agudelo, Jesmy Martínez, María Isabel Sierra',
-            salon: 'A',
-          },
-          {
-            title:
-              'M¿Qué nos dicen los fósiles de Miraflores? Una nueva localidad del Cretácico Inferior en Boyacá',
-            status: 'confirmado',
-            authors:
-              'Sergio Iván Sarmiento Romero¹*; Cristian Andrés Martínez Araque¹',
-            salon: 'A',
-          },
-          {
-            title:
-              'PEGMATITAS COLOMBIANAS COMO FUENTE DE TIERRAS RARAS (REE) Y MINERALES ESTRATÉGICOS: CARACTERIZACIÓN GEOQUÍMICA DEL COMPLEJO DE MITÚ Y EL COMPLEJO ULTRAMÁFICO DE BOLÍVAR.',
-            status: 'confirmado',
-            authors: 'Angie Roshel Pabón Soler',
-            salon: 'A',
-          },
-          {
-            title:
-              'Paleoambientes sedimentarios generales de las “Sedimentitas de Ladrilleros” (Mioceno) en el sector de Ladrilleros (Buenaventura, Valle del Cauca)',
-            status: 'confirmado',
-            authors: 'Carlos Alberto Guzmán López',
-            salon: 'A',
-          },
-          {
-            title:
-              'Patrimonio Geológico del Departamento del Cesar: Un Recurso para la Conservación y el Desarrollo Sostenible',
-            status: 'confirmado',
-            authors:
-              'Luis Fernando Molina Contreras, Luis Pablo Pacheco Gerardino',
-            salon: 'A',
-          },
-          {
-            title:
-              'Petrogénesis y evolución de productos volcánicos y subvolcánicos básicos e intermedios de edad miocena asociados al Complejo Volcánico de Combia mediante el uso de petrografía, química mineral y geoquímica de roca total',
-            status: 'confirmado',
-            authors:
-              'Jank Carlos Rosero Otalvaro\n  Santiago Nicolás López Bravo\n  Danna Julieth Reyes Escobar',
-            salon: 'A',
-          },
-          {
-            title:
-              'Petrología y Geoquímica orgánica de los carbones de la Formación Amagá aflorantes en el área Quinchía-Riosucio y su potencial de generación de hidrocarburos.',
-            status: 'confirmado',
-            authors: 'Luisa María Gómez Oliveros',
-            salon: 'A',
-          },
-          {
-            title:
-              'REVISIÓN PRELIMINAR DE LAS ESTRUCTURAS SEDIMENTARIAS BIOGÉNICAS (ICNOLOGÍA) DE LA FORMACIÓN TIBASOSA – CRETÁCICO INFERIOR DE BOYACÁ COLOMBIA. SECCIÓN VÍA DUITAMA – NOBSA.',
-            status: 'confirmado',
-            authors:
-              'MIGUEL ÁNGEL FRANCO MORENO*, NATALIA LUCIA ZAQUE ESCOBAR, ALEXANDER LEMUS RESTREPO',
-            salon: 'A',
-          },
-          {
-            title:
-              'Relaciones entre Velocidades Sísmicas y Resistividad Eléctrica en el Subsuelo Somero mediante Refracción Sísmica, MASW y Tomografía Eléctrica',
-            status: 'confirmado',
-            authors:
-              'Narayana Rishi Salazar Vega, Dr. Francisco Gamboa Ortega, David Andrés Flórez Rojas',
-            salon: 'A',
-          },
-          {
-            title:
-              'Relación de mineralizaciones tipo pórfido con la Brecha Apollo - Cartografía geológica en el Proyecto Guayabales - Collective Mining',
-            status: 'confirmado',
-            authors:
-              'Mario Andrés Castaño Castro, Marcelo Arango Trujillo, Valery Casallas Hernández, Sebastián Gutiérrez Sánchez, Sebastián Arenas Naranjo, Juan Daniel Burbano Salazar, Alex Julián Insuasty España',
-            salon: 'A',
-          },
-          {
-            title:
-              'Reporte de posible presencia de cobaltita (CoAsS), en skarn de Payandé y su implicación metalogénica',
-            status: 'confirmado',
-            authors:
-              'Santiago Grajales Loaiza, Diego Germán Loaiza Garcia, Cristian santiago Benavides, Alex Insuasty España, Camila Andrea Montoya, Valery Casallas Hernandez, Juan David Rios Gonzales.',
-            salon: 'A',
-          },
-          {
-            title:
-              'Saberes de piedra y camino: diálogo entre la geología y la memoria del Cañón del Chicamocha en los Caminos Reales',
-            status: 'confirmado',
-            authors:
-              'María Gabriela Sanabria Murgas, Lady Johanna Ríos Guerrero \n  Semillero de Investigación en Petrología (SEPET) – Escuela de Geología, Universidad Industrial de Santander',
-            salon: 'A',
-          },
-          {
-            title:
-              'Sección Estratigráfica de la Formación La Luna a escala 1:100 de La Quebrada La Marta, Salazar de la Palmas - Norte de Santander - Sur de la Cuenca del Catatumbo',
-            status: 'confirmado',
-            authors:
-              'Autores: Daniela Diaz-Ariza, Gabriela Chavarro-Morales Coautores: Alejandra Mejía-Molina, Ilich Villamizar-Solano y Jhan Contreras-Leal',
-            salon: 'A',
-          },
-          {
-            title:
-              'Zonificación de la susceptibilidad ante movimientos en masa e inundaciones en la microcuenca La Patilla (Salazar de las Palmas, Norte de Santander) mediante análisis multitemporal y componentes físicos',
-            status: 'confirmado',
-            authors: 'MARIA JOSE GARAY PAEZ',
-            salon: 'A',
-          },
-          {
-            title:
-              'Zonificación de susceptibilidad por movimientos en masa en la zona rural de la cuenca alta del río Manaure (Cesar)',
-            status: 'confirmado',
-            authors:
-              'Karoll Viviana Ávila Rincón\n  Jesús Manuel Vizcaíno Martinez \n  Luis Carlos tapia vela',
-            salon: 'A',
-          },
-          {
-            title:
-              'Zonificación preliminar de amenaza por movimientos en masa en la cuenca de la quebrada Minas del Vapor, Puerto Berrío, Antioquia.',
-            status: 'confirmado',
-            authors:
-              'Jhassai Sharith Epiayu Corrales, María Camila Perdomo Geney, Emanuel Andrés Cáceres Aroca',
-            salon: 'A',
-          },
-          {
-            title:
-              '“Mi libro secreto de la Tierra”: Estrategia de Geoeducación para la Enseñanza de las Geociencias y su Apropiación Social en la Infancia',
-            status: 'confirmado',
-            authors:
-              'Giselle Cordoba, Gabriela Florez, Samuel Ospino, William Ruiz, Jose Sotelo',
-            salon: 'A',
-          },
-          {
-            title:
-              'ANÁLISIS COMPARATIVO DE ANÁLOGOS DE SISTEMAS VULCANO‑SEDIMENTARIOS ENTRE MARTE Y LA TIERRA',
-            authors:
-              'Santiago Baruch Rojas García, Juan Carlos Ramírez Arias, Yasmin Pelayo Serrano',
-            salon: 'A',
-            status: 'confirmado',
-          },
-          {
-            title:
-              'GEOLOGÍA, ANÁLISIS ESTRUCTURAL Y CARACTERIZACIÓN MINERALÓGICA DEL RESGUARDO INDÍGENA ESCOPETERA Y PIRZA (RISARALDA‑CALDAS) EN COLOMBIA: UNA HERRAMIENTA TÉCNICA PARA LA GESTIÓN TERRITORIAL',
-            authors:
-              'Karen Victoria Melchor Pinzón, Yasmin Pelayo Serrano, Juan Carlos Ramírez Arias',
-            salon: 'A',
-            status: 'confirmado',
-          },
-          {
-            code: 'P-077',
-            title:
-              'CARACTERIZACIÓN Y ANÁLISIS CINEMÁTICO DE FRACTURAS DEL BLOQUE ORIENTAL DE LA FALLA DE BUCARAMANGA EN EL FLANCO NORORIENTAL DEL SINCLINAL DE FLORESTA',
-            authors:
-              'Jaider Pradilla Quintero; Juan Carlos Ramírez Arias; Yasmín Pelayo Serrano',
-            linea: 'Estructural y Geología Regional',
-            salon: 'A',
-            status: 'confirmado',
-          },
-        ],
-        title: '',
-        sgc: 'start',
-        sgcSpan: 3,
-      },
-      {
-        type: 'info',
-        time: '10:30–11:00',
-        title: 'Break (entrega tercer refrigerio)',
-        category: 'break',
-        sgc: 'continue',
-      },
-      {
-        type: 'panel',
-        time: '11:00–12:30',
-        title: 'Geología en Vivo: Dos Expertos, Un Viaje al Corazón de la Tierra',
-        note: 'Italo Reyes · Mauricio Reyes',
-        sgc: 'continue',
-      },
-      {
-        type: 'info',
-        time: '12:30–14:00',
-        title: 'Almuerzo',
-        category: 'almuerzo',
-      },
-      {
-        type: 'panel',
-        time: '14:10–15:40',
-        title: 'Panel - Gestión del Riesgo',
-        note: 'Panel de Discusión',
-        sgc: 'start',
-        sgcSpan: 4,
-      },
-      {
-        type: 'info',
-        time: '15:50–16:20',
-        title: 'Break (entrega cuarto refrigerio)',
-        category: 'break',
-        sgc: 'continue',
-      },
-      {
-        type: 'block',
-        time: '16:30–18:00',
-        auditorio: {
-          cms: [
-            {
-              code: 'CM-8',
-              time: '16:30–17:10',
-              title: 'La temperatura: un factor subestimado en la interpretación estructural',
-              speaker: 'Eduardo Rossello',
-              org: 'Servicio Geológico Argentina',
-            },
-            {
-              code: 'CM-9',
-              time: '17:10–17:50',
-              title: 'Territorio, energía y decisiones: las geociencias como brújula del Estado',
-              speaker: 'Flover Rodríguez-Portillo',
-              org: 'ACGGP',
-            },
-          ],
-        },
-        cells: {
-          '201': [
-            {
-              title: 'Evolución tectono-paleogeográfica del basamento Meso-Neoproterozoico del norte de los Andes y México',
-              status: 'confirmado',
-              authors: 'Jorge Luis Restrepo Echavarria, Mario Moreno Sánchez, Alexander Lemus Restrepo, Arley de Jesús Gómez Cruz',
-              time: '16:30–16:45',
-            },
-            {
-              title: 'Sección estructural a escala 1:10.000 entre la Quebrada Chiracoca (Vereda Buenavista Parte Baja) – Vereda Lobatica Chinácota, sur de la cuenca del Catatumbo, Norte de Santander',
-              status: 'confirmado',
-              authors: 'Paula Fernanda Leal Peña, Paula Valentina Flórez Rozo, Alejandra Mejía-Molina, Ilich Villamizar-Solano',
-              time: '17:00–17:15',
-            },
-            {
-              title: 'Evolución de las cuencas de antearco en Ecuador: relación entre las cuencas sedimentarias en el onshore y en el offshore',
-              authors: 'María José Hernández, François Michaud, Elia d\'Acremont, Jean-Yves Collot, Jean-Noël Proust, Diego Barba',
-              linea: 'Estructural · Tectónica',
-              status: 'confirmado',
-              time: '17:30–17:45',
-            },
-          ],
-          '202': [
-            {
-              title: 'Evolución magmática y relaciones estructurales del Complejo Quebradagrande en la región de Filadelfia (Dpto. Caldas)',
-              status: 'confirmado',
-              authors: 'Daniela Molina, Eliana Botello, Agustín Cardona, Juan Sebastián Jaramillo, Catalina Salgado, Sebastián Zapata',
-              time: '16:30–16:45',
-            },
-            {
-              title: 'CONFIGURACIÓN ESTRUCTURAL Y EVOLUCIÓN TERMOCINEMÁTICA DEL PIEDEMONTE DE LA SIERRA NEVADA DE EL COCUY, CORDILLERA ORIENTAL DE COLOMBIA',
-              status: 'confirmado',
-              authors: 'Juan Sebastián Bohórquez Rozo, Juan Carlos Ramírez Arias, Jairo Torres',
-              time: '17:00–17:15',
-            },
-            {
-              title: 'EVALUACIÓN DEL EFECTO TERMAL ASOCIADO A LA ZONA DE SUBDUCCIÓN DE LA PLACA CARIBE EN LA EXPRESIÓN TERMOCRONOLÓGICA DE LA SIERRA NEVADA DE SANTA MARTA',
-              status: 'confirmado',
-              authors: 'Catalina Flórez Pabón, Yasmin Pelayo Serrano, Juan Carlos Ramírez Arias',
-              time: '17:30–17:45',
-            },
-          ],
-          '203': [
-            {
-              title: 'Estratigrafía integrada de la transición Barremiano-Aptiano en Villanueva (Santander): implicaciones del registro del Evento Anóxico Oceánico-1a (EAO1a) en la Cordillera Oriental',
-              status: 'confirmado',
-              authors: 'Cantillo de la Hoz, Jose Maria; Páez Reyes, Manuel Arnulfo; Gaona Narváez, Tatiana',
-              time: '16:30–16:45',
-            },
-            {
-              title: 'Usando geoquímica en rocas detríticas para trazar áreas fuente de composiciones máficas y ultramáficas',
-              status: 'confirmado',
-              authors: 'Ana María Valencia Londoño, Germán Bayona, Sebastián Zapata, Agustín Cardona, Anamaría Vera González, Felipe Granados, Jhonatan Tovar, Felipe Morales',
-              time: '17:00–17:15',
-            },
-            {
-              title: 'Evolución tectonoestratigráfica Neógena de la Cordillera Occidental (1°–4° N).',
-              status: 'confirmado',
-              authors: 'Sebastián Echeverri, Andrés Pardo-Trujillo, Sebastián Zapata, Sergio A. Celis, Ángel Barbosa-Espitia, Mónica Carvalho',
-              time: '17:30–17:45',
-            },
-          ],
-          '204': [
-            {
-              title: 'Caracterización estructural de los basamentos Permo-Triásicos del norte de la Cordillera Central: implicaciones tectónicas',
-              status: 'confirmado',
-              authors: 'Maria Alejandra Parra Maldonado, Sebastián Zapata, Laura Calderón Diaz, Agustín Cardona, Alejandra Bedoya',
-              time: '16:30–16:45',
-            },
-            {
-              title: 'Metamorfismo de muy bajo grado en el registro volcano-sedimentario Cretácico del flanco occidental de la Cordillera Central colombiana.',
-              status: 'confirmado',
-              authors: 'Paulina Muñoz Duque, Agustín Cardona Molina, Sebastián Zapata Henao, Klaus Wemmer, Catalina Salgado Olascuaga, David Patiño Valencia',
-              time: '17:00–17:15',
-            },
-            {
-              title: 'Evaluación de los protolitos y el metamorfismo de los Esquistos de Sabaletas en Armenia Mantequilla (Dpto. Caldas)',
-              authors: 'Catalina Salgado, Agustín Cardona, David Patiño, Julián Parra, Juan Pablo Zapata, Juan Sebastián Jaramillo, Paulina Muñoz, Daniela Molina, Sebastián Zapata',
-              linea: 'Petrología Metamórfica · Geocronología',
-              status: 'confirmado',
-              time: '17:30–17:45',
-            },
-          ],
-          '205': [
-            {
-              title: 'Relación entre la mineralogía de arcillas, la expansión de suelos y la ocurrencia de deslizamientos en Colombia',
-              status: 'confirmado',
-              authors: 'Juan Esteban Cabarcas Fajardo',
-              time: '16:30–16:45',
-            },
-            {
-              title: 'Caracterización geomecánica multiescala de Bimrocks, ladera oriental del Valle de Aburrá',
-              status: 'confirmado',
-              authors: 'Sara Castro Ortiz, Juan Esteban Flórez Rueda, Juan Esteban Pabón Cruz, Diego Armando Rendón Giraldo, Sebastián Sánchez Gil',
-              time: '17:00–17:15',
-            },
-            {
-              title: 'Predicción de la Respuesta Carga-Asentamiento en Cimentaciones Corridas sobre Arena usando el Método de Elementos Finitos y Machine Learning',
-              authors: 'Felipe Tiria Castro, Daniel Esteban Galán Palacios, Deibyd Yesid Rosas Mesa, Danny Jose Useche Infante',
-              linea: 'Hidrogeología · Geotecnia',
-              status: 'confirmado',
-              time: '17:30–17:45',
-            },
-          ],
-          '206': [
-            {
-              title: 'Territorios del Tiempo Profundo: integración del patrimonio geológico, fósil y minero en la Cuenca Cesar-Ranchería',
-              status: 'confirmado',
-              authors: 'Laura Lucia Ospina Ordóñez, Karen Lorena Payares Carrasco',
-              time: '16:30–16:45',
-            },
-            {
-              title: 'Protolitos y metamorfismo de las rocas de afinidad ofiolítica del Occidente de la Cordillera Central en San Bartolomé',
-              authors: 'Edward Sebastián Mora Torres, Agustín Cardona Molina, Juan Sebastián Jaramillo, Juan Pablo Zapata',
-              linea: 'Petrología Metamórfica · Geocronología',
-              status: 'confirmado',
-              time: '17:00–17:15',
-            },
-            {
-              title: 'Registro Volcano-Estratigráfico de la Formación Saldaña en el Alto de Natagaima, Valle Superior del Magdalena',
-              authors: 'Kevin Santiago Montañez Valencia, Sebastián Zapata Henao, Juan Sebastián Jaramillo Ríos, Manuela Botero, Daniel Alejandro Ortiz Ríos, Mónica Carvalho, Robert Holder',
-              linea: 'Estratigrafía y Sedimentología',
-              status: 'confirmado',
-              time: '17:30–17:45',
-            },
-          ],
-        },
-        sgc: 'continue',
-      },
-      {
-        type: 'info',
-        time: '18:00–',
-        title: 'Canelazo (cierre)',
-        category: 'cierre',
-        sgc: 'continue',
-      },
-    ],
-    sgcColumn: true,
-  },
-  {
-    id: 'vie',
-    label: 'Viernes 21',
-    rooms: ['201', '202', '203', '204', '205', '206'],
-    sub: '201 Estructural (cupo final) · 202 Geofísica · 203 Energías Renovables (3 salas activas)',
-    desc: 'Sin cambios estructurales relevantes salvo el cierre del cupo de Estructural (1 ponencia) y Geofísica/Energías Renovables completas en el único bloque de ponencias de la mañana (6x20min). No hay ponencias en la tarde, solo charlas magistrales (CM-14/15/16) y el cierre del evento.',
-    themes: {
-      '201': 'Energías Renovables · CO₂ · Hidrógeno',
-      '202': 'Geofísica · Sismología · Instrumentación',
-      '203': 'Tecnología · Teledetección · Metodología Sedimentaria',
-      '204': 'Petrología Metamórfica e Ígnea',
-      '205': 'Exploración · Hidrogeología · Recursos Hídricos',
-      '206': 'Geología Estructural · Evolución Tectónica',
-    },
-    rows: [
-      {
-        type: 'block',
-        time: '8:10–10:30',
-        auditorio: {
-          cms: [
-            {
-              code: 'CM-10',
-              time: '8:10–8:50',
-              title: 'Minerales Estratégicos y Transición Energética: Nuevas Oportunidades',
-              speaker: 'Ing. Esteban Castillo',
-              org: 'ANM',
-            },
-            {
-              code: 'CM-11',
-              time: '9:00–9:40',
-              title: 'The Changing Role of Geosciences in the Energy Transition',
-              speaker: 'Eilard Hoogerduijn',
-              org: 'Internacional',
-            },
-            {
-              code: 'CM-12',
-              time: '9:50–10:30',
-              title: 'ANH',
-              speaker: 'Por confirmar',
-              org: 'ANH',
-            },
-          ],
-        },
-        cells: {
-          '201': [
-            {
-              title: 'EVALUACIÓN DEL POTENCIAL DE ALMACENAMIENTO GEOLÓGICO DE CO₂ EN EL VALLE MEDIO DEL MAGDALENA A PARTIR DE CARACTERISTICAS PETROGRAFICAS Y PETROFISICAS.',
-              status: 'confirmado',
-              authors: 'PhD Agustín Cardona Molina, M.Sc Edison Duarte Gómez, Adriana Bravo Benavides',
-              time: '8:10–8:25',
-            },
-            {
-              title: 'Presencia y generación de hidrógeno blanco a lo largo de la transición oceánico–continental en el Valle del Cauca',
-              status: 'confirmado',
-              authors: 'Michael Steven Guerrero Peña, Juan Carlos Molano Mendoza',
-              time: '8:55–9:10',
-            },
-            {
-              title: 'Metodología basada en Inteligencia Artificial para la evaluación del riesgo geomecánico de contención en proyectos de almacenamiento de CO₂',
-              status: 'confirmado',
-              authors: 'Andrés Mauricio Muñoz García, Erluan Andres Zabaleta Benavides',
-              time: '9:40–9:55',
-            },
-          ],
-          '202': [
-            {
-              title: 'Modelo de visualización e interpretación 3D basado en datos de tomografía de resistividad eléctrica, para la identificación de estructuras geológicas',
-              status: 'confirmado',
-              authors: 'Ana María Lizarazo Molina, Fabian Felipe Beltran Cepeda',
-              time: '8:10–8:25',
-            },
-            {
-              title: 'Qué es la Detección Acústica Distribuida (DAS): Algunos ejemplos en Colombia y el Mundo',
-              status: 'confirmado',
-              authors: 'Germán A. Prieto',
-              time: '8:55–9:10',
-            },
-            {
-              title: 'Registro sísmico del tramo central de la falla de Anatolia del Norte a partir de los sedimentos del lago Iznik',
-              status: 'confirmado',
-              authors: 'Edward Duarte, Renaldo Gastineau, Pierre Sabatier, Flavio S. Anselmetti, Stefano C. Fabbri, Serkan Gündüz, Mustafa Şahin, Julia de Sigoyer',
-              time: '9:40–9:55',
-            },
-          ],
-          '203': [
-            {
-              title: 'Análisis multiescala de imágenes para la caracterización del entramado poroso en areniscas reservorio de la Cuenca Cesar-Ranchería',
-              status: 'confirmado',
-              authors: 'Leidy Estefania Cadavid Arango, Cesar Vinasco',
-              time: '8:10–8:25',
-            },
-            {
-              title: 'Mapeamiento textural 3D y 2D de bloques de roca potencialmente almacenadora de CO2 a través de estudios de microtomografía computarizada',
-              status: 'confirmado',
-              authors: 'Nathalie Herrera Cárdenas; César Vinasco',
-              time: '8:55–9:10',
-            },
-            {
-              title: 'Aplicación de técnicas analíticas en el estudio de sedimentos recientes de humedales: caso de estudio en la Ciénaga Grande',
-              authors: 'Karol Vanessa Ruiz Moreno',
-              linea: 'Estratigrafía y Sedimentología',
-              status: 'confirmado',
-              time: '9:40–9:55',
-            },
-          ],
-          '204': [
-            {
-              title: 'Caracterización de protolitos y metamorfismo de los esquistos del Complejo Arquía expuestos en el Río Tapias (Chocó): implicaciones para la generación de H₂',
-              status: 'confirmado',
-              authors: 'Luna Valeria Amaya Orozco, Agustín Cardona Molina, Alejandra M. Bedoya Mejía, Sebastián Zapata Henao',
-              time: '8:10–8:25',
-            },
-            {
-              title: 'PETROGRAFÍA Y CARACTERIZACIÓN GEOQUÍMICA DE LAS ROCAS DE LOS STOCKS DE CHUSCALES, OTENGÁ E INTRUSIVO DE AGUACHICA, MACIZO DE FLORESTA, BOYACÁ, COLOMBIA.',
-              status: 'confirmado',
-              authors: 'Angie Roshel Pabón Soler',
-              time: '8:55–9:10',
-            },
-            {
-              title: 'Petrogenesis y evolución tectónica de los gabros en el sector de Sucre, Antioquia, y su posición dentro del CCOP',
-              status: 'confirmado',
-              authors: 'Cesar Santiago Morales, Sebastián Zapata Henao, Agustín Cardona, Eliana Botello',
-              time: '9:40–9:55',
-            },
-          ],
-          '205': [
-            {
-              title: 'Método Anaconda: Implicaciones prospectivas y metalotectos texturales en mineralización tipo pórfido asociados al Proyecto Guayabales - Collective Mining',
-              status: 'confirmado',
-              authors: 'Alex Julián Insuasty España, Juan Daniel Burbano Salazar',
-              time: '8:10–8:25',
-            },
-            {
-              title: 'Actualización del análisis de vulnerabilidad, amenaza y peligro a la contaminación de las aguas subterráneas en la Sabana de Bogotá',
-              authors: 'David Blanco Quiroga, María Juliana Chacón Porras',
-              linea: 'Hidrogeología · Recursos Hídricos',
-              status: 'confirmado',
-              time: '8:55–9:10',
-            },
-            {
-              title: 'Propuesta de Zonificaciòn de Potencial de Recarga Natural y Aptitud de Recarga Artificial de Acuíferos en la Sabana de Bogotá mediante Análisis Multiparamétrico y Ponderación Integrada GRITIC-AHP',
-              authors: 'German Leonardo Rojas Leal',
-              linea: 'Hidrogeología · Recursos Hídricos',
-              status: 'confirmado',
-              time: '9:40–9:55',
-            },
-          ],
-          '206': [
-            {
-              title: 'Sección estructural del sendero El Cementerio a escala 1:2.000, Gramalote Antiguo, Norte de Santander',
-              status: 'confirmado',
-              authors: 'Dennis Julethzy Camila Mogollón Rodríguez, Michell Cárdenas-López, Jhan Leal-Contreras, Ilich Villamizar-Solano',
-              time: '8:10–8:25',
-            },
-            {
-              title: 'Análisis litoestratigráfico del registro metamórfico en la Quebrada La Despensas (Filadelfia, Caldas)',
-              authors: 'David Patiño, Alejandra Bedoya, Agustín Cardona, Juan Sebastián Jaramillo, Julián Parra, Paulina Muñoz',
-              linea: 'Petrología Metamórfica · Geocronología',
-              status: 'confirmado',
-              time: '8:55–9:10',
-            },
-            {
-              title: 'Magmatismo félsico con enclaves máficos y deformación frágil en el sector Patillal–La Junta, margen noroccidental del SNSM',
-              authors: 'Jenny García González',
-              linea: 'Geología Regional · Magmatismo',
-              status: 'confirmado',
-              time: '9:40–9:55',
-            },
-          ],
-        },
-      },
-      {
-        type: 'info',
-        time: '10:30–11:00',
-        title: 'Break (entrega quinto refrigerio)',
-        category: 'break',
-      },
-      {
-        type: 'panel',
-        time: '11:00–12:30',
-        title: 'Panel de discusión: Energías — ANH',
-      },
-      {
-        type: 'info',
-        time: '12:30–14:00',
-        title: 'Almuerzo',
-        category: 'almuerzo',
-      },
-      {
-        type: 'info',
-        time: '14:10–18:00',
-        title: 'SGC: 1 de los 3 salones de bienestar (tarde)',
-        category: 'sgc',
-      },
-      {
-        type: 'block',
-        time: '14:10–14:50',
-        auditorio: {
-          cms: [
-            {
-              code: 'CM-13',
-              time: '14:10–14:50',
-              title: 'SCG',
-              speaker: 'Por confirmar',
-              org: 'SCG',
-            },
-          ],
-        },
-        title: 'Charla Magistral 13',
-        altBlock: {
-          title: 'SCG — Sociedad Colombiana de Geotecnia',
-          sub: 'Programación propia en paralelo a las charlas magistrales · 1 salón de Bienestar',
-          span: 3,
-          time: '14:10–16:10',
-        },
-      },
-      {
-        type: 'block',
-        time: '14:50–15:30',
-        auditorio: {
-          cms: [
-            {
-              code: 'CM-14',
-              time: '14:50–15:30',
-              title: 'Caracterización de rezumaderos a partir de productos de sensores remotos',
-              speaker: 'Iván Plata',
-              org: 'Ecopetrol',
-            },
-          ],
-        },
-        title: 'Charla Magistral 14',
-        altBlockContinuation: true,
-      },
-      {
-        type: 'block',
-        time: '15:30–16:10',
-        auditorio: {
-          cms: [
-            {
-              code: 'CM-15',
-              time: '15:30–16:10',
-              title: 'Elementos para entender el fracking en Colombia',
-              speaker: 'Jaime Checa',
-              org: 'ACGGP',
-            },
-          ],
-        },
-        title: 'Charla Magistral 15',
-        altBlockContinuation: true,
-      },
-      { type: 'info', time: '16:20', title: 'Evento de cierre', category: 'cierre' },
-      { type: 'info', time: '19:00–', title: 'Fiesta final', category: 'cierre' },
-    ],
-  },
+    {
+        "id":  "vie",
+        "label":  "Viernes 21",
+        "sub":  "6 salas (maÃ±ana) Â· CM-5 a CM-7 Â· CE-7 a CE-9 Â· Panel ANH Â· cierre Â· ACGGP AM / SCG PM",
+        "desc":  "Actualizado jul-2026: ponencias en la maÃ±ana (3Ã—25 min por sala, 8:10â€“9:25) con CE-7 y CE-8 en paralelo; CM-5 a las 9:40; Panel ANH 11:00â€“12:30; en la tarde CM-6, CE-9 y CM-7; break 4:10 PM; evento de cierre 4:50 PM y fiesta final 8:00 PM. SalÃ³n ACGGP en la maÃ±ana y SCG en la tarde (1 salÃ³n de Bienestar).",
+        "rooms":  [
+                      "201",
+                      "202",
+                      "203",
+                      "204",
+                      "205",
+                      "206"
+                  ],
+        "themes":  {
+                       "201":  "EnergÃ­as Renovables Â· COâ‚‚ Â· HidrÃ³geno",
+                       "202":  "GeofÃ­sica Â· SismologÃ­a Â· InstrumentaciÃ³n",
+                       "203":  "TecnologÃ­a Â· TeledetecciÃ³n Â· MetodologÃ­a Sedimentaria",
+                       "204":  "PetrologÃ­a MetamÃ³rfica e Ãgnea",
+                       "205":  "ExploraciÃ³n Â· HidrogeologÃ­a Â· Recursos HÃ­dricos",
+                       "206":  "GeologÃ­a Estructural Â· EvoluciÃ³n TectÃ³nica"
+                   },
+        "sgcColumn":  true,
+        "sgcHeader":  "ACGGP / SCG",
+        "rows":  [
+                     {
+                         "type":  "block",
+                         "time":  "8:10â€“9:30",
+                         "cells":  {
+                                       "201":  [
+                                                   {
+                                                       "title":  "EVALUACIÃ“N DEL POTENCIAL DE ALMACENAMIENTO GEOLÃ“GICO DE COâ‚‚ EN EL VALLE MEDIO DEL MAGDALENA A PARTIR DE CARACTERISTICAS PETROGRAFICAS Y PETROFISICAS.",
+                                                       "status":  "confirmado",
+                                                       "authors":  "PhD AgustÃ­n Cardona Molina, M.Sc Edison Duarte GÃ³mez, Adriana Bravo Benavides",
+                                                       "email":  "jabravo@unal.edu.co",
+                                                       "note":  "TÃ­tulo tomado de la hoja maestra (coincidencia por similitud 91%); el cronograma usaba una versiÃ³n truncada/distinta.",
+                                                       "time":  "8:10â€“8:35"
+                                                   },
+                                                   {
+                                                       "title":  "Presencia y generaciÃ³n de hidrÃ³geno blanco a lo largo de la transiciÃ³n oceÃ¡nicoâ€“continental en el Valle del Cauca",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Michael Steven Guerrero PeÃ±a, Juan Carlos Molano Mendoza",
+                                                       "email":  "miguerrerop@unal.edu.co",
+                                                       "note":  "TÃ­tulo emparejado por similitud (57%) con hoja maestra; revisar redacciÃ³n exacta.",
+                                                       "time":  "8:35â€“9:00"
+                                                   },
+                                                   {
+                                                       "title":  "MetodologÃ­a basada en Inteligencia Artificial para la evaluaciÃ³n del riesgo geomecÃ¡nico de contenciÃ³n en proyectos de almacenamiento de COâ‚‚",
+                                                       "status":  "confirmado",
+                                                       "authors":  "AndrÃ©s Mauricio MuÃ±oz GarcÃ­a (autodeclarado 26-jun); Erluan Andres Zabaleta Benavides (coautor, confirmado en otro tÃ­tulo)",
+                                                       "note":  "No se encontrÃ³ coincidencia en PONENTES/CORREOS PONENCIAS.xlsx â€” falta agregarlo a la hoja maestra. | Parcial 23-jun: coautores AndrÃ©s Mauricio MuÃ±oz GarcÃ­a y Erluan Zabaleta inscritos (Zabaleta bajo otro tÃ­tulo suyo) â€” ver CRONOGRAMA_CONFIRMADO_2026-06-23.md | Confirmado 26-jun (autodeclaraciÃ³n directa en el formulario de inscripciÃ³n actualizado / cruce por email-contacto y coautores) â€” Autodeclarado por AndrÃ©s Mauricio MuÃ±oz GarcÃ­a en el campo \u0027Nombre de la Ponencia o Poster\u0027 (similitud 100%). â€” ver CRONOGRAMA_CONFIRMADO_2026-06-26.md",
+                                                       "email":  "andresmm63@gmail.com",
+                                                       "time":  "9:00â€“9:25"
+                                                   }
+                                               ],
+                                       "202":  [
+                                                   {
+                                                       "title":  "Modelo de visualizaciÃ³n e interpretaciÃ³n 3D basado en datos de tomografÃ­a de resistividad elÃ©ctrica, para la identificaciÃ³n de estructuras geolÃ³gicas",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Ana MarÃ­a Lizarazo Molina, Fabian Felipe Beltran Cepeda",
+                                                       "email":  "analizarazomolina@gmail.com",
+                                                       "note":  "No se encontrÃ³ coincidencia en PONENTES/CORREOS PONENCIAS.xlsx â€” falta agregarlo a la hoja maestra.",
+                                                       "time":  "8:10â€“8:35"
+                                                   },
+                                                   {
+                                                       "title":  "QuÃ© es la DetecciÃ³n AcÃºstica Distribuida (DAS): Algunos ejemplos en Colombia y el Mundo",
+                                                       "status":  "confirmado",
+                                                       "authors":  "GermÃ¡n A. Prieto",
+                                                       "email":  "gaprietogo@unal.edu.co",
+                                                       "time":  "8:35â€“9:00"
+                                                   },
+                                                   {
+                                                       "title":  "Registro sÃ­smico del tramo central de la falla de Anatolia del Norte a partir de los sedimentos del lago Iznik",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Edward Duarte, Renaldo Gastineau, Pierre Sabatier, Flavio S. Anselmetti, Stefano C. Fabbri, Serkan GÃ¼ndÃ¼z, Mustafa Åžahin, Julia de Sigoyer",
+                                                       "email":  "edferdua@uis.edu.co",
+                                                       "note":  "TÃ­tulo emparejado por similitud (85%) con hoja maestra; revisar redacciÃ³n exacta. | Confirmado 23-jun (revisiÃ³n ampliada, criterio: autor/coautor inscrito sin requerir que declare este tÃ­tulo exacto) â€” Edward Fernando Duarte Martinez â€” ver CRONOGRAMA_CONFIRMADO_2026-06-23.md",
+                                                       "time":  "9:00â€“9:25"
+                                                   }
+                                               ],
+                                       "203":  [
+                                                   {
+                                                       "title":  "AnÃ¡lisis multiescala de imÃ¡genes para la caracterizaciÃ³n del entramado poroso en areniscas reservorio de la Cuenca Cesar-RancherÃ­a",
+                                                       "status":  "parcial",
+                                                       "authors":  "Leidy Estefania Cadavid Arango; Cesar Vinasco (coautores inscritos, confirmado 23-jun sin declarar este titulo exacto)",
+                                                       "note":  "No se encontrÃ³ coincidencia en PONENTES/CORREOS PONENCIAS.xlsx â€” falta agregarlo a la hoja maestra. | Confirmado 23-jun (revisiÃ³n ampliada, criterio: autor/coautor inscrito sin requerir que declare este tÃ­tulo exacto) â€” Leidy Estefania Cadavid Arango; Cesar Vinasco â€” ver CRONOGRAMA_CONFIRMADO_2026-06-23.md",
+                                                       "email":  "cvinasco@unal.edu.co",
+                                                       "time":  "8:10â€“8:35"
+                                                   },
+                                                   {
+                                                       "title":  "Mapeamiento textural 3D y 2D de bloques de roca potencialmente almacenadora de CO2 a travÃ©s de estudios de microtomografÃ­a computarizada",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Nathalie Herrera CÃ¡rdenas; CÃ©sar Vinasco",
+                                                       "email":  "nherrera@unal.edu.co",
+                                                       "note":  "TÃ­tulo tomado de la hoja maestra (coincidencia por similitud 94%); el cronograma usaba una versiÃ³n truncada/distinta. | Confirmado 23-jun (revisiÃ³n ampliada, criterio: autor/coautor inscrito sin requerir que declare este tÃ­tulo exacto) â€” Nathalie Herrera CÃ¡rdenas; Cesar Vinasco â€” ver CRONOGRAMA_CONFIRMADO_2026-06-23.md",
+                                                       "time":  "8:35â€“9:00"
+                                                   },
+                                                   {
+                                                       "title":  "AplicaciÃ³n de tÃ©cnicas analÃ­ticas en el estudio de sedimentos recientes de humedales: caso de estudio en la CiÃ©naga Grande",
+                                                       "authors":  "Karol Vanessa Ruiz Moreno",
+                                                       "email":  "vruiz0071@gmail.com",
+                                                       "linea":  "EstratigrafÃ­a y SedimentologÃ­a",
+                                                       "status":  "confirmado",
+                                                       "time":  "9:00â€“9:25"
+                                                   }
+                                               ],
+                                       "204":  [
+                                                   {
+                                                       "title":  "CaracterizaciÃ³n de protolitos y metamorfismo de los esquistos del Complejo ArquÃ­a expuestos en el RÃ­o Tapias (ChocÃ³): implicaciones para la generaciÃ³n de Hâ‚‚",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Luna Valeria Amaya Orozco, AgustÃ­n Cardona Molina, Alejandra M. Bedoya MejÃ­a, SebastiÃ¡n Zapata Henao",
+                                                       "email":  "luna.amaya@urosario.edu.co",
+                                                       "note":  "Contacto Luna Amaya con inscripciÃ³n formalizada por su universidad (Rosario). TÃ­tulo emparejado por similitud (83%) con hoja maestra; revisar redacciÃ³n exacta.",
+                                                       "time":  "8:10â€“8:35"
+                                                   },
+                                                   {
+                                                       "title":  "PETROGRAFÃA Y CARACTERIZACIÃ“N GEOQUÃMICA DE LAS ROCAS DE LOS STOCKS DE CHUSCALES, OTENGÃ E INTRUSIVO DE AGUACHICA, MACIZO DE FLORESTA, BOYACÃ, COLOMBIA.",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Angie Roshel PabÃ³n Soler",
+                                                       "email":  "apabons@unal.edu.co",
+                                                       "note":  "TÃ­tulo tomado de la hoja maestra (coincidencia por similitud 94%); el cronograma usaba una versiÃ³n truncada/distinta.",
+                                                       "time":  "8:35â€“9:00"
+                                                   },
+                                                   {
+                                                       "title":  "Petrogenesis y evoluciÃ³n tectÃ³nica de los gabros en el sector de Sucre, Antioquia, y su posiciÃ³n dentro del CCOP",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Cesar Santiago Morales, SebastiÃ¡n Zapata Henao, AgustÃ­n Cardona, Eliana Botello",
+                                                       "email":  "cesars.morales@urosario.edu.co",
+                                                       "note":  "Contacto CÃ©sar Morales con inscripciÃ³n formalizada por su universidad (Rosario). No se encontrÃ³ coincidencia en PONENTES/CORREOS PONENCIAS.xlsx â€” falta agregarlo a la hoja maestra.",
+                                                       "time":  "9:00â€“9:25"
+                                                   }
+                                               ],
+                                       "205":  [
+                                                   {
+                                                       "title":  "MÃ©todo Anaconda: Implicaciones prospectivas y metalotectos texturales en mineralizaciÃ³n tipo pÃ³rfido asociados al Proyecto Guayabales - Collective Mining",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Alex JuliÃ¡n Insuasty EspaÃ±a, Juan Daniel Burbano Salazar",
+                                                       "email":  "seg_uc@ucaldas.edu.co (contacto, NO inscrito)",
+                                                       "note":  "El grupo Ucaldas (5 personas, incluye a Alex JuliÃ¡n Insuasty EspaÃ±a) estÃ¡ inscrito como #52. El correo genÃ©rico seg_uc@ucaldas.edu.co sigue sin inscripciÃ³n propia. TÃ­tulo tomado de la hoja maestra (coincidencia por similitud 94%); el cronograma usaba una versiÃ³n truncada/distinta. | Confirmado 26-jun (autodeclaraciÃ³n directa en el formulario de inscripciÃ³n actualizado / cruce por email-contacto y coautores) â€” Autodeclarado por Juan Daniel Burbano Salazar \nJuan David RÃ­os GonzÃ¡lez \nValery Casallas HernÃ¡ndez\nAlex JuliÃ¡n Insuasty EspaÃ±a \nSantiago Grajales Loaiza en el campo \u0027Nombre de la Ponencia o Poster\u0027 (similitud 100%). | 2 coautores distintos inscritos: Alex JuliÃ¡n Insuasty EspaÃ±a; Juan Daniel Burbano Salazar â€” ver CRONOGRAMA_CONFIRMADO_2026-06-26.md",
+                                                       "time":  "8:10â€“8:35"
+                                                   },
+                                                   {
+                                                       "title":  "ActualizaciÃ³n del anÃ¡lisis de vulnerabilidad, amenaza y peligro a la contaminaciÃ³n de las aguas subterrÃ¡neas en la Sabana de BogotÃ¡",
+                                                       "authors":  "David Blanco Quiroga, MarÃ­a Juliana ChacÃ³n Porras",
+                                                       "email":  "dbquiroga10@gmail.com",
+                                                       "linea":  "HidrogeologÃ­a Â· Recursos HÃ­dricos",
+                                                       "status":  "confirmado",
+                                                       "time":  "8:35â€“9:00"
+                                                   },
+                                                   {
+                                                       "title":  "Propuesta de ZonificaciÃ³n de Potencial de Recarga Natural y Aptitud de Recarga Artificial de AcuÃ­feros en la Sabana de BogotÃ¡ mediante AnÃ¡lisis MultiparamÃ©trico y PonderaciÃ³n Integrada GRITIC-AHP",
+                                                       "authors":  "German Leonardo Rojas Leal",
+                                                       "email":  "gelrojasle@unal.edu.co",
+                                                       "linea":  "HidrogeologÃ­a Â· Recursos HÃ­dricos",
+                                                       "status":  "confirmado",
+                                                       "time":  "9:00â€“9:25"
+                                                   }
+                                               ],
+                                       "206":  [
+                                                   {
+                                                       "title":  "SecciÃ³n estructural del sendero El Cementerio a escala 1:2.000, Gramalote Antiguo, Norte de Santander",
+                                                       "status":  "confirmado",
+                                                       "authors":  "Dennis Julethzy Camila MogollÃ³n RodrÃ­guez, Michell CÃ¡rdenas-LÃ³pez, Jhan Leal-Contreras, Ilich Villamizar-Solano",
+                                                       "email":  "camiljulethzy@gmail.com",
+                                                       "note":  "InscripciÃ³n grupal (Combo Parche, 5 personas) confirmada el 2026-06-16 â€” Universidad de Pamplona. TÃ­tulo emparejado por similitud (82%) con hoja maestra; revisar redacciÃ³n exacta.",
+                                                       "time":  "8:10â€“8:35"
+                                                   },
+                                                   {
+                                                       "title":  "AnÃ¡lisis litoestratigrÃ¡fico del registro metamÃ³rfico en la Quebrada La Despensas (Filadelfia, Caldas)",
+                                                       "authors":  "David PatiÃ±o, Alejandra Bedoya, AgustÃ­n Cardona, Juan SebastiÃ¡n Jaramillo, JuliÃ¡n Parra, Paulina MuÃ±oz",
+                                                       "email":  "dpatinov@unal.edu.co",
+                                                       "linea":  "PetrologÃ­a MetamÃ³rfica Â· GeocronologÃ­a",
+                                                       "status":  "confirmado",
+                                                       "time":  "8:35â€“9:00"
+                                                   },
+                                                   {
+                                                       "title":  "Magmatismo fÃ©lsico con enclaves mÃ¡ficos y deformaciÃ³n frÃ¡gil en el sector Patillalâ€“La Junta, margen noroccidental del SNSM",
+                                                       "authors":  "Jenny GarcÃ­a GonzÃ¡lez",
+                                                       "email":  "ygarcia68@areandina.edu.co",
+                                                       "linea":  "GeologÃ­a Regional Â· Magmatismo",
+                                                       "status":  "confirmado",
+                                                       "time":  "9:00â€“9:25"
+                                                   }
+                                               ]
+                                   },
+                         "auditorio":  {
+                                           "cms":  [
+                                                       {
+                                                           "code":  "CE-7",
+                                                           "time":  "8:10â€“8:50",
+                                                           "title":  "Minerales EstratÃ©gicos y TransiciÃ³n EnergÃ©tica: Nuevas Oportunidades",
+                                                           "speaker":  "Ing. Esteban Castillo",
+                                                           "org":  "ANM"
+                                                       },
+                                                       {
+                                                           "code":  "CE-8",
+                                                           "time":  "8:50â€“9:30",
+                                                           "title":  "CaracterizaciÃ³n de rezumaderos a partir de productos de sensores remotos",
+                                                           "speaker":  "IvÃ¡n Plata",
+                                                           "org":  "Ecopetrol"
+                                                       }
+                                                   ]
+                                       },
+                         "sgc":  "start",
+                         "sgcSpan":  4,
+                         "sgcTitle":  "ACGGP",
+                         "sgcDesc":  "ACGGP â€” AsociaciÃ³n Colombiana de GeÃ³logos y GeofÃ­sicos del PetrÃ³leo â€” programaciÃ³n propia, 1 salÃ³n de Bienestar (maÃ±ana)"
+                     },
+                     {
+                         "type":  "block",
+                         "time":  "9:40â€“10:30",
+                         "auditorio":  {
+                                           "cms":  [
+                                                       {
+                                                           "code":  "CM-5",
+                                                           "time":  "9:40â€“10:30",
+                                                           "title":  "The Changing Role of Geosciences in the Energy Transition",
+                                                           "speaker":  "Eilard Hoogerduijn",
+                                                           "org":  "Internacional"
+                                                       }
+                                                   ]
+                                       },
+                         "cells":  null,
+                         "altBlock":  {
+                                          "time":  "",
+                                          "title":  "Charla magistral en el auditorio",
+                                          "sub":  "Asistencia general â€” sin ponencias en salones"
+                                      },
+                         "sgc":  "continue"
+                     },
+                     {
+                         "type":  "info",
+                         "time":  "10:30â€“11:00",
+                         "title":  "Break (entrega quinto refrigerio)",
+                         "category":  "break",
+                         "sgc":  "continue"
+                     },
+                     {
+                         "type":  "panel",
+                         "time":  "11:00â€“12:30",
+                         "title":  "Panel de discusiÃ³n: EnergÃ­as â€” ANH",
+                         "note":  null,
+                         "sgc":  "continue"
+                     },
+                     {
+                         "type":  "info",
+                         "time":  "12:30â€“14:00",
+                         "title":  "Almuerzo",
+                         "category":  "almuerzo"
+                     },
+                     {
+                         "type":  "block",
+                         "time":  "14:00â€“14:40",
+                         "auditorio":  {
+                                           "cms":  [
+                                                       {
+                                                           "code":  "CM-6",
+                                                           "time":  "14:00â€“14:40",
+                                                           "title":  "ANH",
+                                                           "speaker":  "Por confirmar",
+                                                           "org":  "ANH",
+                                                           "note":  "Tema y ponente por confirmar â€” Agencia Nacional de Hidrocarburos."
+                                                       }
+                                                   ]
+                                       },
+                         "cells":  null,
+                         "altBlock":  {
+                                          "time":  "",
+                                          "title":  "Charla magistral en el auditorio",
+                                          "sub":  "Asistencia general â€” sin ponencias en salones"
+                                      },
+                         "sgc":  "start",
+                         "sgcSpan":  3,
+                         "sgcTitle":  "SCG",
+                         "sgcDesc":  "SCG â€” Sociedad Colombiana de Geotecnia â€” programaciÃ³n propia, 1 salÃ³n de Bienestar (tarde)"
+                     },
+                     {
+                         "type":  "block",
+                         "time":  "14:50â€“15:30",
+                         "auditorio":  {
+                                           "cms":  [
+                                                       {
+                                                           "code":  "CE-9",
+                                                           "time":  "14:50â€“15:30",
+                                                           "title":  "Sociedad Colombiana de Geotecnia",
+                                                           "speaker":  "Por confirmar",
+                                                           "org":  "SCG",
+                                                           "note":  "Tema y ponente por confirmar â€” Sociedad Colombiana de Geotecnia."
+                                                       }
+                                                   ]
+                                       },
+                         "cells":  null,
+                         "altBlock":  {
+                                          "time":  "",
+                                          "title":  "Charla especial en el auditorio",
+                                          "sub":  "Asistencia general â€” sin ponencias en salones"
+                                      },
+                         "sgc":  "continue"
+                     },
+                     {
+                         "type":  "block",
+                         "time":  "15:30â€“16:10",
+                         "auditorio":  {
+                                           "cms":  [
+                                                       {
+                                                           "code":  "CM-7",
+                                                           "time":  "15:30â€“16:10",
+                                                           "title":  "Territorio, energÃ­a y decisiones: las geociencias como brÃºjula del Estado",
+                                                           "speaker":  "Flover RodrÃ­guez-Portillo",
+                                                           "org":  "ACGGP"
+                                                       }
+                                                   ]
+                                       },
+                         "cells":  null,
+                         "altBlock":  {
+                                          "time":  "",
+                                          "title":  "Charla magistral en el auditorio",
+                                          "sub":  "Asistencia general â€” sin ponencias en salones"
+                                      },
+                         "sgc":  "continue"
+                     },
+                     {
+                         "type":  "info",
+                         "time":  "16:10â€“16:40",
+                         "title":  "Break (entrega sexto refrigerio)",
+                         "category":  "break"
+                     },
+                     {
+                         "type":  "info",
+                         "time":  "16:50â€“",
+                         "title":  "Evento de cierre",
+                         "category":  "cierre"
+                     },
+                     {
+                         "type":  "info",
+                         "time":  "20:00â€“",
+                         "title":  "Fiesta final",
+                         "category":  "cierre"
+                     }
+                 ]
+    }
 ];
+

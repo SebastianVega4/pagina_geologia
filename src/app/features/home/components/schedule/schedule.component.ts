@@ -33,16 +33,16 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
   }
 
   // ============================================================
-  //  RENDER PRINCIPAL
+  //  RENDER
   // ============================================================
   private renderSchedule(): void {
     const tabsEl = this.officialRoot.nativeElement.querySelector('#tabs');
+    const tabDescEl = this.officialRoot.nativeElement.querySelector('#tabDesc');
     const panelsEl = this.officialRoot.nativeElement.querySelector('#panels');
 
     if (!tabsEl || !panelsEl) return;
 
-    DAYS.forEach((day, idx) => {
-      // --- TAB ---
+    DAYS.forEach((day: any, idx: number) => {
       const btn = this.renderer.createElement('button');
       this.renderer.addClass(btn, 'tab-btn');
       if (idx === 0) this.renderer.addClass(btn, 'active');
@@ -52,28 +52,25 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
       );
       this.renderer.appendChild(tabsEl, btn);
 
-      // --- PANEL ---
       const panel = this.renderer.createElement('div');
       this.renderer.addClass(panel, 'day-panel');
       if (idx === 0) this.renderer.addClass(panel, 'active');
       this.renderer.setAttribute(panel, 'id', 'panel-' + day.id);
 
       if (day.type === 'dashboard') {
-        // Vista "Horario General" - la cuadrícula grande
         panel.innerHTML = this.renderHorarioGrid();
       } else {
-        // Vista de día específico con tabla
-        panel.innerHTML = this.renderDayTable(day);
+        this.renderDayTable(panel, day);
       }
       this.renderer.appendChild(panelsEl, panel);
     });
 
     this.selectDay(0);
-    this.attachCellClickListeners();
+    this.attachHorarioClickListeners();
   }
 
   // ============================================================
-  //  HORARIO GENERAL - CUADRICULA COMPLETA (como en el guía)
+  //  HORARIO GENERAL - CUADRICULA
   // ============================================================
   private renderHorarioGrid(): string {
     const r = (t: string) => {
@@ -103,19 +100,18 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
       </div>`;
     };
 
-    // Genera bloques de charlas magistrales desde los datos
     const cmBlks = (
       col: number | [number, number],
       dayId: string,
       excludeCodes?: string[],
     ) => {
       const exc = new Set(excludeCodes || []);
-      const day = DAYS.find((d) => d.id === dayId);
-      if (!day || !('rows' in day) || !day.rows) return '';
+      const day = DAYS.find((d: any) => d.id === dayId);
+      if (!day) return '';
       return (day.rows as any[])
         .flatMap((row: any) =>
           (row.auditorio?.cms || []).map((cm: any) => {
-            if (exc.has(cm.code)) return '';
+            if (!cm.code || exc.has(cm.code)) return '';
             const pts = cm.time.split(/[^\d:]+/);
             const [t1, t2] = [pts[0], pts[1]];
             if (!t1 || !t2) return '';
@@ -123,482 +119,316 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
               ? `${col[0]} / span ${col[1]}`
               : `${col}`;
             const spOk = cm.speaker && cm.speaker !== 'Por confirmar';
-            const title = cm.title;
-            return `<div class="hblk hb-cm" style="grid-column:${cs};grid-row:${r(t1)}/${r(t2)};justify-content:flex-start;align-items:flex-start;text-align:left;">
-          <div class="ht" style="width:100%;text-align:left">${fmt(t1)}\u2009\u2013\u2009${fmt(t2)}</div>
-          <div style="font-size:7px;opacity:.4;font-family:'DM Mono',monospace;letter-spacing:.2px;margin-bottom:1px">${this.escapeHtml(cm.code)}</div>
-          <div style="font-size:9px;font-weight:700;line-height:1.25;color:var(--amber)">${this.escapeHtml(title)}</div>
-          ${spOk ? `<div style="font-size:7.5px;opacity:.6;font-style:italic;margin-top:2px;line-height:1.2">${this.escapeHtml(cm.speaker)}</div>` : ''}
-        </div>`;
+            const clamp = r(t2) - r(t1) >= 40 ? 2 : 1;
+            return `<div class="hblk hb-cm" style="grid-column:${cs};grid-row:${r(t1)}/${r(t2)};justify-content:flex-start;align-items:flex-start;text-align:left;" data-code="${this.escapeHtml(cm.code)}">
+              <div class="ht" style="width:100%;text-align:left">${fmt(t1)}\u2009\u2013\u2009${fmt(t2)} \u00b7 ${this.escapeHtml(cm.code)}</div>
+              <div class="hn" style="line-height:1.25;color:var(--amber);display:-webkit-box;-webkit-line-clamp:${clamp};-webkit-box-orient:vertical;overflow:hidden;">${this.escapeHtml(cm.title)}</div>
+              ${spOk ? `<div class="hs" style="font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;">${this.escapeHtml(cm.speaker)}</div>` : ''}
+            </div>`;
           }),
         )
         .join('');
     };
 
-    const GC = '55px 1fr 1fr 1fr 1fr 1fr 1fr 1fr';
+    const GC = '55px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr';
     const tls = [
-      '8:00',
-      '8:30',
-      '9:00',
-      '9:30',
-      '10:00',
-      '10:30',
-      '11:00',
-      '11:30',
-      '12:00',
-      '12:30',
-      '13:00',
-      '13:30',
-      '14:00',
-      '14:30',
-      '15:00',
-      '15:30',
-      '16:00',
-      '16:30',
-      '17:00',
-      '17:30',
-      '18:00',
-      '18:30',
+      '8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30',
+      '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30',
+      '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00',
     ];
     const tlHtml = tls
       .map(
         (t) => `<div style="grid-column:1;grid-row:${r(t)}/${r(t) + 10};
-    font-family:'DM Mono',monospace;font-size:9px;color:var(--text-dim);
-    display:flex;align-items:flex-start;justify-content:flex-end;
-    padding-right:6px;padding-top:2px;border-right:1px solid var(--border);">${t}</div>`,
+      font-family:'DM Mono',monospace;font-size:9px;color:var(--text-dim);
+      display:flex;align-items:flex-start;justify-content:flex-end;
+      padding-right:6px;padding-top:2px;border-right:1px solid var(--border);">${t}</div>`,
       )
       .join('');
 
-    // ── MIERCOLES cols 2=CMs·Actividades · 3=Posters·Ponencias ──────────────────────
     const mie = [
-      blk(
-        [2, 2],
-        '8:00',
-        '9:00',
-        'hb-reg',
-        'REGISTRO',
-        'Entrega primer refrigerio',
-      ),
-      blk(
-        [2, 2],
-        '9:00',
-        '10:00',
-        'hb-ap',
-        'BIENVENIDA',
-        'Apertura del evento',
-      ),
-      blk(2, '10:00', '12:30', 'hb-geo', 'GEOLIMPIADAS', ''),
-      blk(3, '10:00', '12:30', 'hb-geo', 'POSTERS', '46 turnos · 2 salones'),
-      blk([2, 7], '12:30', '14:00', 'hb-alm', 'ALMUERZO', ''),
-      cmBlks(2, 'mie'),
-      blk(3, '14:10', '15:40', 'hb-pon', 'PONENCIAS', '18 ponencias · 6 salas'),
-      blk(
-        [2, 2],
-        '15:50',
-        '16:20',
-        'hb-brk',
-        'BREAK',
-        'Entrega segundo refrigerio',
-      ),
-      blk(3, '16:30', '18:00', 'hb-pon', 'PONENCIAS', '18 ponencias · 6 salas'),
-      blk([2, 2], '18:00', '19:00', 'hb-cie', 'TERMALES', 'Máx. 7:00 PM'),
+      blk([2, 2], '8:00', '9:00', 'hb-reg', 'REGISTRO', ''),
+      blk([2, 2], '9:00', '10:00', 'hb-ap', 'BIENVENIDA', 'Apertura del evento'),
+      cmBlks([2, 2], 'mie', ['CE-1', 'CE-2', 'CE-3']),
+      cmBlks(2, 'mie', ['CM-1', 'CM-2']),
+      blk(2, '10:40', '11:20', 'hb-brk', 'BREAK', 'Primer refrigerio'),
+      blk(3, '10:30', '12:30', 'hb-geo', 'GEOLIMPIADAS', ''),
+      blk([2, 8], '12:30', '14:00', 'hb-alm', 'ALMUERZO', ''),
+      blk(3, '14:00', '16:00', 'hb-pon', 'PONENCIAS', '35 ponencias \u00b7 6 salas \u00b7 20 min'),
+      blk([2, 2], '16:00', '16:30', 'hb-brk', 'BREAK', 'Segundo refrigerio'),
+      blk(3, '17:10', '18:10', 'hb-geo', 'P\u00d3STERS', '54 p\u00f3sters \u00b7 2 salones'),
+      blk([2, 2], '18:10', '19:00', 'hb-cie', 'TERMALES', '6:00 PM \u00b7 m\u00e1x. 7:00 PM'),
     ].join('');
 
-    // ── SGC Servicio Geológico Colombiano (col 4) ───────────────────────────────────
     const sgc = [
-      blk(
-        4,
-        '8:10',
-        '12:30',
-        'hb-sgc',
-        'SGC',
-        'Servicio Geológico Colombiano<br>1 salón Bienestar',
-      ),
+      blk(4, '8:00', '12:30', 'hb-sgc', 'SGC', 'Servicio Geol\u00f3gico<br>Colombiano<br>1 sal\u00f3n Bienestar'),
       blk(4, '14:00', '19:00', 'hb-sgc', 'SGC', ''),
     ].join('');
 
-    // ── JUEVES cols 5=CMs·Actividades · 6=Posters·Ponencias ───────────────────────
-    const jue = [
-      cmBlks(5, 'jue'),
-      blk(6, '8:10', '10:20', 'hb-geo', 'POSTERS', '31 turnos · 1 salón'),
-      blk(
-        [5, 2],
-        '10:30',
-        '11:00',
-        'hb-brk',
-        'BREAK',
-        'Entrega tercer refrigerio',
-      ),
-      blk(
-        [5, 2],
-        '11:00',
-        '12:30',
-        'hb-pan',
-        'GEOLOGÍA EN VIVO',
-        'Dos Expertos, Un Viaje al Corazón de la Tierra',
-      ),
-      blk(
-        [5, 2],
-        '14:10',
-        '15:40',
-        'hb-pan',
-        'PANEL - GESTIÓN DEL RIESGO',
-        'Panel de Discusión',
-      ),
-      blk(
-        [5, 2],
-        '15:50',
-        '16:20',
-        'hb-brk',
-        'BREAK',
-        'Entrega cuarto refrigerio',
-      ),
-      blk(6, '16:30', '18:00', 'hb-pon', 'PONENCIAS', '18 ponencias · 6 salas'),
-      blk([5, 2], '18:00', '18:40', 'hb-cie', 'CANELAZO', ''),
+    const acggp = [
+      blk(7, '8:00', '12:30', 'hb-sgc', 'ACGGP', '1 sal\u00f3n Bienestar<br>(ma\u00f1ana)'),
+      blk(7, '14:00', '16:10', 'hb-scg', 'SCG', 'Sociedad Colombiana<br>de Geotecnia<br>1 sal\u00f3n Bienestar'),
     ].join('');
 
-    // ── VIERNES cols 7=CMs·Actividades · 8=Ponencias AM / SCG PM ─────────────
+    const jue = [
+      cmBlks([5, 2], 'jue', ['CE-4', 'CE-5']),
+      cmBlks(5, 'jue', ['CM-3', 'CM-4', 'CE-6']),
+      blk(6, '8:10', '9:25', 'hb-pon', 'PONENCIAS', '18 ponencias \u00b7 6 salas \u00b7 25 min'),
+      blk([5, 2], '10:30', '11:00', 'hb-brk', 'BREAK', 'Tercer refrigerio'),
+      blk([5, 2], '11:00', '12:30', 'hb-pan', 'PANEL \u2014 GESTI\u00d3N DEL RIESGO', 'Panel de discusi\u00f3n'),
+      blk([5, 2], '14:00', '15:00', 'hb-pan', 'GEOLOG\u00cdA EN VIVO', 'Dos Expertos, Un Viaje al Coraz\u00f3n de la Tierra'),
+      blk([5, 2], '15:00', '15:30', 'hb-brk', 'BREAK', 'Cuarto refrigerio'),
+      blk([5, 2], '17:10', '18:20', 'hb-geo', 'P\u00d3STERS', '30 p\u00f3sters \u00b7 1 sal\u00f3n'),
+      blk([5, 2], '19:00', '19:40', 'hb-cie', 'CANELAZO', '7:00 PM'),
+    ].join('');
+
     const vie = [
-      cmBlks(7, 'vie'),
-      blk(8, '8:10', '10:30', 'hb-pon', 'PONENCIAS', '18 ponencias · 6 salas'),
-      blk(
-        [7, 2],
-        '10:30',
-        '11:00',
-        'hb-brk',
-        'BREAK',
-        'Entrega quinto refrigerio',
-      ),
-      blk(
-        [7, 2],
-        '11:00',
-        '12:30',
-        'hb-pan',
-        'PANEL · ANH',
-        'Energías, territorio y decisiones',
-      ),
-      blk(
-        8,
-        '14:10',
-        '16:20',
-        'hb-scg',
-        'SCG',
-        'Sociedad Colombiana<br>de Geotecnia<br>1 salón Bienestar',
-      ),
-      blk(
-        [7, 2],
-        '16:20',
-        '19:00',
-        'hb-cie',
-        'EVENTO DE CIERRE',
-        '4:20 – 7:00 PM',
-      ),
-      blk([7, 2], '19:00', '19:30', 'hb-cie', 'FIESTA FINAL', '7:00 PM →'),
+      cmBlks([8, 2], 'vie', ['CE-7', 'CE-8']),
+      cmBlks(8, 'vie', ['CM-5', 'CM-6', 'CM-7', 'CE-9']),
+      blk(9, '8:10', '9:25', 'hb-pon', 'PONENCIAS', '18 ponencias \u00b7 6 salas \u00b7 25 min'),
+      blk([8, 2], '10:30', '11:00', 'hb-brk', 'BREAK', 'Quinto refrigerio'),
+      blk([8, 2], '11:00', '12:30', 'hb-pan', 'PANEL \u00b7 ANH', 'Energ\u00edas, territorio y decisiones'),
+      blk([8, 2], '16:10', '16:40', 'hb-brk', 'BREAK', 'Sexto refrigerio'),
+      blk([8, 2], '16:50', '19:00', 'hb-cie', 'EVENTO DE CIERRE', '4:50 PM'),
+      blk([8, 2], '20:00', '20:40', 'hb-cie', 'FIESTA FINAL', '8:00 PM \u2192'),
     ].join('');
 
     const hdrMain = `<div style="display:grid;grid-template-columns:${GC};
-    background:var(--night-2);border-bottom:2px solid var(--border);min-width:840px;">
-    <div class="hh">Hora</div>
-    <div class="hh" style="grid-column:2/span 2">Miércoles 19 Ago</div>
-    <div class="hh" style="grid-column:4/span 3">Jueves 20 Ago</div>
-    <div class="hh" style="grid-column:7/span 2">Viernes 21 Ago</div>
-  </div>`;
+      background:var(--night-2);border-bottom:2px solid var(--border);min-width:940px;">
+      <div class="hh">Hora</div>
+      <div class="hh" style="grid-column:2/span 2">Mi\u00e9rcoles 19 Ago</div>
+      <div class="hh" style="color:var(--green);font-size:7px;padding:5px 3px;line-height:1.5;letter-spacing:.3px">
+        SERVICIO<br>GEOL\u00d3GICO<br>COLOMBIANO</div>
+      <div class="hh" style="grid-column:5/span 2">Jueves 20 Ago</div>
+      <div class="hh" style="color:var(--green);font-size:7px;padding:5px 3px;line-height:1.5;letter-spacing:.3px">
+        SAL\u00d3N<br>ACGGP AM<br>SCG PM</div>
+      <div class="hh" style="grid-column:8/span 2">Viernes 21 Ago</div>
+    </div>`;
 
     const hdrSub = `<div style="display:grid;grid-template-columns:${GC};
-    background:var(--night-2);border-bottom:1px solid var(--border);min-width:840px;">
-    <div></div>
-    <div class="hh" style="font-size:7.5px;padding:3px 5px;letter-spacing:0;color:var(--amber);opacity:.8">Charlas Magistrales</div>
-    <div class="hh" style="font-size:7.5px;padding:3px 5px;letter-spacing:0;color:var(--teal);opacity:.8">Pósters · Ponencias</div>
-    <div class="hh" style="font-size:6.5px;padding:3px 3px;letter-spacing:0;color:var(--green);opacity:.8;line-height:1.3;">SERVICIO<br>GEOLÓGICO<br>COLOMBIANO</div>
-    <div class="hh" style="font-size:7.5px;padding:3px 5px;letter-spacing:0;color:var(--amber);opacity:.8">Charlas Magistrales</div>
-    <div class="hh" style="font-size:7.5px;padding:3px 5px;letter-spacing:0;color:var(--teal);opacity:.8">Pósters · Ponencias</div>
-    <div class="hh" style="font-size:7.5px;padding:3px 5px;letter-spacing:0;color:var(--amber);opacity:.8">Charlas Magistrales</div>
-    <div class="hh" style="font-size:7.5px;padding:3px 5px;letter-spacing:0;color:var(--teal);opacity:.8">Ponencias · SCG PM</div>
-  </div>`;
+      background:var(--night-2);border-bottom:1px solid var(--border);min-width:940px;">
+      <div></div>
+      <div class="hh" style="font-size:7.5px;padding:3px 5px;letter-spacing:0;color:var(--amber);opacity:.8">Charlas \u00b7 Actividades</div>
+      <div class="hh" style="font-size:7.5px;padding:3px 5px;letter-spacing:0;color:var(--teal);opacity:.8">Ponencias \u00b7 P\u00f3sters</div>
+      <div></div>
+      <div class="hh" style="font-size:7.5px;padding:3px 5px;letter-spacing:0;color:var(--amber);opacity:.8">Charlas \u00b7 Actividades</div>
+      <div class="hh" style="font-size:7.5px;padding:3px 5px;letter-spacing:0;color:var(--teal);opacity:.8">Ponencias \u00b7 P\u00f3sters</div>
+      <div></div>
+      <div class="hh" style="font-size:7.5px;padding:3px 5px;letter-spacing:0;color:var(--amber);opacity:.8">Charlas \u00b7 Actividades</div>
+      <div class="hh" style="font-size:7.5px;padding:3px 5px;letter-spacing:0;color:var(--teal);opacity:.8">Ponencias</div>
+    </div>`;
 
     return `<div style="overflow-x:auto;border:1px solid var(--border);border-radius:8px;">
-    ${hdrMain}${hdrSub}
-    <div style="display:grid;grid-template-columns:${GC};
-      grid-template-rows:repeat(700,2px);position:relative;min-width:840px;">
-      ${tlHtml}${mie}${sgc}${jue}${vie}
-    </div>
-  </div>`;
+      ${hdrMain}${hdrSub}
+      <div style="display:grid;grid-template-columns:${GC};
+        grid-template-rows:repeat(760,2px);position:relative;min-width:940px;">
+        ${tlHtml}${mie}${sgc}${jue}${acggp}${vie}
+      </div>
+    </div>`;
   }
 
   // ============================================================
-  //  TABLA DE DÍA ESPECÍFICO (como en el guía)
+  //  TABLA DE DIA ESPECIFICO (DOM)
   // ============================================================
-  private renderDayTable(day: any): string {
-    const sgcCol = day.sgcColumn
-      ? `<th style="width:64px;background:rgba(63,191,107,0.08);color:var(--green);font-size:9px;">SGC</th>`
-      : '';
+  private renderDayTable(panel: HTMLElement, day: any): void {
+    const wrap = this.renderer.createElement('div');
+    this.renderer.addClass(wrap, 'grid-wrap');
+    const table = this.renderer.createElement('table');
+    this.renderer.addClass(table, 'cal');
 
-    const header = `
-      <div class="grid-wrap">
-        <table class="cal">
-          <thead>
-            <tr>
-              <th class="time-col">Hora</th>
-              ${sgcCol}
-              <th class="auditorio-col">Auditorio</th>
-              ${day.rooms.map((r: string) => `<th><div class="room-name">${this.escapeHtml(r)}</div><div class="room-theme">${this.escapeHtml((day.themes || {})[r] || '')}</div></th>`).join('')}
-            </tr>
-          </thead>
-          <tbody>
-            ${day.rows.map((row: any) => this.renderTableRow(row, day)).join('')}
-          </tbody>
-        </table>
-      </div>`;
-    return header;
-  }
+    const thead = this.renderer.createElement('thead');
+    const trh = this.renderer.createElement('tr');
+    let headerHtml = '<th class="time-col">Hora</th>';
+    if (day.sgcColumn) {
+      headerHtml += `<th style="width:64px;background:rgba(63,191,107,0.08);color:var(--green);font-size:9px;">${this.escapeHtml(day.sgcHeader || 'SGC')}</th>`;
+    }
+    headerHtml += '<th class="auditorio-col">Auditorio</th>';
+    headerHtml += day.rooms.map((r: string) =>
+      `<th><div class="room-name">${this.escapeHtml(r)}</div><div class="room-theme">${this.escapeHtml((day.themes || {})[r] || '')}</div></th>`
+    ).join('');
+    trh.innerHTML = headerHtml;
+    this.renderer.appendChild(thead, trh);
+    this.renderer.appendChild(table, thead);
 
-  // ============================================================
-  //  FILA DE TABLA (info, panel, block)
-  // ============================================================
-  private renderTableRow(row: any, day: any): string {
-    const sgcCol = day.sgcColumn;
+    const tbody = this.renderer.createElement('tbody');
+    day.rows.forEach((row: any) => {
+      const tr = this.renderer.createElement('tr');
 
-    // --- INFO ROW ---
-    if (row.type === 'info') {
-      let sgcTd = '';
-      if (sgcCol) {
+      if (row.type === 'panel') {
+        tr.className = 'panel-row';
+        const td = this.renderer.createElement('td');
+        td.colSpan = day.sgcColumn ? day.rooms.length + 1 : day.rooms.length + 2;
+        td.innerHTML = `<div class="panel-meta">${this.escapeHtml(row.time)} \u00b7 PANEL</div>
+                        <div class="panel-title">${this.escapeHtml(row.title)}</div>
+                        <div class="panel-meta">${this.escapeHtml(row.note || '')}</div>`;
+        this.renderer.appendChild(tr, td);
+      } else if (row.type === 'info') {
+        tr.className = 'info-row cat-' + this.escapeHtml(row.category || '');
+        const td = this.renderer.createElement('td');
+        td.colSpan = day.sgcColumn ? day.rooms.length + 2 : day.rooms.length + 2;
+        td.innerHTML = `<div class="info-title">${this.escapeHtml(row.time)} \u00b7 ${this.escapeHtml(row.title)}</div>`
+          + (row.note ? `<div class="info-meta">${this.escapeHtml(row.note)}</div>` : '');
+        this.renderer.appendChild(tr, td);
+      } else if (row.type === 'block') {
+        tr.className = 'block-row';
+        const tdTime = this.renderer.createElement('td');
+        tdTime.className = 'time-cell';
+        tdTime.textContent = row.time;
+        this.renderer.appendChild(tr, tdTime);
+
         if (row.sgc === 'start') {
-          sgcTd = `<td rowspan="${row.sgcSpan || 1}" style="background:rgba(63,191,107,0.06);border-right:2px solid var(--green);vertical-align:middle;text-align:center;padding:8px 4px;">
-            <div style="font-family:'Playfair Display',serif;color:var(--green);font-size:11px;">SGC</div>
-            <div style="font-size:8px;color:var(--text-dim);margin-top:4px;line-height:1.25;">Servicio Geológico Colombiano — programación propia, 1 salón de Bienestar</div>
-          </td>`;
-        } else if (row.sgc === 'continue') {
-          sgcTd = ''; // cell cubierto por rowspan anterior
-        } else {
-          sgcTd = '<td></td>';
+          tr.appendChild(this.createSgcTd(row));
         }
-      }
-      const catClass = row.category
-        ? `cat-${this.escapeHtml(row.category)}`
-        : '';
-      const colSpan = sgcCol
-        ? row.sgc === 'continue'
-          ? day.rooms.length + 1
-          : day.rooms.length + 1
-        : day.rooms.length + 2;
-      // Ajuste: si es continue, ya hay un td menos
-      const actualColSpan =
-        sgcCol && row.sgc === 'continue'
-          ? day.rooms.length + 1
-          : sgcCol
-            ? day.rooms.length + 1
-            : day.rooms.length + 2;
 
-      let cells = `<td class="time-cell">${this.escapeHtml(row.time)}</td>`;
-      if (sgcCol && row.sgc === 'start') {
-        cells += sgcTd;
-      }
-      const infoTd = `<td colspan="${actualColSpan}"><div class="info-title">${this.escapeHtml(row.title)}</div>${row.note ? `<div class="info-meta">${this.escapeHtml(row.note)}</div>` : ''}</td>`;
-      cells += infoTd;
+        const tdAud = this.renderer.createElement('td');
+        const aud = row.auditorio;
+        if (!aud) {
+          tdAud.innerHTML = '<div class="auditorio-cell"><div class="au-dash">\u2014</div></div>';
+        } else if (aud.special) {
+          tdAud.innerHTML = `<div class="auditorio-cell"><div class="au-item"><div class="au-code">${this.escapeHtml(row.time)}</div><div class="au-title au-tbd">${this.escapeHtml(aud.text)}</div></div></div>`;
+        } else if (aud.cms) {
+          const items = aud.cms.map((cm: any) =>
+            `<div class="au-item${cm.code ? ' clickable' : ''}"${cm.code ? ` data-code="${this.escapeHtml(cm.code)}"` : ''}>
+              <div class="au-code">${cm.code ? this.escapeHtml(cm.code) + ' \u00b7 ' : ''}${this.escapeHtml(cm.time)}</div>
+              <div class="au-title">${this.escapeHtml(cm.title)}</div>
+              <div class="au-speaker${cm.speaker === 'Por confirmar' ? ' au-tbd' : ''}">${this.escapeHtml(cm.speaker)}</div>
+            </div>`
+          ).join('');
+          tdAud.innerHTML = `<div class="auditorio-cell">${items}</div>`;
+        }
+        this.renderer.appendChild(tr, tdAud);
 
-      return `<tr class="info-row ${catClass}">${cells}</tr>`;
-    }
-
-    // --- PANEL ROW ---
-    if (row.type === 'panel') {
-      let sgcTd = '';
-      if (sgcCol && row.sgc === 'start') {
-        sgcTd = `<td rowspan="${row.sgcSpan || 1}" style="background:rgba(63,191,107,0.06);border-right:2px solid var(--green);vertical-align:middle;text-align:center;padding:8px 4px;">
-          <div style="font-family:'Playfair Display',serif;color:var(--green);font-size:11px;">SGC</div>
-          <div style="font-size:8px;color:var(--text-dim);margin-top:4px;line-height:1.25;">Servicio Geológico Colombiano</div>
-        </td>`;
-      }
-      const colSpan = sgcCol
-        ? row.sgc === 'continue'
-          ? day.rooms.length + 1
-          : day.rooms.length + 1
-        : day.rooms.length + 2;
-      const actualColSpan =
-        sgcCol && row.sgc === 'continue'
-          ? day.rooms.length + 1
-          : sgcCol
-            ? day.rooms.length + 1
-            : day.rooms.length + 2;
-
-      let cells = `<td class="time-cell">${this.escapeHtml(row.time)}</td>`;
-      if (sgcCol && row.sgc === 'start') cells += sgcTd;
-      const panelTd = `<td colspan="${actualColSpan}">
-        <div class="panel-title">${this.escapeHtml(row.title)}</div>
-        <div class="panel-meta">${this.escapeHtml(row.note)}</div>
-      </td>`;
-      cells += panelTd;
-      return `<tr class="panel-row">${cells}</tr>`;
-    }
-
-    // --- BLOCK ROW ---
-    if (row.type === 'block') {
-      let sgcTd = '';
-      if (sgcCol && row.sgc === 'start') {
-        sgcTd = `<td rowspan="${row.sgcSpan || 1}" style="background:rgba(63,191,107,0.06);border-right:2px solid var(--green);vertical-align:middle;text-align:center;padding:8px 4px;">
-          <div style="font-family:'Playfair Display',serif;color:var(--green);font-size:11px;">SGC</div>
-          <div style="font-size:8px;color:var(--text-dim);margin-top:4px;line-height:1.25;">Servicio Geológico Colombiano</div>
-        </td>`;
-      }
-
-      let cells = `<td class="time-cell">${this.escapeHtml(row.time)}</td>`;
-      if (sgcCol && row.sgc === 'start') cells += sgcTd;
-
-      // Auditorio
-      const aud = row.auditorio;
-      let audHtml =
-        '<div class="auditorio-cell"><div class="au-dash">—</div></div>';
-      if (aud && aud.cms) {
-        const items = aud.cms
-          .map(
-            (cm: any) => `
-          <div class="au-item">
-            <div class="au-code">${this.escapeHtml(cm.code)} · ${this.escapeHtml(cm.time)}</div>
-            <div class="au-title">${this.escapeHtml(cm.title)}</div>
-            <div class="au-speaker${cm.speaker === 'Por confirmar' ? ' au-tbd' : ''}">${this.escapeHtml(cm.speaker)}</div>
-          </div>`,
-          )
-          .join('');
-        audHtml = `<div class="auditorio-cell">${items}</div>`;
-      } else if (aud && aud.special) {
-        audHtml = `<div class="auditorio-cell"><div class="au-item"><div class="au-code">${this.escapeHtml(row.time)}</div><div class="au-title au-tbd">${this.escapeHtml(aud.text)}</div></div></div>`;
-      }
-      cells += `<td>${audHtml}</td>`;
-
-      // AltBlock
-      if (row.altBlock) {
-        const td = `<td colspan="${day.rooms.length}" rowspan="${row.altBlock.span || 1}" style="background:rgba(212,160,23,0.08);border-left:3px solid var(--gold);vertical-align:middle;padding:14px 16px;">
-          ${row.altBlock.time ? `<div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);opacity:.8;margin-bottom:2px;">${this.escapeHtml(row.altBlock.time)}</div>` : ''}
-          <div style="font-family:'Playfair Display',serif;color:var(--gold);font-size:13px;">${this.escapeHtml(row.altBlock.title)}</div>
-          <div style="font-size:11px;color:var(--text-dim);margin-top:4px;">${this.escapeHtml(row.altBlock.sub)}</div>
-        </td>`;
-        cells += td;
-        return `<tr class="block-row">${cells}</tr>`;
-      }
-
-      if (row.altBlockContinuation) {
-        // No se añade celda, está cubierta por rowspan
-        return '';
-      }
-
-      // PosterBatch
-      if (row.posterBatch) {
-        const PSTATUS_ICON: any = {
-          confirmado: '🟢',
-          parcial: '🟡',
-          pendiente: '⚪',
-        };
-        const hasSalon = row.posterBatch.some((p: any) => p.salon);
-        let posterHtml = '';
-        if (hasSalon) {
-          const salones = [
-            ...new Set(
-              (row.posterBatch as any[]).map((p: any) => p.salon || 'Sin asignar'),
-            ),
-          ].sort() as string[];
-          posterHtml = salones
-            .map((s: string) => {
+        if (row.altBlock) {
+          const td = this.renderer.createElement('td');
+          td.colSpan = day.rooms.length;
+          if (row.altBlock.span) td.rowSpan = row.altBlock.span;
+          td.style.background = 'rgba(212,160,23,0.08)';
+          td.style.borderLeft = '3px solid var(--gold)';
+          td.style.verticalAlign = 'middle';
+          td.style.padding = '14px 16px';
+          td.innerHTML = (row.altBlock.time
+            ? `<div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);opacity:.8;margin-bottom:2px;">${this.escapeHtml(row.altBlock.time)}</div>`
+            : '')
+            + `<div style="font-family:'Playfair Display',serif;color:var(--gold);font-size:13px;">${this.escapeHtml(row.altBlock.title)}</div>
+               <div style="font-size:11px;color:var(--text-dim);margin-top:4px;">${this.escapeHtml(row.altBlock.sub)}</div>`;
+          this.renderer.appendChild(tr, td);
+        } else if (row.altBlockContinuation) {
+        } else if (row.posterBatch) {
+          const td = this.renderer.createElement('td');
+          td.colSpan = day.rooms.length;
+          const PSTATUS_ICON: any = { confirmado: '\ud83d\udfe2', parcial: '\ud83d\udfe1', pendiente: '\u26aa' };
+          const hasSalon = row.posterBatch.some((p: any) => p.salon);
+          if (hasSalon) {
+            const salones = [...new Set(row.posterBatch.map((p: any) => p.salon || 'Sin asignar'))].sort() as string[];
+            const cols = salones.map((s: string) => {
               const items = row.posterBatch.filter((p: any) => p.salon === s);
-              const listHtml = items
-                .map(
-                  (p: any) =>
-                    `<div class="p-item">${PSTATUS_ICON[p.status] || ''} <b>${this.escapeHtml(p.title)}</b><br><span style="opacity:.7">${this.escapeHtml(p.authors)}</span></div>`,
-                )
-                .join('');
-              return `<div style="flex:1;min-width:0"><div class="pm-title">Salón ${this.escapeHtml(s)} &mdash; ${items.length} pósters</div><details><summary>Ver listado</summary><div class="poster-list">${listHtml}</div></details></div>`;
-            })
-            .join(
-              '<div style="width:1px;background:var(--border);margin:0 10px"></div>',
-            );
-        } else {
-          const listHtml = row.posterBatch
-            .map(
-              (p: any) =>
-                `<div class="p-item">${PSTATUS_ICON[p.status] || ''} <b>${this.escapeHtml(p.title)}</b><br>${this.escapeHtml(p.authors)}${p.note ? `<br><i>${this.escapeHtml(p.note)}</i>` : ''}</div>`,
-            )
-            .join('');
-          posterHtml = `<div class="pm-title">${row.posterBatch.length} pósters en exhibición</div><details><summary>Ver listado completo</summary><div class="poster-list">${listHtml}</div></details>`;
-        }
-        const td = `<td colspan="${day.rooms.length}"><div class="poster-merged-cell" style="${hasSalon ? 'display:flex;gap:0;' : ''}">${posterHtml}</div></td>`;
-        cells += td;
-        return `<tr class="block-row">${cells}</tr>`;
-      }
-
-      // Celdas normales por sala
-      const roomCells = day.rooms
-        .map((room: string) => {
-          const items = (row.cells && row.cells[room]) || [];
-          if (items.length === 0) {
-            return '<td><div class="cell empty">— cerrado —</div></td>';
+              const listHtml = items.map((p: any) =>
+                `<div class="p-item">${PSTATUS_ICON[p.status] || ''} <b>${this.escapeHtml(p.title)}</b><br><span style="opacity:.7">${this.escapeHtml(p.authors)}</span></div>`
+              ).join('');
+              return `<div style="flex:1;min-width:0"><div class="pm-title">Sal\u00f3n ${this.escapeHtml(s)} &mdash; ${items.length} p\u00f3sters</div><details><summary>Ver listado</summary><div class="poster-list">${listHtml}</div></details></div>`;
+            }).join('<div style="width:1px;background:var(--border);margin:0 10px"></div>');
+            td.innerHTML = `<div class="poster-merged-cell" style="display:flex;gap:0">${cols}</div>`;
+          } else {
+            const listHtml = row.posterBatch.map((p: any) =>
+              `<div class="p-item">${PSTATUS_ICON[p.status] || ''} <b>${this.escapeHtml(p.title)}</b><br>${this.escapeHtml(p.authors)}${p.note ? `<br><i>${this.escapeHtml(p.note)}</i>` : ''}</div>`
+            ).join('');
+            td.innerHTML = `<div class="poster-merged-cell"><div class="pm-title">${row.posterBatch.length} p\u00f3sters en exhibici\u00f3n</div><details><summary>Ver listado completo</summary><div class="poster-list">${listHtml}</div></details></div>`;
           }
-          const stackHtml = items
-            .map((cell: any) => {
-              let meta =
-                STATUS_LABEL[cell.status as keyof typeof STATUS_LABEL] || '';
-              if (cell.status === 'confirmado' || cell.status === 'parcial') {
-                meta =
-                  (cell.status === 'confirmado' ? '🟢 ' : '🟡 ') +
-                  (cell.authors ? cell.authors.split(',')[0] : '');
-              } else if (cell.status === 'pendiente') {
-                meta = '⚪ Pendiente' + (cell.dup ? ' · 🔁 dup' : '');
-              } else if (cell.status === 'tbd') {
-                meta = '🔵 Cupo TBD';
-              }
-              return `<div class="cell ${cell.status || 'pendiente'}${cell.dup ? ' dup' : ''}"
-                       data-room="${this.escapeHtml(room)}"
-                       data-time="${this.escapeHtml(cell.time || row.time)}"
-                       data-title="${this.escapeHtml(cell.title)}"
-                       data-authors="${this.escapeHtml(cell.authors)}"
-                       data-status="${this.escapeHtml(cell.status)}">
-                    <div class="title">${this.escapeHtml(cell.title)}</div>
-                    <div class="meta">${this.escapeHtml(meta)}</div>
-                 </div>`;
-            })
-            .join('');
-          return `<td><div class="cell-stack">${stackHtml}</div></td>`;
-        })
-        .join('');
-      cells += roomCells;
-      return `<tr class="block-row">${cells}</tr>`;
-    }
+          this.renderer.appendChild(tr, td);
+        } else {
+          day.rooms.forEach((room: string) => {
+            const td = this.renderer.createElement('td');
+            const items = (row.cells && row.cells[room]) || [];
+            if (items.length === 0) {
+              td.innerHTML = '<div class="cell empty">\u2014 cerrado \u2014</div>';
+            } else {
+              const stack = this.renderer.createElement('div');
+              this.renderer.addClass(stack, 'cell-stack');
+              items.forEach((cell: any) => {
+                const div = this.renderer.createElement('div');
+                div.className = 'cell ' + (cell.status || 'pendiente') + (cell.dup ? ' dup' : '');
+                let meta = STATUS_LABEL[cell.status as keyof typeof STATUS_LABEL] || '';
+                if (cell.status === 'confirmado' || cell.status === 'parcial') {
+                  meta = (cell.status === 'confirmado' ? '\ud83d\udfe2 ' : '\ud83d\udfe1 ') + (cell.authors ? cell.authors.split(',')[0] : '');
+                } else if (cell.status === 'pendiente') {
+                  meta = '\u26aa Pendiente' + (cell.dup ? ' \u00b7 \ud83d\udd01 dup' : '');
+                } else if (cell.status === 'tbd') {
+                  meta = '\ud83d\udd35 Cupo TBD';
+                }
+                div.innerHTML = `<div class="title">${this.escapeHtml(cell.title)}</div><div class="meta">${this.escapeHtml(meta)}</div>`;
+                this.listeners.push(
+                  this.renderer.listen(div, 'click', () => this.openModal(room, cell.time || row.time, cell)),
+                );
+                this.renderer.appendChild(stack, div);
+              });
+              this.renderer.appendChild(td, stack);
+            }
+            this.renderer.appendChild(tr, td);
+          });
+        }
+      }
+      this.renderer.appendChild(tbody, tr);
+    });
+    this.renderer.appendChild(table, tbody);
+    this.renderer.appendChild(wrap, table);
+    this.renderer.appendChild(panel, wrap);
 
-    return '';
+    this.attachAuditorioClickListeners(panel);
   }
 
-  // ============================================================
-  //  CLICK EN CELDAS -> MODAL
-  // ============================================================
-  private attachCellClickListeners(): void {
-    const cells =
-      this.officialRoot.nativeElement.querySelectorAll('.cell[data-title]');
-    cells.forEach((cell) => {
-      this.listeners.push(
-        this.renderer.listen(cell, 'click', (event) => {
-          const target = event.currentTarget as HTMLElement;
-          this.openModal(
-            target.dataset['room'] || '',
-            target.dataset['time'] || '',
-            {
-              title: target.dataset['title'] || '',
-              authors: target.dataset['authors'] || '',
-              status: target.dataset['status'] || 'pendiente',
-            },
-          );
-        }),
-      );
+  private createSgcTd(row: any): HTMLTableCellElement {
+    const td = this.renderer.createElement('td');
+    td.rowSpan = row.sgcSpan || 1;
+    td.style.background = 'rgba(63,191,107,0.06)';
+    td.style.borderRight = '2px solid var(--green)';
+    td.style.verticalAlign = 'middle';
+    td.style.textAlign = 'center';
+    td.style.padding = '8px 4px';
+    td.innerHTML = `<div style="font-family:'Playfair Display',serif;color:var(--green);font-size:11px;">${this.escapeHtml(row.sgcTitle || 'SGC')}</div>
+      <div style="font-size:8px;color:var(--text-dim);margin-top:4px;line-height:1.25;">${this.escapeHtml(row.sgcDesc || 'Servicio Geol\u00f3gico Colombiano \u2014 programaci\u00f3n propia, 1 sal\u00f3n de Bienestar')}</div>`;
+    return td;
+  }
+
+  private attachAuditorioClickListeners(panel: HTMLElement): void {
+    const items = panel.querySelectorAll('.au-item.clickable');
+    items.forEach((item) => {
+      const code = (item as HTMLElement).dataset['code'];
+      if (code) {
+        this.listeners.push(
+          this.renderer.listen(item, 'click', () => this.openCharla(code)),
+        );
+      }
+    });
+  }
+
+  private attachHorarioClickListeners(): void {
+    const root = this.officialRoot.nativeElement;
+    const cmBlocks = root.querySelectorAll('.hb-cm[data-code]');
+    cmBlocks.forEach((block) => {
+      const code = (block as HTMLElement).dataset['code'];
+      if (code) {
+        this.listeners.push(
+          this.renderer.listen(block, 'click', () => this.openCharla(code)),
+        );
+      }
     });
   }
 
   // ============================================================
-  //  SELECCIONAR DÍA (tabs)
+  //  SELECT DIA
   // ============================================================
   private selectDay(idx: number): void {
     const root = this.officialRoot.nativeElement;
     root.querySelectorAll('.tab-btn').forEach((b, i) => {
       b.classList.toggle('active', i === idx);
     });
-    root.querySelectorAll('.day-panel').forEach((p, i) => {
-      p.classList.toggle('active', i === idx);
+    DAYS.forEach((d: any, i: number) => {
+      const panel = root.querySelector('#panel-' + d.id);
+      if (panel) panel.classList.toggle('active', i === idx);
     });
+    const tabDescEl = root.querySelector('#tabDesc');
+    if (tabDescEl) {
+      tabDescEl.innerHTML = `<b>${this.escapeHtml(DAYS[idx].label)}</b> &mdash; ${DAYS[idx].sub}<br>${DAYS[idx].desc}`;
+    }
   }
 
   // ============================================================
@@ -613,15 +443,57 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     const modalTitle = modalBg.querySelector('#modalTitle') as HTMLElement;
     const modalRoom = modalBg.querySelector('#modalRoom') as HTMLElement;
     const modalAuthors = modalBg.querySelector('#modalAuthors') as HTMLElement;
+    const modalEmail = modalBg.querySelector('#modalEmail') as HTMLElement;
+    const modalDate = modalBg.querySelector('#modalDate') as HTMLElement;
+    const modalNote = modalBg.querySelector('#modalNote') as HTMLElement;
 
     modalBadge.className = 'badge ' + cell.status;
-    modalBadge.textContent =
-      STATUS_LABEL[cell.status as keyof typeof STATUS_LABEL] || cell.status;
+    modalBadge.textContent = STATUS_LABEL[cell.status as keyof typeof STATUS_LABEL] || cell.status;
     modalTitle.textContent = cell.title;
-    modalRoom.innerHTML = `<b>Salón / Hora:</b> ${this.escapeHtml(room)} · ${this.escapeHtml(time)}`;
-    modalAuthors.innerHTML = cell.authors
-      ? `<b>Autor(es):</b> ${this.escapeHtml(cell.authors)}`
-      : '';
+    modalRoom.innerHTML = `<b>Sal\u00f3n / Hora:</b> ${this.escapeHtml(room)} \u00b7 ${this.escapeHtml(time)}`;
+    modalAuthors.innerHTML = cell.authors ? `<b>Autor(es):</b> ${this.escapeHtml(cell.authors)}` : '';
+    if (modalEmail) modalEmail.innerHTML = cell.email ? `<b>Contacto:</b> ${this.escapeHtml(cell.email)}` : '';
+    if (modalDate) modalDate.innerHTML = cell.date ? `<b>Inscrito desde:</b> ${this.escapeHtml(cell.date)}` : '';
+    if (modalNote) modalNote.innerHTML = cell.note ? `<b>Nota:</b> ${this.escapeHtml(cell.note)}` : '';
+
+    this.renderer.addClass(modalBg, 'show');
+  }
+
+  private openCharla(code: string): void {
+    for (const day of DAYS as any[]) {
+      for (const row of day.rows || []) {
+        const cms = (row.auditorio && row.auditorio.cms) || [];
+        const cm = cms.find((c: any) => c.code === code);
+        if (!cm) continue;
+        const esMag = code.indexOf('CM') === 0;
+        const tbd = !cm.speaker || cm.speaker === 'Por confirmar';
+        this.openModalFromCharla(day, cm, esMag, tbd);
+        return;
+      }
+    }
+  }
+
+  private openModalFromCharla(day: any, cm: any, esMag: boolean, tbd: boolean): void {
+    const root = this.officialRoot.nativeElement;
+    const modalBg = root.querySelector('#modalBg') as HTMLElement;
+    if (!modalBg) return;
+
+    const modalBadge = modalBg.querySelector('#modalBadge') as HTMLElement;
+    const modalTitle = modalBg.querySelector('#modalTitle') as HTMLElement;
+    const modalRoom = modalBg.querySelector('#modalRoom') as HTMLElement;
+    const modalAuthors = modalBg.querySelector('#modalAuthors') as HTMLElement;
+    const modalEmail = modalBg.querySelector('#modalEmail') as HTMLElement;
+    const modalDate = modalBg.querySelector('#modalDate') as HTMLElement;
+    const modalNote = modalBg.querySelector('#modalNote') as HTMLElement;
+
+    modalBadge.className = 'badge ' + (tbd ? 'tbd' : 'confirmado');
+    modalBadge.textContent = (esMag ? 'Charla magistral' : 'Charla especial') + ' \u00b7 ' + cm.code;
+    modalTitle.textContent = cm.title;
+    modalRoom.innerHTML = `<b>D\u00eda / Hora:</b> ${this.escapeHtml(day.label)} \u00b7 ${this.escapeHtml(cm.time)} \u00b7 Auditorio`;
+    modalAuthors.innerHTML = `<b>Ponente:</b> ${this.escapeHtml(cm.speaker || 'Por confirmar')}${cm.org ? ` \u00b7 ${this.escapeHtml(cm.org)}` : ''}`;
+    if (modalEmail) modalEmail.innerHTML = '';
+    if (modalDate) modalDate.innerHTML = '';
+    if (modalNote) modalNote.innerHTML = cm.note ? `<b>Nota:</b> ${this.escapeHtml(cm.note)}` : '';
 
     this.renderer.addClass(modalBg, 'show');
   }
@@ -634,7 +506,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
   }
 
   // ============================================================
-  //  TEMA DÍA / NOCHE
+  //  TEMA DIA / NOCHE
   // ============================================================
   private setupThemeToggle(): void {
     const root = this.officialRoot.nativeElement;
@@ -684,7 +556,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     this.renderer.addClass(root, 'day-mode');
     const themeIcon = root.querySelector('#themeIcon');
     const themeLabel = root.querySelector('#themeLabel');
-    if (themeIcon) themeIcon.textContent = '🌙';
+    if (themeIcon) themeIcon.textContent = '\ud83c\udf19';
     if (themeLabel) themeLabel.textContent = 'Modo noche';
   }
 
@@ -693,8 +565,8 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     this.renderer.removeClass(root, 'day-mode');
     const themeIcon = root.querySelector('#themeIcon');
     const themeLabel = root.querySelector('#themeLabel');
-    if (themeIcon) themeIcon.textContent = '☀️';
-    if (themeLabel) themeLabel.textContent = 'Modo día';
+    if (themeIcon) themeIcon.textContent = '\u2600\ufe0f';
+    if (themeLabel) themeLabel.textContent = 'Modo d\u00eda';
   }
 
   // ============================================================
