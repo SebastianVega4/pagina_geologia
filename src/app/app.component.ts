@@ -5,6 +5,7 @@ import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { FooterComponent } from './core/components/footer/footer.component';
 import { LucideAngularModule, MessageCircle } from 'lucide-angular';
 import { SeoService } from './core/services/seo.service';
+import { UmamiService } from './core/services/umami.service';
 import * as AOS from 'aos';
 
 @Component({
@@ -19,7 +20,10 @@ export class AppComponent implements OnInit {
   title = 'web-congreso-geologia';
   readonly icons = { MessageCircle };
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private umami: UmamiService,
+  ) {
     this.seoService.init();
   }
 
