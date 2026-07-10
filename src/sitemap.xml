@@ -2,68 +2,86 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://xviisemanatecnicadegeologia.com/</loc>
-    <lastmod>2026-03-21</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://xviisemanatecnicadegeologia.com/inscripciones</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://xviisemanatecnicadegeologia.com/evento</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://xviisemanatecnicadegeologia.com/evento/portafolio</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://xviisemanatecnicadegeologia.com/cronograma</loc>
-    <lastmod>2026-03-21</lastmod>
+    <loc>https://xviisemanatecnicadegeologia.com/evento/cursos-salidas-charlas</loc>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://xviisemanatecnicadegeologia.com/conferencistas</loc>
-    <lastmod>2026-03-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://xviisemanatecnicadegeologia.com/concursos/geolimpiadas</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://xviisemanatecnicadegeologia.com/concursos/fotografia</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://xviisemanatecnicadegeologia.com/cronograma</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://xviisemanatecnicadegeologia.com/conferencistas</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://xviisemanatecnicadegeologia.com/ubicacion</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://xviisemanatecnicadegeologia.com/galeria</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://xviisemanatecnicadegeologia.com/noticias</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://xviisemanatecnicadegeologia.com/ubicacion</loc>
-    <lastmod>2026-03-21</lastmod>
+    <loc>https://xviisemanatecnicadegeologia.com/contacto</loc>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://xviisemanatecnicadegeologia.com/contacto</loc>
-    <lastmod>2026-03-21</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <loc>https://xviisemanatecnicadegeologia.com/acerca-de</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
   </url>
 </urlset>

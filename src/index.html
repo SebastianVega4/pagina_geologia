@@ -8,62 +8,118 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description"
     content="Plataforma oficial de la XVII Semana Técnica de Geología, Ingeniería Geológica y Geociencias en Sogamoso, Boyacá. Evento líder en geociencias, investigación y sostenibilidad en Colombia.">
+  <meta name="robots" content="index, follow, max-snippet:200, max-image-preview:large">
+  <meta name="author" content="XVII Semana Técnica de Geología - UPTC Sogamoso">
+  <meta name="theme-color" content="#0a1628">
   <link rel="canonical" href="https://xviisemanatecnicadegeologia.com/">
   <link rel="manifest" href="manifest.webmanifest">
 
+  <!-- Hreflang -->
+  <link rel="alternate" hreflang="es" href="https://xviisemanatecnicadegeologia.com/">
+  <link rel="alternate" hreflang="x-default" href="https://xviisemanatecnicadegeologia.com/">
+
+  <!-- DNS Prefetch / Preconnect -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <link rel="dns-prefetch" href="https://cloud.umami.is">
+  <link rel="dns-prefetch" href="https://images.unsplash.com">
+
   <!-- SEO Open Graph (Facebook/LinkedIn) -->
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:site_name" content="XVII Semana Técnica de Geología 2026">
   <meta property="og:title" content="XVII Semana Técnica de Geología, Ingeniería Geológica y Geociencias 2026">
   <meta property="og:description"
-    content="Explorando las fronteras del conocimiento geocientífico en Sogamoso, Boyacá. Agosto-2026.">
+    content="Explorando las fronteras del conocimiento geocientífico en Sogamoso, Boyacá. Agosto 2026. Inscripciones abiertas.">
   <meta property="og:url" content="https://xviisemanatecnicadegeologia.com/">
   <meta property="og:image" content="https://xviisemanatecnicadegeologia.com/logo.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:image:alt" content="Logo XVII Semana Técnica de Geología 2026 - UPTC Sogamoso">
 
   <!-- SEO Twitter -->
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@xvii_stg_sog">
   <meta name="twitter:title" content="XVII Semana Técnica de Geología 2026">
   <meta name="twitter:description"
-    content="Explorando las fronteras del conocimiento geocientífico en Sogamoso, Boyacá.">
+    content="Explorando las fronteras del conocimiento geocientífico en Sogamoso, Boyacá. Inscripciones abiertas.">
   <meta name="twitter:image" content="https://xviisemanatecnicadegeologia.com/logo.png">
+  <meta name="twitter:image:alt" content="Logo XVII Semana Técnica de Geología 2026 - UPTC Sogamoso">
 
   <!-- Icons -->
   <link rel="icon" type="image/x-icon" href="logo.ico">
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="apple-touch-icon" href="logo.png">
 
-  <!-- JSON-LD Structured Data -->
+  <!-- JSON-LD Structured Data: Event + Organization -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Event",
-      "name": "XVII Semana Técnica de Geología, Ingeniería Geológica y Geociencias",
-      "startDate": "2026-04-15",
-      "endDate": "2026-04-18",
-      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-      "eventStatus": "https://schema.org/EventScheduled",
-      "location": {
-        "@type": "Place",
-        "name": "UPTC Sogamoso",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Calle 4 Sur # 15-134",
-          "addressLocality": "Sogamoso",
-          "addressRegion": "Boyacá",
-          "addressCountry": "CO"
+      "@graph": [
+        {
+          "@type": "Event",
+          "name": "XVII Semana Técnica de Geología, Ingeniería Geológica y Geociencias",
+          "startDate": "2026-08-19",
+          "endDate": "2026-08-21",
+          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+          "eventStatus": "https://schema.org/EventScheduled",
+          "location": {
+            "@type": "Place",
+            "name": "UPTC Seccional Sogamoso",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Calle 4 Sur # 15-134",
+              "addressLocality": "Sogamoso",
+              "addressRegion": "Boyacá",
+              "addressCountry": "CO"
+            }
+          },
+          "image": [
+            "https://xviisemanatecnicadegeologia.com/logo.png"
+          ],
+          "description": "Evento académico y científico organizado por la UPTC Sogamoso enfocado en geología, geociencias e ingeniería geológica. Cursos, salidas de campo, conferencias magistrales y más.",
+          "organizer": {
+            "@type": "Organization",
+            "name": "UPTC - Universidad Pedagógica y Tecnológica de Colombia",
+            "url": "https://www.uptc.edu.co"
+          },
+          "performer": {
+            "@type": "Organization",
+            "name": "Escuela de Ingeniería de Geología - UPTC Sogamoso"
+          },
+          "audience": {
+            "@type": "Audience",
+            "audienceType": "Estudiantes, profesionales e investigadores en geociencias"
+          }
+        },
+        {
+          "@type": "Organization",
+          "name": "UPTC - Universidad Pedagógica y Tecnológica de Colombia",
+          "url": "https://www.uptc.edu.co",
+          "logo": "https://xviisemanatecnicadegeologia.com/logo.png",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Calle 4 Sur # 15-134",
+            "addressLocality": "Sogamoso",
+            "addressRegion": "Boyacá",
+            "addressCountry": "CO"
+          },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "xvii.semanatecnica@uptc.edu.co",
+            "contactType": "customer service",
+            "availableLanguage": ["Spanish"]
+          },
+          "sameAs": [
+            "https://instagram.com/xvii_stg.sog"
+          ]
         }
-      },
-      "image": [
-        "https://xviisemanatecnicadegeologia.com/logo.png"
-      ],
-      "description": "Evento académico y científico organizado por la UPTC Sogamoso enfocado en geología, geociencias e ingeniería.",
-      "organizer": {
-        "@type": "Organization",
-        "name": "UPTC Sogamoso",
-        "url": "https://xviisemanatecnicadegeologia.com"
-      }
+      ]
     }
   </script>
 
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">

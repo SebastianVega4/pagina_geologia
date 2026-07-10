@@ -94,18 +94,20 @@ export const routes: Routes = [
   { 
     path: 'noticias/:id', 
     component: NewsDetailComponent, 
-    title: 'Noticia | XVII Semana Técnica de Geología'
+    title: 'Noticia | XVII Semana Técnica de Geología',
+    data: { description: 'Lee la circular y novedades de la XVII Semana Técnica de Geología en la UPTC Sogamoso.' }
   },
   { 
     path: 'contacto', 
     component: ContactComponent, 
     title: 'Contacto | XVII Semana Técnica de Geología',
-    data: { description: 'Ponte en contacto con el comité organizador.' }
+    data: { description: 'Ponte en contacto con el comité organizador de la XVII Semana Técnica de Geología.' }
   },
   { 
     path: 'acerca-de', 
     component: AboutProjectComponent, 
-    title: 'Acerca de | XVII Semana Técnica de Geología'
+    title: 'Acerca de este Proyecto | XVII Semana Técnica de Geología',
+    data: { description: 'Conoce las tecnologías y el equipo detrás de la plataforma oficial de la XVII Semana Técnica de Geología UPTC Sogamoso.' }
   },
   { path: '**', redirectTo: '' }
 ];
