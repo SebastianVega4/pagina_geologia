@@ -60,7 +60,7 @@
                 <span>Egresado <b>{{ p.egr }}</b> COP</span>
                 <span>Profesional <b>{{ p.prof }}</b> COP</span>
               </div>
-              <a [href]="item.form" target="_blank" rel="noopener noreferrer" class="card-cta">Inscribirme →</a>
+              <a [href]="item.form" target="_blank" rel="noopener noreferrer" appTrackClick="click_inscripcion_curso" trackLabel="Curso" class="card-cta">Inscribirme →</a>
             </div>
           </div>
         </ng-container>
@@ -110,7 +110,7 @@
                 <span>Egresado <b>{{ item.precios.egr }}</b> COP</span>
                 <span>Profesional <b>{{ item.precios.prof }}</b> COP</span>
               </div>
-              <a [href]="item.form" target="_blank" rel="noopener noreferrer" class="card-cta">Inscribirme →</a>
+              <a [href]="item.form" target="_blank" rel="noopener noreferrer" appTrackClick="click_inscripcion_curso" trackLabel="Curso" class="card-cta">Inscribirme →</a>
             </div>
           </div>
         </ng-container>
@@ -137,7 +137,7 @@
               <div class="card-meta">
                 {{ item.instructor }}<br>Fecha tentativa: {{ item.fecha }} · Incluida en el evento magistral
               </div>
-              <a [href]="EVENTO_FORM" target="_blank" rel="noopener noreferrer" class="card-cta">Inscribirme al evento magistral →</a>
+              <a [href]="EVENTO_FORM" target="_blank" rel="noopener noreferrer" appTrackClick="click_inscripcion_evento_magistral" class="card-cta">Inscribirme al evento magistral →</a>
             </div>
           </div>
 
@@ -152,7 +152,7 @@
               <div class="card-meta">
                 {{ item.instructor }}<br>Fecha tentativa: {{ item.fecha }} · Incluida en el evento magistral
               </div>
-              <a [href]="EVENTO_FORM" target="_blank" rel="noopener noreferrer" class="card-cta">Inscribirme al evento magistral →</a>
+              <a [href]="EVENTO_FORM" target="_blank" rel="noopener noreferrer" appTrackClick="click_inscripcion_evento_magistral" class="card-cta">Inscribirme al evento magistral →</a>
             </div>
           </div>
         </ng-container>
@@ -161,7 +161,7 @@
       <button class="carousel-nav next" [disabled]="isNextDisabled.charlas" (click)="scrollCarousel(gridCharlas, 1, 'charlas')" aria-label="Siguiente">›</button>
     </div>
     <div class="cta-row">
-      <a [href]="EVENTO_FORM" target="_blank" rel="noopener noreferrer" class="btn-gold">Inscribirme al evento magistral →</a>
+      <a [href]="EVENTO_FORM" target="_blank" rel="noopener noreferrer" appTrackClick="click_inscripcion_evento_magistral" class="btn-gold">Inscribirme al evento magistral →</a>
     </div>
   </section>
 

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Title, Meta } from '@angular/platform-browser';
 import { LucideAngularModule, ArrowLeft, Calendar, User, Clock } from 'lucide-angular';
 import { Observable, map, tap } from 'rxjs';
+import { UmamiService } from '../../../../core/services/umami.service';
 
 interface Noticia {
   id: number;
@@ -168,8 +169,10 @@ interface Noticia {
   `]
 })
 export class NewsDetailComponent implements OnInit {
+  private umami = inject(UmamiService);
   readonly icons = { ArrowLeft, Calendar, User, Clock };
   noticia$: Observable<Noticia | undefined> | undefined;
+  noticiaActual?: Noticia;
 
   constructor(
     private route: ActivatedRoute,
@@ -184,6 +187,8 @@ export class NewsDetailComponent implements OnInit {
       map(noticias => noticias.find(n => n.id === id)),
       tap(noticia => {
         if (noticia) {
+          this.noticiaActual = noticia;
+          this.umami.trackEvent('view_news_detail', { id, title: noticia.titulo });
           this.titleService.setTitle(`${noticia.titulo} | XVII Semana Tecnicá. geologia, ingenieria geologica y geociencias.`);
           this.metaService.updateTag({ name: 'description', content: noticia.resumen });
           this.metaService.updateTag({ property: 'og:title', content: noticia.titulo });

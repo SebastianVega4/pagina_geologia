@@ -36,10 +36,27 @@ export class AppComponent implements OnInit {
         offset: 120,
         easing: 'ease-in-out-cubic'
       });
+      this.trackScrollDepth();
     }
   }
 
+  private trackScrollDepth(): void {
+    const thresholds = [25, 50, 75, 90, 100];
+    const tracked = new Set<number>();
+    const onScroll = () => {
+      const pct = Math.round((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100);
+      for (const t of thresholds) {
+        if (pct >= t && !tracked.has(t)) {
+          tracked.add(t);
+          this.umami.trackEvent('scroll_depth', { percent: t });
+        }
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
   openWhatsApp() {
+    this.umami.trackEvent('click_whatsapp', { location: 'floating_button' });
     const phoneNumber = '573124870684';
     const message = encodeURIComponent('Hola! Quisiera más información sobre el Congreso de Geología UPTC 2026.');
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');

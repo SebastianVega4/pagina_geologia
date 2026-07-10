@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { TrackClickDirective } from '../../shared/directives/track-click.directive';
 
 interface Tier {
   est: string;
@@ -58,7 +59,7 @@ interface LightboxItem {
 @Component({
   selector: 'app-cursos',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TrackClickDirective],
   templateUrl: './cursos.component.html',
   styleUrl: './cursos.component.scss'
 })

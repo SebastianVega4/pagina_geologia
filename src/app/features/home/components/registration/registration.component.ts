@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NewsletterService } from '../../../../core/services/newsletter.service';
+import { UmamiService } from '../../../../core/services/umami.service';
 
 @Component({
   selector: 'app-registration',
@@ -12,6 +13,7 @@ import { NewsletterService } from '../../../../core/services/newsletter.service'
   styleUrl: './registration.component.scss'
 })
 export class RegistrationComponent {
+  private umami = inject(UmamiService);
   email: string = '';
   submitting: boolean = false;
   submitStatus: 'idle' | 'success' | 'error' = 'idle';
@@ -26,12 +28,14 @@ export class RegistrationComponent {
 
     this.newsletterService.subscribe(this.email).subscribe({
       next: () => {
+        this.umami.trackEvent('newsletter_subscribe', { status: 'success' });
         this.submitStatus = 'success';
         this.submitting = false;
         this.email = '';
         setTimeout(() => this.submitStatus = 'idle', 5000);
       },
       error: (err) => {
+        this.umami.trackEvent('newsletter_subscribe', { status: 'error' });
         console.error('Subscription error:', err);
         this.submitStatus = 'error';
         this.submitting = false;

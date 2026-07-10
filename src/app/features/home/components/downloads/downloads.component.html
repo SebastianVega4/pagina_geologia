@@ -48,7 +48,7 @@
                         </div>
                     </div>
 
-                    <a [href]="res.link"
+                    <a [href]="res.link" (click)="trackDownload(res.title)"
                         class="flex items-center justify-center w-full py-4 bg-brand-primary dark:bg-white text-white dark:text-brand-primary font-bold rounded-xl group-hover:bg-brand-secondary dark:group-hover:bg-brand-secondary group-hover:text-white transition-colors gap-2">
                         <lucide-angular [img]="icons.Download" class="w-5 h-5"></lucide-angular>
                         Descargar ahora

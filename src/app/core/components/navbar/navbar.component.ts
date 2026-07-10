@@ -1,17 +1,20 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { LucideAngularModule, Menu, X, Moon, Sun, MapPin, ChevronDown, ChevronRight } from 'lucide-angular';
 import { filter } from 'rxjs/operators';
+import { UmamiService } from '../../services/umami.service';
+import { TrackClickDirective } from '../../../shared/directives/track-click.directive';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule, RouterModule],
+  imports: [CommonModule, LucideAngularModule, RouterModule, TrackClickDirective],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent implements OnInit {
+  private umami = inject(UmamiService);
   isScrolled = false;
   isMenuOpen = false;
   isDarkMode!: boolean;
@@ -50,6 +53,7 @@ export class NavbarComponent implements OnInit {
     this.isDarkMode = !this.isDarkMode;
     localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
     this.updateTheme();
+    this.umami.trackEvent('toggle_dark_mode', { mode: this.isDarkMode ? 'dark' : 'light' });
   }
 
   private updateTheme() {
@@ -61,6 +65,7 @@ export class NavbarComponent implements OnInit {
   }
 
   scrollToRegistration() {
+    this.umami.trackEvent('click_cta_registration', { location: 'navbar' });
     this.isMenuOpen = false;
     const element = document.getElementById('registration');
     if (element) {

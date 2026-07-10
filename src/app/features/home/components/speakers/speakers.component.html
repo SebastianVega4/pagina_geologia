@@ -36,15 +36,18 @@
                         <!-- Social Overlay -->
                         <div
                             class="absolute bottom-4 right-4 flex flex-col gap-2 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
-                            <a *ngIf="s.socials.linkedin" [href]="s.socials.linkedin"
+                            <a *ngIf="s.socials.linkedin" [href]="s.socials.linkedin" target="_blank"
+                                appTrackClick="click_speaker_social" [trackLabel]="s.name"
                                 class="p-3 bg-white/90 dark:bg-brand-dark/90 text-brand-secondary rounded-xl backdrop-blur-md shadow-lg hover:bg-brand-secondary hover:text-white transition-colors">
                                 <lucide-angular [img]="icons.Linkedin" class="w-5 h-5"></lucide-angular>
                             </a>
-                            <a *ngIf="s.socials.twitter" [href]="s.socials.twitter"
+                            <a *ngIf="s.socials.twitter" [href]="s.socials.twitter" target="_blank"
+                                appTrackClick="click_speaker_social" [trackLabel]="s.name"
                                 class="p-3 bg-white/90 dark:bg-brand-dark/90 text-brand-secondary rounded-xl backdrop-blur-md shadow-lg hover:bg-brand-secondary hover:text-white transition-colors">
                                 <lucide-angular [img]="icons.Twitter" class="w-5 h-5"></lucide-angular>
                             </a>
                             <a *ngIf="s.socials.web" [href]="s.socials.web" target="_blank"
+                                appTrackClick="click_speaker_social" [trackLabel]="s.name"
                                 class="p-3 bg-white/90 dark:bg-brand-dark/90 text-brand-secondary rounded-xl backdrop-blur-md shadow-lg hover:bg-brand-secondary hover:text-white transition-colors">
                                 <lucide-angular [img]="icons.Globe" class="w-5 h-5"></lucide-angular>
                             </a>
@@ -87,6 +90,7 @@
             <p class="text-gray-500 dark:text-gray-400 mb-6 italic">¿Te gustaría ser ponente? La convocatoria de
                 trabajos sigue abierta.</p>
             <a href="#abstracts"
+                appTrackClick="click_submit_abstract_speakers"
                 class="inline-flex items-center gap-2 text-brand-secondary font-bold hover:gap-4 transition-all">
                 Envía tu resumen ahora <span>&rarr;</span>
             </a>

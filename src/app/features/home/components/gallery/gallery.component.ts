@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Image, History, Maximize2, X } from 'lucide-angular';
+import { UmamiService } from '../../../../core/services/umami.service';
 
 interface GalleryItem {
   url: string;
@@ -16,6 +17,7 @@ interface GalleryItem {
   styleUrl: './gallery.component.scss'
 })
 export class GalleryComponent {
+  private umami = inject(UmamiService);
   readonly icons = { Image, History, Maximize2, X };
 
   activeTab: 'actual' | 'historica' = 'actual';
@@ -33,16 +35,18 @@ export class GalleryComponent {
 
   setTab(tab: 'actual' | 'historica') {
     this.activeTab = tab;
+    this.umami.trackEvent('gallery_tab_switch', { tab });
   }
 
   openLightbox(item: GalleryItem) {
     this.selectedItem = item;
-    // Prevent scrolling when modal is open
+    this.umami.trackEvent('gallery_lightbox_open', { title: item.title, category: item.category });
     document.body.style.overflow = 'hidden';
   }
 
   closeLightbox() {
     this.selectedItem = null;
+    this.umami.trackEvent('gallery_lightbox_close');
     document.body.style.overflow = 'auto';
   }
 }

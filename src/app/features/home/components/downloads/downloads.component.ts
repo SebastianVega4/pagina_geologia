@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Download, FileText, Presentation, MapIcon } from 'lucide-angular';
+import { UmamiService } from '../../../../core/services/umami.service';
 
 const ICONS = { Download, FileText, Presentation, MapIcon };
 type IconKey = keyof typeof ICONS;
@@ -21,7 +22,12 @@ interface Resource {
   styleUrl: './downloads.component.scss'
 })
 export class DownloadsComponent {
+  private umami = inject(UmamiService);
   readonly icons = ICONS;
+
+  trackDownload(title: string): void {
+    this.umami.trackEvent('download', { resource: title });
+  }
 
   resources: Resource[] = [
     {

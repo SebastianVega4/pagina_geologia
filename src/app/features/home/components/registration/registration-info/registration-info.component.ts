@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, X, CheckCircle2, CreditCard, Info, Mail, Instagram, ArrowLeft, ZoomIn, UserCheck, Search, Wallet, FileText, Send, ClipboardList, Heart, MessageCircle, ExternalLink } from 'lucide-angular';
 import { RouterLink } from '@angular/router';
+import { TrackClickDirective } from '../../../../../shared/directives/track-click.directive';
 
 @Component({
   selector: 'app-registration-info',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule, RouterLink],
+  imports: [CommonModule, LucideAngularModule, RouterLink, TrackClickDirective],
   templateUrl: './registration-info.component.html',
   styleUrl: './registration-info.component.scss'
 })

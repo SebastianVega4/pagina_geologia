@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Linkedin, Twitter, Globe } from 'lucide-angular';
+import { UmamiService } from '../../../../core/services/umami.service';
+import { TrackClickDirective } from '../../../../shared/directives/track-click.directive';
 
 interface Speaker {
   name: string;
@@ -16,11 +18,12 @@ interface Speaker {
 @Component({
   selector: 'app-speakers',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, TrackClickDirective],
   templateUrl: './speakers.component.html',
   styleUrl: './speakers.component.scss'
 })
 export class SpeakersComponent {
+  private umami = inject(UmamiService);
   readonly icons = { Linkedin, Twitter, Globe };
 
   readonly thematicLines = [
@@ -88,5 +91,9 @@ export class SpeakersComponent {
 
   getSpeakersByLine(line: string): Speaker[] {
     return this.speakers.filter(s => s.thematicLine === line);
+  }
+
+  trackSpeakerClick(name: string, platform: string): void {
+    this.umami.trackEvent('click_speaker_social', { speaker: name, platform });
   }
 }

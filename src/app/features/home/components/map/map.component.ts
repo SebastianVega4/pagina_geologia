@@ -1,7 +1,8 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, Inject, PLATFORM_ID, inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { LucideAngularModule, MapPin, Navigation } from 'lucide-angular';
 import * as L from 'leaflet';
+import { UmamiService } from '../../../../core/services/umami.service';
 
 @Component({
   selector: 'app-map',
@@ -11,6 +12,7 @@ import * as L from 'leaflet';
   styleUrl: './map.component.scss'
 })
 export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
+  private umami = inject(UmamiService);
   readonly icons = { MapPin, Navigation };
   
   private map?: L.Map;
@@ -65,6 +67,12 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  openGoogleMaps(): void {
+    this.umami.trackEvent('click_google_maps');
+    const url = 'https://www.google.com/maps/search/UPTC+Seccional+Sogamoso/@5.7047,-72.942,17z';
+    window.open(url, '_blank');
+  }
+
   private initMap(): void {
     const center: L.LatLngExpression = [5.722, -72.915];
     
@@ -87,6 +95,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       const marker = L.marker([m.lat, m.lng], {
         title: m.title
       }).addTo(this.map!);
+
+      marker.on('click', () => {
+        this.umami.trackEvent('map_marker_click', { title: m.title, label: m.label });
+      });
 
       marker.bindPopup(`
         <div class="p-2">

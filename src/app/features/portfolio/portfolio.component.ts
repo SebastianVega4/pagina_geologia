@@ -1,17 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, FileText, Download, ExternalLink, ChevronLeft } from 'lucide-angular';
 import { SafePipe } from '../../shared/pipes/safe.pipe';
 import { RouterModule } from '@angular/router';
+import { UmamiService } from '../../core/services/umami.service';
+import { TrackClickDirective } from '../../shared/directives/track-click.directive';
 
 @Component({
   selector: 'app-portfolio',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule, SafePipe, RouterModule],
+  imports: [CommonModule, LucideAngularModule, SafePipe, RouterModule, TrackClickDirective],
   templateUrl: './portfolio.component.html',
   styleUrl: './portfolio.component.scss'
 })
 export class PortfolioComponent {
+  private umami = inject(UmamiService);
   readonly icons = { FileText, Download, ExternalLink, ChevronLeft };
 
   readonly pdfEmbedUrl = 'assets/Portafolio_servicios_XVII_STG_UPTC_2026 (1).pdf';
@@ -22,6 +25,7 @@ export class PortfolioComponent {
 
   onIframeLoad(): void {
     this.isPreviewLoaded = true;
+    this.umami.trackEvent('portfolio_pdf_view');
   }
 
   getMobilePdfUrl(pdfUrl: string): string {

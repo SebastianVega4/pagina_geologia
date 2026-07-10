@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, FileText, Send, QrCode, ExternalLink } from 'lucide-angular';
 import { SafePipe } from '../../../../shared/pipes/safe.pipe';
+import { TrackClickDirective } from '../../../../shared/directives/track-click.directive';
 
 @Component({
   selector: 'app-abstracts',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule, SafePipe],
+  imports: [CommonModule, LucideAngularModule, SafePipe, TrackClickDirective],
   templateUrl: './abstracts.component.html',
   styleUrl: './abstracts.component.scss'
 })

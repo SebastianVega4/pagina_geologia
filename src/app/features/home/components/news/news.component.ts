@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { LucideAngularModule, Calendar, ArrowRight } from 'lucide-angular';
 import { Observable, map } from 'rxjs';
+import { UmamiService } from '../../../../core/services/umami.service';
 
 interface Noticia {
   id: number;
@@ -22,6 +23,7 @@ interface Noticia {
   styleUrl: './news.component.scss'
 })
 export class NewsComponent implements OnInit {
+  private umami = inject(UmamiService);
   readonly icons = { Calendar, ArrowRight };
   noticias$: Observable<Noticia[]> | undefined;
 
@@ -31,5 +33,9 @@ export class NewsComponent implements OnInit {
     this.noticias$ = this.http.get<Noticia[]>('assets/noticias.json').pipe(
       map(noticias => [...noticias].sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime()))
     );
+  }
+
+  trackNewsClick(title: string): void {
+    this.umami.trackEvent('click_news_item', { title });
   }
 }

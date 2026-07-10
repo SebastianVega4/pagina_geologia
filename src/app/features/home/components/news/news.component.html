@@ -62,7 +62,7 @@
                     </p>
 
                     <div class="mt-auto pt-6 border-t border-gray-50 dark:border-white/5">
-                        <a [routerLink]="['/noticias', n.id]"
+                        <a [routerLink]="['/noticias', n.id]" (click)="trackNewsClick(n.titulo)"
                             class="inline-flex items-center gap-3 text-brand-primary dark:text-white font-black text-sm uppercase tracking-widest group/btn transition-all cursor-pointer">
                             <span class="relative">
                                 Leer Circular

@@ -1,16 +1,19 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Mail, X, Volume2, VolumeX } from 'lucide-angular';
 import { RouterModule } from '@angular/router';
+import { UmamiService } from '../../../../core/services/umami.service';
+import { TrackClickDirective } from '../../../../shared/directives/track-click.directive';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule, RouterModule],
+  imports: [CommonModule, LucideAngularModule, RouterModule, TrackClickDirective],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss'
 })
 export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
+  private umami = inject(UmamiService);
   @ViewChild('promoVideo') promoVideo!: ElementRef<HTMLVideoElement>;
 
   readonly icons = { Mail, X, Volume2, VolumeX };
@@ -72,8 +75,10 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
     this.showVideoModal = !this.showVideoModal;
     if (this.showVideoModal) {
       document.body.style.overflow = 'hidden';
+      this.umami.trackEvent('open_video_modal');
     } else {
       document.body.style.overflow = 'auto';
+      this.umami.trackEvent('close_video_modal');
     }
   }
 
@@ -82,9 +87,11 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.promoVideo?.nativeElement) {
       this.promoVideo.nativeElement.muted = this.isPromoMuted;
     }
+    this.umami.trackEvent('toggle_promo_sound', { muted: this.isPromoMuted });
   }
 
   scrollToRegistration() {
+    this.umami.trackEvent('click_cta_registration', { location: 'hero' });
     const element = document.getElementById('registration');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });

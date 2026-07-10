@@ -18,7 +18,7 @@
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center gap-8">
                 <div class="flex items-center gap-6">
-                    <a routerLink="/" routerLinkActive="text-brand-secondary" [routerLinkActiveOptions]="{exact: true}"
+                    <a routerLink="/" routerLinkActive="text-brand-secondary" [routerLinkActiveOptions]="{exact: true}" appTrackClick="nav_link" trackLabel="Inicio"
                         class="text-sm font-extrabold hover:text-brand-secondary transition-colors"
                         [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-gray-300' : 'text-white/90'">Inicio</a>
 
@@ -32,22 +32,22 @@
                         <!-- Dropdown Menu -->
                         <div class="absolute top-full left-[-1rem] pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2">
                             <div class="w-64 bg-white dark:bg-brand-primary rounded-2xl shadow-2xl border border-gray-100 dark:border-white/5 overflow-hidden">
-                                <a routerLink="/evento"
+                                <a routerLink="/evento" appTrackClick="nav_dropdown" trackLabel="Información General"
                                    class="flex items-center gap-3 px-5 py-4 text-sm font-bold text-brand-primary dark:text-gray-200 hover:bg-brand-secondary/5 hover:text-brand-secondary transition-colors">
                                     Información General
                                 </a>
                                 <div class="h-px bg-gray-50 dark:bg-white/5"></div>
-                                <a routerLink="/cronograma"
+                                <a routerLink="/cronograma" appTrackClick="nav_dropdown" trackLabel="Cronograma"
                                    class="flex items-center gap-3 px-5 py-4 text-sm font-bold text-brand-primary dark:text-gray-200 hover:bg-brand-secondary/5 hover:text-brand-secondary transition-colors">
                                     Cronograma
                                 </a>
                                 <div class="h-px bg-gray-50 dark:bg-white/5"></div>
-                                <a routerLink="/conferencistas"
+                                <a routerLink="/conferencistas" appTrackClick="nav_dropdown" trackLabel="Conferencistas"
                                    class="flex items-center gap-3 px-5 py-4 text-sm font-bold text-brand-primary dark:text-gray-200 hover:bg-brand-secondary/5 hover:text-brand-secondary transition-colors">
                                     Conferencistas
                                 </a>
                                 <div class="h-px bg-gray-50 dark:bg-white/5"></div>
-                                <a routerLink="/evento/cursos-salidas-charlas"
+                                <a routerLink="/evento/cursos-salidas-charlas" appTrackClick="nav_dropdown" trackLabel="Cursos Salidas Charlas"
                                    class="flex items-center gap-3 px-5 py-4 text-sm font-bold text-brand-primary dark:text-gray-200 hover:bg-brand-secondary/5 hover:text-brand-secondary transition-colors">
                                     Cursos, Salidas y Charlas
                                 </a>
@@ -69,12 +69,12 @@
                         <!-- Dropdown Menu -->
                         <div class="absolute top-full left-[-1rem] pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2">
                             <div class="w-64 bg-white dark:bg-brand-primary rounded-2xl shadow-2xl border border-gray-100 dark:border-white/5 overflow-hidden">
-                                <a routerLink="/concursos/geolimpiadas"
+                                <a routerLink="/concursos/geolimpiadas" appTrackClick="nav_dropdown" trackLabel="Geolimpiadas"
                                    class="flex items-center gap-3 px-5 py-4 text-sm font-bold text-brand-primary dark:text-gray-200 hover:bg-brand-secondary/5 hover:text-brand-secondary transition-colors">
                                     Geolimpiadas
                                 </a>
                                 <div class="h-px bg-gray-50 dark:bg-white/5"></div>
-                                <a routerLink="/concursos/fotografia"
+                                <a routerLink="/concursos/fotografia" appTrackClick="nav_dropdown" trackLabel="Fotografía"
                                    class="flex items-center gap-3 px-5 py-4 text-sm font-bold text-brand-primary dark:text-gray-200 hover:bg-brand-secondary/5 hover:text-brand-secondary transition-colors">
                                     Fotografía
                                 </a>
@@ -82,13 +82,13 @@
                         </div>
                     </div>
 
-                    <a routerLink="/galeria" routerLinkActive="text-brand-secondary"
+                    <a routerLink="/galeria" routerLinkActive="text-brand-secondary" appTrackClick="nav_link" trackLabel="Galería"
                         class="text-sm font-extrabold hover:text-brand-secondary transition-colors"
                         [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-gray-300' : 'text-white/90'">Galería</a>
-                    <a routerLink="/noticias" routerLinkActive="text-brand-secondary"
+                    <a routerLink="/noticias" routerLinkActive="text-brand-secondary" appTrackClick="nav_link" trackLabel="Noticias"
                         class="text-sm font-extrabold hover:text-brand-secondary transition-colors"
                         [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-gray-300' : 'text-white/90'">Noticias</a>
-                    <a routerLink="/ubicacion" routerLinkActive="text-brand-secondary"
+                    <a routerLink="/ubicacion" routerLinkActive="text-brand-secondary" appTrackClick="nav_link" trackLabel="Ubicación"
                         class="text-sm font-extrabold hover:text-brand-secondary transition-colors"
                         [ngClass]="(isScrolled || !isHome) ? 'text-brand-primary dark:text-gray-300' : 'text-white/90'">Ubicación</a>
                 </div>
@@ -129,7 +129,7 @@
     <div *ngIf="isMenuOpen"
         class="md:hidden absolute top-full left-0 w-full bg-white dark:bg-brand-primary shadow-2xl border-t border-gray-100 dark:border-white/5 animate-fade-in">
         <div class="flex flex-col p-6 gap-4">
-            <a routerLink="/" (click)="toggleMenu()"
+            <a routerLink="/" (click)="toggleMenu()" appTrackClick="mobile_nav_link" trackLabel="Inicio"
                 class="text-lg font-bold text-brand-primary dark:text-white">Inicio</a>
 
             <!-- Mobile Evento Submenu -->
@@ -140,13 +140,13 @@
                     <lucide-angular [img]="isEventoDropdownOpen ? icons.ChevronDown : icons.ChevronRight" class="w-5 h-5 text-brand-secondary"></lucide-angular>
                 </button>
                 <div *ngIf="isEventoDropdownOpen" class="flex flex-col pl-4 gap-3 mt-1 animate-fade-in">
-                    <a routerLink="/evento" (click)="toggleMenu()"
+                    <a routerLink="/evento" (click)="toggleMenu()" appTrackClick="mobile_nav_sub" trackLabel="Información General"
                        class="text-base font-semibold text-gray-600 dark:text-gray-400">Información General</a>
-                    <a routerLink="/cronograma" (click)="toggleMenu()"
+                    <a routerLink="/cronograma" (click)="toggleMenu()" appTrackClick="mobile_nav_sub" trackLabel="Cronograma"
                        class="text-base font-semibold text-gray-600 dark:text-gray-400">Cronograma</a>
-                    <a routerLink="/conferencistas" (click)="toggleMenu()"
+                    <a routerLink="/conferencistas" (click)="toggleMenu()" appTrackClick="mobile_nav_sub" trackLabel="Conferencistas"
                        class="text-base font-semibold text-gray-600 dark:text-gray-400">Conferencistas</a>
-                    <a routerLink="/evento/cursos-salidas-charlas" (click)="toggleMenu()"
+                    <a routerLink="/evento/cursos-salidas-charlas" (click)="toggleMenu()" appTrackClick="mobile_nav_sub" trackLabel="Cursos Salidas Charlas"
                        class="text-base font-semibold text-gray-600 dark:text-gray-400">Cursos, Salidas y Charlas</a>
                 </div>
             </div>
@@ -159,18 +159,18 @@
                     <lucide-angular [img]="isConcursosDropdownOpen ? icons.ChevronDown : icons.ChevronRight" class="w-5 h-5 text-brand-secondary"></lucide-angular>
                 </button>
                 <div *ngIf="isConcursosDropdownOpen" class="flex flex-col pl-4 gap-3 mt-1 animate-fade-in">
-                    <a routerLink="/concursos/geolimpiadas" (click)="toggleMenu()"
+                    <a routerLink="/concursos/geolimpiadas" (click)="toggleMenu()" appTrackClick="mobile_nav_sub" trackLabel="Geolimpiadas"
                        class="text-base font-semibold text-gray-600 dark:text-gray-400">Geolimpiadas</a>
-                    <a routerLink="/concursos/fotografia" (click)="toggleMenu()"
+                    <a routerLink="/concursos/fotografia" (click)="toggleMenu()" appTrackClick="mobile_nav_sub" trackLabel="Fotografía"
                        class="text-base font-semibold text-gray-600 dark:text-gray-400">Fotografía</a>
                 </div>
             </div>
 
-            <a routerLink="/galeria" (click)="toggleMenu()"
+            <a routerLink="/galeria" (click)="toggleMenu()" appTrackClick="mobile_nav_link" trackLabel="Galería"
                 class="text-lg font-bold text-brand-primary dark:text-white">Galería</a>
-            <a routerLink="/noticias" (click)="toggleMenu()"
+            <a routerLink="/noticias" (click)="toggleMenu()" appTrackClick="mobile_nav_link" trackLabel="Noticias"
                 class="text-lg font-bold text-brand-primary dark:text-white">Noticias</a>
-            <a routerLink="/ubicacion" (click)="toggleMenu()"
+            <a routerLink="/ubicacion" (click)="toggleMenu()" appTrackClick="mobile_nav_link" trackLabel="Ubicación"
                 class="text-lg font-bold text-brand-primary dark:text-white">Ubicación</a>
             <button (click)="scrollToRegistration()"
                 class="px-5 py-2.5 bg-brand-accent hover:bg-brand-accent/90 text-white text-xs font-black uppercase tracking-widest rounded-xl transition-all shadow-lg hover:shadow-brand-accent/20 hover:-translate-y-0.5">

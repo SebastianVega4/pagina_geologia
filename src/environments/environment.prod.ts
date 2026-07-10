@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
   googleMapsApiKey: 'AIzaSyBe2tULR1Ux_T4m6jx_6BgyqW_u2ohnHQk',
   umamiWebsiteId: 'b8922104-9edf-4ace-82c3-5bc05bb12231',
   driveFolders: {
