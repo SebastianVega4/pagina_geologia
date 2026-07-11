@@ -36,23 +36,8 @@ export class AppComponent implements OnInit {
         offset: 120,
         easing: 'ease-in-out-cubic'
       });
-      this.trackScrollDepth();
+      this.umami.trackScrollDepth();
     }
-  }
-
-  private trackScrollDepth(): void {
-    const thresholds = [25, 50, 75, 90, 100];
-    const tracked = new Set<number>();
-    const onScroll = () => {
-      const pct = Math.round((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100);
-      for (const t of thresholds) {
-        if (pct >= t && !tracked.has(t)) {
-          tracked.add(t);
-          this.umami.trackEvent('scroll_depth', { percent: t });
-        }
-      }
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
   }
 
   openWhatsApp() {
