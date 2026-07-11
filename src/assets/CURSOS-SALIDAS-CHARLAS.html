@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cursos, Salidas de Campo y Charlas Magistrales — XVII STG 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Paleta del sitio oficial (xviisemanatecnicadegeologia.com) */
+    --night:#002a42; --deep:#003d5e; --stone:#0a4a6e;
+    --gold:#f59e0b; --gold-lt:#fbbf24; --teal:#38bdf8; --teal-lt:#7dd3fc; --amber:#f97316;
+    --white:#f8fafc; --sand:#cfe0ec; --sand-lt:#eaf3fa; --muted:#a3c1d4;
+    --ff-display:'Playfair Display',serif; --ff-body:'Inter','DM Sans',sans-serif; --ff-mono:'DM Mono',monospace;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+  body{background:linear-gradient(180deg,#002a42 0%,#013a58 50%,#002a42 100%);background-attachment:fixed;color:var(--white);font-family:var(--ff-body);line-height:1.5;overflow-x:hidden;}
+  /* Fondo del sitio oficial: glows suaves azul/ámbar + retícula tenue */
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(ellipse 70% 45% at 78% 0%,rgba(56,189,248,0.10) 0%,transparent 60%),
+      radial-gradient(ellipse 55% 40% at 12% 88%,rgba(245,158,11,0.07) 0%,transparent 60%),
+      linear-gradient(rgba(56,189,248,0.035) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(56,189,248,0.035) 1px,transparent 1px);
+    background-size:100% 100%,100% 100%,54px 54px,54px 54px;}
+  nav,.hero,.section,footer{position:relative;z-index:1;}
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 3rem;}
+  @media (max-width:768px){.wrap{padding:0 1.25rem;}}
+
+  /* NAV */
+  nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;position:sticky;top:0;background:rgba(0,42,66,0.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(245,158,11,0.12);z-index:50;}
+  @media (max-width:768px){nav{padding:1rem 1.25rem;}}
+  .nav-back{font-family:var(--ff-mono);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--sand);text-decoration:none;display:flex;align-items:center;gap:0.5rem;}
+  .nav-back:hover{color:var(--gold);}
+  .nav-links{display:flex;gap:1.75rem;list-style:none;}
+  .nav-links a{font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--sand);text-decoration:none;}
+  .nav-links a:hover{color:var(--gold-lt);}
+  @media (max-width:768px){.nav-links{display:none;}}
+
+  /* HERO */
+  .hero{padding:4.5rem 3rem 3rem;max-width:900px;}
+  @media (max-width:768px){.hero{padding:3rem 1.25rem 2rem;}}
+  .tag{font-family:var(--ff-mono);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;display:inline-block;}
+  .hero h1{font-family:var(--ff-display);font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;margin-bottom:1.2rem;}
+  .hero h1 em{color:var(--gold);font-style:italic;}
+  .hero p{color:var(--muted);font-size:1rem;line-height:1.8;max-width:640px;margin-bottom:1.5rem;}
+  .hero .note{background:rgba(56,189,248,0.08);border-left:3px solid var(--teal);padding:0.9rem 1.2rem;font-size:0.88rem;color:var(--sand-lt);max-width:640px;}
+  .hero .note strong{color:var(--teal-lt);}
+
+  /* SECTION HEADERS */
+  .section{padding:3.5rem 3rem;}
+  @media (max-width:768px){.section{padding:2.5rem 1.25rem;}}
+  .section.alt{background:var(--deep);border-top:1px solid rgba(245,158,11,0.1);border-bottom:1px solid rgba(245,158,11,0.1);}
+  .section-head{max-width:720px;margin-bottom:2.5rem;}
+  .section-head h2{font-family:var(--ff-display);font-size:clamp(1.6rem,3.4vw,2.2rem);margin-bottom:0.6rem;}
+  .section-head h2 em{color:var(--gold);font-style:italic;}
+  .section-head p{color:var(--muted);font-size:0.92rem;line-height:1.7;}
+
+  /* ══ DECK centrado — panel protagonista + baraja detrás ══
+     Todo el componente va centrado. El panel (flyer a la izquierda del recuadro
+     + resumen a la derecha) queda en el centro; las próximas cartas se asoman
+     desde detrás del panel. Al pasar, una carta se desliza real desde atrás
+     hasta el frente y se convierte en la principal (sin clones). */
+  .deck{position:relative;outline:none;
+    --cw:360px; --ch:450px; --iw:370px; --fw:730px; /* fw = cw + iw */
+    /* Curvas fuertes (las CSS por defecto son muy débiles) */
+    --dur:600ms;
+    --ease-deck:cubic-bezier(0.32,0.72,0,1);   /* iOS drawer — movimiento amplio y fluido */
+    --ease-out:cubic-bezier(0.23,1,0.32,1);    /* respuesta inmediata */ }
+  .carousel-hud{display:flex;align-items:center;gap:1.2rem;margin:0 auto 1.6rem;max-width:1040px;}
+  .hud-count{font-family:var(--ff-mono);font-size:0.72rem;letter-spacing:0.25em;color:var(--gold);white-space:nowrap;}
+  .hud-bar{flex:1;height:1px;background:rgba(245,158,11,0.15);position:relative;overflow:hidden;}
+  .hud-bar i{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,var(--gold),var(--teal));transition:width 0.45s cubic-bezier(0.22,1,0.36,1);}
+  .hud-hint{font-family:var(--ff-mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+  @media (max-width:768px){.hud-hint{display:none;}}
+  .deck-navs{display:flex;gap:0.5rem;}
+  .deck-nav{width:42px;height:42px;border-radius:50%;border:1px solid rgba(245,158,11,0.35);cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:var(--ff-mono);font-size:1.2rem;color:var(--white);background:rgba(0,42,66,0.72);transition:border-color 0.2s,color 0.2s,box-shadow 0.2s,transform 0.13s var(--ease-out);}
+  .deck-nav:hover{border-color:var(--gold);color:var(--gold-lt);box-shadow:0 0 22px rgba(245,158,11,0.25);}
+  .deck-nav:active{transform:scale(0.9);}
+
+  .deck-stage{position:relative;height:calc(var(--ch) + 70px);}
+  /* perspective aquí (no preserve-3d) para que el z-index siga mandando el apilamiento
+     y las cartas de la baraja queden DETRÁS del recuadro, no encima. */
+  .deck-cards{position:absolute;inset:0;perspective:1800px;}
+
+  /* Lista de títulos a la derecha, sincronizada con la principal · grupo centrado (tarjetero + títulos) */
+  .deck-body{display:flex;gap:1.75rem;align-items:center;justify-content:center;}
+  .deck-stage{flex:0 1 880px;min-width:0;}
+  .deck-list{position:relative;flex:0 0 224px;align-self:center;max-height:calc(var(--ch) + 70px);overflow-y:auto;overflow-x:hidden;padding-left:12px;display:flex;flex-direction:column;gap:1px;scrollbar-width:thin;scrollbar-color:rgba(245,158,11,0.35) transparent;}
+  .deck-list::-webkit-scrollbar{width:5px;}
+  .deck-list::-webkit-scrollbar-thumb{background:rgba(245,158,11,0.3);border-radius:3px;}
+  .dl-marker{position:absolute;left:0;top:0;width:3px;height:0;border-radius:3px;background:linear-gradient(var(--gold),var(--amber));
+    transform:translateY(0);transition:transform var(--dur) var(--ease-deck),height var(--dur) var(--ease-deck);pointer-events:none;}
+  .dl-item{position:relative;display:flex;gap:0.6rem;align-items:baseline;text-align:left;width:100%;background:none;border:none;cursor:pointer;
+    padding:0.5rem 0.7rem;border-radius:8px;color:var(--muted);opacity:0.7;transform-origin:left center;font-family:var(--ff-body);
+    transition:color 0.3s var(--ease-out),background 0.25s,opacity 0.3s,transform 0.4s var(--ease-deck);}
+  @media (hover:hover) and (pointer:fine){ .dl-item:hover{opacity:1;color:var(--sand-lt);background:rgba(255,255,255,0.04);} }
+  .dl-idx{font-family:var(--ff-mono);font-size:0.6rem;color:var(--muted);flex-shrink:0;transition:color 0.3s;}
+  .dl-title{font-size:0.82rem;line-height:1.3;font-weight:500;transition:color 0.3s,font-size 0.35s var(--ease-deck);}
+  .dl-item.is-active{opacity:1;transform:translateX(6px);}
+  .dl-item.is-active .dl-title{color:var(--gold-lt);font-weight:700;font-size:1rem;}
+  .dl-item.is-active .dl-idx{color:var(--gold);}
+  .deck.solo .deck-list{display:none;}
+  @media (max-width:1240px){ .deck-list{display:none;} .deck-body{display:block;} }
+
+  /* Recuadro del panel (fondo + info). Queda centrado en el escenario. */
+  .deck-frame{position:absolute;left:50%;top:50%;width:var(--fw);height:var(--ch);transform:translate(-50%,-50%);
+    background:linear-gradient(135deg,var(--stone) 0%,var(--deep) 62%);border:1px solid rgba(245,158,11,0.5);
+    border-radius:16px;box-shadow:0 30px 70px rgba(0,0,0,0.55),0 0 50px rgba(245,158,11,0.12);z-index:10;overflow:hidden;}
+  .deck-frame::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--teal),transparent);z-index:3;}
+  .deck-info{position:absolute;top:0;right:0;bottom:0;width:var(--iw);padding:1.7rem 1.8rem;display:flex;flex-direction:column;transition:opacity 0.22s var(--ease-out),filter 0.22s var(--ease-out);}
+  .deck-info.swapping{opacity:0;filter:blur(4px);}
+  .hero-kind{font-family:var(--ff-mono);font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--teal);margin-bottom:0.7rem;}
+  .hero-title{font-family:var(--ff-display);font-size:1.28rem;font-weight:700;line-height:1.3;margin-bottom:0.55rem;}
+  .hero-sub{font-size:0.85rem;color:var(--muted);line-height:1.6;}
+  .hero-extra{font-family:var(--ff-mono);font-size:0.72rem;color:var(--sand);margin-top:0.6rem;line-height:1.8;}
+  .hero-prices{margin:1rem 0 0.4rem;border-top:1px solid rgba(245,158,11,0.15);padding-top:1rem;display:flex;flex-direction:column;gap:0.4rem;font-family:var(--ff-mono);font-size:0.76rem;color:var(--sand);}
+  .hero-prices b{color:var(--gold);}
+  .hero-note{font-size:0.72rem;color:var(--muted);line-height:1.6;margin-top:0.6rem;}
+  .hero-cta{margin-top:auto;display:block;text-align:center;background:var(--gold);color:var(--night);padding:0.85rem 1rem;border-radius:6px;font-family:var(--ff-mono);font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:all 0.2s;}
+  .hero-cta:hover{background:var(--gold-lt);transform:translateY(-1px);}
+  .hero-cta.ghost{background:transparent;border:1px solid rgba(245,158,11,0.4);color:var(--sand);}
+  .hero-cta.ghost:hover{border-color:var(--gold);color:var(--gold);}
+
+  /* Cartas (flyer). Centradas por left/top 50% y colocadas por slot vía transform. */
+  .dcard{position:absolute;left:50%;top:50%;width:var(--cw);height:var(--ch);margin-left:calc(var(--cw) / -2);margin-top:calc(var(--ch) / -2);
+    border-radius:12px;overflow:hidden;border:1px solid rgba(245,158,11,0.28);background:var(--stone);cursor:pointer;
+    transform:translate3d(0,0,0);transition:transform var(--dur) var(--ease-deck),opacity calc(var(--dur) - 80ms) var(--ease-out),box-shadow 0.3s ease;
+    will-change:transform,opacity;box-shadow:0 20px 46px rgba(0,0,0,0.5);}
+  .dcard>img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 200ms var(--ease-out);}
+  /* Micro-interacciones: transform sobre la imagen (no choca con el transform del slot) */
+  @media (hover:hover) and (pointer:fine){ .dcard:not(.is-hero):hover>img{transform:scale(1.04);} }
+  .dcard:active>img{transform:scale(0.97);}
+  .dcard.noimg{display:flex;align-items:center;justify-content:center;}
+  .dcard.noimg::after{content:'Próximamente';font-family:var(--ff-mono);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+  .dcard.is-hero{border-color:rgba(245,158,11,0.6);box-shadow:0 26px 60px rgba(0,0,0,0.6),0 0 40px rgba(245,158,11,0.18);cursor:zoom-in;}
+  .m-badge{position:absolute;top:0.7rem;right:0.7rem;background:rgba(0,42,66,0.88);color:var(--gold-lt);font-family:var(--ff-mono);font-size:0.58rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.22rem 0.55rem;border:1px solid rgba(245,158,11,0.4);z-index:2;}
+  .m-badge.waitlist{color:var(--amber);border-color:var(--amber);}
+  .m-cupos{position:absolute;top:0.7rem;left:0.7rem;background:rgba(0,42,66,0.88);color:var(--sand-lt);font-family:var(--ff-mono);font-size:0.58rem;padding:0.22rem 0.5rem;z-index:2;}
+  .m-zoom{position:absolute;bottom:0.7rem;left:50%;transform:translateX(-50%);white-space:nowrap;background:rgba(0,42,66,0.9);color:var(--teal-lt);font-family:var(--ff-mono);font-size:0.6rem;letter-spacing:0.05em;padding:0.32rem 0.7rem;border:1px solid rgba(56,189,248,0.35);z-index:2;opacity:0;transition:opacity 0.3s;pointer-events:none;}
+  .dcard.is-hero .m-zoom{opacity:1;}
+  .dcard.is-hero:hover .m-zoom{background:rgba(56,189,248,0.25);color:#fff;}
+  .dcard .stack-name{position:absolute;left:0;right:0;bottom:0;padding:2rem 0.8rem 0.7rem;background:linear-gradient(transparent,rgba(0,42,66,0.96) 65%);font-size:0.68rem;line-height:1.35;color:var(--sand-lt);z-index:1;opacity:1;transition:opacity 0.3s;}
+  .dcard.is-hero .stack-name{opacity:0;}
+
+  /* Movimiento reducido: se conservan las posiciones (instantáneas, sin viaje) y
+     el desvanecimiento suave que ayuda a comprender; se quitan traslado y blur. */
+  @media (prefers-reduced-motion:reduce){
+    .hud-bar i{transition:none;}
+    .dcard{transition:opacity 0.2s ease,box-shadow 0.2s ease;}
+    .dcard>img{transition:none;}
+    .deck-info{transition:opacity 0.2s ease;}
+    .deck-info.swapping{filter:none;}
+    .dl-marker{transition:none;}
+    .dl-item{transition:color 0.3s,background 0.25s,opacity 0.3s;}
+    .dl-item.is-active{transform:none;}
+    .dl-title{transition:color 0.3s;}
+  }
+
+  /* Escenario compacto: 1 sola actividad (paneles) → sin baraja */
+  .deck.solo .deck-nav{display:none;}
+
+  /* En móvil el panel pasa a columna: flyer centrado arriba + info debajo.
+     Solo se muestra la carta principal; se navega con flechas o con el HUD. */
+  @media (max-width:900px){
+    .deck{--cw:210px; --ch:263px; --iw:0px; --fw:210px;}
+    .deck-stage{height:auto;padding-bottom:1rem;}
+    .deck-cards{position:relative;height:auto;}
+    .deck-frame{position:relative;left:0;top:0;transform:none;width:100%;height:auto;min-height:auto;padding-top:calc(var(--ch) + 1.6rem);}
+    .deck-info{position:relative;width:100%;padding:0 1.4rem 1.4rem;text-align:center;}
+    .hero-prices{align-items:center;}
+    .dcard{top:1rem;margin-top:0;z-index:50;}   /* left:50% + margin-left heredados → centrada */
+    .dcard:not(.is-hero){display:none;}
+    .m-zoom{opacity:1;}
+  }
+  @media (max-width:420px){ .deck{--cw:180px; --ch:225px; --fw:180px;} }
+
+  /* CTA genérico */
+  .cta-row{margin-top:2rem;}
+  .btn-gold{display:inline-block;background:var(--gold);color:#00263c;padding:0.9rem 2rem;border-radius:10px;font-family:var(--ff-body);font-size:0.85rem;font-weight:700;letter-spacing:0.02em;text-decoration:none;transition:all 0.2s;box-shadow:0 10px 24px -8px rgba(245,158,11,0.6);}
+  .btn-gold:hover{background:var(--gold-lt);transform:translateY(-1px);box-shadow:0 14px 30px -8px rgba(245,158,11,0.7);}
+
+  /* LIGHTBOX */
+  .lightbox{position:fixed;inset:0;background:rgba(5,8,16,0.94);display:none;align-items:center;justify-content:center;z-index:200;padding:2rem;}
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:min(90vw,520px);max-height:85vh;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,0.6);}
+  .lightbox-close,.lightbox-prev,.lightbox-next{position:absolute;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.2);color:var(--white);font-family:var(--ff-mono);cursor:pointer;padding:0.6rem 0.9rem;}
+  .lightbox-close{top:1.5rem;right:1.5rem;}
+  .lightbox-prev{left:1.5rem;top:50%;transform:translateY(-50%);}
+  .lightbox-next{right:1.5rem;top:50%;transform:translateY(-50%);}
+  .lightbox-close:hover,.lightbox-prev:hover,.lightbox-next:hover{border-color:var(--gold);color:var(--gold);}
+  .lightbox-count{position:absolute;bottom:1.2rem;left:50%;transform:translateX(-50%);font-family:var(--ff-mono);font-size:0.72rem;color:var(--muted);}
+
+  /* FOOTER */
+  footer{padding:3rem;text-align:center;border-top:1px solid rgba(245,158,11,0.1);}
+  footer p{color:var(--muted);font-size:0.8rem;margin-bottom:0.4rem;}
+  footer a{color:var(--teal-lt);text-decoration:none;}
+  /* Crédito de autoría */
+  .credit{margin-top:1.4rem;display:inline-flex;align-items:center;gap:0.5rem;flex-wrap:wrap;justify-content:center;
+    font-size:0.78rem;color:var(--muted);padding:0.55rem 1.1rem;border:1px solid var(--border);border-radius:999px;background:rgba(10,74,110,0.35);}
+  .credit b{color:var(--sand-lt);font-weight:600;}
+  .credit a{display:inline-flex;align-items:center;gap:0.4rem;color:var(--gold-lt);text-decoration:none;font-weight:700;}
+  .credit a:hover{color:var(--gold);}
+  .credit svg{width:15px;height:15px;flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../WEB/xvii_stg_landing.html" class="nav-back">← XVII STG 2026</a>
+  <ul class="nav-links">
+    <li><a href="#cursos">Cursos</a></li>
+    <li><a href="#salidas">Salidas</a></li>
+    <li><a href="#charlas">Charlas</a></li>
+    <li><a href="#especiales">Especiales</a></li>
+    <li><a href="#panel">Panel</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <span class="tag">Pre y post-semana · 16–22 agosto 2026</span>
+  <h1>No es el congreso.<br><em>Es la certificación.</em></h1>
+  <p>9 cursos cortos y 7 salidas de campo dictados por especialistas del sector, con cupo limitado y certificado con horas académicas. Además, charlas magistrales dentro del evento principal.</p>
+  <div class="note"><strong>No necesitas inscribirte al evento magistral</strong> para tomar un curso o una salida de campo. Son actividades independientes — pagas solo por la actividad y su certificado, sin acceso a souvenirs ni beneficios del evento.</div>
+</div>
+
+<section class="section" id="cursos">
+  <div class="section-head">
+    <h2>Cursos <em>técnicos</em> especializados</h2>
+    <p>Cupos limitados por curso. Precio "Egresado" aplica a egresados UPTC y posgrado. Toca una imagen para ver el flyer completo (temario, ficha del instructor y link de inscripción).</p>
+  </div>
+  <div class="deck" id="deck-cursos" tabindex="0" aria-label="Catálogo de cursos">
+    <div class="carousel-hud"><span class="hud-count">— / —</span><div class="hud-bar"><i></i></div><span class="hud-hint">Selecciona una tarjeta para ver su información</span>
+      <div class="deck-navs"><button class="deck-nav prev" aria-label="Anterior">‹</button><button class="deck-nav next" aria-label="Siguiente">›</button></div>
+    </div>
+    <div class="deck-body">
+      <div class="deck-stage">
+        <div class="deck-cards"></div>
+      </div>
+      <div class="deck-list"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="salidas">
+  <div class="section-head">
+    <h2>Salidas de <em>campo</em></h2>
+    <p>Salidas guiadas en el corredor geológico de Boyacá y los Llanos.</p>
+  </div>
+  <div class="deck" id="deck-salidas" tabindex="0" aria-label="Catálogo de salidas de campo">
+    <div class="carousel-hud"><span class="hud-count">— / —</span><div class="hud-bar"><i></i></div><span class="hud-hint">Selecciona una tarjeta para ver su información</span>
+      <div class="deck-navs"><button class="deck-nav prev" aria-label="Anterior">‹</button><button class="deck-nav next" aria-label="Siguiente">›</button></div>
+    </div>
+    <div class="deck-body">
+      <div class="deck-stage">
+        <div class="deck-cards"></div>
+      </div>
+      <div class="deck-list"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="charlas">
+  <div class="section-head">
+    <h2>Charlas <em>magistrales</em></h2>
+    <p>Siete charlas magistrales del programa (CM-1 a CM-7): invitados nacionales e internacionales, incluidas en la inscripción al evento magistral (19–21 agosto).</p>
+  </div>
+  <div class="deck" id="deck-charlas" tabindex="0" aria-label="Catálogo de charlas magistrales">
+    <div class="carousel-hud"><span class="hud-count">— / —</span><div class="hud-bar"><i></i></div><span class="hud-hint">Selecciona una tarjeta para ver su información</span>
+      <div class="deck-navs"><button class="deck-nav prev" aria-label="Anterior">‹</button><button class="deck-nav next" aria-label="Siguiente">›</button></div>
+    </div>
+    <div class="deck-body">
+      <div class="deck-stage">
+        <div class="deck-cards"></div>
+      </div>
+      <div class="deck-list"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="especiales">
+  <div class="section-head">
+    <h2>Charlas <em>especiales</em></h2>
+    <p>Nueve charlas especiales del programa (CE-1 a CE-9): invitados destacados y espacios institucionales del sector, dentro del evento magistral (19–21 agosto).</p>
+  </div>
+  <div class="deck" id="deck-especiales" tabindex="0" aria-label="Catálogo de espacios especiales">
+    <div class="carousel-hud"><span class="hud-count">— / —</span><div class="hud-bar"><i></i></div><span class="hud-hint">Selecciona una tarjeta para ver su información</span>
+      <div class="deck-navs"><button class="deck-nav prev" aria-label="Anterior">‹</button><button class="deck-nav next" aria-label="Siguiente">›</button></div>
+    </div>
+    <div class="deck-body">
+      <div class="deck-stage">
+        <div class="deck-cards"></div>
+      </div>
+      <div class="deck-list"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="panel">
+  <div class="section-head">
+    <h2>Panel · <em>conversatorio</em></h2>
+    <p>Un cara a cara entre dos referentes de las geociencias, abierto al público del evento magistral.</p>
+  </div>
+  <div class="deck solo" id="deck-paneles" tabindex="0" aria-label="Panel conversatorio">
+    <div class="carousel-hud"><span class="hud-count">— / —</span><div class="hud-bar"><i></i></div><span class="hud-hint">Incluido en el evento magistral</span>
+      <div class="deck-navs"><button class="deck-nav prev" aria-label="Anterior">‹</button><button class="deck-nav next" aria-label="Siguiente">›</button></div>
+    </div>
+    <div class="deck-body">
+      <div class="deck-stage">
+        <div class="deck-cards"></div>
+      </div>
+      <div class="deck-list"></div>
+    </div>
+  </div>
+  <div class="cta-row">
+    <a href="https://forms.gle/pEavT8emjqy12rt36" target="_blank" rel="noopener" class="btn-gold">Inscribirme al evento magistral →</a>
+  </div>
+</section>
+
+<footer>
+  <p>XVII STG 2026 · UPTC Seccional Sogamoso · 17–23 de agosto</p>
+  <p><a href="mailto:xvii.semanatecnica@uptc.edu.co">xvii.semanatecnica@uptc.edu.co</a> · <a href="https://instagram.com/xvii_stg.sog">@xvii_stg.sog</a></p>
+  <p class="credit">Diseño y desarrollo de esta sección ·
+    <a href="https://www.linkedin.com/in/ingeoanderson" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V23h-4V8zm7.5 0h3.77v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V23h-4v-6.6c0-1.57-.03-3.6-2.2-3.6-2.2 0-2.54 1.72-2.54 3.49V23h-4V8z"/></svg>
+      <b>Anderson</b>
+    </a>
+  </p>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lb-close">✕ Cerrar</button>
+  <button class="lightbox-prev" id="lb-prev">‹</button>
+  <img id="lb-img" src="" alt="">
+  <button class="lightbox-next" id="lb-next">›</button>
+  <span class="lightbox-count" id="lb-count"></span>
+</div>
+
+<script>
+const BASE = '.';
+const EVENTO_FORM = 'https://forms.gle/pEavT8emjqy12rt36';
+
+const TIERS = {
+  A:   { est:'100K', egr:'150K', prof:'170K', label:'Curso estándar' },
+  B:   { est:'70K',  egr:'90K',  prof:'120K', label:'Curso corto' },
+  ANCLA: { est:'170K', egr:'270K', prof:'370K', label:'Curso insignia' },
+};
+
+const CURSOS = [
+  { id:'c1', folder:'Isótopos radiogénicos en paleoceanografía aplicaciones al estudio de la circulación oceánica y el cambio climático', imgs:3,
+    titulo:'Isótopos radiogénicos en paleoceanografía', instructor:'Paloma Olarte', fecha:'22 Ago', duracion:'9 hr · 8 AM–5 PM', cupos:25, tier:'A',
+    form:'https://docs.google.com/forms/d/e/1FAIpQLSehNeRjj3HyW8y5rmf6s5njJrCEJAkO8M-_pfBTd0oJIobXAg/viewform' },
+  { id:'c2', folder:'Introducción a la termobarometría', imgs:3,
+    titulo:'Introducción a la termobarometría', instructor:'Astrid Siachoque Velandia', fecha:'18 Ago', duracion:'8 hr · 8 AM–4 PM', cupos:18, tier:'A',
+    form:'https://docs.google.com/forms/d/e/1FAIpQLSe9-9SQln1TgICk38Js7y_-r-wY77qum5B4EGm0SwllPZdZSw/viewform' },
+  { id:'c3', folder:'Diseño de levantamientos sísmicos 3D', imgs:3,
+    titulo:'Diseño de levantamientos sísmicos 3D', instructor:'Jaime Checa', fecha:'22 Ago', duracion:'4–6 hr · 9 AM–4 PM', cupos:20, tier:'A',
+    form:'https://docs.google.com/forms/d/e/1FAIpQLScWjMMXThNnFRMln4t3JlIT3U1SQ7ozI-hTzamqfF1VzyXiSg/viewform' },
+  { id:'c4', folder:'Geosciences and the Energy Transition Challenge', imgs:3,
+    titulo:'Geosciences and the Energy Transition Challenge', instructor:'Eilard Hoogerduijn Strating', fecha:'17–18 Ago', duracion:'16 hr · 8 AM–6 PM', cupos:25, tier:'ANCLA',
+    form:'https://docs.google.com/forms/d/e/1FAIpQLSejgIgDtXy33p3FwRgWPfhZsCdxpwcTCtNMvD8sxu5njJDAAQ/viewform' },
+  { id:'c5', folder:'Pilotes con inyección de lechada (post grouting) diseño, mecanismos y aplicaciones', imgs:3,
+    titulo:'Pilotes con inyección de lechada (post grouting)', instructor:'Danny José Useche Infante', fecha:'17 Ago', duracion:'4 hr · 8 AM–12 M', cupos:20, tier:'B',
+    form:'https://docs.google.com/forms/d/e/1FAIpQLSfNH9gZt1rnuHftr0aXC0thd99b4IAY8ZZ5XHF0sSGGzbtxng/viewform' },
+  { id:'c6', folder:'Visión Artificial y Deep Learning para la Gestión del Riesgo Automatización de la Cartografía de Deslizamientos en la Cordillera Oriental', imgs:3,
+    titulo:'Visión Artificial y Deep Learning para la Gestión del Riesgo', instructor:'Ernesto Gutiérrez — Semillero GIS & GR', fecha:'18 Ago', duracion:'4 hr · 8 AM–12 M', cupos:30, tier:'B',
+    form:'https://docs.google.com/forms/d/e/1FAIpQLSffvtJs1TiQ10g9tVsnpEDDQXJhPCwsckMr2AXjmHkAncCzsQ/viewform' },
+  { id:'c7', folder:'Introducción a la Geocronología y Termocronología Aplicada', imgs:3,
+    titulo:'Introducción a la Geocronología y Termocronología Aplicada', instructor:'Mauricio Bermúdez y Carolina Sandoval', fecha:'22 Ago', duracion:'6 hr · 9 AM–5 PM', cupos:14, tier:'A',
+    form:'https://docs.google.com/forms/d/e/1FAIpQLSeH63Ax6RICob3xbRX948E73VAZtoJsJ5qAGu8mBF1vesJPwg/viewform' },
+  { id:'c8', folder:'Aplicaciones de los foraminíferos en ambientes recientes y pasados', imgs:3,
+    titulo:'Aplicaciones de los foraminíferos en ambientes recientes y pasados', instructor:'Germán David Patarroyo Camargo', fecha:'16 Ago', duracion:'7 hr · 9 AM–4 PM', cupos:17, tier:'A',
+    form:'https://docs.google.com/forms/d/e/1FAIpQLSfs8IZ3v7gWl9485CJH9zFck-rUNhn_cAf805lNYYVUAzDxSw/viewform' },
+  { id:'c9', folder:'Petrografía Aplicada a la Construcción Alcances, Aplicaciones y Fundamentos de la Inspección Petrográfica bajo ASTM C295-19 y ASTM C856-25', imgs:3,
+    titulo:'Petrografía Aplicada a la Construcción (ASTM C295/C856)', instructor:'Julián Esteban Hernández Roca', fecha:'17 Ago', duracion:'8 hr · 8 AM–6 PM', cupos:17, tier:'A',
+    form:'https://docs.google.com/forms/d/e/1FAIpQLSfwE39muZW2iGZo0PUMzTrev9yJzxJI7psGOWzjfaTRPAE9nQ/viewform' },
+];
+
+const SALIDAS = [
+  { id:'s1', folder:'Nevado del Cocuy - Güican', imgs:2,
+    titulo:'Nevado del Cocuy – Güicán', instructor:'Ing. Ernesto Gutiérrez', fecha:'15–16–17 Ago', cupos:25, casiAgotado:true,
+    precios:{est:'400K',egr:'450K',prof:'500K'},
+    form:'https://docs.google.com/forms/d/e/1FAIpQLSf3eWKnC37X720WseIqyJn27TO3under-ejZ_VmblWttxACAQ/viewform' },
+  { id:'s2', folder:'Estilos estructurales en la zona axial de la Cordillera Oriental de Colombia', imgs:2,
+    titulo:'Paz de Río – Capitanejo', instructor:'Francisco Velandia · Javier Idárraga', fecha:'17–18 Ago', cupos:22,
+    precios:{est:'330K',egr:'380K',prof:'430K'},
+    form:'https://docs.google.com/forms/d/e/1FAIpQLScUTFo7zpRvdtfogVD-o1ZTb_SxFr8NwiTSPPogH82-qcQEtA/viewform' },
+  { id:'s3', folder:'Sistema geotérmico de Paipa', imgs:2,
+    titulo:'Sistema geotérmico de Paipa', instructor:'AGEOCOL · Semillero de Geotérmica UPTC', fecha:'16 Ago', cupos:25,
+    precios:{est:'70K',egr:'90K',prof:'120K'},
+    form:'https://docs.google.com/forms/d/e/1FAIpQLScYSHeeAkDhlXfKBpgfkS0Qtwqi_7Vemk3o5Bewp3ZjMqib0A/viewform' },
+  { id:'s4', folder:'Borde llanero', imgs:2,
+    titulo:'Borde Llanero', instructor:'Jorge Mariño', fecha:'22–23 Ago', cupos:28,
+    precios:{est:'330K',egr:'380K',prof:'430K'},
+    form:'https://docs.google.com/forms/d/e/1FAIpQLSd1sSbdaVv_CQYcxoes3mGe4OQ7kwtNHTGF6-1oZZz0VQV6FQ/viewform' },
+  { id:'s5', titulo:'Floresta', instructor:'Por confirmar', fecha:'18 Ago (tentativo)', cupos:23, placeholder:true,
+    precios:{est:'100K',egr:'150K',prof:'170K'} },
+  { id:'s6', titulo:'Villa de Leyva', instructor:'Por confirmar', fecha:'17 Ago (tentativo)', cupos:23, placeholder:true,
+    precios:{est:'100K',egr:'150K',prof:'170K'} },
+  { id:'s7', titulo:'Siderúrgica Paz de Río (tren)', instructor:'Acerías Paz de Río', fecha:'18 Ago (tentativo, aún por confirmar)', cupos:28, placeholder:true,
+    precios:{est:'100K',egr:'150K',prof:'170K'} },
+];
+
+// Charlas MAGISTRALES — CM-1 a CM-7 (según el cronograma oficial del evento)
+const CHARLAS = [
+  { folder:'Simulando la corteza y el manto en el laboratorio uso de la petrología experimental para entender la distribución de los elementos químicos', titulo:'Simulando la corteza y el manto en el laboratorio', instructor:'Andrés Salazar', org:'Universidad de São Paulo', fecha:'19 Ago' },
+  { titulo:'Espacio institucional — CPG', instructor:'Colombian Petroleum Group', org:'CPG', fecha:'19 Ago', tbd:true },
+  { folder:'Artificial Intelligence and Seismic Networks in the Ecuador-Colombia Subduction Zone', titulo:'Artificial Intelligence and Seismic Networks in the Ecuador-Colombia Subduction Zone', instructor:'Alexander Wickham-Piotrowski', org:'Institut de France', fecha:'20 Ago' },
+  { folder:'La temperatura un factor subestimado en la interpretación estructural', titulo:'La temperatura: un factor subestimado en la interpretación estructural', instructor:'Eduardo Rossello', org:'Servicio Geológico Argentino', fecha:'20 Ago' },
+  { folder:'The Changing Role of Geosciences in the Energy Transition', titulo:'The Changing Role of Geosciences in the Energy Transition', instructor:'Eilard Hoogerduijn Strating', org:'Internacional', fecha:'21 Ago' },
+  { titulo:'Espacio institucional — ANH', instructor:'Agencia Nacional de Hidrocarburos', org:'ANH', fecha:'21 Ago', tbd:true },
+  { folder:'Territorio, energía y decisiones las geociencias como brújula del Estado', titulo:'Territorio, energía y decisiones: las geociencias como brújula del Estado', instructor:'Flover Rodríguez-Portillo', org:'ACGGP', fecha:'21 Ago' },
+];
+
+// Charlas ESPECIALES — CE-1 a CE-9 (según el cronograma oficial del evento)
+const ESPECIALES = [
+  { folder:'Tectónica y fuentes sismogénicas el NE de Colombia', titulo:'Tectónica y fuentes sismogénicas en el NE de Colombia', instructor:'Francisco Velandia', org:'UIS', fecha:'19 Ago' },
+  { titulo:'Espacio institucional — Transfigura', instructor:'Transfigura', org:'Transfigura', fecha:'19 Ago', tbd:true },
+  { titulo:'Espacio institucional — Collective Mining', instructor:'Collective Mining', org:'Collective Mining', fecha:'19 Ago', tbd:true },
+  { folder:'La otra falla geológica nuestra relación con las comunidades y el ingreso a territorio', titulo:'La otra falla geológica: nuestra relación con las comunidades y el ingreso a territorio', instructor:'César Otálvaro', org:'Universidad Nacional', fecha:'20 Ago' },
+  { titulo:'Espacio institucional — Servicio Geológico Colombiano (SGC)', instructor:'Servicio Geológico Colombiano', org:'SGC', fecha:'20 Ago', tbd:true },
+  { folder:'Elementos para entender el fracking en Colombia', titulo:'Elementos para entender el fracking en Colombia', instructor:'Jaime Checa Jiménez', org:'ACGGP', fecha:'20 Ago' },
+  { folder:'Minerales Estratégicos y Transición Energética Nuevas Oportunidades', titulo:'Minerales Estratégicos y Transición Energética: Nuevas Oportunidades', instructor:'Esteban Castillo', org:'ANM', fecha:'21 Ago' },
+  { folder:'Caracterización de rezumaderos a partir de productos de sensores remotos', titulo:'Caracterización de rezumaderos a partir de productos de sensores remotos', instructor:'Iván Plata', org:'Ecopetrol', fecha:'21 Ago' },
+  { titulo:'Espacio institucional — Sociedad Colombiana de Geotecnia (SCG)', instructor:'Sociedad Colombiana de Geotecnia', org:'SCG', fecha:'21 Ago', tbd:true },
+];
+
+// Paneles / conversatorios
+const PANELES = [
+  { kind:'panel', folder:'Geología en Vivo Dos Expertos, Un Viaje al Corazón de la Tierra', titulo:'Geología en Vivo: Dos Expertos, Un Viaje al Corazón de la Tierra', instructor:'Italo Reyes y Manuel García', fecha:'20 Ago · Auditorio Cacique Suamox' },
+];
+
+function imgPath(kind, folder, n){
+  if (kind === 'charla') return encodeURI(`${BASE}/CHARLAS/${folder}.png`);
+  if (kind === 'panel')  return encodeURI(`${BASE}/PANELES/${folder}.png`);
+  const sub = kind === 'curso' ? 'CURSOS' : 'SALIDAS';
+  return encodeURI(`${BASE}/${sub}/${folder}/${n}.png`);
+}
+
+// ── Normalización de datos para el deck ──
+const esc = s => String(s).replace(/"/g,'&quot;');
+
+const DECK_ITEMS = {
+  cursos: CURSOS.map(c => { const p = TIERS[c.tier]; return {
+    kind:'curso', folder:c.folder||'', imgs:c.imgs||0, titulo:c.titulo, sub:c.instructor,
+    extra:`${c.fecha} · ${c.duracion}`, cupos:c.cupos,
+    badge: c.tier==='ANCLA' ? 'Insignia' : null, waitlist:false,
+    prices:[['Estudiante',p.est],['Egresado',p.egr],['Profesional',p.prof]],
+    note:'Cupo limitado · certificado con horas académicas',
+    cta: c.form
+      ? { href:c.form, label:'Inscribirme →', ghost:false }
+      : { href:'mailto:xvii.semanatecnica@uptc.edu.co?subject=Aviso '+encodeURIComponent(c.titulo), label:'Quiero que me avisen →', ghost:true }
+  };}),
+  salidas: SALIDAS.map(s => ({
+    kind:'salida', folder:s.folder||'', imgs:s.imgs||0, titulo:s.titulo, sub:s.instructor,
+    extra:s.fecha, cupos:s.cupos,
+    badge: s.casiAgotado ? 'Casi agotado' : null, waitlist:!!s.casiAgotado,
+    prices:[['Estudiante',s.precios.est],['Egresado',s.precios.egr],['Profesional',s.precios.prof]],
+    note:'Cupo limitado · el detalle completo está en el flyer',
+    cta: s.form
+      ? { href:s.form, label:'Inscribirme →', ghost:false }
+      : { href:'mailto:xvii.semanatecnica@uptc.edu.co?subject=Interés salida '+encodeURIComponent(s.titulo), label:'Preguntar por cupo →', ghost:true }
+  })),
+  charlas: CHARLAS.map(ch => ({
+    kind:'charla', folder:ch.folder||'', imgs: ch.folder ? 1 : 0, titulo:ch.titulo,
+    sub: ch.tbd ? 'Espacio institucional · por confirmar' : ch.instructor,
+    extra: ch.fecha + (ch.org ? ' · ' + ch.org : ''), cupos:null, kindLabel:'Charla magistral',
+    badge:null, waitlist:false, prices:null,
+    note:'Incluida en la inscripción al evento magistral (19–21 ago) — no se vende por separado.',
+    cta:{ href:EVENTO_FORM, label:'Inscribirme al evento →', ghost:true }
+  })),
+  especiales: ESPECIALES.map(ch => ({
+    kind:'charla', folder:ch.folder||'', imgs: ch.folder ? 1 : 0, titulo:ch.titulo,
+    sub: ch.tbd ? 'Espacio institucional · por confirmar' : ch.instructor,
+    extra: ch.fecha + (ch.org ? ' · ' + ch.org : ''), cupos:null, kindLabel:'Charla especial',
+    badge:null, waitlist:false, prices:null,
+    note:'Charla especial dentro del evento magistral (19–21 ago) — incluida en la inscripción.',
+    cta:{ href:EVENTO_FORM, label:'Inscribirme al evento →', ghost:true }
+  })),
+  paneles: PANELES.map(ch => ({
+    kind:'panel', folder:ch.folder||'', imgs: ch.folder ? 1 : 0, titulo:ch.titulo, sub:ch.instructor,
+    extra:ch.fecha, cupos:null, kindLabel:'Panel · conversatorio',
+    badge:null, waitlist:false, prices:null,
+    note:'Conversatorio abierto dentro del evento magistral (19–21 ago) — incluido en la inscripción.',
+    cta:{ href:EVENTO_FORM, label:'Inscribirme al evento →', ghost:true }
+  }))
+};
+
+// Si un flyer aún no existe en la carpeta, la carta cae a "Próximamente" sola
+function imgFail(img){
+  const card = img.closest('.dcard');
+  if (card){
+    card.classList.add('noimg');
+    card.removeAttribute('data-kind');
+    const z = card.querySelector('.m-zoom');
+    if (z) z.remove();
+  }
+  img.remove();
+}
+
+function infoHTML(it){
+  const kindLabel = it.kindLabel || (it.kind==='curso' ? 'Curso técnico' : it.kind==='salida' ? 'Salida de campo' : 'Charla');
+  const prices = it.prices
+    ? `<div class="hero-prices">${it.prices.map(([l,v])=>`<span>${l} <b>${v}</b> COP</span>`).join('')}</div>`
+    : '';
+  return `<div class="hero-kind">${kindLabel}</div>
+    <div class="hero-title">${it.titulo}</div>
+    <div class="hero-sub">${it.sub}</div>
+    <div class="hero-extra">${it.extra}</div>
+    ${prices}
+    <div class="hero-note">${it.note}</div>
+    <a class="hero-cta${it.cta.ghost?' ghost':''}" href="${it.cta.href}"${it.cta.href.startsWith('http')?' target="_blank" rel="noopener"':''}>${it.cta.label}</a>`;
+}
+
+function cardHTML(it, i){
+  const badge = it.badge ? `<span class="m-badge${it.waitlist?' waitlist':''}">${it.badge}</span>` : '';
+  const cupos = it.cupos ? `<span class="m-cupos">${it.cupos} cupos</span>` : '';
+  const inner = it.folder
+    ? `<img src="${imgPath(it.kind, it.folder, 1)}" alt="${esc(it.titulo)}" loading="lazy" onerror="imgFail(this)">${cupos}${badge}<span class="m-zoom">Selecciona para ver la información completa</span><div class="stack-name">${it.titulo}</div>`
+    : `${cupos}${badge}<div class="stack-name">${it.titulo}</div>`;
+  const cls = it.folder ? 'dcard' : 'dcard noimg';
+  const data = it.folder ? ` data-kind="${it.kind}" data-folder="${esc(it.folder)}" data-imgs="${it.imgs}"` : '';
+  return `<div class="${cls}" data-i="${i}"${data}>${inner}</div>`;
+}
+
+// ── Motor del deck (slots reales): la carta que entra se desliza desde detrás
+//    hasta el frente y se convierte en la principal; la anterior sale. ──
+function makeDeck(id, items){
+  const deck = document.getElementById(id);
+  const wrap = deck.querySelector('.deck-cards');
+  const hudCount = deck.querySelector('.hud-count');
+  const hudFill = deck.querySelector('.hud-bar i');
+  const n = items.length;
+  let cur = 0, infoTimer = null;
+
+  wrap.innerHTML = `<div class="deck-frame"><div class="deck-info"></div></div>` + items.map(cardHTML).join('');
+  const info = wrap.querySelector('.deck-info');
+  const cards = Array.from(wrap.querySelectorAll('.dcard'));
+
+  // Lista de títulos sincronizada
+  const list = deck.querySelector('.deck-list');
+  list.innerHTML = '<span class="dl-marker"></span>' + items.map((it, i) =>
+    `<button class="dl-item" data-i="${i}"><span class="dl-idx">${String(i + 1).padStart(2,'0')}</span><span class="dl-title">${esc(it.titulo)}</span></button>`
+  ).join('');
+  const listItems = Array.from(list.querySelectorAll('.dl-item'));
+  const marker = list.querySelector('.dl-marker');
+
+  function metrics(){
+    const cs = getComputedStyle(deck);
+    // OJO: usar isNaN, no `|| default` — en móvil --iw es 0 y `0 || 340` daría 340 (bug)
+    const num = (v, d) => { const x = parseFloat(cs.getPropertyValue(v)); return isNaN(x) ? d : x; };
+    const CW = num('--cw', 300);
+    const IW = num('--iw', 340);
+    const fr = (CW + IW) / 2;                 // medio ancho del recuadro
+    // Cada nivel de la baraja (1 = más cerca de la principal).
+    // zR: lado derecho, DETRÁS del recuadro (z < 10). zL: lado izquierdo, por delante
+    // del recuadro (z > 10) pero por debajo de la principal (z < 40), así asoma junto a ella.
+    const peeks = [
+      { poke:34, s:0.80, y:14, ry:16, zR:8, zL:22 },
+      { poke:58, s:0.68, y:28, ry:20, zR:7, zL:21 },
+      { poke:72, s:0.58, y:40, ry:22, zR:6, zL:20 },
+    ];
+    return { CW, IW, fr, peeks };
+  }
+
+  // rel: posición relativa a la principal. 0 = principal · >0 = siguientes (derecha) · <0 = previas (izquierda)
+  function slotFor(rel, m){
+    if (rel === 0) return { x:-m.IW/2, y:0, s:1, ry:0, z:40, op:1 };          // protagonista
+    const side = rel > 0 ? 1 : -1;
+    const p = m.peeks[Math.min(Math.abs(rel), 3) - 1];
+    const x = side > 0 ? ( m.fr + p.poke - m.CW * p.s / 2)                    // asoma a la derecha
+                       : (-m.fr - p.poke + m.CW * p.s / 2);                   // asoma a la izquierda
+    return { x, y:p.y, s:p.s, ry: side > 0 ? -p.ry : p.ry, z: side > 0 ? p.zR : p.zL, op: Math.abs(rel) <= 3 ? 1 : 0 };
+  }
+
+  function layout(){
+    const m = metrics();
+    cards.forEach((card, i) => {
+      let rel = (i - cur + n) % n;
+      if (rel > n / 2) rel -= n;             // los items previos pasan al lado izquierdo (rel negativo)
+      const s = slotFor(rel, m);
+      card.style.transform = `translate3d(${s.x}px, ${s.y}px, 0) scale(${s.s}) rotateY(${s.ry||0}deg)`;
+      card.style.opacity = s.op;
+      card.style.zIndex = s.z;
+      card.classList.toggle('is-hero', i === cur);
+    });
+    hudCount.textContent = String(cur + 1).padStart(2,'0') + ' / ' + String(n).padStart(2,'0');
+    hudFill.style.width = ((cur + 1) / n * 100) + '%';
+    // Lista: resaltar el título actual y deslizar la barra hacia él
+    listItems.forEach((el, i) => el.classList.toggle('is-active', i === cur));
+    const act = listItems[cur];
+    if (act){
+      if (marker){ marker.style.transform = `translateY(${act.offsetTop}px)`; marker.style.height = act.offsetHeight + 'px'; }
+      act.scrollIntoView({ block:'nearest' });
+    }
+  }
+  const setInfo = () => { info.innerHTML = infoHTML(items[cur]); };
+
+  function go(idx){
+    idx = ((idx % n) + n) % n;
+    if (idx === cur) return;
+    cur = idx;
+    // La carta entrante va al slot hero (z 40 > recuadro 10) y la saliente al slot
+    // de salida (z 50): ambas cruzan POR ENCIMA del recuadro sin clases ni timers,
+    // así la navegación es interrumpible — pulsar rápido re-dirige el vuelo en curso.
+    layout();
+    // Info: crossfade breve con blur (el desenfoque enmascara el intercambio).
+    info.classList.add('swapping');
+    clearTimeout(infoTimer);
+    infoTimer = setTimeout(() => { setInfo(); info.classList.remove('swapping'); }, 190);
+  }
+
+  wrap.addEventListener('click', e => {
+    const card = e.target.closest('.dcard');
+    if (!card) return;
+    const i = Number(card.dataset.i);
+    if (i === cur){
+      const it = items[i];
+      if (it.folder) openLightbox(it.kind, it.folder, it.imgs, 0);
+    } else {
+      go(i);
+    }
+  });
+  list.addEventListener('click', e => {
+    const b = e.target.closest('.dl-item');
+    if (b) go(Number(b.dataset.i));
+  });
+  const next = deck.querySelector('.deck-nav.next');
+  const prev = deck.querySelector('.deck-nav.prev');
+  if (next) next.addEventListener('click', () => go(cur + 1));
+  if (prev) prev.addEventListener('click', () => go(cur - 1));
+  deck.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight'){ e.preventDefault(); go(cur + 1); }
+    if (e.key === 'ArrowLeft'){ e.preventDefault(); go(cur - 1); }
+  });
+  window.addEventListener('resize', layout);
+
+  setInfo();
+  layout();
+}
+
+makeDeck('deck-cursos', DECK_ITEMS.cursos);
+makeDeck('deck-salidas', DECK_ITEMS.salidas);
+makeDeck('deck-charlas', DECK_ITEMS.charlas);
+makeDeck('deck-especiales', DECK_ITEMS.especiales);
+makeDeck('deck-paneles', DECK_ITEMS.paneles);
+
+// ── Lightbox ─────────────────────────────────────────────
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lb-img');
+const lbCount = document.getElementById('lb-count');
+let current = null;
+
+function openLightbox(kind, folder, imgs, idx){
+  current = { kind, folder, imgs: Number(imgs), idx: Number(idx) };
+  render();
+  lb.classList.add('open');
+}
+function render(){
+  if (!current) return;
+  lbImg.src = imgPath(current.kind, current.folder, current.idx + 1);
+  lbCount.textContent = `${current.idx + 1} / ${current.imgs}`;
+  document.getElementById('lb-prev').style.display = current.imgs > 1 ? 'block' : 'none';
+  document.getElementById('lb-next').style.display = current.imgs > 1 ? 'block' : 'none';
+}
+function closeLightbox(){ lb.classList.remove('open'); current = null; }
+
+document.getElementById('lb-close').addEventListener('click', closeLightbox);
+document.getElementById('lb-prev').addEventListener('click', () => { current.idx = (current.idx - 1 + current.imgs) % current.imgs; render(); });
+document.getElementById('lb-next').addEventListener('click', () => { current.idx = (current.idx + 1) % current.imgs; render(); });
+lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+document.addEventListener('keydown', e => {
+  if (!current) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') document.getElementById('lb-prev').click();
+  if (e.key === 'ArrowRight') document.getElementById('lb-next').click();
+});
+</script>
+</body>
+</html>

@@ -1,176 +1,228 @@
 <div class="combined-container">
-  
+
   <!-- Secondary Nav -->
   <nav class="local-nav">
-    <a routerLink="/" class="nav-back">← XVII STG 2026</a>
+    <a routerLink="/" class="nav-back">&larr; XVII STG 2026</a>
     <ul class="nav-links">
       <li><a (click)="scrollToSection('cursos')" class="cursor-pointer">Cursos</a></li>
       <li><a (click)="scrollToSection('salidas')" class="cursor-pointer">Salidas</a></li>
       <li><a (click)="scrollToSection('charlas')" class="cursor-pointer">Charlas</a></li>
+      <li><a (click)="scrollToSection('especiales')" class="cursor-pointer">Especiales</a></li>
+      <li><a (click)="scrollToSection('panel')" class="cursor-pointer">Panel</a></li>
     </ul>
   </nav>
 
   <!-- Hero Section -->
   <div class="hero">
-    <span class="tag">Pre y post-semana · 16–22 agosto 2026</span>
-    <h1>No es el congreso.<br><em>Es la certificación.</em></h1>
-    <p>9 cursos cortos y 7 salidas de campo dictados por especialistas del sector, con cupo limitado y certificado con horas académicas. Además, charlas magistrales dentro del evento principal.</p>
-    <div class="note"><strong>No necesitas inscribirte al evento magistral</strong> para tomar un curso o una salida de campo. Son actividades independientes — pagas solo por la actividad y su certificado, sin acceso a souvenirs ni beneficios del evento.</div>
+    <span class="tag">Pre y post-semana &middot; 16&ndash;22 agosto 2026</span>
+    <h1>No es el congreso.<br><em>Es la certificaci&oacute;n.</em></h1>
+    <p>9 cursos cortos y 7 salidas de campo dictados por especialistas del sector, con cupo limitado y certificado con horas acad&eacute;micas. Adem&aacute;s, charlas magistrales dentro del evento principal.</p>
+    <div class="note"><strong>No necesitas inscribirte al evento magistral</strong> para tomar un curso o una salida de campo. Son actividades independientes &mdash; pagas solo por la actividad y su certificado, sin acceso a souvenirs ni beneficios del evento.</div>
   </div>
 
-  <!-- Cursos Section -->
+  <!-- CURSOS -->
   <section class="section" id="cursos">
     <div class="section-head">
-      <h2>Cursos <em>técnicos</em> especializados</h2>
-      <p>Cupos limitados por curso. Precio "Egresado" aplica a egresados UPTC y posgrado. Toca una imagen para ver el flyer completo (temario, ficha del instructor y link de inscripción).</p>
+      <h2>Cursos <em>t&eacute;cnicos</em> especializados</h2>
+      <p>Cupos limitados por curso. Precio &quot;Egresado&quot; aplica a egresados UPTC y posgrado. Toca una imagen para ver el flyer completo (temario, ficha del instructor y link de inscripci&oacute;n).</p>
     </div>
-    <div class="carousel">
-      <div class="carousel-track" id="grid-cursos" #gridCursos (scroll)="updateNavState('cursos')">
-        <ng-container *ngFor="let item of CURSOS">
-          <!-- Placeholder Curso -->
-          <div *ngIf="item.proximamente" class="card placeholder">
-            <div class="thumb-wrap"></div>
-            <div class="card-body">
-              <div class="card-title">{{ item.titulo }}</div>
-              <div class="card-meta">
-                {{ item.instructor }}<br>Fecha tentativa: {{ item.fecha }} · {{ item.duracion }}
-              </div>
-              <div class="card-prices" *ngIf="TIERS[item.tier] as p">
-                <span>Estudiante <b>{{ p.est }}</b> COP</span>
-                <span>Egresado <b>{{ p.egr }}</b> COP</span>
-                <span>Profesional <b>{{ p.prof }}</b> COP</span>
-              </div>
-              <a [href]="getMailtoLink(item.titulo)" class="card-cta">Quiero que me avisen →</a>
-            </div>
-          </div>
-
-          <!-- Normal Curso -->
-          <div *ngIf="!item.proximamente" class="card">
-            <div class="thumb-wrap" (click)="openLightbox('curso', item.folder, item.imgs)">
-              <img [src]="imgPath('curso', item.folder, 1)" [alt]="item.titulo" loading="lazy">
-              <span class="thumb-count">{{ item.cupos }} cupos</span>
-            </div>
-            <div class="card-body">
-              <div class="card-title">{{ item.titulo }}</div>
-              <div class="card-meta">
-                {{ item.instructor }}<br>{{ item.fecha }} · {{ item.duracion }}
-              </div>
-              <div class="card-prices" *ngIf="TIERS[item.tier] as p">
-                <span>Estudiante <b>{{ p.est }}</b> COP</span>
-                <span>Egresado <b>{{ p.egr }}</b> COP</span>
-                <span>Profesional <b>{{ p.prof }}</b> COP</span>
-              </div>
-              <a [href]="item.form" target="_blank" rel="noopener noreferrer" appTrackClick="click_inscripcion_curso" trackLabel="Curso" class="card-cta">Inscribirme →</a>
-            </div>
-          </div>
-        </ng-container>
+    <div class="deck" id="deck-cursos" tabindex="0" aria-label="Catálogo de cursos" (keydown)="onDeckKeydown($event, 'cursos')">
+      <div class="carousel-hud">
+        <span class="hud-count">{{ pad(deckStates.cursos.cur + 1, deckItems.cursos.length) }}</span>
+        <div class="hud-bar"><i [style.width.%]="((deckStates.cursos.cur + 1) / deckItems.cursos.length) * 100"></i></div>
+        <span class="hud-hint">Selecciona una tarjeta para ver su informaci&oacute;n</span>
+        <div class="deck-navs">
+          <button class="deck-nav prev" (click)="goTo('cursos', deckStates.cursos.cur - 1)" aria-label="Anterior">&lsaquo;</button>
+          <button class="deck-nav next" (click)="goTo('cursos', deckStates.cursos.cur + 1)" aria-label="Siguiente">&rsaquo;</button>
+        </div>
       </div>
-      <button class="carousel-nav prev" [disabled]="isPrevDisabled.cursos" (click)="scrollCarousel(gridCursos, -1, 'cursos')" aria-label="Anterior">‹</button>
-      <button class="carousel-nav next" [disabled]="isNextDisabled.cursos" (click)="scrollCarousel(gridCursos, 1, 'cursos')" aria-label="Siguiente">›</button>
+      <div class="deck-body">
+        <div class="deck-stage">
+          <div class="deck-cards">
+            <div class="deck-frame"><div class="deck-info" [class.swapping]="deckStates.cursos.isSwapping" [innerHTML]="currentInfoHTML.cursos"></div></div>
+            <div class="dcard" *ngFor="let item of deckItems.cursos; let i = index" [class.is-hero]="i === deckStates.cursos.cur" [class.noimg]="!item.folder" (click)="onCardClick('cursos', i, item)">
+              <img *ngIf="item.folder" [src]="imgPath(item.kind, item.folder, 1)" [alt]="item.titulo" loading="lazy" (error)="onImgError($event)">
+              <span class="m-cupos" *ngIf="item.cupos">{{ item.cupos }} cupos</span>
+              <span class="m-badge" [class.waitlist]="item.waitlist" *ngIf="item.badge">{{ item.badge }}</span>
+              <span class="m-zoom">Selecciona para ver la informaci&oacute;n completa</span>
+              <div class="stack-name">{{ item.titulo }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="deck-list">
+          <span class="dl-marker"></span>
+          <button class="dl-item" *ngFor="let item of deckItems.cursos; let i = index" [class.is-active]="i === deckStates.cursos.cur" (click)="goTo('cursos', i)">
+            <span class="dl-idx">{{ i + 1 | number:'2.0-0' }}</span>
+            <span class="dl-title">{{ item.titulo }}</span>
+          </button>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Salidas Section -->
+  <!-- SALIDAS -->
   <section class="section alt" id="salidas">
     <div class="section-head">
       <h2>Salidas de <em>campo</em></h2>
-      <p>Salidas guiadas en el corredor geológico de Boyacá y los Llanos.</p>
+      <p>Salidas guiadas en el corredor geol&oacute;gico de Boyac&aacute; y los Llanos.</p>
     </div>
-    <div class="carousel">
-      <div class="carousel-track" id="grid-salidas" #gridSalidas (scroll)="updateNavState('salidas')">
-        <ng-container *ngFor="let item of SALIDAS">
-          <!-- Placeholder Salida -->
-          <div *ngIf="item.placeholder" class="card placeholder">
-            <div class="thumb-wrap"></div>
-            <div class="card-body">
-              <div class="card-title">{{ item.titulo }}</div>
-              <div class="card-meta">{{ item.instructor }}<br>{{ item.fecha }}</div>
-              <div class="card-prices" *ngIf="item.precios">
-                <span>Estudiante <b>{{ item.precios.est }}</b> COP</span>
-                <span>Egresado <b>{{ item.precios.egr }}</b> COP</span>
-                <span>Profesional <b>{{ item.precios.prof }}</b> COP</span>
-              </div>
-              <a [href]="getMailtoLink(item.titulo, true)" class="card-cta">Preguntar por cupo →</a>
-            </div>
-          </div>
-
-          <!-- Normal Salida -->
-          <div *ngIf="!item.placeholder" class="card">
-            <div class="thumb-wrap" (click)="openLightbox('salida', item.folder, item.imgs)">
-              <img [src]="imgPath('salida', item.folder, 1)" [alt]="item.titulo" loading="lazy">
-              <span class="thumb-badge waitlist" *ngIf="item.casiAgotado">Casi agotado</span>
-              <span class="thumb-badge" *ngIf="!item.casiAgotado">Cupos abiertos</span>
-              <span class="thumb-count">{{ item.cupos }} cupos</span>
-            </div>
-            <div class="card-body">
-              <div class="card-title">{{ item.titulo }}</div>
-              <div class="card-meta">{{ item.instructor }}<br>{{ item.fecha }}</div>
-              <div class="card-prices" *ngIf="item.precios">
-                <span>Estudiante <b>{{ item.precios.est }}</b> COP</span>
-                <span>Egresado <b>{{ item.precios.egr }}</b> COP</span>
-                <span>Profesional <b>{{ item.precios.prof }}</b> COP</span>
-              </div>
-              <a [href]="item.form" target="_blank" rel="noopener noreferrer" appTrackClick="click_inscripcion_curso" trackLabel="Curso" class="card-cta">Inscribirme →</a>
-            </div>
-          </div>
-        </ng-container>
+    <div class="deck" id="deck-salidas" tabindex="0" aria-label="Catálogo de salidas de campo" (keydown)="onDeckKeydown($event, 'salidas')">
+      <div class="carousel-hud">
+        <span class="hud-count">{{ pad(deckStates.salidas.cur + 1, deckItems.salidas.length) }}</span>
+        <div class="hud-bar"><i [style.width.%]="((deckStates.salidas.cur + 1) / deckItems.salidas.length) * 100"></i></div>
+        <span class="hud-hint">Selecciona una tarjeta para ver su informaci&oacute;n</span>
+        <div class="deck-navs">
+          <button class="deck-nav prev" (click)="goTo('salidas', deckStates.salidas.cur - 1)" aria-label="Anterior">&lsaquo;</button>
+          <button class="deck-nav next" (click)="goTo('salidas', deckStates.salidas.cur + 1)" aria-label="Siguiente">&rsaquo;</button>
+        </div>
       </div>
-      <button class="carousel-nav prev" [disabled]="isPrevDisabled.salidas" (click)="scrollCarousel(gridSalidas, -1, 'salidas')" aria-label="Anterior">‹</button>
-      <button class="carousel-nav next" [disabled]="isNextDisabled.salidas" (click)="scrollCarousel(gridSalidas, 1, 'salidas')" aria-label="Siguiente">›</button>
+      <div class="deck-body">
+        <div class="deck-stage">
+          <div class="deck-cards">
+            <div class="deck-frame"><div class="deck-info" [class.swapping]="deckStates.salidas.isSwapping" [innerHTML]="currentInfoHTML.salidas"></div></div>
+            <div class="dcard" *ngFor="let item of deckItems.salidas; let i = index" [class.is-hero]="i === deckStates.salidas.cur" [class.noimg]="!item.folder" (click)="onCardClick('salidas', i, item)">
+              <img *ngIf="item.folder" [src]="imgPath(item.kind, item.folder, 1)" [alt]="item.titulo" loading="lazy" (error)="onImgError($event)">
+              <span class="m-cupos" *ngIf="item.cupos">{{ item.cupos }} cupos</span>
+              <span class="m-badge" [class.waitlist]="item.waitlist" *ngIf="item.badge">{{ item.badge }}</span>
+              <span class="m-zoom">Selecciona para ver la informaci&oacute;n completa</span>
+              <div class="stack-name">{{ item.titulo }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="deck-list">
+          <span class="dl-marker"></span>
+          <button class="dl-item" *ngFor="let item of deckItems.salidas; let i = index" [class.is-active]="i === deckStates.salidas.cur" (click)="goTo('salidas', i)">
+            <span class="dl-idx">{{ i + 1 | number:'2.0-0' }}</span>
+            <span class="dl-title">{{ item.titulo }}</span>
+          </button>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Charlas Section -->
+  <!-- CHARLAS MAGISTRALES -->
   <section class="section" id="charlas">
     <div class="section-head">
       <h2>Charlas <em>magistrales</em></h2>
-      <p>Incluidas en la inscripción al evento magistral (19–21 agosto) — no se venden por separado. Programación aún por confirmar.</p>
+      <p>Siete charlas magistrales del programa (CM-1 a CM-7): invitados nacionales e internacionales, incluidas en la inscripci&oacute;n al evento magistral (19&ndash;21 agosto).</p>
     </div>
-    <div class="carousel">
-      <div class="carousel-track" id="grid-charlas" #gridCharlas (scroll)="updateNavState('charlas')">
-        <ng-container *ngFor="let item of CHARLAS">
-          <!-- Placeholder/No-Folder Charla -->
-          <div *ngIf="!item.folder" class="card placeholder">
-            <div class="thumb-wrap"></div>
-            <div class="card-body">
-              <div class="card-title">{{ item.titulo }}</div>
-              <div class="card-meta">
-                {{ item.instructor }}<br>Fecha tentativa: {{ item.fecha }} · Incluida en el evento magistral
-              </div>
-              <a [href]="EVENTO_FORM" target="_blank" rel="noopener noreferrer" appTrackClick="click_inscripcion_evento_magistral" class="card-cta">Inscribirme al evento magistral →</a>
-            </div>
-          </div>
-
-          <!-- Normal Charla with image -->
-          <div *ngIf="item.folder" class="card">
-            <div class="thumb-wrap" (click)="openLightbox('charla', item.folder, 1)">
-              <img [src]="imgPath('charla', item.folder, 1)" [alt]="item.titulo" loading="lazy">
-              <span class="thumb-badge waitlist">Próximamente</span>
-            </div>
-            <div class="card-body">
-              <div class="card-title">{{ item.titulo }}</div>
-              <div class="card-meta">
-                {{ item.instructor }}<br>Fecha tentativa: {{ item.fecha }} · Incluida en el evento magistral
-              </div>
-              <a [href]="EVENTO_FORM" target="_blank" rel="noopener noreferrer" appTrackClick="click_inscripcion_evento_magistral" class="card-cta">Inscribirme al evento magistral →</a>
-            </div>
-          </div>
-        </ng-container>
+    <div class="deck" id="deck-charlas" tabindex="0" aria-label="Catálogo de charlas magistrales" (keydown)="onDeckKeydown($event, 'charlas')">
+      <div class="carousel-hud">
+        <span class="hud-count">{{ pad(deckStates.charlas.cur + 1, deckItems.charlas.length) }}</span>
+        <div class="hud-bar"><i [style.width.%]="((deckStates.charlas.cur + 1) / deckItems.charlas.length) * 100"></i></div>
+        <span class="hud-hint">Selecciona una tarjeta para ver su informaci&oacute;n</span>
+        <div class="deck-navs">
+          <button class="deck-nav prev" (click)="goTo('charlas', deckStates.charlas.cur - 1)" aria-label="Anterior">&lsaquo;</button>
+          <button class="deck-nav next" (click)="goTo('charlas', deckStates.charlas.cur + 1)" aria-label="Siguiente">&rsaquo;</button>
+        </div>
       </div>
-      <button class="carousel-nav prev" [disabled]="isPrevDisabled.charlas" (click)="scrollCarousel(gridCharlas, -1, 'charlas')" aria-label="Anterior">‹</button>
-      <button class="carousel-nav next" [disabled]="isNextDisabled.charlas" (click)="scrollCarousel(gridCharlas, 1, 'charlas')" aria-label="Siguiente">›</button>
+      <div class="deck-body">
+        <div class="deck-stage">
+          <div class="deck-cards">
+            <div class="deck-frame"><div class="deck-info" [class.swapping]="deckStates.charlas.isSwapping" [innerHTML]="currentInfoHTML.charlas"></div></div>
+            <div class="dcard" *ngFor="let item of deckItems.charlas; let i = index" [class.is-hero]="i === deckStates.charlas.cur" [class.noimg]="!item.folder" (click)="onCardClick('charlas', i, item)">
+              <img *ngIf="item.folder" [src]="imgPath(item.kind, item.folder, 1)" [alt]="item.titulo" loading="lazy" (error)="onImgError($event)">
+              <span class="m-zoom">Selecciona para ver la informaci&oacute;n completa</span>
+              <div class="stack-name">{{ item.titulo }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="deck-list">
+          <span class="dl-marker"></span>
+          <button class="dl-item" *ngFor="let item of deckItems.charlas; let i = index" [class.is-active]="i === deckStates.charlas.cur" (click)="goTo('charlas', i)">
+            <span class="dl-idx">{{ i + 1 | number:'2.0-0' }}</span>
+            <span class="dl-title">{{ item.titulo }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHARLAS ESPECIALES -->
+  <section class="section alt" id="especiales">
+    <div class="section-head">
+      <h2>Charlas <em>especiales</em></h2>
+      <p>Nueve charlas especiales del programa (CE-1 a CE-9): invitados destacados y espacios institucionales del sector, dentro del evento magistral (19&ndash;21 agosto).</p>
+    </div>
+    <div class="deck" id="deck-especiales" tabindex="0" aria-label="Catálogo de espacios especiales" (keydown)="onDeckKeydown($event, 'especiales')">
+      <div class="carousel-hud">
+        <span class="hud-count">{{ pad(deckStates.especiales.cur + 1, deckItems.especiales.length) }}</span>
+        <div class="hud-bar"><i [style.width.%]="((deckStates.especiales.cur + 1) / deckItems.especiales.length) * 100"></i></div>
+        <span class="hud-hint">Selecciona una tarjeta para ver su informaci&oacute;n</span>
+        <div class="deck-navs">
+          <button class="deck-nav prev" (click)="goTo('especiales', deckStates.especiales.cur - 1)" aria-label="Anterior">&lsaquo;</button>
+          <button class="deck-nav next" (click)="goTo('especiales', deckStates.especiales.cur + 1)" aria-label="Siguiente">&rsaquo;</button>
+        </div>
+      </div>
+      <div class="deck-body">
+        <div class="deck-stage">
+          <div class="deck-cards">
+            <div class="deck-frame"><div class="deck-info" [class.swapping]="deckStates.especiales.isSwapping" [innerHTML]="currentInfoHTML.especiales"></div></div>
+            <div class="dcard" *ngFor="let item of deckItems.especiales; let i = index" [class.is-hero]="i === deckStates.especiales.cur" [class.noimg]="!item.folder" (click)="onCardClick('especiales', i, item)">
+              <img *ngIf="item.folder" [src]="imgPath(item.kind, item.folder, 1)" [alt]="item.titulo" loading="lazy" (error)="onImgError($event)">
+              <span class="m-zoom">Selecciona para ver la informaci&oacute;n completa</span>
+              <div class="stack-name">{{ item.titulo }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="deck-list">
+          <span class="dl-marker"></span>
+          <button class="dl-item" *ngFor="let item of deckItems.especiales; let i = index" [class.is-active]="i === deckStates.especiales.cur" (click)="goTo('especiales', i)">
+            <span class="dl-idx">{{ i + 1 | number:'2.0-0' }}</span>
+            <span class="dl-title">{{ item.titulo }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PANEL / CONVERSATORIO -->
+  <section class="section" id="panel">
+    <div class="section-head">
+      <h2>Panel &middot; <em>conversatorio</em></h2>
+      <p>Un cara a cara entre dos referentes de las geociencias, abierto al p&uacute;blico del evento magistral.</p>
+    </div>
+    <div class="deck solo" id="deck-paneles" tabindex="0" aria-label="Panel conversatorio" (keydown)="onDeckKeydown($event, 'paneles')">
+      <div class="carousel-hud">
+        <span class="hud-count">{{ pad(deckStates.paneles.cur + 1, deckItems.paneles.length) }}</span>
+        <div class="hud-bar"><i [style.width.%]="((deckStates.paneles.cur + 1) / deckItems.paneles.length) * 100"></i></div>
+        <span class="hud-hint">Incluido en el evento magistral</span>
+        <div class="deck-navs">
+          <button class="deck-nav prev" (click)="goTo('paneles', deckStates.paneles.cur - 1)" aria-label="Anterior">&lsaquo;</button>
+          <button class="deck-nav next" (click)="goTo('paneles', deckStates.paneles.cur + 1)" aria-label="Siguiente">&rsaquo;</button>
+        </div>
+      </div>
+      <div class="deck-body">
+        <div class="deck-stage">
+          <div class="deck-cards">
+            <div class="deck-frame"><div class="deck-info" [class.swapping]="deckStates.paneles.isSwapping" [innerHTML]="currentInfoHTML.paneles"></div></div>
+            <div class="dcard" *ngFor="let item of deckItems.paneles; let i = index" [class.is-hero]="i === deckStates.paneles.cur" [class.noimg]="!item.folder" (click)="onCardClick('paneles', i, item)">
+              <img *ngIf="item.folder" [src]="imgPath(item.kind, item.folder, 1)" [alt]="item.titulo" loading="lazy" (error)="onImgError($event)">
+              <span class="m-zoom">Selecciona para ver la informaci&oacute;n completa</span>
+              <div class="stack-name">{{ item.titulo }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="deck-list">
+          <span class="dl-marker"></span>
+          <button class="dl-item" *ngFor="let item of deckItems.paneles; let i = index" [class.is-active]="i === deckStates.paneles.cur" (click)="goTo('paneles', i)">
+            <span class="dl-idx">{{ i + 1 | number:'2.0-0' }}</span>
+            <span class="dl-title">{{ item.titulo }}</span>
+          </button>
+        </div>
+      </div>
     </div>
     <div class="cta-row">
-      <a [href]="EVENTO_FORM" target="_blank" rel="noopener noreferrer" appTrackClick="click_inscripcion_evento_magistral" class="btn-gold">Inscribirme al evento magistral →</a>
+      <a [href]="EVENTO_FORM" target="_blank" rel="noopener" appTrackClick="click_inscripcion_evento_magistral" class="btn-gold">Inscribirme al evento magistral &rarr;</a>
     </div>
   </section>
 
   <!-- Lightbox -->
   <div class="lightbox" [class.open]="currentLightbox !== null" (click)="onLightboxContainerClick($event)">
-    <button class="lightbox-close" (click)="closeLightbox()">✕ Cerrar</button>
-    <button class="lightbox-prev" *ngIf="currentLightbox && currentLightbox.imgs > 1" (click)="prevLightbox(); $event.stopPropagation()">‹</button>
+    <button class="lightbox-close" (click)="closeLightbox()">&times; Cerrar</button>
+    <button class="lightbox-prev" *ngIf="currentLightbox && currentLightbox.imgs > 1" (click)="prevLightbox(); $event.stopPropagation()">&lsaquo;</button>
     <img *ngIf="currentLightbox" [src]="imgPath(currentLightbox.kind, currentLightbox.folder, currentLightbox.idx + 1)" [alt]="currentLightbox.folder">
-    <button class="lightbox-next" *ngIf="currentLightbox && currentLightbox.imgs > 1" (click)="nextLightbox(); $event.stopPropagation()">›</button>
+    <button class="lightbox-next" *ngIf="currentLightbox && currentLightbox.imgs > 1" (click)="nextLightbox(); $event.stopPropagation()">&rsaquo;</button>
     <span class="lightbox-count" *ngIf="currentLightbox">{{ currentLightbox.idx + 1 }} / {{ currentLightbox.imgs }}</span>
   </div>
 
