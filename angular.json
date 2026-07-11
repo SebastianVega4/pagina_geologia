@@ -60,7 +60,11 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "aos",
+              "leaflet"
+            ]
           },
           "configurations": {
             "production": {
