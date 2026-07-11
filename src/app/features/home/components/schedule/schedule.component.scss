@@ -645,3 +645,53 @@
   text-align: center;
   padding-bottom: 8px;
 }
+
+.official-root .credit-badge {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card-bg);
+  font-size: 11.5px;
+  color: var(--text-dim);
+}
+
+.official-root .credit-badge a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.official-root .credit-badge a:hover {
+  color: var(--gold);
+  opacity: .8;
+}
+
+.official-root .credit-badge svg {
+  width: 14px;
+  height: 14px;
+}
+
+.official-root .dot.parcial { background: var(--amber); }
+.official-root .dot.pendiente { background: var(--gray); }
+.official-root .dot.tbd { background: transparent; border: 1px dashed var(--text-dim); }
+
+.official-root .tab-desc {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+
+.official-root .tab-desc b { color: var(--gold); }
