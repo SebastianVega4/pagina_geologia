@@ -1,8 +1,9 @@
-import { Component, AfterViewInit, HostListener, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, AfterViewInit, HostListener, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TrackClickDirective } from '../../shared/directives/track-click.directive';
+import { UmamiService } from '../../core/services/umami.service';
 
 interface Tier {
   est: string;
@@ -182,6 +183,7 @@ export class CursosComponent implements AfterViewInit {
   currentInfoHTML: Record<DeckId, SafeHtml> = {} as Record<DeckId, SafeHtml>;
 
   currentLightbox: LightboxState | null = null;
+  private umami = inject(UmamiService);
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -242,6 +244,17 @@ export class CursosComponent implements AfterViewInit {
   ngAfterViewInit() {
     setTimeout(() => {
       ALL_DECKS.forEach(id => this.initDeck(id));
+      this.setupDeckClickTracking();
+    });
+  }
+
+  private setupDeckClickTracking(): void {
+    document.addEventListener('click', (e: Event) => {
+      const target = (e.target as HTMLElement).closest('.hero-cta') as HTMLElement | null;
+      if (!target) return;
+      const kind = target.getAttribute('data-track-kind') || '';
+      const title = target.getAttribute('data-track-title') || '';
+      this.umami.trackEvent('click_inscripcion_curso', { kind, title });
     });
   }
 
@@ -277,7 +290,7 @@ export class CursosComponent implements AfterViewInit {
     <div class="hero-extra">${this.esc(item.extra)}</div>
     ${prices}
     <div class="hero-note">${item.note}</div>
-    <a class="hero-cta${item.cta.ghost ? ' ghost' : ''}" href="${item.cta.href}"${item.cta.href.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}>${item.cta.label}</a>`;
+    <a class="hero-cta${item.cta.ghost ? ' ghost' : ''}" href="${item.cta.href}"${item.cta.href.startsWith('http') ? ' target="_blank" rel="noopener"' : ''} data-track-kind="${this.esc(item.kind)}" data-track-title="${this.esc(item.titulo)}">${item.cta.label}</a>`;
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 

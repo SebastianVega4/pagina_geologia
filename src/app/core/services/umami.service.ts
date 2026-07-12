@@ -1,9 +1,10 @@
-import { Injectable, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, OnDestroy, inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { MatomoService } from './matomo.service';
 
 type UmamiTrackFn = {
   (payload: string | { url?: string; title?: string; hostname?: string; referrer?: string }): void;
@@ -29,6 +30,7 @@ export class UmamiService implements OnDestroy {
   private cleanupFns: Array<() => void> = [];
   private readonly SCRIPT_URL = 'https://cloud.umami.is/script.js';
   private readonly MAX_RETRIES = 3;
+  private readonly matomo = inject(MatomoService);
 
   constructor(
     private router: Router,
@@ -98,6 +100,7 @@ export class UmamiService implements OnDestroy {
       script.defer = true;
       script.setAttribute('data-website-id', environment.umamiWebsiteId);
       script.setAttribute('data-auto-track', 'false');
+      script.setAttribute('data-domains', 'xviisemanatecnicadegeologia.com,localhost');
       script.onload = () => resolve();
       script.onerror = () => reject(new Error('Failed to load Umami script'));
       document.head.appendChild(script);
@@ -117,6 +120,7 @@ export class UmamiService implements OnDestroy {
       .subscribe((event: NavigationEnd) => {
         const title = this.resolvePageTitle(event.urlAfterRedirects);
         this.enqueue({ args: [{ url: event.urlAfterRedirects, title, hostname: window.location.hostname }] });
+        this.matomo.trackPageView(event.urlAfterRedirects);
       });
     this.cleanupFns.push(() => this.routerSub?.unsubscribe());
   }
@@ -135,6 +139,17 @@ export class UmamiService implements OnDestroy {
 
   trackEvent(name: string, data?: Record<string, string | number | boolean>): void {
     this.enqueue({ args: [name, data] });
+    let mLabel: string | undefined;
+    let mValue: number | undefined;
+    const d = data;
+    if (d) {
+      const vals = Object.values(d);
+      for (const v of vals) {
+        if (typeof v === 'number' && mValue === undefined) mValue = v;
+        if (typeof v === 'string' && mLabel === undefined) mLabel = v;
+      }
+    }
+    this.matomo.trackEvent('Event', name, mLabel, mValue);
   }
 
   private enqueue(item: QueuedEvent): void {
@@ -162,14 +177,18 @@ export class UmamiService implements OnDestroy {
       if (ticking) return;
       ticking = true;
       requestAnimationFrame(() => {
-        const pct = Math.round(
-          (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100
-        );
-        for (const t of thresholds) {
-          if (pct >= t && !tracked.has(t)) {
-            tracked.add(t);
-            this.trackEvent('scroll_depth', { percent: t });
+        try {
+          const pct = Math.round(
+            (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100
+          );
+          for (const t of thresholds) {
+            if (pct >= t && !tracked.has(t)) {
+              tracked.add(t);
+              this.trackEvent('scroll_depth', { percent: t });
+            }
           }
+        } catch {
+          // scroll tracking error — silent
         }
         ticking = false;
       });

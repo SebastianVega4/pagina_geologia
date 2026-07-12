@@ -131,18 +131,19 @@
   <!-- AOS CSS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
-  <!-- Matomo -->
+  <!-- Matomo (solo en producción — page views manejadas por MatomoService) -->
   <script>
-    var _paq = window._paq = window._paq || [];
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//xviisemanatecnicadegeologia.com/matomo/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
+    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      var _paq = window._paq = window._paq || [];
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="https://xviisemanatecnicadegeologia.com/matomo/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '1']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+      })();
+    }
   </script>
   <!-- End Matomo Code -->
 </head>

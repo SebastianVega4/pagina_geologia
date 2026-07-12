@@ -188,8 +188,8 @@ export class NewsDetailComponent implements OnInit {
       tap(noticia => {
         if (noticia) {
           this.noticiaActual = noticia;
-          this.umami.trackEvent('view_news_detail', { id, title: noticia.titulo });
           this.titleService.setTitle(`${noticia.titulo} | XVII Semana Tecnicá. geologia, ingenieria geologica y geociencias.`);
+          this.umami.trackEvent('view_news_detail', { id, title: noticia.titulo });
           this.metaService.updateTag({ name: 'description', content: noticia.resumen });
           this.metaService.updateTag({ property: 'og:title', content: noticia.titulo });
           this.metaService.updateTag({ property: 'og:description', content: noticia.resumen });
