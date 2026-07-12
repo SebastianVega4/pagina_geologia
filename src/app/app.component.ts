@@ -5,7 +5,7 @@ import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { FooterComponent } from './core/components/footer/footer.component';
 import { LucideAngularModule, MessageCircle } from 'lucide-angular';
 import { SeoService } from './core/services/seo.service';
-import { UmamiService } from './core/services/umami.service';
+import { MatomoService } from './core/services/matomo.service';
 import * as AOS from 'aos';
 
 @Component({
@@ -20,9 +20,10 @@ export class AppComponent implements OnInit {
   title = 'web-congreso-geologia';
   readonly icons = { MessageCircle };
 
+  private matomo = inject(MatomoService);
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private umami: UmamiService,
   ) {
     this.seoService.init();
   }
@@ -36,12 +37,11 @@ export class AppComponent implements OnInit {
         offset: 120,
         easing: 'ease-in-out-cubic'
       });
-      this.umami.trackScrollDepth();
     }
   }
 
   openWhatsApp() {
-    this.umami.trackEvent('click_whatsapp', { location: 'floating_button' });
+    this.matomo.trackEvent('Event', 'click_whatsapp', 'floating_button');
     const phoneNumber = '573124870684';
     const message = encodeURIComponent('Hola! Quisiera más información sobre el Congreso de Geología UPTC 2026.');
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Code, Cpu, User, Linkedin, Globe, Server, Palette } from 'lucide-angular';
-import { UmamiService } from '../../core/services/umami.service';
+import { MatomoService } from '../../core/services/matomo.service';
 
 @Component({
   selector: 'app-about-project',
@@ -11,7 +11,7 @@ import { UmamiService } from '../../core/services/umami.service';
   styleUrl: './about-project.component.scss'
 })
 export class AboutProjectComponent {
-  private umami = inject(UmamiService);
+  private matomo = inject(MatomoService);
   readonly icons = { Code, Cpu, User, Linkedin, Globe, Server, Palette };
 
   technologies = [
@@ -38,7 +38,7 @@ export class AboutProjectComponent {
   ];
 
   openLinkedIn() {
-    this.umami.trackEvent('click_social_link', { platform: 'LinkedIn', location: 'about_project' });
+    this.matomo.trackEvent('Event', 'click_social_link', 'LinkedIn');
     window.open('https://www.linkedin.com/in/johan-sebastian-vega-ruiz-b1292011b/', '_blank');
   }
 }

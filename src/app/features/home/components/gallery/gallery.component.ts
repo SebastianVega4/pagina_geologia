@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Image, History, Maximize2, X } from 'lucide-angular';
-import { UmamiService } from '../../../../core/services/umami.service';
+import { MatomoService } from '../../../../core/services/matomo.service';
 
 interface GalleryItem {
   url: string;
@@ -17,7 +17,7 @@ interface GalleryItem {
   styleUrl: './gallery.component.scss'
 })
 export class GalleryComponent {
-  private umami = inject(UmamiService);
+  private matomo = inject(MatomoService);
   readonly icons = { Image, History, Maximize2, X };
 
   activeTab: 'actual' | 'historica' = 'actual';
@@ -35,18 +35,18 @@ export class GalleryComponent {
 
   setTab(tab: 'actual' | 'historica') {
     this.activeTab = tab;
-    this.umami.trackEvent('gallery_tab_switch', { tab });
+    this.matomo.trackEvent('Event', 'gallery_tab_switch', tab);
   }
 
   openLightbox(item: GalleryItem) {
     this.selectedItem = item;
-    this.umami.trackEvent('gallery_lightbox_open', { title: item.title, category: item.category });
+    this.matomo.trackEvent('Event', 'gallery_lightbox_open', item.title);
     document.body.style.overflow = 'hidden';
   }
 
   closeLightbox() {
     this.selectedItem = null;
-    this.umami.trackEvent('gallery_lightbox_close');
+    this.matomo.trackEvent('Event', 'gallery_lightbox_close');
     document.body.style.overflow = 'auto';
   }
 }

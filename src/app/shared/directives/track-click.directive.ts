@@ -1,5 +1,5 @@
-import { Directive, Input, HostListener } from '@angular/core';
-import { UmamiService } from '../../core/services/umami.service';
+import { Directive, Input, HostListener, inject } from '@angular/core';
+import { MatomoService } from '../../core/services/matomo.service';
 
 @Directive({
   selector: '[appTrackClick]',
@@ -9,8 +9,7 @@ export class TrackClickDirective {
   @Input('appTrackClick') eventName: string = '';
   @Input() trackData?: Record<string, string | number | boolean>;
   @Input() trackLabel?: string;
-
-  constructor(private umami: UmamiService) {}
+  private matomo = inject(MatomoService);
 
   @HostListener('click', ['$event'])
   onClick(event: MouseEvent): void {
@@ -24,7 +23,14 @@ export class TrackClickDirective {
       data['label'] = this.trackLabel;
     }
     if (name) {
-      this.umami.trackEvent(name, data);
+      let mLabel: string | undefined;
+      let mValue: number | undefined;
+      const vals = Object.values(data);
+      for (const v of vals) {
+        if (typeof v === 'number' && mValue === undefined) mValue = v;
+        if (typeof v === 'string' && mLabel === undefined) mLabel = v;
+      }
+      this.matomo.trackEvent('Event', name, mLabel, mValue);
     }
   }
 

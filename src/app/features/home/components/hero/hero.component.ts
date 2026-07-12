@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, inj
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Mail, X, Volume2, VolumeX } from 'lucide-angular';
 import { RouterModule } from '@angular/router';
-import { UmamiService } from '../../../../core/services/umami.service';
+import { MatomoService } from '../../../../core/services/matomo.service';
 import { TrackClickDirective } from '../../../../shared/directives/track-click.directive';
 
 @Component({
@@ -13,7 +13,7 @@ import { TrackClickDirective } from '../../../../shared/directives/track-click.d
   styleUrl: './hero.component.scss'
 })
 export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
-  private umami = inject(UmamiService);
+  private matomo = inject(MatomoService);
   @ViewChild('promoVideo') promoVideo!: ElementRef<HTMLVideoElement>;
 
   readonly icons = { Mail, X, Volume2, VolumeX };
@@ -75,10 +75,10 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
     this.showVideoModal = !this.showVideoModal;
     if (this.showVideoModal) {
       document.body.style.overflow = 'hidden';
-      this.umami.trackEvent('open_video_modal');
+      this.matomo.trackEvent('Event', 'open_video_modal');
     } else {
       document.body.style.overflow = 'auto';
-      this.umami.trackEvent('close_video_modal');
+      this.matomo.trackEvent('Event', 'close_video_modal');
     }
   }
 
@@ -87,11 +87,11 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.promoVideo?.nativeElement) {
       this.promoVideo.nativeElement.muted = this.isPromoMuted;
     }
-    this.umami.trackEvent('toggle_promo_sound', { muted: this.isPromoMuted });
+    this.matomo.trackEvent('Event', 'toggle_promo_sound');
   }
 
   scrollToRegistration() {
-    this.umami.trackEvent('click_cta_registration', { location: 'hero' });
+    this.matomo.trackEvent('Event', 'click_cta_registration', 'hero');
     const element = document.getElementById('registration');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });

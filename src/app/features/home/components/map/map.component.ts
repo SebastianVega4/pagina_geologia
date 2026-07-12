@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, OnDestroy, Inject, PLATFORM_ID, injec
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { LucideAngularModule, MapPin, Navigation } from 'lucide-angular';
 import * as L from 'leaflet';
-import { UmamiService } from '../../../../core/services/umami.service';
+import { MatomoService } from '../../../../core/services/matomo.service';
 
 @Component({
   selector: 'app-map',
@@ -12,7 +12,7 @@ import { UmamiService } from '../../../../core/services/umami.service';
   styleUrl: './map.component.scss'
 })
 export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
-  private umami = inject(UmamiService);
+  private matomo = inject(MatomoService);
   readonly icons = { MapPin, Navigation };
   
   private map?: L.Map;
@@ -68,7 +68,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openGoogleMaps(): void {
-    this.umami.trackEvent('click_google_maps');
+    this.matomo.trackEvent('Event', 'click_google_maps');
     const url = 'https://www.google.com/maps/search/UPTC+Seccional+Sogamoso/@5.7047,-72.942,17z';
     window.open(url, '_blank');
   }
@@ -97,7 +97,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }).addTo(this.map!);
 
       marker.on('click', () => {
-        this.umami.trackEvent('map_marker_click', { title: m.title, label: m.label });
+        this.matomo.trackEvent('Event', 'map_marker_click', m.title);
       });
 
       marker.bindPopup(`

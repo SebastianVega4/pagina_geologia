@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Camera, FileText, Send, ChevronLeft, Timer } from 'lucide-angular';
 import { RouterModule } from '@angular/router';
-import { UmamiService } from '../../../core/services/umami.service';
+import { MatomoService } from '../../../core/services/matomo.service';
 
 @Component({
   selector: 'app-photography',
@@ -12,13 +12,13 @@ import { UmamiService } from '../../../core/services/umami.service';
   styleUrl: './photography.component.scss'
 })
 export class PhotographyComponent {
-  private umami = inject(UmamiService);
+  private matomo = inject(MatomoService);
   readonly icons = { Camera, FileText, Send, ChevronLeft, Timer };
 
   readonly templateLink = '#';
   readonly formLink = '#';
 
   constructor() {
-    this.umami.trackEvent('view_photography_contest');
+    this.matomo.trackEvent('Event', 'view_photography_contest');
   }
 }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NewsletterService } from '../../../../core/services/newsletter.service';
-import { UmamiService } from '../../../../core/services/umami.service';
+import { MatomoService } from '../../../../core/services/matomo.service';
 
 @Component({
   selector: 'app-registration',
@@ -13,7 +13,7 @@ import { UmamiService } from '../../../../core/services/umami.service';
   styleUrl: './registration.component.scss'
 })
 export class RegistrationComponent {
-  private umami = inject(UmamiService);
+  private matomo = inject(MatomoService);
   email: string = '';
   submitting: boolean = false;
   submitStatus: 'idle' | 'success' | 'error' = 'idle';
@@ -28,14 +28,14 @@ export class RegistrationComponent {
 
     this.newsletterService.subscribe(this.email).subscribe({
       next: () => {
-        this.umami.trackEvent('newsletter_subscribe', { status: 'success' });
+        this.matomo.trackEvent('Event', 'newsletter_subscribe', 'success');
         this.submitStatus = 'success';
         this.submitting = false;
         this.email = '';
         setTimeout(() => this.submitStatus = 'idle', 5000);
       },
       error: (err) => {
-        this.umami.trackEvent('newsletter_subscribe', { status: 'error' });
+        this.matomo.trackEvent('Event', 'newsletter_subscribe', 'error');
         console.error('Subscription error:', err);
         this.submitStatus = 'error';
         this.submitting = false;

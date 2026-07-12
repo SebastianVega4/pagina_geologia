@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LucideAngularModule, FileText, Download, ExternalLink, ChevronLeft } from 'lucide-angular';
 import { SafePipe } from '../../shared/pipes/safe.pipe';
 import { RouterModule } from '@angular/router';
-import { UmamiService } from '../../core/services/umami.service';
+import { MatomoService } from '../../core/services/matomo.service';
 import { TrackClickDirective } from '../../shared/directives/track-click.directive';
 
 @Component({
@@ -14,7 +14,7 @@ import { TrackClickDirective } from '../../shared/directives/track-click.directi
   styleUrl: './portfolio.component.scss'
 })
 export class PortfolioComponent {
-  private umami = inject(UmamiService);
+  private matomo = inject(MatomoService);
   readonly icons = { FileText, Download, ExternalLink, ChevronLeft };
 
   readonly pdfEmbedUrl = 'assets/Portafolio_servicios_XVII_STG_UPTC_2026 (1).pdf';
@@ -25,7 +25,7 @@ export class PortfolioComponent {
 
   onIframeLoad(): void {
     this.isPreviewLoaded = true;
-    this.umami.trackEvent('portfolio_pdf_view');
+    this.matomo.trackEvent('Event', 'portfolio_pdf_view');
   }
 
   getMobilePdfUrl(pdfUrl: string): string {

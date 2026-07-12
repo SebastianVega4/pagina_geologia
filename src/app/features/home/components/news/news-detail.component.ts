@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Title, Meta } from '@angular/platform-browser';
 import { LucideAngularModule, ArrowLeft, Calendar, User, Clock } from 'lucide-angular';
 import { Observable, map, tap } from 'rxjs';
-import { UmamiService } from '../../../../core/services/umami.service';
+import { MatomoService } from '../../../../core/services/matomo.service';
 
 interface Noticia {
   id: number;
@@ -169,7 +169,7 @@ interface Noticia {
   `]
 })
 export class NewsDetailComponent implements OnInit {
-  private umami = inject(UmamiService);
+  private matomo = inject(MatomoService);
   readonly icons = { ArrowLeft, Calendar, User, Clock };
   noticia$: Observable<Noticia | undefined> | undefined;
   noticiaActual?: Noticia;
@@ -189,7 +189,7 @@ export class NewsDetailComponent implements OnInit {
         if (noticia) {
           this.noticiaActual = noticia;
           this.titleService.setTitle(`${noticia.titulo} | XVII Semana Tecnicá. geologia, ingenieria geologica y geociencias.`);
-          this.umami.trackEvent('view_news_detail', { id, title: noticia.titulo });
+          this.matomo.trackEvent('Event', 'view_news_detail', noticia.titulo, id);
           this.metaService.updateTag({ name: 'description', content: noticia.resumen });
           this.metaService.updateTag({ property: 'og:title', content: noticia.titulo });
           this.metaService.updateTag({ property: 'og:description', content: noticia.resumen });

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TrackClickDirective } from '../../shared/directives/track-click.directive';
-import { UmamiService } from '../../core/services/umami.service';
+import { MatomoService } from '../../core/services/matomo.service';
 
 interface Tier {
   est: string;
@@ -183,7 +183,7 @@ export class CursosComponent implements AfterViewInit {
   currentInfoHTML: Record<DeckId, SafeHtml> = {} as Record<DeckId, SafeHtml>;
 
   currentLightbox: LightboxState | null = null;
-  private umami = inject(UmamiService);
+  private matomo = inject(MatomoService);
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -254,7 +254,7 @@ export class CursosComponent implements AfterViewInit {
       if (!target) return;
       const kind = target.getAttribute('data-track-kind') || '';
       const title = target.getAttribute('data-track-title') || '';
-      this.umami.trackEvent('click_inscripcion_curso', { kind, title });
+      this.matomo.trackEvent('Event', 'click_inscripcion_curso', kind);
     });
   }
 

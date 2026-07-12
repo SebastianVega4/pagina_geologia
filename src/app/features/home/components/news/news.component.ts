@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { LucideAngularModule, Calendar, ArrowRight } from 'lucide-angular';
 import { Observable, map } from 'rxjs';
-import { UmamiService } from '../../../../core/services/umami.service';
+import { MatomoService } from '../../../../core/services/matomo.service';
 
 interface Noticia {
   id: number;
@@ -23,7 +23,7 @@ interface Noticia {
   styleUrl: './news.component.scss'
 })
 export class NewsComponent implements OnInit {
-  private umami = inject(UmamiService);
+  private matomo = inject(MatomoService);
   readonly icons = { Calendar, ArrowRight };
   noticias$: Observable<Noticia[]> | undefined;
 
@@ -36,6 +36,6 @@ export class NewsComponent implements OnInit {
   }
 
   trackNewsClick(title: string): void {
-    this.umami.trackEvent('click_news_item', { title });
+    this.matomo.trackEvent('Event', 'click_news_item', title);
   }
 }

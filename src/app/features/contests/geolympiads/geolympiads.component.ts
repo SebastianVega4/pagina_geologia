@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Trophy, Timer, ChevronLeft } from 'lucide-angular';
 import { RouterModule } from '@angular/router';
-import { UmamiService } from '../../../core/services/umami.service';
+import { MatomoService } from '../../../core/services/matomo.service';
 
 @Component({
   selector: 'app-geolympiads',
@@ -12,10 +12,10 @@ import { UmamiService } from '../../../core/services/umami.service';
   styleUrl: './geolympiads.component.scss'
 })
 export class GeolympiadsComponent {
-  private umami = inject(UmamiService);
+  private matomo = inject(MatomoService);
   readonly icons = { Trophy, Timer, ChevronLeft };
 
   constructor() {
-    this.umami.trackEvent('view_geolympiads');
+    this.matomo.trackEvent('Event', 'view_geolympiads');
   }
 }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { LucideAngularModule, Menu, X, Moon, Sun, MapPin, ChevronDown, ChevronRight } from 'lucide-angular';
 import { filter } from 'rxjs/operators';
-import { UmamiService } from '../../services/umami.service';
+import { MatomoService } from '../../services/matomo.service';
 import { TrackClickDirective } from '../../../shared/directives/track-click.directive';
 
 @Component({
@@ -14,7 +14,7 @@ import { TrackClickDirective } from '../../../shared/directives/track-click.dire
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent implements OnInit {
-  private umami = inject(UmamiService);
+  private matomo = inject(MatomoService);
   isScrolled = false;
   isMenuOpen = false;
   isDarkMode!: boolean;
@@ -53,7 +53,7 @@ export class NavbarComponent implements OnInit {
     this.isDarkMode = !this.isDarkMode;
     localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
     this.updateTheme();
-    this.umami.trackEvent('toggle_dark_mode', { mode: this.isDarkMode ? 'dark' : 'light' });
+    this.matomo.trackEvent('Event', 'toggle_dark_mode', this.isDarkMode ? 'dark' : 'light');
   }
 
   private updateTheme() {
@@ -65,7 +65,7 @@ export class NavbarComponent implements OnInit {
   }
 
   scrollToRegistration() {
-    this.umami.trackEvent('click_cta_registration', { location: 'navbar' });
+    this.matomo.trackEvent('Event', 'click_cta_registration', 'navbar');
     this.isMenuOpen = false;
     const element = document.getElementById('registration');
     if (element) {

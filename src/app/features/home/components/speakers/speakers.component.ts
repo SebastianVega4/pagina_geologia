@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Linkedin, Twitter, Globe } from 'lucide-angular';
-import { UmamiService } from '../../../../core/services/umami.service';
+import { MatomoService } from '../../../../core/services/matomo.service';
 import { TrackClickDirective } from '../../../../shared/directives/track-click.directive';
 
 interface Speaker {
@@ -23,7 +23,7 @@ interface Speaker {
   styleUrl: './speakers.component.scss'
 })
 export class SpeakersComponent {
-  private umami = inject(UmamiService);
+  private matomo = inject(MatomoService);
   readonly icons = { Linkedin, Twitter, Globe };
 
   readonly thematicLines = [
@@ -94,6 +94,6 @@ export class SpeakersComponent {
   }
 
   trackSpeakerClick(name: string, platform: string): void {
-    this.umami.trackEvent('click_speaker_social', { speaker: name, platform });
+    this.matomo.trackEvent('Event', 'click_speaker_social', name);
   }
 }
