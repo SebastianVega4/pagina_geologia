@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, X, CheckCircle2, CreditCard, Info, Mail, Instagram, ArrowLeft, ZoomIn, UserCheck, Search, Wallet, FileText, Send, ClipboardList, Heart, MessageCircle, ExternalLink } from 'lucide-angular';
 import { RouterLink } from '@angular/router';
 import { TrackClickDirective } from '../../../../../shared/directives/track-click.directive';
+import { MatomoService } from '../../../../../core/services/matomo.service';
 
 @Component({
   selector: 'app-registration-info',
@@ -12,6 +13,7 @@ import { TrackClickDirective } from '../../../../../shared/directives/track-clic
   styleUrl: './registration-info.component.scss'
 })
 export class RegistrationInfoComponent implements OnInit {
+  private matomo = inject(MatomoService);
   showZoom = false;
 
   readonly icons = {
@@ -79,6 +81,7 @@ export class RegistrationInfoComponent implements OnInit {
 
   toggleZoom() {
     this.showZoom = !this.showZoom;
+    this.matomo.trackEvent('Event', 'qr_zoom', this.showZoom ? 'open' : 'close');
     if (this.showZoom) {
       document.body.style.overflow = 'hidden';
     } else {

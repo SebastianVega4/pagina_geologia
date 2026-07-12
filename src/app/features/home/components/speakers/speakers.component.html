@@ -25,7 +25,8 @@
             <div *ngIf="getSpeakersByLine(line).length > 0; else noSpeakers"
                 class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
                 <div *ngFor="let s of getSpeakersByLine(line); let i = index"
-                    class="group bg-brand-light dark:bg-brand-primary rounded-[2rem] overflow-hidden border border-gray-100 dark:border-white/5 hover:shadow-2xl hover:shadow-brand-secondary/10 transition-all duration-500"
+                    class="group bg-brand-light dark:bg-brand-primary rounded-[2rem] overflow-hidden border border-gray-100 dark:border-white/5 hover:shadow-2xl hover:shadow-brand-secondary/10 transition-all duration-500 cursor-pointer"
+                    (click)="trackSpeakerCardClick(s.name)"
                     data-aos="fade-up" [attr.data-aos-delay]="i * 100">
 
                     <!-- Speaker Image -->

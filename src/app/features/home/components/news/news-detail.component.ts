@@ -6,6 +6,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { LucideAngularModule, ArrowLeft, Calendar, User, Clock } from 'lucide-angular';
 import { Observable, map, tap } from 'rxjs';
 import { MatomoService } from '../../../../core/services/matomo.service';
+import { TrackClickDirective } from '../../../../shared/directives/track-click.directive';
 
 interface Noticia {
   id: number;
@@ -19,7 +20,7 @@ interface Noticia {
 @Component({
   selector: 'app-news-detail',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule, RouterModule],
+  imports: [CommonModule, LucideAngularModule, RouterModule, TrackClickDirective],
   template: `
     <article class="pt-24 pb-32 bg-slate-50 dark:bg-brand-dark transition-colors duration-300 min-h-screen overflow-hidden">
       
@@ -31,7 +32,7 @@ interface Noticia {
         
         <!-- Navigation Header -->
         <nav class="flex items-center justify-between mb-12" data-aos="fade-down">
-          <a routerLink="/noticias" 
+          <a routerLink="/noticias" appTrackClick="news_back_to_list"
              class="group flex items-center gap-3 text-brand-primary dark:text-gray-300 font-bold hover:text-brand-secondary dark:hover:text-brand-secondary transition-all">
             <div class="w-10 h-10 rounded-full bg-white dark:bg-brand-primary shadow-md flex items-center justify-center group-hover:-translate-x-1 transition-transform">
               <lucide-angular [img]="icons.ArrowLeft" class="w-5 h-5"></lucide-angular>
@@ -136,7 +137,7 @@ interface Noticia {
                 <p class="text-sm text-gray-300 relative z-10 leading-relaxed">
                   Ya están abiertas las inscripciones para las salidas de campo al Sinclinal de Sogamoso. ¡Cupos limitados!
                 </p>
-                <button class="mt-4 text-brand-secondary font-bold text-sm flex items-center gap-1">
+                <button (click)="trackSidebarReadMore()" class="mt-4 text-brand-secondary font-bold text-sm flex items-center gap-1">
                   Leer más <lucide-angular [img]="icons.ArrowLeft" class="w-3 h-3 rotate-180"></lucide-angular>
                 </button>
               </div>
@@ -145,9 +146,9 @@ interface Noticia {
               <div class="bg-white dark:bg-brand-primary/60 rounded-3xl p-6 border border-gray-100 dark:border-white/5">
                 <h4 class="text-sm font-black uppercase tracking-widest text-brand-primary dark:text-white mb-4">Compartir</h4>
                 <div class="flex gap-4">
-                  <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform">f</div>
-                  <div class="w-10 h-10 rounded-full bg-sky-500 flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform">in</div>
-                  <div class="w-10 h-10 rounded-full bg-brand-secondary flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform">🔗</div>
+                  <div (click)="trackShare('facebook')" class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform">f</div>
+                  <div (click)="trackShare('linkedin')" class="w-10 h-10 rounded-full bg-sky-500 flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform">in</div>
+                  <div (click)="trackShare('copy_link')" class="w-10 h-10 rounded-full bg-brand-secondary flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform">🔗</div>
                 </div>
               </div>
             </div>
@@ -180,6 +181,14 @@ export class NewsDetailComponent implements OnInit {
     private titleService: Title,
     private metaService: Meta
   ) { }
+
+  trackSidebarReadMore(): void {
+    this.matomo.trackEvent('Event', 'click_sidebar_read_more');
+  }
+
+  trackShare(platform: string): void {
+    this.matomo.trackEvent('Event', 'news_share', platform);
+  }
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));

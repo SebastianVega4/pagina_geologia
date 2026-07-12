@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Trophy, Timer, ChevronLeft } from 'lucide-angular';
 import { RouterModule } from '@angular/router';
@@ -11,11 +11,11 @@ import { MatomoService } from '../../../core/services/matomo.service';
   templateUrl: './geolympiads.component.html',
   styleUrl: './geolympiads.component.scss'
 })
-export class GeolympiadsComponent {
+export class GeolympiadsComponent implements OnInit {
   private matomo = inject(MatomoService);
   readonly icons = { Trophy, Timer, ChevronLeft };
 
-  constructor() {
+  ngOnInit(): void {
     this.matomo.trackEvent('Event', 'view_geolympiads');
   }
 }

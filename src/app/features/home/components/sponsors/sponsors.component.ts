@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatomoService } from '../../../../core/services/matomo.service';
 
 @Component({
   selector: 'app-sponsors',
@@ -9,6 +10,16 @@ import { CommonModule } from '@angular/common';
   styleUrl: './sponsors.component.scss',
 })
 export class SponsorsComponent {
+  private matomo = inject(MatomoService);
+
+  trackSponsorClick(name: string): void {
+    this.matomo.trackEvent('Event', 'sponsor_click', name);
+  }
+
+  trackSponsorCta(): void {
+    this.matomo.trackEvent('Event', 'sponsor_cta');
+  }
+
   sponsors = [
     {
       name: 'Agencia Nacional de Hidrocarburos',

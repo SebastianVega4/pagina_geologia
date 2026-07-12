@@ -15,7 +15,7 @@
                 Comité de Docentes
             </h4>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
-                <div *ngFor="let docente of docentes" class="flex flex-col items-center group">
+                <div *ngFor="let docente of docentes" class="flex flex-col items-center group cursor-pointer" (click)="trackMemberClick(docente.name)">
                     <div class="relative mb-4 overflow-hidden rounded-xl shadow-lg aspect-[4/5] w-full max-w-[280px]">
                         <img [src]="docente.image" [alt]="docente.name"
                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
@@ -35,7 +35,7 @@
                 Comité de Estudiantes
             </h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                <div *ngFor="let estudiante of estudiantes" class="flex flex-col items-center group">
+                <div *ngFor="let estudiante of estudiantes" class="flex flex-col items-center group cursor-pointer" (click)="trackMemberClick(estudiante.name)">
                     <div class="relative mb-4 overflow-hidden rounded-xl shadow-lg aspect-[4/5] w-full max-w-[260px]">
                         <img [src]="estudiante.image" [alt]="estudiante.name"
                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
@@ -56,7 +56,7 @@
             </h4>
             <div
                 class="flex flex-wrap items-center justify-center gap-12 md:gap-20 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-700">
-                <div *ngFor="let m of members" class="group relative flex flex-col items-center">
+                <div *ngFor="let m of members" class="group relative flex flex-col items-center cursor-pointer" (click)="trackInstitutionClick(m.name)">
                     <div class="h-16 md:h-20 w-32 md:w-40 flex items-center justify-center p-3 rounded-2xl transition-all duration-300">
                         <img [src]="m.logo" [alt]="m.name"
                             class="max-h-full max-w-full object-contain transform group-hover:scale-110 transition-transform duration-500">

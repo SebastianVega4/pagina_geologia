@@ -96,4 +96,8 @@ export class SpeakersComponent {
   trackSpeakerClick(name: string, platform: string): void {
     this.matomo.trackEvent('Event', 'click_speaker_social', name);
   }
+
+  trackSpeakerCardClick(name: string): void {
+    this.matomo.trackEvent('Event', 'speaker_card_click', name);
+  }
 }

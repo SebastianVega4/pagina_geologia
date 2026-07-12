@@ -1,21 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Gem, Star, Award, ShieldCheck, Mail } from 'lucide-angular';
+import { TrackClickDirective } from '../../../../shared/directives/track-click.directive';
+import { MatomoService } from '../../../../core/services/matomo.service';
 
 @Component({
   selector: 'app-service-portfolio',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, TrackClickDirective],
   templateUrl: './service-portfolio.component.html',
   styleUrl: './service-portfolio.component.scss'
 })
 export class ServicePortfolioComponent {
+  private matomo = inject(MatomoService);
   readonly icons = { Gem, Star, Award, ShieldCheck, Mail };
 
   activeCategory: 'nacional' | 'grande' | 'internacional' = 'nacional';
 
   setCategory(category: 'nacional' | 'grande' | 'internacional') {
     this.activeCategory = category;
+    this.matomo.trackEvent('Event', 'portfolio_tab_switch', category);
   }
 
   portfolioData = {

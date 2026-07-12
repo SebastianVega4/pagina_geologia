@@ -3,7 +3,7 @@
 
     <!-- Header Navigation -->
     <div class="mb-12">
-      <a routerLink="/evento" class="inline-flex items-center gap-2 text-brand-secondary hover:translate-x-[-4px] transition-transform font-bold">
+      <a routerLink="/evento" (click)="trackBackToEvent()" class="inline-flex items-center gap-2 text-brand-secondary hover:translate-x-[-4px] transition-transform font-bold">
         <lucide-angular [img]="icons.ChevronLeft" class="w-5 h-5"></lucide-angular>
         Volver a Evento
       </a>

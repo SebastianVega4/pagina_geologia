@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { inject } from '@angular/core';
 import { HomeComponent } from './features/home/home/home.component';
 import { AboutProjectComponent } from './features/about-project/about-project.component';
 import { AboutComponent } from './features/home/components/about/about.component';
@@ -15,6 +16,7 @@ import { PhotographyComponent } from './features/contests/photography/photograph
 
 import { RegistrationInfoComponent } from './features/home/components/registration/registration-info/registration-info.component';
 import { CursosComponent } from './features/cursos/cursos.component';
+import { MatomoService } from './core/services/matomo.service';
 
 export const routes: Routes = [
   { 
@@ -109,5 +111,16 @@ export const routes: Routes = [
     title: 'Acerca de este Proyecto | XVII Semana Técnica de Geología',
     data: { description: 'Conoce las tecnologías y el equipo detrás de la plataforma oficial de la XVII Semana Técnica de Geología UPTC Sogamoso.' }
   },
-  { path: '**', redirectTo: '' }
+  {
+    path: '**',
+    resolve: {
+      notFound: () => {
+        try {
+          inject(MatomoService).trackEvent('Event', 'page_not_found', window.location.pathname);
+        } catch {}
+        return true;
+      }
+    },
+    redirectTo: ''
+  }
 ];

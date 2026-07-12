@@ -254,7 +254,7 @@ export class CursosComponent implements AfterViewInit {
       if (!target) return;
       const kind = target.getAttribute('data-track-kind') || '';
       const title = target.getAttribute('data-track-title') || '';
-      this.matomo.trackEvent('Event', 'click_inscripcion_curso', kind);
+      this.matomo.trackEvent('Event', 'click_inscripcion_curso', kind + ' · ' + title);
     });
   }
 
@@ -364,7 +364,10 @@ export class CursosComponent implements AfterViewInit {
     const n = this.deckItems[deckId].length;
     idx = ((idx % n) + n) % n;
     if (idx === state.cur) return;
+    const prev = state.cur;
     state.cur = idx;
+    const item = this.deckItems[deckId][idx];
+    this.matomo.trackEvent('Event', 'deck_nav', deckId + ' · ' + (item?.titulo?.slice(0, 60) || ''), prev < idx ? 1 : -1);
     this.layoutDeck(deckId);
     this.currentInfoHTML[deckId] = this.buildInfoHTML(this.deckItems[deckId][idx]);
     state.isSwapping = true;
@@ -378,8 +381,10 @@ export class CursosComponent implements AfterViewInit {
 
   onCardClick(deckId: DeckId, i: number, item: DeckItem) {
     if (i === this.deckStates[deckId].cur) {
+      this.matomo.trackEvent('Event', 'deck_card_lightbox', deckId + ' · ' + (item.titulo?.slice(0, 60) || ''));
       if (item.folder) this.openLightbox(item.kind, item.folder, item.imgs);
     } else {
+      this.matomo.trackEvent('Event', 'deck_card_select', deckId + ' · ' + (item.titulo?.slice(0, 60) || ''));
       this.goTo(deckId, i);
     }
   }
@@ -413,18 +418,26 @@ export class CursosComponent implements AfterViewInit {
   openLightbox(kind: string, folder: string | undefined, imgs: number) {
     if (!folder || !imgs) return;
     this.currentLightbox = { kind, folder, imgs: Number(imgs), idx: 0 };
+    this.matomo.trackEvent('Event', 'cursos_lightbox_open', kind + ' · ' + folder?.slice(0, 60));
   }
 
-  closeLightbox() { this.currentLightbox = null; }
+  closeLightbox() {
+    if (this.currentLightbox) {
+      this.matomo.trackEvent('Event', 'cursos_lightbox_close', this.currentLightbox.kind);
+    }
+    this.currentLightbox = null;
+  }
 
   prevLightbox() {
     if (!this.currentLightbox) return;
     this.currentLightbox.idx = (this.currentLightbox.idx - 1 + this.currentLightbox.imgs) % this.currentLightbox.imgs;
+    this.matomo.trackEvent('Event', 'cursos_lightbox_nav', 'prev');
   }
 
   nextLightbox() {
     if (!this.currentLightbox) return;
     this.currentLightbox.idx = (this.currentLightbox.idx + 1) % this.currentLightbox.imgs;
+    this.matomo.trackEvent('Event', 'cursos_lightbox_nav', 'next');
   }
 
   onLightboxContainerClick(event: MouseEvent) {
@@ -440,6 +453,7 @@ export class CursosComponent implements AfterViewInit {
   }
 
   scrollToSection(id: string) {
+    this.matomo.trackEvent('Event', 'cursos_scroll_nav', id);
     const el = document.getElementById(id);
     if (el) {
       const offset = 140;

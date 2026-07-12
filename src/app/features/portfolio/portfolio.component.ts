@@ -28,6 +28,10 @@ export class PortfolioComponent {
     this.matomo.trackEvent('Event', 'portfolio_pdf_view');
   }
 
+  trackBackToEvent(): void {
+    this.matomo.trackEvent('Event', 'back_to_event');
+  }
+
   getMobilePdfUrl(pdfUrl: string): string {
     const baseUrl = 'https://xviisemanatecnicadegeologia.com/';
     if (!pdfUrl) return '';

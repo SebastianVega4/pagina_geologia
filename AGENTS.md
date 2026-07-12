@@ -19,7 +19,7 @@ There are no single-test commands configured. Tests use Karma + Jasmine. To run 
 ### Environment Files
 - `src/environments/environment.ts` — dev config (production: false)
 - `src/environments/environment.prod.ts` — production config (production: true)
-- Both files contain `googleMapsApiKey`, `umamiWebsiteId`, and `matomo` config (`url` + `siteId`). Keep in sync.
+- Both files contain `googleMapsApiKey` and `matomo` config (`url` + `siteId`). Keep in sync.
 - Angular CLI replaces `environment.ts` with `environment.prod.ts` when building with `--configuration production` (the default for `ng build`).
 
 ### Architecture
@@ -40,11 +40,11 @@ There are no single-test commands configured. Tests use Karma + Jasmine. To run 
 - No trailing whitespace. Final newline required.
 
 ### Naming
-- **Files**: `feature.type.ts` — e.g. `hero.component.ts`, `umami.service.ts`, `track-click.directive.ts`.
-- **Classes**: PascalCase — `HeroComponent`, `UmamiService`, `TrackClickDirective`.
+- **Files**: `feature.type.ts` — e.g. `hero.component.ts`, `matomo.service.ts`, `track-click.directive.ts`.
+- **Classes**: PascalCase — `HeroComponent`, `MatomoService`, `TrackClickDirective`.
 - **Selectors**: `app-` prefix — `app-hero`, `app-track-click`.
 - **Properties/methods**: camelCase — `isMenuOpen`, `trackEvent()`.
-- **Umami events**: `snake_case` — `click_cta_registration`, `newsletter_subscribe`.
+- **Events**: `snake_case` — `click_cta_registration`, `newsletter_subscribe`.
 - **Routes**: kebab-case — `concursos/fotografia`, `cursos-salidas-charlas`.
 
 ### Types
@@ -63,7 +63,7 @@ There are no single-test commands configured. Tests use Karma + Jasmine. To run 
   styleUrl: './my-feature.component.scss'
 })
 export class MyFeatureComponent {
-  private umami = inject(UmamiService);
+  private matomo = inject(MatomoService);
   readonly icons = { SomeIcon };
   // ...
 }
@@ -83,7 +83,7 @@ export class MyService {
 - Redirects: `{ path: 'old-path', redirectTo: 'new-path', pathMatch: 'full' }`
 - Wildcard: `{ path: '**', redirectTo: '' }`
 - The `SeoService.init()` in `AppComponent` updates meta tags on route change via the activated route data.
-- `UmamiService` tracks page views via the `Router.events` stream.
+- `MatomoService` tracks page views via the `Router.events` stream.
 
 ### Lucide Icons Usage
 - Import icons as named exports: `import { Menu, X, Moon } from 'lucide-angular';`
@@ -95,7 +95,7 @@ export class MyService {
 - Toggled by adding/removing the `.dark` class on `<html>` via `document.documentElement.classList`
 - Preference persisted in `localStorage` under the key `theme` (values: `'dark' | 'light'`)
 - Tailwind `dark:` prefix used for dark-mode-specific styles.
-- Implemented in `NavbarComponent.toggleDarkMode()`. Tracked via Umami as `toggle_dark_mode`.
+- Implemented in `NavbarComponent.toggleDarkMode()`. Tracked via Matomo as `toggle_dark_mode`.
 
 ### AOS (Animate On Scroll)
 - Initialized in `AppComponent.ngOnInit()` with global defaults: duration 1000ms, once, ease-in-out-cubic.
@@ -115,20 +115,18 @@ export class MyService {
 - Animations via AOS (`data-aos="fade-up"`).
 
 ### Error Handling
-- Wrap analytics calls in `try/catch` (`safeTrack` pattern in `UmamiService`).
+- Wrap analytics calls in `try/catch` (`safePush` pattern in `MatomoService`).
 - Use `catchError` in RxJS pipes for HTTP calls.
 - Validate emails client-side before submission.
 - Never expose API keys — use `src/environments/` (both `environment.ts` and `environment.prod.ts`).
 
-### Analytics (Umami + Matomo dual)
-- **UmamiService** (`core/services/umami.service.ts`) is the primary analytics interface for components. Internally forwards all events to **MatomoService** (`core/services/matomo.service.ts`) for dual tracking.
-- **MatomoService** handles `_paq` queue, page views, events, and auto-tracking via `Router.events`. Tracks automatically: JS errors (`enableJSErrorTracking`), heartbeat timer (15s), custom dimensions (page type, theme), engagement (time-on-page thresholds: 15/30/60/120/180/300s, tab visibility, page exit, copy, right-click), form interactions (field focus/blur, submit), media (video/audio play/pause/seek), network status (online/offline), navigation route changes. All `_paq` pushes use `safePush()` with try/catch to prevent crashes from unrecognized methods.
-- Components call `umami.trackEvent(name, data?)` — data is automatically sent to both Umami (cloud) and Matomo (self-hosted).
-- Event names are `snake_case`. Data objects use string/number/boolean values.
+### Analytics (Matomo)
+- **MatomoService** (`core/services/matomo.service.ts`) handles `_paq` queue, page views, events, and auto-tracking via `Router.events`. Tracks automatically: JS errors (`enableJSErrorTracking`), heartbeat timer (15s), custom dimensions (page type, theme), engagement (time-on-page thresholds: 15/30/60/120/180/300s, tab visibility, page exit, copy, right-click), form interactions (field focus/blur, submit), media (video/audio play/pause/seek), network status (online/offline), navigation route changes. All `_paq` pushes use `safePush()` with try/catch to prevent crashes from unrecognized methods.
+- Components call `matomo.trackEvent(category, action, label?, value?)`.
+- Event names are `snake_case`.
 - Always include a `location` or context key in event data for source attribution.
-- The Umami script is dynamically injected by `UmamiService` with `data-auto-track="false"` and `data-domains="xviisemanatecnicadegeologia.com,localhost"`.
 - The Matomo script is statically loaded in `index.html` only in production (blocked on localhost).
-- `TrackClickDirective` (`shared/directives/track-click.directive.ts`) auto-tracks clicks via `UmamiService`. Use `appTrackClick="event_name"` in templates.
+- `TrackClickDirective` (`shared/directives/track-click.directive.ts`) auto-tracks clicks via `MatomoService`. Use `appTrackClick="event_name"` in templates.
 - For HTML generated via `innerHTML` (e.g., cursos deck CTAs), click tracking uses event delegation on `.hero-cta` elements with `data-track-kind` and `data-track-title` attributes.
 
 ### Matomo Auto-Tracked Categories (no code needed)
@@ -143,17 +141,27 @@ export class MyService {
 - **Dimension 1** — `page_type`: home, news_list, news_detail, about_event, event_subpage, contest, schedule, speakers, map, gallery, contact, registration, about_project, other
 - **Dimension 2** — `theme`: dark, light
 
-### Event Inventory (shared by Umami + Matomo)
-- `click_whatsapp`, `click_cta_registration`, `click_social_link`, `click_speaker_social`, `click_news_item`
-- `download`, `newsletter_subscribe`, `submit_contact_form`, `view_news_detail`
-- `gallery_tab_switch`, `gallery_lightbox_open/close`, `map_marker_click`, `click_google_maps`
-- `toggle_dark_mode`, `scroll_depth`, `open_video_modal`, `close_video_modal`, `toggle_promo_sound`
-- `nav_link`, `nav_dropdown`, `mobile_nav_link`, `mobile_nav_sub`, `footer_nav`
-- `portfolio_pdf_view`, `portfolio_download`, `portfolio_fullscreen`, `portfolio_contact`, `portfolio_download_bottom`
-- `view_geolympiads`, `view_photography_contest`
-- `click_inscripcion_curso`, `click_inscripcion_evento_magistral`, `click_inscripcion_form`
-- `view_pdf`, `click_submit_abstract`, `hero_view_schedule`, `click_submit_abstract_speakers`
-- Page views are automatic via `UmamiService.trackRouteChanges()` (for both Umami + Matomo)
+### Event Inventory (Matomo)
+- **Navigation**: `route_change`, `nav_link`, `nav_dropdown`, `mobile_nav_link`, `mobile_nav_sub`, `mobile_menu_toggle`, `footer_nav`, `back_to_home`, `back_to_event`, `news_back_to_list`, `page_not_found`
+- **CTA**: `click_cta_registration`, `click_inscripcion_curso`, `click_inscripcion_evento_magistral`, `click_inscripcion_form`, `click_submit_abstract`, `click_submit_abstract_speakers`, `click_registration_link`, `support_email_click`
+- **Social / Share**: `click_whatsapp`, `click_social_link`, `click_speaker_social`, `click_roko_instagram`, `news_share` (facebook/linkedin/copy_link), `click_sidebar_read_more`
+- **Content**: `view_news_detail`, `click_news_item`, `view_geolympiads`, `view_photography_contest`, `hero_view_schedule`, `speaker_card_click`
+- **Schedule**: `schedule_day_tab`, `schedule_theme_toggle`, `schedule_item_click`, `schedule_ponencia_click`, `schedule_modal_close`, `schedule_flyer_view`
+- **Cursos**: `cursos_scroll_nav`, `deck_nav`, `deck_card_select`, `deck_card_lightbox`, `cursos_lightbox_open/close/nav`
+- **Gallery**: `gallery_tab_switch`, `gallery_lightbox_open/close`
+- **Map**: `map_marker_click`, `click_google_maps`
+- **Media**: `play`, `pause`, `seek`, `ended` (auto via MatomoService)
+- **Engagement**: `time_on_page`, `scroll_depth` (25%/50%/75%/100%), `tab_hidden/visible`, `page_exit`, `copy_to_clipboard`, `right_click`, `toggle_dark_mode`
+- **Forms**: `field_focus`, `field_blur`, `form_submit`, `submit_contact_form`, `newsletter_subscribe` (success/error)
+- **Downloads**: `download`, `portfolio_pdf_view`, `portfolio_download`, `portfolio_fullscreen`, `portfolio_contact`, `portfolio_download_bottom`, `view_pdf`
+- **Sponsors / Patrocinios**: `sponsor_click`, `sponsor_cta`, `portfolio_tab_switch`, `portfolio_contact_tier`, `institution_click`
+- **Portfolio**: `portfolio_pdf_view`, `portfolio_download`, `portfolio_fullscreen`, `portfolio_contact`, `portfolio_download_bottom`
+- **Committee**: `committee_member_click`
+- **FAQ**: `faq_toggle` (with question text)
+- **QR**: `qr_zoom` (open/close)
+- **Video Modal**: `open_video_modal`, `close_video_modal`, `toggle_promo_sound`
+- **Session**: `session_start`, `online`, `offline`
+- Page views are automatic via `MatomoService.trackRouteChanges()`
 
 ### Testing
 - Tests only exist if created manually (default: `skipTests: true` in `angular.json`).
@@ -173,11 +181,9 @@ export class MyService {
 ### Project-Specific Rules
 - `src/.htaccess` is deployed to the server for SPA routing.
 - Environment files: `environment.ts` (dev), `environment.prod.ts` (production).
-- Google Maps API key and Umami website ID are in environment files.
+- Google Maps API key is in environment files.
 - The homepage (`/`) uses `HomeComponent` which composes many child components.
-- `getPageTitle` in `UmamiService` handles parameterized routes (e.g., `noticias/:id`).
-- The Umami script is injected dynamically by `UmamiService` (not in `index.html`). `data-auto-track="false"` is set programmatically.
-- The `TrackClickDirective` is a reusable attribute directive (`appTrackClick`) that auto-tracks clicks. Use it in templates instead of manually calling `umami.trackEvent()` when possible.
+- The `TrackClickDirective` is a reusable attribute directive (`appTrackClick`) that auto-tracks clicks. Use it in templates instead of manually calling `matomo.trackEvent()` when possible.
 - `google-drive.service.ts` exists in core services for fetching data from Google Drive; `newsletter.service.ts` handles email subscriptions via PHP backend.
 - The `ScheduleComponent` renders its content programmatically using Renderer2 (not Angular templates) — be cautious when modifying it.
 - The `MapComponent` uses Leaflet, initialized in `ngAfterViewInit` with SSR guard (`isPlatformBrowser`).

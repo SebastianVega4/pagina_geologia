@@ -3,6 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 declare global {
   interface Window {
@@ -14,11 +15,13 @@ declare global {
 export class MatomoService implements OnDestroy {
   private readonly HEARTBEAT_SECONDS = 15;
   private readonly TIME_THRESHOLDS = [15, 30, 60, 120, 180, 300];
+  private readonly SCROLL_DEPTHS = [25, 50, 75, 100];
 
   private routerSub?: Subscription;
   private pageLoadTime = 0;
   private timeTrackingTimer: ReturnType<typeof setInterval> | null = null;
   private trackedTimes = new Set<number>();
+  private trackedScrollDepths = new Set<number>();
   private cleanupFns: Array<() => void> = [];
   private sessionId = '';
 
@@ -39,6 +42,7 @@ export class MatomoService implements OnDestroy {
     this.configureMatomo();
     this.trackRouteChanges();
     this.trackEngagement();
+    this.trackScrollDepth();
     this.trackFormInteractions();
     this.trackMediaInteractions();
   }
@@ -93,6 +97,7 @@ export class MatomoService implements OnDestroy {
       .subscribe((event: NavigationEnd) => {
         this.pageLoadTime = Date.now();
         this.trackedTimes.clear();
+        this.trackedScrollDepths.clear();
         this.safePush(['trackEvent', 'Navigation', 'route_change', event.urlAfterRedirects]);
         this.trackPageView(event.urlAfterRedirects);
       });
@@ -134,6 +139,29 @@ export class MatomoService implements OnDestroy {
     this.cleanupFns.push(() => {
       if (this.timeTrackingTimer) clearInterval(this.timeTrackingTimer);
     });
+  }
+
+  private trackScrollDepth(): void {
+    let ticking = false;
+    const handler = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollPct = Math.floor(
+            (window.scrollY + window.innerHeight) / Math.max(document.body.scrollHeight, 1) * 100
+          );
+          for (const d of this.SCROLL_DEPTHS) {
+            if (scrollPct >= d && !this.trackedScrollDepths.has(d)) {
+              this.trackedScrollDepths.add(d);
+              this.safePush(['trackEvent', 'Engagement', 'scroll_depth', `${d}%`, d]);
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    document.addEventListener('scroll', handler, { passive: true });
+    this.cleanupFns.push(() => document.removeEventListener('scroll', handler));
   }
 
   private trackFormInteractions(): void {
@@ -187,6 +215,13 @@ export class MatomoService implements OnDestroy {
       const target = e.target as HTMLMediaElement;
       if (target.tagName === 'VIDEO' || target.tagName === 'AUDIO') {
         this.safePush(['trackEvent', 'Media', 'seek', target.currentSrc || target.tagName]);
+      }
+    }, true);
+
+    document.addEventListener('ended', (e: Event) => {
+      const target = e.target as HTMLMediaElement;
+      if (target.tagName === 'VIDEO' || target.tagName === 'AUDIO') {
+        this.safePush(['trackEvent', 'Media', 'ended', target.currentSrc || target.tagName]);
       }
     }, true);
   }

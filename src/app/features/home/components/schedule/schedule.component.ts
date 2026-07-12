@@ -6,9 +6,11 @@ import {
   Renderer2,
   ViewChild,
   ViewEncapsulation,
+  inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DAYS, STATUS_LABEL, CHARLA_FLYERS } from './schedule.data';
+import { MatomoService } from '../../../../core/services/matomo.service';
 
 @Component({
   selector: 'app-schedule',
@@ -22,6 +24,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
   @ViewChild('officialRoot', { static: true })
   officialRoot!: ElementRef<HTMLDivElement>;
   private listeners: (() => void)[] = [];
+  private matomo = inject(MatomoService);
 
   constructor(private renderer: Renderer2) {}
 
@@ -583,12 +586,17 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
       const panel = root.querySelector('#panel-' + d.id);
       if (panel) panel.classList.toggle('active', i === idx);
     });
+    const day = DAYS[idx];
+    if (day) {
+      this.matomo.trackEvent('Event', 'schedule_day_tab', day.label || day.id);
+    }
   }
 
   // ============================================================
   //  MODAL
   // ============================================================
   private openModal(room: string, time: string, cell: any): void {
+    this.matomo.trackEvent('Event', 'schedule_ponencia_click', cell.title?.slice(0, 80));
     const root = this.officialRoot.nativeElement;
     const modalBg = root.querySelector('#modalBg') as HTMLElement;
     if (!modalBg) return;
@@ -614,6 +622,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
   }
 
   private openCharla(code: string): void {
+    this.matomo.trackEvent('Event', 'schedule_item_click', code);
     for (const day of DAYS as any[]) {
       for (const row of day.rows || []) {
         const cms = (row.auditorio && row.auditorio.cms) || [];
@@ -645,7 +654,10 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
         if (modalFlyerWrap && modalFlyer && flyerName) {
           const src = encodeURI('assets/CHARLAS/' + flyerName + '.png');
           modalFlyer.src = src;
-          modalFlyer.onclick = () => window.open(src, '_blank');
+          modalFlyer.onclick = () => {
+            this.matomo.trackEvent('Event', 'schedule_flyer_view', code);
+            window.open(src, '_blank');
+          };
           modalFlyer.onerror = () => { modalFlyerWrap.style.display = 'none'; };
           modalFlyerWrap.style.display = '';
         } else if (modalFlyerWrap) {
@@ -664,6 +676,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     if (modalBg) {
       this.renderer.removeClass(modalBg, 'show');
     }
+    this.matomo.trackEvent('Event', 'schedule_modal_close');
   }
 
   private setupModalClose(): void {
@@ -708,13 +721,15 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
 
   private toggleTheme(): void {
     const root = this.officialRoot.nativeElement;
-    if (root.classList.contains('day-mode')) {
+    const wasDay = root.classList.contains('day-mode');
+    if (wasDay) {
       this.applyNight();
       localStorage.setItem('stg-theme', 'night');
     } else {
       this.applyDay();
       localStorage.setItem('stg-theme', 'day');
     }
+    this.matomo.trackEvent('Event', 'schedule_theme_toggle', wasDay ? 'night' : 'day');
   }
 
   private applyDay(): void {

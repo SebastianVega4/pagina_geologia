@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Download, FileText, Presentation, MapIcon } from 'lucide-angular';
-import { MatomoService } from '../../../../core/services/matomo.service';
+import { TrackClickDirective } from '../../../../shared/directives/track-click.directive';
 
 const ICONS = { Download, FileText, Presentation, MapIcon };
 type IconKey = keyof typeof ICONS;
@@ -17,17 +17,12 @@ interface Resource {
 @Component({
   selector: 'app-downloads',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, TrackClickDirective],
   templateUrl: './downloads.component.html',
   styleUrl: './downloads.component.scss'
 })
 export class DownloadsComponent {
-  private matomo = inject(MatomoService);
   readonly icons = ICONS;
-
-  trackDownload(title: string): void {
-    this.matomo.trackEvent('Event', 'download', title);
-  }
 
   resources: Resource[] = [
     {

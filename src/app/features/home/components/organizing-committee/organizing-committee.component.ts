@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatomoService } from '../../../../core/services/matomo.service';
 
 @Component({
   selector: 'app-organizing-committee',
@@ -9,6 +10,16 @@ import { CommonModule } from '@angular/common';
   styleUrl: './organizing-committee.component.scss',
 })
 export class OrganizingCommitteeComponent {
+  private matomo = inject(MatomoService);
+
+  trackMemberClick(name: string): void {
+    this.matomo.trackEvent('Event', 'committee_member_click', name);
+  }
+
+  trackInstitutionClick(name: string): void {
+    this.matomo.trackEvent('Event', 'institution_click', name);
+  }
+
   docentes = [
     {
       role: 'Directora de la Escuela de Ingeniería Geológica',

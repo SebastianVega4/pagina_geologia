@@ -1,8 +1,9 @@
-import { Component, HostListener, OnInit, inject } from '@angular/core';
+import { Component, HostListener, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { LucideAngularModule, Menu, X, Moon, Sun, MapPin, ChevronDown, ChevronRight } from 'lucide-angular';
 import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { MatomoService } from '../../services/matomo.service';
 import { TrackClickDirective } from '../../../shared/directives/track-click.directive';
 
@@ -13,8 +14,9 @@ import { TrackClickDirective } from '../../../shared/directives/track-click.dire
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   private matomo = inject(MatomoService);
+  private routerSub?: Subscription;
   isScrolled = false;
   isMenuOpen = false;
   isDarkMode!: boolean;
@@ -32,12 +34,15 @@ export class NavbarComponent implements OnInit {
     this.isDarkMode = savedTheme !== 'light';
     this.updateTheme();
 
-
-    this.router.events.pipe(
+    this.routerSub = this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
       this.isHome = event.urlAfterRedirects === '/' || event.urlAfterRedirects === '/home';
     });
+  }
+
+  ngOnDestroy(): void {
+    this.routerSub?.unsubscribe();
   }
 
   @HostListener('window:scroll', [])
@@ -47,6 +52,7 @@ export class NavbarComponent implements OnInit {
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+    this.matomo.trackEvent('Event', 'mobile_menu_toggle', this.isMenuOpen ? 'open' : 'close');
   }
 
   toggleDarkMode() {

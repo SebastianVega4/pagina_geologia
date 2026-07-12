@@ -1,15 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Target, Eye, Users, HelpCircle, ChevronDown, ChevronUp } from 'lucide-angular';
+import { MatomoService } from '../../../../core/services/matomo.service';
+import { TrackClickDirective } from '../../../../shared/directives/track-click.directive';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, TrackClickDirective],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss'
 })
 export class AboutComponent {
+  private matomo = inject(MatomoService);
   readonly icons = { Target, Eye, Users, HelpCircle, ChevronDown, ChevronUp };
 
   faqs = [
@@ -57,5 +60,6 @@ export class AboutComponent {
 
   toggleFaq(index: number) {
     this.faqs[index].open = !this.faqs[index].open;
+    this.matomo.trackEvent('Event', 'faq_toggle', this.faqs[index].question.slice(0, 80));
   }
 }
