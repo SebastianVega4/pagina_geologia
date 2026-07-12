@@ -1,12 +1,19 @@
 import { Component, OnInit, Inject, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { FooterComponent } from './core/components/footer/footer.component';
 import { LucideAngularModule, MessageCircle } from 'lucide-angular';
 import { SeoService } from './core/services/seo.service';
 import { UmamiService } from './core/services/umami.service';
+import { filter } from 'rxjs/operators';
 import * as AOS from 'aos';
+
+declare global {
+  interface Window {
+    _paq?: Array<unknown>;
+  }
+}
 
 @Component({
   selector: 'app-root',
@@ -23,8 +30,17 @@ export class AppComponent implements OnInit {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private umami: UmamiService,
+    private router: Router,
   ) {
     this.seoService.init();
+    if (isPlatformBrowser(this.platformId)) {
+      this.router.events.pipe(
+        filter((e): e is NavigationEnd => e instanceof NavigationEnd)
+      ).subscribe((e: NavigationEnd) => {
+        window._paq?.push(['setCustomUrl', e.urlAfterRedirects]);
+        window._paq?.push(['trackPageView']);
+      });
+    }
   }
 
   ngOnInit(): void {

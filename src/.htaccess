@@ -1,11 +1,12 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteBase /
 
-  # Redirection of all 404 to index.html
-  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
-  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
-  RewriteRule ^.*$ - [L]
+  # If the requested file or directory exists, serve it directly
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
 
-  # If the requested resource doesn't exist, use index.html
-  RewriteRule ^ /index.html [L]
+  # Otherwise, serve index.html for SPA routing
+  RewriteRule ^ index.html [L]
 </IfModule>
