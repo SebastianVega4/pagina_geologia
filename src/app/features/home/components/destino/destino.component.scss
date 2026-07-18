@@ -130,6 +130,7 @@
     height: 160px;
     border: 0;
     display: block;
+    filter: invert(92%) hue-rotate(180deg) brightness(0.85) contrast(1.05);
   }
 }
 
@@ -190,5 +191,6 @@
     min-height: 320px;
     border: 0;
     display: block;
+    filter: invert(92%) hue-rotate(180deg) brightness(0.85) contrast(1.05);
   }
 }
