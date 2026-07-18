@@ -15,7 +15,8 @@ interface Tier {
 interface CursoRaw {
   id: string; folder: string; imgs: number;
   titulo: string; instructor: string; fecha: string; duracion: string;
-  cupos: number; tier: 'A' | 'B' | 'ANCLA';
+  cupos: number | null; tier: 'A' | 'B' | 'ANCLA';
+  precios?: { est: string; egr: string; prof: string };
   form?: string;
 }
 
@@ -102,6 +103,13 @@ const CURSOS_RAW: CursoRaw[] = [
   { id: 'c9', folder: 'Petrografía Aplicada a la Construcción Alcances, Aplicaciones y Fundamentos de la Inspección Petrográfica bajo ASTM C295-19 y ASTM C856-25', imgs: 3,
     titulo: 'Petrografía Aplicada a la Construcción (ASTM C295/C856)', instructor: 'Julián Esteban Hernández Roca', fecha: '17 Ago', duracion: '8 hr · 8 AM–6 PM', cupos: 17, tier: 'A',
     form: 'https://docs.google.com/forms/d/e/1FAIpQLSfwE39muZW2iGZo0PUMzTrev9yJzxJI7psGOWzjfaTRPAE9nQ/viewform' },
+  { id: 'c10', folder: 'Condicionantes físicos de la fracturación de macizos rocosos que actúan como reservorios de fluidos energéticos', imgs: 3,
+    titulo: 'Condicionantes físicos de la fracturación de macizos rocosos', instructor: 'Eduardo Rossello — Universidad de Buenos Aires', fecha: '17 Ago', duracion: '8 hr · 8 AM–6 PM', cupos: 30, tier: 'ANCLA',
+    form: 'https://docs.google.com/forms/d/e/1FAIpQLSf5btwUkotGgJUEhtMKIaj_Bz0y5p8jWGRVZswR7fuBHv2RuA/viewform' },
+  { id: 'c11', folder: 'Principios de exploración geológica en yacimientos en Colombia y bases del modelamiento geológico', imgs: 2,
+    titulo: 'Principios de exploración geológica en yacimientos en Colombia', instructor: 'Geo Consultores SFM S.A.S.', fecha: '17–18 Ago', duracion: '16 hr · teórica + práctica en campo', cupos: null, tier: 'A',
+    precios: { est: '120K', egr: '150K', prof: '170K' },
+    form: 'https://docs.google.com/forms/d/e/1FAIpQLSc3J9oWu72jck3weSDETqygHHjtCk59OL4bUFe-R8eQtEp3yA/viewform' },
 ];
 
 const SALIDAS_RAW: SalidaRaw[] = [
@@ -190,7 +198,7 @@ export class CursosComponent implements AfterViewInit {
     private sanitizer: DomSanitizer
   ) {
     this.deckItems.cursos = CURSOS_RAW.map(c => {
-      const p = TIERS[c.tier];
+      const p = c.precios || TIERS[c.tier];
       return {
         kind: 'curso' as const, folder: c.folder, imgs: c.imgs, titulo: c.titulo, sub: c.instructor,
         extra: `${c.fecha} · ${c.duracion}`, cupos: c.cupos,
