@@ -12,6 +12,7 @@ import { TestimonialsComponent } from '../components/testimonials/testimonials.c
 import { RegistrationComponent } from '../components/registration/registration.component';
 import { MapComponent } from '../components/map/map.component';
 import { ServicePortfolioComponent } from '../components/service-portfolio/service-portfolio.component';
+import { DestinoComponent } from '../components/destino/destino.component';
 
 @Component({
   selector: 'app-home',
@@ -29,7 +30,8 @@ import { ServicePortfolioComponent } from '../components/service-portfolio/servi
     OrganizingCommitteeComponent,
     SponsorsComponent,
     MapComponent,
-    ServicePortfolioComponent
+    ServicePortfolioComponent,
+    DestinoComponent
   ],
 
   templateUrl: './home.component.html',

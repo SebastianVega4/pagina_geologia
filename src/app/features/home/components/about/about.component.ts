@@ -18,42 +18,42 @@ export class AboutComponent {
   faqs = [
     {
       question: '¿Cuánto cuesta la inscripción?',
-      answer: 'Las tarifas varían según la etapa de pago y categoría (Estudiante, Joven Profesional o Profesional). Puede consultar el detalle exacto en nuestra página de <a href="/inscripciones" class="text-brand-secondary font-bold hover:underline">Instrucciones de Inscripción</a>. La primera etapa inicia el 1 de mayo.',
+      answer: 'Estamos en la Etapa 3 de tarifas (vigente hasta el 18 de agosto): Estudiante $340.000 · Egresado/Posgrado $400.000 · Profesional $470.000 COP. La inscripción cubre los 3 días del evento magistral con todas las ponencias, pósters y espacios de networking. Los cursos y salidas de campo tienen costo adicional por separado. <a href="/inscripciones" class="text-brand-secondary font-bold hover:underline">Ver el detalle completo de tarifas</a>.',
       open: false
     },
     {
       question: '¿Debo ser estudiante de geología para asistir?',
-      answer: 'No necesariamente. El evento está abierto a toda la comunidad de geociencias: ingeniería geológica, de minas, geofísica e ingenierías afines. También son bienvenidos profesionales egresados y entusiastas del sector.',
+      answer: 'No necesariamente. El evento es para toda la comunidad de geociencias: estudiantes de geología, ingeniería geológica, ingeniería de minas, geofísica e ingenierías afines. También es bienvenido cualquier profesional egresado del sector.',
       open: false
     },
     {
       question: '¿Cómo llego a Sogamoso? ¿Hay alojamiento disponible?',
-      answer: 'Sogamoso se encuentra a aproximadamente 3 horas de Bogotá. Contamos con guías de transporte y convenios con hoteles locales que ofrecerán tarifas preferenciales para los asistentes del evento.',
+      answer: 'Sogamoso está a ~3 horas de Bogotá por la vía Tunja. Hay varios buses diarios desde el Terminal de Transporte de Bogotá (Flota Sugamuxi, Libertadores). La sede es la UPTC Seccional Sogamoso (Calle 4 Sur #15-134). Para orientación sobre alojamiento escríbenos a <a href="mailto:xvii.semanatecnica@uptc.edu.co" class="text-brand-secondary font-bold hover:underline">xvii.semanatecnica@uptc.edu.co</a>.',
       open: false
     },
     {
-      question: '¿Cuándo abren las inscripciones formales?',
-      answer: 'La apertura oficial de la Primera Etapa es el 1 de mayo de 2026. Se recomienda realizar el proceso con anticipación para asegurar su cupo y acceder a los descuentos por etapa.',
+      question: '¿Hasta cuándo puedo inscribirme?',
+      answer: 'Las inscripciones ya están abiertas y cierran el <strong>18 de agosto de 2026</strong> o al agotarse los cupos, lo que ocurra primero. Estamos en la última etapa de tarifas — no habrá más aumentos, pero el cupo es limitado. <a href="https://forms.gle/pEavT8emjqy12rt36" target="_blank" rel="noopener" class="text-brand-secondary font-bold hover:underline">Inscríbete aquí</a>.',
       open: false
     },
     {
-      question: '¿Las actividades son obligatorias todas?',
-      answer: 'No, el asistente puede elegir participar en el evento magistral, en los cursos técnicos especializados o en las salidas de campo de forma independiente o conjunta, según su interés y disponibilidad.',
+      question: '¿Las actividades son obligatorias todas? ¿Puedo inscribirme solo a parte del evento?',
+      answer: 'Sí, puedes inscribirte solo al evento magistral (19–21 Ago), solo a los cursos o salidas de campo (17–18 y 22–23 Ago), o a la semana completa. Son actividades independientes — pagas solo por la actividad y su certificado, sin acceso a souvenirs ni beneficios del evento magistral.',
       open: false
     },
     {
       question: '¿La preinscripción me compromete a pagar?',
-      answer: 'No. La preinscripción es una manifestación de interés que le permite recibir información prioritaria y asegurar un espacio en la lista de espera, pero el compromiso de pago solo se adquiere al formalizar el registro oficial.',
+      answer: 'No. La preinscripción es completamente gratuita y sin compromiso. Solo sirve para que te avisemos cuando abran inscripciones formales y para asegurarte acceso prioritario al cupo. No se cobra nada hasta que el evento abra inscripciones oficialmente.',
       open: false
     },
     {
       question: '¿Entregan certificado de asistencia?',
-      answer: 'Sí. Se entregará certificación oficial avalada por la UPTC Seccional Sogamoso a los asistentes que cumplan con el porcentaje mínimo de participación en las actividades académicas.',
+      answer: 'Sí. Todos los asistentes al evento magistral reciben certificado digital de asistencia avalado por la UPTC Seccional Sogamoso. Los asistentes a cursos también reciben certificado por separado, con horas académicas especificadas.',
       open: false
     },
     {
       question: '¿Cómo puedo patrocinar el evento?',
-      answer: 'Contamos con un <a href="/#service-portfolio" class="text-brand-secondary font-bold hover:underline">Porfolio de Servicios</a> con diferentes niveles de vinculación (Esmeralda, Platino, Oro y Cuarzo). Puede contactarnos directamente a xvii.semanatecnica&#64;uptc.edu.co.',
+      answer: 'Escríbenos directamente a <a href="mailto:xvii.semanatecnica@uptc.edu.co" class="text-brand-secondary font-bold hover:underline">xvii.semanatecnica@uptc.edu.co</a> con el asunto "Patrocinio XVII STG" o revisa nuestro <a href="/evento/portafolio" class="text-brand-secondary font-bold hover:underline">portafolio de patrocinios</a>. Tenemos opciones desde $1.000.000 COP hasta paquetes premium para empresas grandes e internacionales.',
       open: false
     }
   ];

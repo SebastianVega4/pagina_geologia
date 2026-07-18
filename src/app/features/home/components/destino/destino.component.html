@@ -1,0 +1,44 @@
+<div class="destino-wrap">
+  <section id="destino" class="destino-section">
+    <div class="destino-header">
+      <span class="section-tag">El destino</span>
+      <h2 class="section-title">Sogamoso: el evento termina,<br><em>Boyacá continúa</em></h2>
+      <p class="section-subtitle">Vienes a un evento de geociencias en una región que es geología viva. Aprovecha el viaje.</p>
+    </div>
+
+    <div class="destino-grid">
+      <div class="destino-card" *ngFor="let d of destinos; let i = index" [style.transition-delay]="(i * 0.05) + 's'">
+        <span class="destino-emoji">{{ d.emoji }}</span>
+        <div class="destino-name">{{ d.name }}</div>
+        <span class="destino-meta">{{ d.meta }}</span>
+        <p class="destino-desc">{{ d.desc }}</p>
+        <div class="destino-mapa">
+          <iframe [src]="'https://www.google.com/maps?q=' + d.mapQuery + '&amp;output=embed'"
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  [title]="'Ubicación de ' + d.name + ' en Google Maps'"></iframe>
+        </div>
+        <a class="mapa-link" [href]="d.mapsUrl"
+           target="_blank" rel="noopener"
+           (click)="trackDestino(d.name)">Cómo llegar</a>
+      </div>
+    </div>
+
+    <div class="mapa-sede">
+      <div class="mapa-info">
+        <span class="destino-meta">La sede</span>
+        <div class="destino-name">{{ sede.name }}</div>
+        <p class="destino-desc">{{ sede.desc }}</p>
+        <a class="mapa-link" [href]="sede.mapsUrl"
+           target="_blank" rel="noopener"
+           (click)="trackSede()">Abrir en Google Maps</a>
+      </div>
+      <div class="mapa-embed">
+        <iframe [src]="'https://www.google.com/maps?q=' + sede.mapQuery + '&amp;output=embed'"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Ubicación de la UPTC Seccional Sogamoso en Google Maps"></iframe>
+      </div>
+    </div>
+  </section>
+</div>
