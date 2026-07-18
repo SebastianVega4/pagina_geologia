@@ -12,13 +12,8 @@
         <div class="destino-name">{{ d.name }}</div>
         <span class="destino-meta">{{ d.meta }}</span>
         <p class="destino-desc">{{ d.desc }}</p>
-        <div class="destino-mapa">
-          <iframe [src]="getOsmUrl(d)"
-                  loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"
-                  [title]="'Ubicación de ' + d.name"></iframe>
-        </div>
-        <a class="mapa-link" [href]="getOsmLink(d)"
+        <div class="destino-mapa" #mapContainer></div>
+        <a class="mapa-link" [href]="d.link"
            target="_blank" rel="noopener"
            (click)="trackDestino(d.name)">Cómo llegar</a>
       </div>
@@ -27,18 +22,13 @@
     <div class="mapa-sede">
       <div class="mapa-info">
         <span class="destino-meta">La sede</span>
-        <div class="destino-name">{{ sede.name }}</div>
-        <p class="destino-desc">{{ sede.desc }}</p>
-        <a class="mapa-link" [href]="sede.mapsUrl"
+        <div class="destino-name">UPTC Seccional Sogamoso</div>
+        <p class="destino-desc">Calle 4 Sur #15-134, Sogamoso, Boyacá. Todas las actividades del evento magistral ocurren en el campus. Desde Bogotá son ~3 horas por la vía Tunja; desde Tunja, ~1 hora.</p>
+        <a class="mapa-link" [href]="sedeLink"
            target="_blank" rel="noopener"
            (click)="trackSede()">Abrir en Google Maps</a>
       </div>
-      <div class="mapa-embed">
-        <iframe [src]="getSedeOsmUrl()"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                title="Ubicación de la UPTC Seccional Sogamoso"></iframe>
-      </div>
+      <div class="mapa-embed" #mapContainer></div>
     </div>
   </section>
 </div>

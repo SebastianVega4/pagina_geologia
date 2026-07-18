@@ -1,17 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, AfterViewInit, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { MatomoService } from '../../../../core/services/matomo.service';
-
-interface Destino {
-  emoji: string;
-  name: string;
-  meta: string;
-  desc: string;
-  osmLat: number;
-  osmLng: number;
-  osmZoom: number;
-}
 
 @Component({
   selector: 'app-destino',
@@ -20,88 +9,63 @@ interface Destino {
   templateUrl: './destino.component.html',
   styleUrl: './destino.component.scss'
 })
-export class DestinoComponent {
+export class DestinoComponent implements OnInit, AfterViewInit {
   private matomo = inject(MatomoService);
-  private sanitizer = inject(DomSanitizer);
 
-  readonly destinos: Destino[] = [
-    {
-      emoji: '🏖️',
-      name: 'Lago de Tota y Playa Blanca',
-      meta: 'A 30 min de la sede',
-      desc: 'El lago más grande de Colombia y una playa de arena blanca a 3.015 msnm — una de las más altas del mundo.',
-      osmLat: 5.5167,
-      osmLng: -72.9167,
-      osmZoom: 12
-    },
-    {
-      emoji: '🏛️',
-      name: 'Museo Arqueológico de Sogamoso',
-      meta: 'En la ciudad',
-      desc: 'La reconstrucción del Templo del Sol muisca, en la ciudad que fue centro religioso de la cultura que habitó este valle.',
-      osmLat: 5.7167,
-      osmLng: -72.9333,
-      osmZoom: 16
-    },
-    {
-      emoji: '♨️',
-      name: 'Termales de Paipa',
-      meta: 'A 40 min de la sede',
-      desc: 'Aguas termales de origen geotérmico — el mismo sistema que estudiamos en una de las salidas de campo del evento.',
-      osmLat: 5.7667,
-      osmLng: -73.1167,
-      osmZoom: 13
-    },
-    {
-      emoji: '🗿',
-      name: 'Pantano de Vargas',
-      meta: 'A 30 min de la sede',
-      desc: 'El monumento a los 14 Lanceros, escenario de la batalla decisiva de la campaña libertadora de 1819.',
-      osmLat: 5.8167,
-      osmLng: -73.05,
-      osmZoom: 14
-    },
-    {
-      emoji: '🏔️',
-      name: 'Sierra Nevada del Cocuy',
-      meta: 'Salida de campo oficial',
-      desc: 'Picos glaciares por encima de los 5.000 msnm. Una de las salidas de campo insignia de la XVII STG.',
-      osmLat: 6.4167,
-      osmLng: -72.25,
-      osmZoom: 11
-    },
-    {
-      emoji: '🦴',
-      name: 'Villa de Leyva',
-      meta: 'A 2 h de la sede',
-      desc: 'Fósiles marinos del Cretácico, el kronosaurio de El Fósil y una de las plazas coloniales más bellas de Colombia.',
-      osmLat: 5.6333,
-      osmLng: -73.5167,
-      osmZoom: 13
-    }
+  @ViewChildren('mapContainer') mapContainers!: QueryList<ElementRef>;
+
+  destinos = [
+    { emoji: '🏖️', name: 'Lago de Tota y Playa Blanca', meta: 'A 30 min de la sede', desc: 'El lago más grande de Colombia y una playa de arena blanca a 3.015 msnm — una de las más altas del mundo.', query: 'Playa Blanca, Lago de Tota, Boyacá, Colombia', link: 'https://www.google.com/maps/search/?api=1&query=Playa%20Blanca%2C%20Lago%20de%20Tota%2C%20Boyac%C3%A1%2C%20Colombia' },
+    { emoji: '🏛️', name: 'Museo Arqueológico de Sogamoso', meta: 'En la ciudad', desc: 'La reconstrucción del Templo del Sol muisca, en la ciudad que fue centro religioso de la cultura que habitó este valle.', query: 'Museo Arqueológico de Sogamoso, Boyacá, Colombia', link: 'https://www.google.com/maps/search/?api=1&query=Museo%20Arqueol%C3%B3gico%20de%20Sogamoso%2C%20Boyac%C3%A1%2C%20Colombia' },
+    { emoji: '♨️', name: 'Termales de Paipa', meta: 'A 40 min de la sede', desc: 'Aguas termales de origen geotérmico — el mismo sistema que estudiamos en una de las salidas de campo del evento.', query: 'Termales de Paipa, Boyacá, Colombia', link: 'https://www.google.com/maps/search/?api=1&query=Termales%20de%20Paipa%2C%20Boyac%C3%A1%2C%20Colombia' },
+    { emoji: '🗿', name: 'Pantano de Vargas', meta: 'A 30 min de la sede', desc: 'El monumento a los 14 Lanceros, escenario de la batalla decisiva de la campaña libertadora de 1819.', query: 'Monumento a Los Lanceros, Pantano de Vargas, Boyacá', link: 'https://www.google.com/maps/search/?api=1&query=Monumento%20a%20Los%20Lanceros%2C%20Pantano%20de%20Vargas%2C%20Boyac%C3%A1' },
+    { emoji: '🏔️', name: 'Sierra Nevada del Cocuy', meta: 'Salida de campo oficial', desc: 'Picos glaciares por encima de los 5.000 msnm. Una de las salidas de campo insignia de la XVII STG.', query: 'Parque Nacional Natural El Cocuy, Boyacá, Colombia', link: 'https://www.google.com/maps/search/?api=1&query=Parque%20Nacional%20Natural%20El%20Cocuy%2C%20Boyac%C3%A1%2C%20Colombia' },
+    { emoji: '🦴', name: 'Villa de Leyva', meta: 'A 2 h de la sede', desc: 'Fósiles marinos del Cretácico, el kronosaurio de El Fósil y una de las plazas coloniales más bellas de Colombia.', query: 'Villa de Leyva, Boyacá, Colombia', link: 'https://www.google.com/maps/search/?api=1&query=Villa%20de%20Leyva%2C%20Boyac%C3%A1%2C%20Colombia' }
   ];
 
-  readonly sede = {
-    name: 'UPTC Seccional Sogamoso',
-    desc: 'Calle 4 Sur #15-134, Sogamoso, Boyacá. Todas las actividades del evento magistral ocurren en el campus. Desde Bogotá son ~3 horas por la vía Tunja; desde Tunja, ~1 hora.',
-    osmLat: 5.7047,
-    osmLng: -72.9414,
-    osmZoom: 16,
-    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=UPTC+Seccional+Sogamoso'
-  };
+  sedeQuery = 'UPTC Seccional Sogamoso, Sogamoso, Boyacá';
+  sedeLink = 'https://www.google.com/maps/search/?api=1&query=UPTC+Seccional+Sogamoso';
 
-  getOsmUrl(d: Destino): SafeResourceUrl {
-    const url = `https://www.openstreetmap.org/export/embed.html?bbox=${d.osmLng - 0.01}%2C${d.osmLat - 0.01}%2C${d.osmLng + 0.01}%2C${d.osmLat + 0.01}&layer=mapnik&marker=${d.osmLat}%2C${d.osmLng}`;
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.createIframes();
+    }, 100);
   }
 
-  getSedeOsmUrl(): SafeResourceUrl {
-    const url = `https://www.openstreetmap.org/export/embed.html?bbox=${this.sede.osmLng - 0.005}%2C${this.sede.osmLat - 0.005}%2C${this.sede.osmLng + 0.005}%2C${this.sede.osmLat + 0.005}&layer=mapnik&marker=${this.sede.osmLat}%2C${this.sede.osmLng}`;
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
+  private createIframes(): void {
+    const containers = this.mapContainers.toArray();
 
-  getOsmLink(d: Destino): string {
-    return `https://www.openstreetmap.org/?mlat=${d.osmLat}&mlon=${d.osmLng}#map=${d.osmZoom}/${d.osmLat}/${d.osmLng}`;
+    this.destinos.forEach((d, i) => {
+      if (containers[i]) {
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://www.google.com/maps?q=' + encodeURIComponent(d.query) + '&output=embed';
+        iframe.loading = 'lazy';
+        iframe.referrerPolicy = 'no-referrer-when-downgrade';
+        iframe.title = 'Ubicación de ' + d.name;
+        iframe.style.width = '100%';
+        iframe.style.height = '160px';
+        iframe.style.border = '0';
+        iframe.style.display = 'block';
+        containers[i].nativeElement.appendChild(iframe);
+      }
+    });
+
+    const sedeContainer = containers[this.destinos.length];
+    if (sedeContainer) {
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://www.google.com/maps?q=' + encodeURIComponent(this.sedeQuery) + '&output=embed';
+      iframe.loading = 'lazy';
+      iframe.referrerPolicy = 'no-referrer-when-downgrade';
+      iframe.title = 'Ubicación de la UPTC Seccional Sogamoso';
+      iframe.style.width = '100%';
+      iframe.style.height = '100%';
+      iframe.style.minHeight = '320px';
+      iframe.style.border = '0';
+      iframe.style.display = 'block';
+      sedeContainer.nativeElement.appendChild(iframe);
+    }
   }
 
   trackDestino(name: string) {
