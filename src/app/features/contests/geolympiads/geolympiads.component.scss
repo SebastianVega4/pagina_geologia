@@ -17,10 +17,7 @@
     font-weight: 700;
     text-decoration: none;
     transition: transform 0.2s;
-
-    &:hover {
-      transform: translateX(-4px);
-    }
+    &:hover { transform: translateX(-4px); }
   }
 
   .badge-tag {
@@ -43,10 +40,7 @@
     color: var(--brand-primary, #003D5E);
     margin-bottom: 1rem;
     line-height: 1.1;
-
-    .accent {
-      color: var(--brand-secondary, #005B8C);
-    }
+    .accent { color: var(--brand-secondary, #005B8C); }
   }
 
   .page-subtitle {
@@ -58,30 +52,19 @@
   }
 }
 
-/* ══ DECK ══ */
-.geo-deck-wrap {
-  max-width: 72rem;
+/* ══ VIEWER ══ */
+.viewer-wrap {
+  max-width: 64rem;
   margin: 0 auto;
-}
-
-.geo-deck {
-  position: relative;
   outline: none;
-  --cw: 340px;
-  --ch: 420px;
-  --iw: 340px;
-  --fw: 680px;
-  --dur: 600ms;
-  --ease-deck: cubic-bezier(0.32, 0.72, 0, 1);
-  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.carousel-hud {
+/* ── HUD ── */
+.viewer-hud {
   display: flex;
   align-items: center;
   gap: 1.2rem;
-  margin: 0 auto 1.2rem;
-  max-width: 900px;
+  margin-bottom: 1rem;
 }
 
 .hud-count {
@@ -98,105 +81,89 @@
   background: rgba(0, 91, 140, 0.12);
   position: relative;
   overflow: hidden;
-
   i {
     position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
+    left: 0; top: 0; bottom: 0;
     width: 0;
     background: linear-gradient(90deg, var(--brand-secondary, #005B8C), var(--brand-accent, #0284C7));
     transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   }
 }
 
-.deck-navs {
-  display: flex;
-  gap: 0.5rem;
-}
+.viewer-navs { display: flex; gap: 0.5rem; }
 
-.deck-nav {
-  width: 42px;
-  height: 42px;
+.viewer-nav {
+  width: 42px; height: 42px;
   border-radius: 50%;
   border: 1px solid rgba(0, 91, 140, 0.25);
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   font-family: 'DM Mono', monospace;
   font-size: 1.2rem;
   color: var(--brand-primary, #003D5E);
   background: rgba(248, 250, 252, 0.72);
-  transition: border-color 0.2s, color 0.2s, box-shadow 0.2s, transform 0.13s var(--ease-out);
-
+  transition: border-color 0.2s, color 0.2s, box-shadow 0.2s, transform 0.13s ease;
   &:hover {
     border-color: var(--brand-secondary, #005B8C);
     color: var(--brand-secondary, #005B8C);
     box-shadow: 0 0 22px rgba(0, 91, 140, 0.15);
   }
+  &:active { transform: scale(0.9); }
+}
 
-  &:active {
-    transform: scale(0.9);
+/* ══ MOBILE: single image ══ */
+.mobile-stage {
+  display: none;
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 91, 140, 0.15);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
   }
 }
 
-/* ── DECK BODY ── */
-.deck-body {
-  display: flex;
-  gap: 1.75rem;
-  align-items: center;
-  justify-content: center;
-}
-
+/* ══ DESKTOP: deck carousel ══ */
 .deck-stage {
   position: relative;
-  height: calc(var(--ch) + 70px);
-  flex: 0 1 800px;
-  min-width: 0;
+  height: 400px;
+  perspective: 1800px;
 }
 
 .deck-cards {
   position: absolute;
   inset: 0;
-  perspective: 1800px;
 }
 
-/* ── CARDS ── */
 .geo-card {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: var(--cw);
-  height: var(--ch);
-  margin-left: calc(var(--cw) / -2);
-  margin-top: calc(var(--ch) / -2);
+  width: 340px;
+  height: 380px;
+  margin-left: -170px;
+  margin-top: -190px;
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid rgba(0, 91, 140, 0.28);
   background: #E2E8F0;
   cursor: pointer;
   transform: translate3d(0, 0, 0);
-  transition: transform var(--dur) var(--ease-deck), opacity calc(var(--dur) - 80ms) var(--ease-out), box-shadow 0.3s ease;
+  transition: transform 600ms cubic-bezier(0.32, 0.72, 0, 1), opacity 520ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease;
   will-change: transform, opacity;
   box-shadow: 0 20px 46px rgba(0, 0, 0, 0.15);
 
   > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 100%; height: 100%;
+    object-fit: contain;
     display: block;
-    transition: transform 200ms var(--ease-out);
+    background: #F1F5F9;
   }
 
   &:not(.is-hero):hover > img {
-    @media (hover: hover) and (pointer: fine) {
-      transform: scale(1.04);
-    }
-  }
-
-  &:active > img {
-    transform: scale(0.97);
+    @media (hover: hover) and (pointer: fine) { transform: scale(1.03); }
   }
 
   &.is-hero {
@@ -206,245 +173,60 @@
   }
 }
 
-/* ── DECK LIST (sidebar) ── */
-.deck-list {
-  position: relative;
-  flex: 0 0 220px;
-  align-self: center;
-  max-height: calc(var(--ch) + 70px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding-left: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0, 91, 140, 0.25) transparent;
-
-  &::-webkit-scrollbar {
-    width: 5px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: rgba(0, 91, 140, 0.25);
-    border-radius: 3px;
-  }
-
-  @media (max-width: 1100px) {
-    display: none;
-  }
-}
-
-.dl-marker {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 3px;
-  height: 0;
-  border-radius: 3px;
-  background: linear-gradient(var(--brand-secondary, #005B8C), var(--brand-accent, #0284C7));
-  transform: translateY(0);
-  transition: transform var(--dur) var(--ease-deck), height var(--dur) var(--ease-deck);
-  pointer-events: none;
-}
-
-.dl-item {
-  position: relative;
-  display: flex;
-  gap: 0.6rem;
-  align-items: baseline;
-  text-align: left;
-  width: 100%;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem 0.7rem;
-  border-radius: 8px;
-  color: #64748B;
-  opacity: 0.7;
-  transform-origin: left center;
-  font-family: 'Inter', sans-serif;
-  transition: color 0.3s var(--ease-out), background 0.25s, opacity 0.3s, transform 0.4s var(--ease-deck);
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      opacity: 1;
-      color: #475569;
-      background: rgba(0, 0, 0, 0.03);
-    }
-  }
-
-  &.is-active {
-    opacity: 1;
-    transform: translateX(6px);
-    .dl-title {
-      color: var(--brand-secondary, #005B8C);
-      font-weight: 700;
-      font-size: 0.95rem;
-    }
-    .dl-idx {
-      color: var(--brand-secondary, #005B8C);
-    }
-  }
-}
-
-.dl-idx {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.6rem;
-  color: #64748B;
-  flex-shrink: 0;
-  transition: color 0.3s;
-}
-
-.dl-title {
-  font-size: 0.8rem;
-  line-height: 1.3;
-  font-weight: 500;
-  transition: color 0.3s, font-size 0.35s var(--ease-deck);
-}
-
-/* ══ RESPONSIVE ══ */
-@media (max-width: 900px) {
-  .geo-deck {
-    --cw: 220px;
-    --ch: 275px;
-    --iw: 0px;
-    --fw: 220px;
-  }
-
-  .deck-stage {
-    height: auto;
-    padding-bottom: 1rem;
-  }
-
-  .deck-cards {
-    position: relative;
-    height: auto;
-  }
-
-  .geo-card {
-    top: 1rem;
-    margin-top: 0;
-    z-index: 50;
-    &:not(.is-hero) {
-      display: none;
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .geo-deck {
-    --cw: 180px;
-    --ch: 225px;
-    --fw: 180px;
-  }
+/* ══ RESPONSIVE: hide deck, show single ══ */
+@media (max-width: 899px) {
+  .mobile-stage { display: block; }
+  .deck-stage { display: none; }
 }
 
 /* ══ DARK MODE ══ */
 :host-context(.dark) .geolympiads-page {
   background: var(--brand-dark, #002D45);
-
-  .back-link {
-    color: var(--brand-secondary, #F59E0B);
-  }
-
-  .badge-tag {
-    background: rgba(245, 158, 11, 0.1);
-    color: var(--brand-secondary, #F59E0B);
-  }
-
-  .page-title {
-    color: #F8FAFC;
-    .accent {
-      color: var(--brand-secondary, #F59E0B);
-    }
-  }
-
-  .page-subtitle {
-    color: #94A3B8;
-  }
+  .back-link { color: var(--brand-secondary, #F59E0B); }
+  .badge-tag { background: rgba(245, 158, 11, 0.1); color: var(--brand-secondary, #F59E0B); }
+  .page-title { color: #F8FAFC; .accent { color: var(--brand-secondary, #F59E0B); } }
+  .page-subtitle { color: #94A3B8; }
 }
 
-:host-context(.dark) .hud-count {
-  color: var(--brand-secondary, #F59E0B);
-}
-
+:host-context(.dark) .hud-count { color: var(--brand-secondary, #F59E0B); }
 :host-context(.dark) .hud-bar {
   background: rgba(245, 158, 11, 0.12);
-  i {
-    background: linear-gradient(90deg, var(--brand-secondary, #F59E0B), var(--brand-accent, #3B82F6));
-  }
+  i { background: linear-gradient(90deg, var(--brand-secondary, #F59E0B), var(--brand-accent, #3B82F6)); }
 }
 
-:host-context(.dark) .deck-nav {
+:host-context(.dark) .viewer-nav {
   background: rgba(0, 61, 94, 0.72);
   border-color: rgba(245, 158, 11, 0.3);
   color: #F8FAFC;
+  &:hover { border-color: var(--brand-secondary, #F59E0B); color: var(--brand-secondary, #F59E0B); }
+}
 
-  &:hover {
-    border-color: var(--brand-secondary, #F59E0B);
-    color: var(--brand-secondary, #F59E0B);
-  }
+:host-context(.dark) .mobile-stage img {
+  border-color: rgba(245, 158, 11, 0.15);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  background: #0B1220;
 }
 
 :host-context(.dark) .geo-card {
   border-color: rgba(245, 158, 11, 0.28);
   background: #0B1220;
   box-shadow: 0 20px 46px rgba(0, 0, 0, 0.3);
-
   &.is-hero {
     border-color: rgba(245, 158, 11, 0.35);
     box-shadow: 0 26px 60px rgba(0, 0, 0, 0.35), 0 0 40px rgba(245, 158, 11, 0.07);
   }
-}
-
-:host-context(.dark) .dl-item {
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      background: rgba(255, 255, 255, 0.04);
-    }
-  }
-}
-
-:host-context(.dark) .dl-marker {
-  background: linear-gradient(var(--brand-secondary, #F59E0B), var(--brand-accent, #3B82F6));
+  > img { background: #0B1220; }
 }
 
 /* ══ REDUCED MOTION ══ */
 @media (prefers-reduced-motion: reduce) {
-  .badge-tag {
-    animation: none;
-  }
-  .hud-bar i {
-    transition: none;
-  }
-  .geo-card {
-    transition: opacity 0.2s ease, box-shadow 0.2s ease;
-  }
-  .geo-card > img {
-    transition: none;
-  }
-  .dl-marker {
-    transition: none;
-  }
-  .dl-item {
-    transition: color 0.3s, background 0.25s, opacity 0.3s;
-  }
-  .dl-item.is-active {
-    transform: none;
-  }
-  .dl-title {
-    transition: color 0.3s;
-  }
-  .deck-nav {
-    transition: none;
-  }
+  .badge-tag { animation: none; }
+  .hud-bar i { transition: none; }
+  .viewer-nav { transition: none; }
+  .geo-card { transition: opacity 0.2s ease, box-shadow 0.2s ease; }
 }
 
 @keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
 }

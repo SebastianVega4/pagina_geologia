@@ -24,42 +24,37 @@
       </p>
     </div>
 
-    <!-- Carousel Deck -->
-    <div class="geo-deck-wrap">
-      <div class="geo-deck" id="geo-deck" tabindex="0" aria-label="Galería de Geolimpiadas" (keydown)="onKeydown($event)">
-        <div class="carousel-hud">
-          <span class="hud-count">{{ pad(currentIdx + 1) }} / {{ pad(images.length) }}</span>
-          <div class="hud-bar"><i [style.width.%]="((currentIdx + 1) / images.length) * 100"></i></div>
-          <div class="deck-navs">
-            <button class="deck-nav" (click)="prevImage()" aria-label="Anterior">&lsaquo;</button>
-            <button class="deck-nav" (click)="nextImage()" aria-label="Siguiente">&rsaquo;</button>
-          </div>
+    <!-- Viewer: Desktop = deck, Mobile = single image -->
+    <div class="viewer-wrap" tabindex="0" (keydown)="onKeydown($event)">
+
+      <!-- HUD (both views) -->
+      <div class="viewer-hud">
+        <span class="hud-count">{{ pad(currentIdx + 1) }} / {{ pad(images.length) }}</span>
+        <div class="hud-bar"><i [style.width.%]="((currentIdx + 1) / images.length) * 100"></i></div>
+        <div class="viewer-navs">
+          <button class="viewer-nav" (click)="prevImage()" aria-label="Anterior">&lsaquo;</button>
+          <button class="viewer-nav" (click)="nextImage()" aria-label="Siguiente">&rsaquo;</button>
         </div>
-        <div class="deck-body">
-          <div class="deck-stage">
-            <div class="deck-cards">
-              <div
-                *ngFor="let img of images; let i = index"
-                class="geo-card"
-                [class.is-hero]="i === currentIdx"
-                (click)="onCardClick(i)">
-                <img [src]="img.src" [alt]="img.alt" loading="lazy">
-              </div>
-            </div>
-          </div>
-          <div class="deck-list">
-            <span class="dl-marker"></span>
-            <button
-              *ngFor="let img of images; let i = index"
-              class="dl-item"
-              [class.is-active]="i === currentIdx"
-              (click)="goTo(i)">
-              <span class="dl-idx">{{ pad(i + 1) }}</span>
-              <span class="dl-title">{{ img.alt }}</span>
-            </button>
+      </div>
+
+      <!-- Mobile: single image -->
+      <div class="mobile-stage">
+        <img [src]="images[currentIdx].src" [alt]="images[currentIdx].alt">
+      </div>
+
+      <!-- Desktop: deck carousel -->
+      <div class="deck-stage">
+        <div class="deck-cards" id="geo-deck">
+          <div
+            *ngFor="let img of images; let i = index"
+            class="geo-card"
+            [class.is-hero]="i === currentIdx"
+            (click)="onCardClick(i)">
+            <img [src]="img.src" [alt]="img.alt" loading="lazy">
           </div>
         </div>
       </div>
+
     </div>
 
   </div>
