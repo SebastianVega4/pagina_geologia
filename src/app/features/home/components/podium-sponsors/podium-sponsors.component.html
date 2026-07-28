@@ -43,7 +43,7 @@
           *ngFor="let sp of oroSponsors; let i = index"
           class="thumb"
           [class.active]="i === oroIdx"
-          (click)="oroIdx = i">
+          (click)="selectThumb('oro', i)">
           <img [src]="sp.src" [alt]="sp.alt" loading="lazy">
         </button>
       </div>
@@ -77,7 +77,7 @@
           *ngFor="let sp of cuarzoSponsors; let i = index"
           class="thumb"
           [class.active]="i === cuarzoIdx"
-          (click)="cuarzoIdx = i">
+          (click)="selectThumb('cuarzo', i)">
           <img [src]="sp.src" [alt]="sp.alt" loading="lazy">
         </button>
       </div>

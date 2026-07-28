@@ -52,18 +52,31 @@ export class PodiumSponsorsComponent implements OnInit {
 
   prevOro(): void {
     this.oroIdx = (this.oroIdx - 1 + this.oroSponsors.length) % this.oroSponsors.length;
+    this.matomo.trackEvent('Event', 'podium_carousel_nav', 'oro_prev');
   }
 
   nextOro(): void {
     this.oroIdx = (this.oroIdx + 1) % this.oroSponsors.length;
+    this.matomo.trackEvent('Event', 'podium_carousel_nav', 'oro_next');
   }
 
   prevCuarzo(): void {
     this.cuarzoIdx = (this.cuarzoIdx - 1 + this.cuarzoSponsors.length) % this.cuarzoSponsors.length;
+    this.matomo.trackEvent('Event', 'podium_carousel_nav', 'cuarzo_prev');
   }
 
   nextCuarzo(): void {
     this.cuarzoIdx = (this.cuarzoIdx + 1) % this.cuarzoSponsors.length;
+    this.matomo.trackEvent('Event', 'podium_carousel_nav', 'cuarzo_next');
+  }
+
+  selectThumb(tier: 'oro' | 'cuarzo', idx: number): void {
+    if (tier === 'oro') {
+      this.oroIdx = idx;
+    } else {
+      this.cuarzoIdx = idx;
+    }
+    this.matomo.trackEvent('Event', 'podium_thumb_click', tier + '_' + (idx + 1));
   }
 
   openLightbox(pool: PodiumSponsor[], idx: number): void {
@@ -78,15 +91,20 @@ export class PodiumSponsorsComponent implements OnInit {
   }
 
   closeLightbox(): void {
+    if (this.lightboxOpen) {
+      this.matomo.trackEvent('Sponsors', 'sponsor_lightbox_close');
+    }
     this.lightboxOpen = false;
   }
 
   prevLightbox(): void {
     this.lightboxIdx = (this.lightboxIdx - 1 + this.lightboxPool.length) % this.lightboxPool.length;
+    this.matomo.trackEvent('Sponsors', 'sponsor_lightbox_nav', 'prev');
   }
 
   nextLightbox(): void {
     this.lightboxIdx = (this.lightboxIdx + 1) % this.lightboxPool.length;
+    this.matomo.trackEvent('Sponsors', 'sponsor_lightbox_nav', 'next');
   }
 
   onBackdropClick(event: MouseEvent): void {
@@ -98,8 +116,14 @@ export class PodiumSponsorsComponent implements OnInit {
   @HostListener('document:keydown', ['$event'])
   onKeydown(event: KeyboardEvent): void {
     if (!this.lightboxOpen) return;
-    if (event.key === 'Escape') this.closeLightbox();
-    else if (event.key === 'ArrowLeft') this.prevLightbox();
-    else if (event.key === 'ArrowRight') this.nextLightbox();
+    if (event.key === 'Escape') {
+      this.closeLightbox();
+    } else if (event.key === 'ArrowLeft') {
+      this.matomo.trackEvent('Sponsors', 'sponsor_lightbox_nav', 'keyboard_prev');
+      this.prevLightbox();
+    } else if (event.key === 'ArrowRight') {
+      this.matomo.trackEvent('Sponsors', 'sponsor_lightbox_nav', 'keyboard_next');
+      this.nextLightbox();
+    }
   }
 }

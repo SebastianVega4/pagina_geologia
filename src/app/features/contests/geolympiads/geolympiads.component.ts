@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, HostListener, ChangeDetectorRef, inje
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Trophy, ChevronLeft, ChevronRight } from 'lucide-angular';
 import { RouterModule } from '@angular/router';
+import { TrackClickDirective } from '../../../shared/directives/track-click.directive';
 import { MatomoService } from '../../../core/services/matomo.service';
 
 interface GeoImage {
@@ -19,7 +20,7 @@ const IMAGES: GeoImage[] = [
 @Component({
   selector: 'app-geolympiads',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule, RouterModule],
+  imports: [CommonModule, LucideAngularModule, RouterModule, TrackClickDirective],
   templateUrl: './geolympiads.component.html',
   styleUrl: './geolympiads.component.scss'
 })
@@ -71,8 +72,15 @@ export class GeolympiadsComponent implements OnInit, AfterViewInit {
   }
 
   onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'ArrowLeft') { event.preventDefault(); this.prevImage(); }
-    else if (event.key === 'ArrowRight') { event.preventDefault(); this.nextImage(); }
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      this.matomo.trackEvent('Event', 'geolimpiads_nav', 'keyboard_prev');
+      this.prevImage();
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      this.matomo.trackEvent('Event', 'geolimpiads_nav', 'keyboard_next');
+      this.nextImage();
+    }
   }
 
   private initDeck(): void {
