@@ -1,0 +1,104 @@
+<section class="podium-section">
+  <div class="podium-bg-glow"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+    <div class="podium-header" data-aos="fade-down">
+      <div class="podium-badge">
+        <lucide-angular [img]="icons.Trophy" class="w-4 h-4"></lucide-angular>
+        Patrocinadores Destacados
+      </div>
+      <h2 class="podium-title">
+        Nuestros <span class="gold-text">patrocinadores</span> destacados
+      </h2>
+      <p class="podium-sub">
+        Empresas que confiaron en este proyecto y hacen posible el evento más importante de geociencias del país.
+      </p>
+    </div>
+
+    <!-- Podium -->
+    <div class="podium-stage" data-aos="zoom-in" data-aos-delay="200">
+
+      <!-- Cuarzo Left -->
+      <div class="podium-slot podium-left" (click)="openLightbox(1)">
+        <div class="podium-card">
+          <div class="podium-img-wrap">
+            <img [src]="sponsors[1].src" [alt]="sponsors[1].alt" loading="lazy">
+          </div>
+          <div class="podium-tier-badge cuarzo">
+            <lucide-angular [img]="icons.Trophy" class="w-3 h-3"></lucide-angular>
+            Cuarzo
+          </div>
+        </div>
+        <div class="podium-base base-cuarzo">
+          <span class="base-label">Cuarzo</span>
+        </div>
+      </div>
+
+      <!-- Oro Center -->
+      <div class="podium-slot podium-center" (click)="openLightbox(0)">
+        <div class="podium-card hero-card">
+          <div class="podium-glow-ring"></div>
+          <div class="podium-img-wrap">
+            <img [src]="sponsors[0].src" [alt]="sponsors[0].alt" loading="lazy">
+          </div>
+          <div class="podium-tier-badge oro">
+            <lucide-angular [img]="icons.Trophy" class="w-3 h-3"></lucide-angular>
+            Oro
+          </div>
+        </div>
+        <div class="podium-base base-oro">
+          <span class="base-label">Oro</span>
+        </div>
+      </div>
+
+      <!-- Cuarzo Right -->
+      <div class="podium-slot podium-right" (click)="openLightbox(2)">
+        <div class="podium-card">
+          <div class="podium-img-wrap">
+            <img [src]="sponsors[2].src" [alt]="sponsors[2].alt" loading="lazy">
+          </div>
+          <div class="podium-tier-badge cuarzo">
+            <lucide-angular [img]="icons.Trophy" class="w-3 h-3"></lucide-angular>
+            Cuarzo
+          </div>
+        </div>
+        <div class="podium-base base-cuarzo">
+          <span class="base-label">Cuarzo</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Lightbox -->
+  <div
+    class="podium-lightbox"
+    [class.open]="lightboxOpen"
+    (click)="onBackdropClick($event)">
+    <button class="plb-close" (click)="closeLightbox()">
+      <lucide-angular [img]="icons.X" class="w-5 h-5"></lucide-angular>
+    </button>
+    <button
+      class="plb-prev"
+      *ngIf="sponsors.length > 1"
+      (click)="prevImage(); $event.stopPropagation()">
+      <lucide-angular [img]="icons.ChevronLeft" class="w-6 h-6"></lucide-angular>
+    </button>
+    <img
+      *ngIf="lightboxOpen"
+      [src]="sponsors[lightboxIdx].src"
+      [alt]="sponsors[lightboxIdx].alt"
+      class="plb-img">
+    <button
+      class="plb-next"
+      *ngIf="sponsors.length > 1"
+      (click)="nextImage(); $event.stopPropagation()">
+      <lucide-angular [img]="icons.ChevronRight" class="w-6 h-6"></lucide-angular>
+    </button>
+    <span class="plb-tier" [class.oro]="sponsors[lightboxIdx].tier === 'oro'" [class.cuarzo]="sponsors[lightboxIdx].tier === 'cuarzo'">
+      {{ sponsors[lightboxIdx].label }}
+    </span>
+    <span class="plb-count">{{ lightboxIdx + 1 }} / {{ sponsors.length }}</span>
+  </div>
+</section>

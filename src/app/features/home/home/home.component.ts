@@ -12,6 +12,7 @@ import { TestimonialsComponent } from '../components/testimonials/testimonials.c
 import { RegistrationComponent } from '../components/registration/registration.component';
 import { MapComponent } from '../components/map/map.component';
 import { ServicePortfolioComponent } from '../components/service-portfolio/service-portfolio.component';
+import { PodiumSponsorsComponent } from '../components/podium-sponsors/podium-sponsors.component';
 import { DestinoComponent } from '../components/destino/destino.component';
 
 @Component({
@@ -31,6 +32,7 @@ import { DestinoComponent } from '../components/destino/destino.component';
     SponsorsComponent,
     MapComponent,
     ServicePortfolioComponent,
+    PodiumSponsorsComponent,
     DestinoComponent
   ],
 
