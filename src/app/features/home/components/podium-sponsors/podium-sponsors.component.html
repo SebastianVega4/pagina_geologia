@@ -15,20 +15,72 @@
       </p>
     </div>
 
-    <!-- Sponsors Grid -->
-    <div class="sponsors-grid" data-aos="zoom-in" data-aos-delay="200">
-      <button
-        *ngFor="let sp of sponsors; let i = index"
-        class="sponsor-card"
-        [class.tier-oro]="sp.tier === 'oro'"
-        [class.tier-cuarzo]="sp.tier === 'cuarzo'"
-        (click)="openLightbox(i)">
-        <img [src]="sp.src" [alt]="sp.alt" loading="lazy">
-        <span class="sponsor-badge" [class.oro]="sp.tier === 'oro'" [class.cuarzo]="sp.tier === 'cuarzo'">
-          <lucide-angular [img]="icons.Trophy" class="w-3 h-3"></lucide-angular>
-          {{ sp.label }}
-        </span>
-      </button>
+    <!-- Tier: Oro -->
+    <div class="tier-viewer oro" data-aos="fade-right" data-aos-delay="100">
+      <div class="tier-label">
+        <span class="tier-dot oro"></span>
+        <h3>Patrocinadores <strong>Oro</strong></h3>
+        <div class="tier-line oro"></div>
+      </div>
+      <div class="hero-view">
+        <button class="hv-nav" (click)="prevOro()" aria-label="Anterior">
+          <lucide-angular [img]="icons.ChevronLeft" class="w-6 h-6"></lucide-angular>
+        </button>
+        <div class="hv-main" (click)="openLightbox(oroSponsors, oroIdx)">
+          <img [src]="oroSponsors[oroIdx].src" [alt]="oroSponsors[oroIdx].alt">
+          <span class="hv-badge oro">
+            <lucide-angular [img]="icons.Trophy" class="w-3 h-3"></lucide-angular>
+            Oro
+          </span>
+          <span class="hv-count">{{ oroIdx + 1 }} / {{ oroSponsors.length }}</span>
+        </div>
+        <button class="hv-nav" (click)="nextOro()" aria-label="Siguiente">
+          <lucide-angular [img]="icons.ChevronRight" class="w-6 h-6"></lucide-angular>
+        </button>
+      </div>
+      <div class="thumb-row">
+        <button
+          *ngFor="let sp of oroSponsors; let i = index"
+          class="thumb"
+          [class.active]="i === oroIdx"
+          (click)="oroIdx = i">
+          <img [src]="sp.src" [alt]="sp.alt" loading="lazy">
+        </button>
+      </div>
+    </div>
+
+    <!-- Tier: Cuarzo -->
+    <div class="tier-viewer cuarzo" data-aos="fade-left" data-aos-delay="200">
+      <div class="tier-label">
+        <span class="tier-dot cuarzo"></span>
+        <h3>Patrocinadores <strong>Cuarzo</strong></h3>
+        <div class="tier-line cuarzo"></div>
+      </div>
+      <div class="hero-view">
+        <button class="hv-nav" (click)="prevCuarzo()" aria-label="Anterior">
+          <lucide-angular [img]="icons.ChevronLeft" class="w-6 h-6"></lucide-angular>
+        </button>
+        <div class="hv-main" (click)="openLightbox(cuarzoSponsors, cuarzoIdx)">
+          <img [src]="cuarzoSponsors[cuarzoIdx].src" [alt]="cuarzoSponsors[cuarzoIdx].alt">
+          <span class="hv-badge cuarzo">
+            <lucide-angular [img]="icons.Trophy" class="w-3 h-3"></lucide-angular>
+            Cuarzo
+          </span>
+          <span class="hv-count">{{ cuarzoIdx + 1 }} / {{ cuarzoSponsors.length }}</span>
+        </div>
+        <button class="hv-nav" (click)="nextCuarzo()" aria-label="Siguiente">
+          <lucide-angular [img]="icons.ChevronRight" class="w-6 h-6"></lucide-angular>
+        </button>
+      </div>
+      <div class="thumb-row">
+        <button
+          *ngFor="let sp of cuarzoSponsors; let i = index"
+          class="thumb"
+          [class.active]="i === cuarzoIdx"
+          (click)="cuarzoIdx = i">
+          <img [src]="sp.src" [alt]="sp.alt" loading="lazy">
+        </button>
+      </div>
     </div>
 
   </div>
@@ -41,24 +93,23 @@
     <button class="plb-close" (click)="closeLightbox()">
       <lucide-angular [img]="icons.X" class="w-5 h-5"></lucide-angular>
     </button>
-    <button
-      class="plb-prev"
-      (click)="prevImage(); $event.stopPropagation()">
+    <button class="plb-prev" (click)="prevLightbox(); $event.stopPropagation()">
       <lucide-angular [img]="icons.ChevronLeft" class="w-6 h-6"></lucide-angular>
     </button>
     <img
-      *ngIf="lightboxOpen"
-      [src]="sponsors[lightboxIdx].src"
-      [alt]="sponsors[lightboxIdx].alt"
+      *ngIf="lightboxOpen && currentLightboxItem"
+      [src]="currentLightboxItem.src"
+      [alt]="currentLightboxItem.alt"
       class="plb-img">
-    <button
-      class="plb-next"
-      (click)="nextImage(); $event.stopPropagation()">
+    <button class="plb-next" (click)="nextLightbox(); $event.stopPropagation()">
       <lucide-angular [img]="icons.ChevronRight" class="w-6 h-6"></lucide-angular>
     </button>
-    <span class="plb-tier" [class.oro]="sponsors[lightboxIdx].tier === 'oro'" [class.cuarzo]="sponsors[lightboxIdx].tier === 'cuarzo'">
-      {{ sponsors[lightboxIdx].label }}
+    <span class="plb-tier"
+      *ngIf="lightboxOpen && currentLightboxItem"
+      [class.oro]="currentLightboxItem.tier === 'oro'"
+      [class.cuarzo]="currentLightboxItem.tier === 'cuarzo'">
+      {{ currentLightboxItem.label }}
     </span>
-    <span class="plb-count">{{ lightboxIdx + 1 }} / {{ sponsors.length }}</span>
+    <span class="plb-count" *ngIf="lightboxOpen">{{ lightboxIdx + 1 }} / {{ lightboxPool.length }}</span>
   </div>
 </section>

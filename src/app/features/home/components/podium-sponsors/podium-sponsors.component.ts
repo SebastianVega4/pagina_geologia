@@ -10,16 +10,19 @@ interface PodiumSponsor {
   label: string;
 }
 
-const SPONSORS: PodiumSponsor[] = [
+const ORO_SPONSORS: PodiumSponsor[] = [
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO.jpg', alt: 'Patrocinador Oro', tier: 'oro', label: 'Oro' },
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO1.jpg', alt: 'Patrocinador Oro 1', tier: 'oro', label: 'Oro' },
-  { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO2.webp', alt: 'Patrocinador Oro 2', tier: 'oro', label: 'Oro' },
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO3.jpg', alt: 'Patrocinador Oro 3', tier: 'oro', label: 'Oro' },
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO4.jpg', alt: 'Patrocinador Oro 4', tier: 'oro', label: 'Oro' },
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO5.webp', alt: 'Patrocinador Oro 5', tier: 'oro', label: 'Oro' },
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO6.webp', alt: 'Patrocinador Oro 6', tier: 'oro', label: 'Oro' },
+];
+
+const CUARZO_SPONSORS: PodiumSponsor[] = [
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorCUARZO.jpg', alt: 'Patrocinador Cuarzo', tier: 'cuarzo', label: 'Cuarzo' },
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorCUARZO1.jpg', alt: 'Patrocinador Cuarzo 1', tier: 'cuarzo', label: 'Cuarzo' },
+  { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorCUARZO2.webp', alt: 'Patrocinador Cuarzo 2', tier: 'cuarzo', label: 'Cuarzo' },
 ];
 
 @Component({
@@ -33,31 +36,57 @@ export class PodiumSponsorsComponent implements OnInit {
   private matomo = inject(MatomoService);
   readonly icons = { Trophy, ChevronLeft, ChevronRight, X };
 
-  readonly sponsors = SPONSORS;
+  readonly oroSponsors = ORO_SPONSORS;
+  readonly cuarzoSponsors = CUARZO_SPONSORS;
+
+  oroIdx = 0;
+  cuarzoIdx = 0;
 
   lightboxOpen = false;
+  lightboxPool: PodiumSponsor[] = [];
   lightboxIdx = 0;
 
   ngOnInit(): void {
     this.matomo.trackEvent('Event', 'view_podium_sponsors');
   }
 
-  openLightbox(idx: number): void {
+  prevOro(): void {
+    this.oroIdx = (this.oroIdx - 1 + this.oroSponsors.length) % this.oroSponsors.length;
+  }
+
+  nextOro(): void {
+    this.oroIdx = (this.oroIdx + 1) % this.oroSponsors.length;
+  }
+
+  prevCuarzo(): void {
+    this.cuarzoIdx = (this.cuarzoIdx - 1 + this.cuarzoSponsors.length) % this.cuarzoSponsors.length;
+  }
+
+  nextCuarzo(): void {
+    this.cuarzoIdx = (this.cuarzoIdx + 1) % this.cuarzoSponsors.length;
+  }
+
+  openLightbox(pool: PodiumSponsor[], idx: number): void {
+    this.lightboxPool = pool;
     this.lightboxIdx = idx;
     this.lightboxOpen = true;
-    this.matomo.trackEvent('Sponsors', 'sponsor_click', 'podium_' + this.sponsors[idx].tier + '_lightbox');
+    this.matomo.trackEvent('Sponsors', 'sponsor_click', 'podium_' + pool[idx].tier + '_lightbox');
+  }
+
+  get currentLightboxItem(): PodiumSponsor | undefined {
+    return this.lightboxPool[this.lightboxIdx];
   }
 
   closeLightbox(): void {
     this.lightboxOpen = false;
   }
 
-  prevImage(): void {
-    this.lightboxIdx = (this.lightboxIdx - 1 + this.sponsors.length) % this.sponsors.length;
+  prevLightbox(): void {
+    this.lightboxIdx = (this.lightboxIdx - 1 + this.lightboxPool.length) % this.lightboxPool.length;
   }
 
-  nextImage(): void {
-    this.lightboxIdx = (this.lightboxIdx + 1) % this.sponsors.length;
+  nextLightbox(): void {
+    this.lightboxIdx = (this.lightboxIdx + 1) % this.lightboxPool.length;
   }
 
   onBackdropClick(event: MouseEvent): void {
@@ -70,7 +99,7 @@ export class PodiumSponsorsComponent implements OnInit {
   onKeydown(event: KeyboardEvent): void {
     if (!this.lightboxOpen) return;
     if (event.key === 'Escape') this.closeLightbox();
-    else if (event.key === 'ArrowLeft') this.prevImage();
-    else if (event.key === 'ArrowRight') this.nextImage();
+    else if (event.key === 'ArrowLeft') this.prevLightbox();
+    else if (event.key === 'ArrowRight') this.nextLightbox();
   }
 }
