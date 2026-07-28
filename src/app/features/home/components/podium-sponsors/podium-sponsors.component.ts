@@ -12,6 +12,12 @@ interface PodiumSponsor {
 
 const SPONSORS: PodiumSponsor[] = [
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO.jpg', alt: 'Patrocinador Oro', tier: 'oro', label: 'Oro' },
+  { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO1.jpg', alt: 'Patrocinador Oro 1', tier: 'oro', label: 'Oro' },
+  { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO2.webp', alt: 'Patrocinador Oro 2', tier: 'oro', label: 'Oro' },
+  { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO3.jpg', alt: 'Patrocinador Oro 3', tier: 'oro', label: 'Oro' },
+  { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO4.jpg', alt: 'Patrocinador Oro 4', tier: 'oro', label: 'Oro' },
+  { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO5.webp', alt: 'Patrocinador Oro 5', tier: 'oro', label: 'Oro' },
+  { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO6.webp', alt: 'Patrocinador Oro 6', tier: 'oro', label: 'Oro' },
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorCUARZO.jpg', alt: 'Patrocinador Cuarzo', tier: 'cuarzo', label: 'Cuarzo' },
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorCUARZO1.jpg', alt: 'Patrocinador Cuarzo 1', tier: 'cuarzo', label: 'Cuarzo' },
 ];

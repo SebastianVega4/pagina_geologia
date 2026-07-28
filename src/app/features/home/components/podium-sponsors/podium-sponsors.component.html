@@ -15,58 +15,20 @@
       </p>
     </div>
 
-    <!-- Podium -->
-    <div class="podium-stage" data-aos="zoom-in" data-aos-delay="200">
-
-      <!-- Cuarzo Left -->
-      <div class="podium-slot podium-left" (click)="openLightbox(1)">
-        <div class="podium-card">
-          <div class="podium-img-wrap">
-            <img [src]="sponsors[1].src" [alt]="sponsors[1].alt" loading="lazy">
-          </div>
-          <div class="podium-tier-badge cuarzo">
-            <lucide-angular [img]="icons.Trophy" class="w-3 h-3"></lucide-angular>
-            Cuarzo
-          </div>
-        </div>
-        <div class="podium-base base-cuarzo">
-          <span class="base-label">Cuarzo</span>
-        </div>
-      </div>
-
-      <!-- Oro Center -->
-      <div class="podium-slot podium-center" (click)="openLightbox(0)">
-        <div class="podium-card hero-card">
-          <div class="podium-glow-ring"></div>
-          <div class="podium-img-wrap">
-            <img [src]="sponsors[0].src" [alt]="sponsors[0].alt" loading="lazy">
-          </div>
-          <div class="podium-tier-badge oro">
-            <lucide-angular [img]="icons.Trophy" class="w-3 h-3"></lucide-angular>
-            Oro
-          </div>
-        </div>
-        <div class="podium-base base-oro">
-          <span class="base-label">Oro</span>
-        </div>
-      </div>
-
-      <!-- Cuarzo Right -->
-      <div class="podium-slot podium-right" (click)="openLightbox(2)">
-        <div class="podium-card">
-          <div class="podium-img-wrap">
-            <img [src]="sponsors[2].src" [alt]="sponsors[2].alt" loading="lazy">
-          </div>
-          <div class="podium-tier-badge cuarzo">
-            <lucide-angular [img]="icons.Trophy" class="w-3 h-3"></lucide-angular>
-            Cuarzo
-          </div>
-        </div>
-        <div class="podium-base base-cuarzo">
-          <span class="base-label">Cuarzo</span>
-        </div>
-      </div>
-
+    <!-- Sponsors Grid -->
+    <div class="sponsors-grid" data-aos="zoom-in" data-aos-delay="200">
+      <button
+        *ngFor="let sp of sponsors; let i = index"
+        class="sponsor-card"
+        [class.tier-oro]="sp.tier === 'oro'"
+        [class.tier-cuarzo]="sp.tier === 'cuarzo'"
+        (click)="openLightbox(i)">
+        <img [src]="sp.src" [alt]="sp.alt" loading="lazy">
+        <span class="sponsor-badge" [class.oro]="sp.tier === 'oro'" [class.cuarzo]="sp.tier === 'cuarzo'">
+          <lucide-angular [img]="icons.Trophy" class="w-3 h-3"></lucide-angular>
+          {{ sp.label }}
+        </span>
+      </button>
     </div>
 
   </div>
@@ -81,7 +43,6 @@
     </button>
     <button
       class="plb-prev"
-      *ngIf="sponsors.length > 1"
       (click)="prevImage(); $event.stopPropagation()">
       <lucide-angular [img]="icons.ChevronLeft" class="w-6 h-6"></lucide-angular>
     </button>
@@ -92,7 +53,6 @@
       class="plb-img">
     <button
       class="plb-next"
-      *ngIf="sponsors.length > 1"
       (click)="nextImage(); $event.stopPropagation()">
       <lucide-angular [img]="icons.ChevronRight" class="w-6 h-6"></lucide-angular>
     </button>
