@@ -49,16 +49,22 @@ export class OrganizingCommitteeComponent {
         'assets/Organizadores del evento estudiantes/Presidenta Angela Ramos.JPG',
     },
     {
+      role: 'Vicepresidente y Secretario',
+      name: 'Camilo Pedraza',
+      image:
+        'assets/Organizadores del evento estudiantes/Camilo Pedraza. Vicepresidente y Secretario.jpg',
+    },
+    {
       role: 'Representante de Ingeniería Geológica',
       name: 'Julián Robles',
       image:
         'assets/Organizadores del evento estudiantes/Representante de Ingeniería Geológica Julián Robles.JPG',
     },
     {
-      role: 'Vicepresidente y Secretario',
-      name: 'Camilo Pedraza',
+      role: 'Coordinador de Innovación y Transformación Digital',
+      name: 'Anderson Eduardo Ramirez',
       image:
-        'assets/Organizadores del evento estudiantes/Camilo Pedraza. Vicepresidente y Secretario.jpg',
+        'assets/Organizadores del evento estudiantes/Coordinador de Innovación y Transformación Digital - Anderson Eduardo Ramirez.jpg',
     },
     {
       role: 'Líder Comité Comunicaciones',
@@ -118,6 +124,10 @@ export class OrganizingCommitteeComponent {
     {
       name: 'Sociedad Colombiana de Geotecnia',
       logo: 'assets/INSTITUCIONES QUE LIDERAN/sociedadColombianaDeGeotecnia.png',
+    },
+    {
+      name: 'Alcaldía de Sogamoso',
+      logo: 'assets/INSTITUCIONES QUE LIDERAN/AlcaldiaDeSogamoso.png',
     },
   ];
 }

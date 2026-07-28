@@ -61,5 +61,13 @@ export class SponsorsComponent {
       name: 'PetroShale',
       logo: 'assets/INSTITUCIONES ALIADAS/PetroShale.png',
     },
+    {
+      name: 'Neoil Energy',
+      logo: 'assets/INSTITUCIONES ALIADAS/NeoilEnergy.png',
+    },
+    {
+      name: 'Collective Mining',
+      logo: 'assets/INSTITUCIONES ALIADAS/CollectiveMining.png',
+    },
   ];
 }
