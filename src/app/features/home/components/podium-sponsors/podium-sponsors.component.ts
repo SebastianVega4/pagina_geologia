@@ -13,6 +13,7 @@ interface PodiumSponsor {
 const ORO_SPONSORS: PodiumSponsor[] = [
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO.jpg', alt: 'Patrocinador Oro', tier: 'oro', label: 'Oro' },
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO1.jpg', alt: 'Patrocinador Oro 1', tier: 'oro', label: 'Oro' },
+  { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO2.jpg', alt: 'Patrocinador Oro 2', tier: 'oro', label: 'Oro' },
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO3.jpg', alt: 'Patrocinador Oro 3', tier: 'oro', label: 'Oro' },
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO4.jpg', alt: 'Patrocinador Oro 4', tier: 'oro', label: 'Oro' },
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO5.webp', alt: 'Patrocinador Oro 5', tier: 'oro', label: 'Oro' },
