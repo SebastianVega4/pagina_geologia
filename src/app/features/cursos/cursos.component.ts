@@ -133,14 +133,18 @@ const SALIDAS_RAW: SalidaRaw[] = [
     titulo: 'Borde Llanero', instructor: 'Jorge Mariño', fecha: '22–23 Ago', cupos: 28,
     precios: { est: '330K', egr: '380K', prof: '430K' },
     form: 'https://docs.google.com/forms/d/e/1FAIpQLSd1sSbdaVv_CQYcxoes3mGe4OQ7kwtNHTGF6-1oZZz0VQV6FQ/viewform' },
-  { id: 's5', titulo: 'Floresta', instructor: 'Por confirmar', fecha: '18 Ago (tentativo)', cupos: 23, placeholder: true, cancelado: true,
+  /* s5 (Floresta) se canceló: 1-ago-2026.
+  { id: 's5', titulo: 'Floresta', instructor: 'Por confirmar', fecha: '18 Ago (tentativo)', cupos: 23, placeholder: true,
     precios: { est: '100K', egr: '150K', prof: '170K' } },
+  */
   { id: 's6', folder: 'VILLA DE LEYVA', imgs: 2,
     titulo: 'Estratigrafía Arcabuco – Villa de Leyva – Tunja', instructor: 'Pedro Calixto Roberto Patarroyo Gama', fecha: '22–23 Ago', cupos: 18,
     precios: { est: '330K', egr: '380K', prof: '430K' },
     form: 'https://docs.google.com/forms/d/e/1FAIpQLSdW6QmR_KxVldXf9f1KQlG9tTSnsDVT6Uh3KckGJ7WNdFqDuA/viewform' },
-  { id: 's7', titulo: 'Siderúrgica Paz de Río (tren)', instructor: 'Acerías Paz de Río', fecha: '18 Ago (tentativo, aún por confirmar)', cupos: 28, placeholder: true, retirada: true,
+  /* s7 (Siderúrgica Paz de Río · tren) se retiró: 1-ago-2026.
+  { id: 's7', titulo: 'Siderúrgica Paz de Río (tren)', instructor: 'Acerías Paz de Río', fecha: '18 Ago (tentativo, aún por confirmar)', cupos: 28, placeholder: true,
     precios: { est: '100K', egr: '150K', prof: '170K' } },
+  */
 ];
 
 const CHARLAS_MAG_RAW: CharlaRaw[] = [
