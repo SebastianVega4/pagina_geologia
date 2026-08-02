@@ -5,7 +5,6 @@
 @layer base {
   body {
     @apply bg-brand-light text-brand-primary font-sans transition-colors duration-300;
-    scroll-behavior: smooth;
   }
   
   .dark body {
