@@ -14,6 +14,7 @@ import { MapComponent } from '../components/map/map.component';
 import { ServicePortfolioComponent } from '../components/service-portfolio/service-portfolio.component';
 import { PodiumSponsorsComponent } from '../components/podium-sponsors/podium-sponsors.component';
 import { DestinoComponent } from '../components/destino/destino.component';
+import { ComboPangeaComponent } from '../components/combo-pangea/combo-pangea.component';
 
 @Component({
   selector: 'app-home',
@@ -33,7 +34,8 @@ import { DestinoComponent } from '../components/destino/destino.component';
     MapComponent,
     ServicePortfolioComponent,
     PodiumSponsorsComponent,
-    DestinoComponent
+    DestinoComponent,
+    ComboPangeaComponent
   ],
 
   templateUrl: './home.component.html',
