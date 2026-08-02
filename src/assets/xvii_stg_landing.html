@@ -494,6 +494,7 @@ hr.geo { border:none; height:1px; background:linear-gradient(90deg,transparent,r
     <li><a href="#programa">Programa</a></li>
     <li><a href="#tarifas">Tarifas</a></li>
     <li><a href="../FLYERS CURSOS-SALIDAS-CHARLAS/CURSOS-SALIDAS-CHARLAS.html">Cursos y salidas</a></li>
+    <li><a href="#combo-pangea">Combo grupo</a></li>
     <li><a href="#destino">Sede y destino</a></li>
     <li><a href="#patrocina">Patrocina</a></li>
     <li><a href="#inscripcion" class="nav-cta">Inscríbete</a></li>
@@ -891,6 +892,126 @@ hr.geo { border:none; height:1px; background:linear-gradient(90deg,transparent,r
     <h2 class="section-title">No es el congreso.<br><em>Es la certificación.</em></h2>
     <p class="cursos-teaser-note">11 cursos cortos y 7 salidas de campo con cupo limitado, certificado con horas académicas y tarifa diferencial por categoría. No necesitas inscribirte al evento magistral para tomarlos — son actividades independientes, sin acceso a souvenirs ni beneficios del congreso. Cada actividad tiene su propio formulario y su cupo.</p>
     <a href="../FLYERS CURSOS-SALIDAS-CHARLAS/CURSOS-SALIDAS-CHARLAS.html" class="btn-primary" style="margin-top:1.8rem;display:inline-block">Ver cursos, salidas y charlas →</a>
+    <p style="margin-top:1.4rem;font-size:0.85rem;color:var(--muted)">¿Van varios? En grupo de 5 sale hasta un 54% más barato — <a href="#combo-pangea" style="color:var(--gold);text-decoration:none;font-weight:600">mira el Combo Pangea ↓</a></p>
+  </div>
+</section>
+
+<!-- ══ COMBO PANGEA (promoción de grupo · cursos y salidas) ══ -->
+<style>
+  .combo-section { background:linear-gradient(180deg,var(--night),var(--deep)); border-top:1px solid rgba(245,158,11,0.18); border-bottom:1px solid rgba(245,158,11,0.18); padding:6rem 0; }
+  .combo-inner { max-width:1080px; margin:0 auto; padding:0 1.5rem; }
+  .combo-variants { display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:1.5rem; margin-top:2.6rem; }
+  .combo-card { position:relative; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:16px; padding:2rem 1.8rem; }
+  .combo-card.featured { border-color:var(--gold); box-shadow:0 0 0 1px var(--gold), 0 20px 45px -30px rgba(245,158,11,0.6); }
+  .combo-badge { display:inline-block; font-family:var(--ff-mono,monospace); font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--night); background:var(--teal); padding:0.28rem 0.7rem; border-radius:99px; margin-bottom:1rem; }
+  .combo-card.featured .combo-badge { background:var(--gold); }
+  .combo-card h3 { font-family:var(--ff-display,serif); font-size:1.25rem; color:var(--white); margin-bottom:0.4rem; }
+  .combo-card .combo-who { font-size:0.78rem; color:var(--teal-lt); margin-bottom:1.2rem; }
+  .combo-card .combo-line { font-family:var(--ff-display,serif); font-size:1.6rem; font-weight:700; color:var(--gold-lt); line-height:1.15; margin-bottom:0.8rem; }
+  .combo-card .combo-desc { font-size:0.85rem; color:var(--muted); line-height:1.7; }
+  .combo-table-wrap { overflow-x:auto; margin-top:2.8rem; border:1px solid var(--border); border-radius:14px; }
+  table.combo-table { width:100%; border-collapse:collapse; min-width:560px; }
+  .combo-table th, .combo-table td { padding:0.85rem 1rem; text-align:left; border-bottom:1px solid rgba(26,92,130,0.5); font-size:0.85rem; }
+  .combo-table thead th { background:rgba(255,255,255,0.04); color:var(--white); font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; }
+  .combo-table tbody tr:last-child td { border-bottom:0; }
+  .combo-table .lvl { color:var(--teal); font-weight:700; white-space:nowrap; }
+  .combo-table .acts { color:var(--muted); font-size:0.78rem; line-height:1.5; }
+  .combo-table .pa { color:var(--white); font-weight:600; white-space:nowrap; }
+  .combo-table .pb { color:var(--gold-lt); font-weight:700; white-space:nowrap; }
+  .combo-table-note { font-size:0.75rem; color:var(--muted); margin-top:1rem; line-height:1.6; }
+  .combo-steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:1.2rem; margin-top:2.8rem; }
+  .combo-step { background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:12px; padding:1.4rem; }
+  .combo-step .combo-step-n { font-family:var(--ff-display,serif); font-size:1.6rem; font-weight:700; color:var(--gold); line-height:1; }
+  .combo-step p { font-size:0.82rem; color:var(--muted); line-height:1.6; margin-top:0.6rem; }
+  .combo-cta { text-align:center; margin-top:3rem; }
+  .combo-cta .combo-scarcity { font-size:0.8rem; color:var(--teal-lt); margin-bottom:1.2rem; }
+  .combo-cta .btn-primary { display:inline-block; }
+  .combo-cta .combo-secondary { display:block; margin-top:1.1rem; font-size:0.82rem; color:var(--muted); text-decoration:none; }
+  .combo-cta .combo-secondary:hover { color:var(--teal); }
+</style>
+<section class="combo-section" id="combo-pangea">
+  <div class="combo-inner">
+    <div class="section-header fade-up">
+      <div class="section-tag">Promoción de grupo · Combo Pangea</div>
+      <h2 class="section-title">Certifícate en grupo.<br><em>Vengan 5, paguen menos.</em></h2>
+      <p class="section-subtitle">Reúne un grupo de <strong>5 personas</strong>, elijan cursos o salidas del <strong>mismo nivel de precio</strong> (no tiene que ser la misma actividad) y páguenlo con <strong>un solo pago</strong>. Según quién arme el grupo, así es el descuento:</p>
+    </div>
+
+    <div class="combo-variants">
+      <div class="combo-card fade-up">
+        <span class="combo-badge">Variante A</span>
+        <h3>Grupo mixto o con profesionales</h3>
+        <div class="combo-who">Para grupos de colegas</div>
+        <div class="combo-line">Los 5 pagan tarifa estudiante</div>
+        <p class="combo-desc">Si en el grupo hay <strong>al menos un egresado, posgrado o profesional</strong>, las cinco personas pagan el precio de estudiante — sin importar su categoría. Un profesional puede ahorrar hasta un <strong>54%</strong>.</p>
+      </div>
+      <div class="combo-card featured fade-up" style="transition-delay:0.1s">
+        <span class="combo-badge">Variante B · la más pedida</span>
+        <h3>5 estudiantes de pregrado</h3>
+        <div class="combo-who">Para el parche de siempre</div>
+        <div class="combo-line">5 cupos, pagan 4</div>
+        <p class="combo-desc">Si los <strong>cinco son estudiantes de pregrado</strong>, el grupo recibe un <strong>20% sobre el total</strong> — que equivale a que <strong>uno de los cinco entra gratis</strong>.</p>
+      </div>
+    </div>
+
+    <div class="combo-table-wrap fade-up">
+      <table class="combo-table">
+        <thead>
+          <tr>
+            <th>Nivel</th>
+            <th>Actividades</th>
+            <th>Grupo mixto (A)</th>
+            <th>5 estudiantes (B)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="lvl">70K</td>
+            <td class="acts">Pilotes post-grouting · Visión Artificial y Deep Learning · Salida a Paipa</td>
+            <td class="pa">$350.000</td>
+            <td class="pb">$280.000</td>
+          </tr>
+          <tr>
+            <td class="lvl">100K</td>
+            <td class="acts">Isótopos radiogénicos · Termobarometría · Sísmicos 3D · Geocronología · Foraminíferos · Petrografía ASTM</td>
+            <td class="pa">$500.000</td>
+            <td class="pb">$400.000</td>
+          </tr>
+          <tr>
+            <td class="lvl">120K</td>
+            <td class="acts">Principios de exploración geológica en yacimientos</td>
+            <td class="pa">$600.000</td>
+            <td class="pb">$480.000</td>
+          </tr>
+          <tr>
+            <td class="lvl">170K</td>
+            <td class="acts">Energy Transition · Condicionantes de la fracturación (Rossello)</td>
+            <td class="pa">$850.000</td>
+            <td class="pb">$680.000</td>
+          </tr>
+          <tr>
+            <td class="lvl">330K</td>
+            <td class="acts">Salida Paz de Río–Capitanejo · Salida Borde Llanero</td>
+            <td class="pa">$1.650.000</td>
+            <td class="pb">$1.320.000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="combo-table-note">Precios por el grupo de 5. Cada persona elige su actividad dentro del mismo nivel. La salida al Nevado del Cocuy no entra en el combo. Cupos limitados por actividad (de 14 a 30 según el curso) y fechas fijas de agosto.</p>
+
+    <div class="combo-steps">
+      <div class="combo-step fade-up"><div class="combo-step-n">1</div><p>Arma tu grupo de 5 y elijan actividades del mismo nivel de precio.</p></div>
+      <div class="combo-step fade-up" style="transition-delay:0.05s"><div class="combo-step-n">2</div><p>Hagan un solo pago por el total del grupo.</p></div>
+      <div class="combo-step fade-up" style="transition-delay:0.1s"><div class="combo-step-n">3</div><p>El capitán registra al grupo y sube el comprobante en el formulario.</p></div>
+      <div class="combo-step fade-up" style="transition-delay:0.15s"><div class="combo-step-n">4</div><p>El equipo verifica el pago y confirma los cupos del grupo.</p></div>
+    </div>
+
+    <div class="combo-cta fade-up">
+      <p class="combo-scarcity">Cupos limitados por actividad y fechas fijas de agosto. Los primeros grupos en organizarse aseguran su lugar.</p>
+      <a href="https://forms.gle/WN7zaQXbG5TpjvAJA" target="_blank" rel="noopener" class="btn-primary">Registrar mi grupo de 5 →</a>
+      <a href="../FLYERS CURSOS-SALIDAS-CHARLAS/CURSOS-SALIDAS-CHARLAS.html" class="combo-secondary">Ver todos los cursos y salidas antes de decidir</a>
+    </div>
   </div>
 </section>
 

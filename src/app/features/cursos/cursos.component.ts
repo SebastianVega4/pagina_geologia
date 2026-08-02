@@ -18,12 +18,15 @@ interface CursoRaw {
   cupos: number | null; tier: 'A' | 'B' | 'ANCLA';
   precios?: { est: string; egr: string; prof: string };
   form?: string;
+  agotado?: boolean;
+  cancelado?: boolean;
 }
 
 interface SalidaRaw {
   id: string; folder?: string; imgs?: number;
   titulo: string; instructor: string; fecha: string; cupos: number;
-  casiAgotado?: boolean; placeholder?: boolean;
+  casiAgotado?: boolean; agotado?: boolean; placeholder?: boolean;
+  cancelado?: boolean; retirada?: boolean;
   precios: { est: string; egr: string; prof: string };
   form?: string;
 }
@@ -44,7 +47,7 @@ interface DeckItem {
   cupos: number | null; badge: string | null; waitlist: boolean;
   prices: [string, string][] | null;
   note: string;
-  cta: { href: string; label: string; ghost: boolean };
+  cta: { href: string; label: string; ghost: boolean } | null;
   kindLabel?: string;
 }
 
@@ -77,13 +80,13 @@ const TIERS: Record<'A' | 'B' | 'ANCLA', Tier> = {
 
 const CURSOS_RAW: CursoRaw[] = [
   { id: 'c1', folder: 'Isótopos radiogénicos en paleoceanografía aplicaciones al estudio de la circulación oceánica y el cambio climático', imgs: 3,
-    titulo: 'Isótopos radiogénicos en paleoceanografía', instructor: 'Paloma Olarte', fecha: '22 Ago', duracion: '9 hr · 8 AM–5 PM', cupos: 25, tier: 'A',
+    titulo: 'Isótopos radiogénicos en paleoceanografía', instructor: 'Paloma Olarte', fecha: '22 Ago', duracion: '9 hr · 8 AM–5 PM', cupos: 25, tier: 'A', cancelado: true,
     form: 'https://docs.google.com/forms/d/e/1FAIpQLSehNeRjj3HyW8y5rmf6s5njJrCEJAkO8M-_pfBTd0oJIobXAg/viewform' },
   { id: 'c2', folder: 'Introducción a la termobarometría', imgs: 3,
-    titulo: 'Introducción a la termobarometría', instructor: 'Astrid Siachoque Velandia', fecha: '18 Ago', duracion: '8 hr · 8 AM–4 PM', cupos: 18, tier: 'A',
+    titulo: 'Introducción a la termobarometría', instructor: 'Astrid Siachoque Velandia', fecha: '18 Ago', duracion: '8 hr · 8 AM–4 PM', cupos: 18, tier: 'A', cancelado: true,
     form: 'https://docs.google.com/forms/d/e/1FAIpQLSe9-9SQln1TgICk38Js7y_-r-wY77qum5B4EGm0SwllPZdZSw/viewform' },
   { id: 'c3', folder: 'Diseño de levantamientos sísmicos 3D', imgs: 3,
-    titulo: 'Diseño de levantamientos sísmicos 3D', instructor: 'Jaime Checa', fecha: '22 Ago', duracion: '4–6 hr · 9 AM–4 PM', cupos: 20, tier: 'A',
+    titulo: 'Diseño de levantamientos sísmicos 3D', instructor: 'Jaime Checa', fecha: '18 Ago (mar)', duracion: '4–6 hr · 9 AM–4 PM', cupos: 20, tier: 'A',
     form: 'https://docs.google.com/forms/d/e/1FAIpQLScWjMMXThNnFRMln4t3JlIT3U1SQ7ozI-hTzamqfF1VzyXiSg/viewform' },
   { id: 'c4', folder: 'Geosciences and the Energy Transition Challenge', imgs: 3,
     titulo: 'Geosciences and the Energy Transition Challenge', instructor: 'Eilard Hoogerduijn Strating', fecha: '17–18 Ago', duracion: '16 hr · 8 AM–6 PM', cupos: 25, tier: 'ANCLA',
@@ -92,29 +95,29 @@ const CURSOS_RAW: CursoRaw[] = [
     titulo: 'Pilotes con inyección de lechada (post grouting)', instructor: 'Danny José Useche Infante', fecha: '17 Ago', duracion: '4 hr · 8 AM–12 M', cupos: 20, tier: 'B',
     form: 'https://docs.google.com/forms/d/e/1FAIpQLSfNH9gZt1rnuHftr0aXC0thd99b4IAY8ZZ5XHF0sSGGzbtxng/viewform' },
   { id: 'c6', folder: 'Visión Artificial y Deep Learning para la Gestión del Riesgo Automatización de la Cartografía de Deslizamientos en la Cordillera Oriental', imgs: 3,
-    titulo: 'Visión Artificial y Deep Learning para la Gestión del Riesgo', instructor: 'Ernesto Gutiérrez — Semillero GIS & GR', fecha: '18 Ago', duracion: '4 hr · 8 AM–12 M', cupos: 30, tier: 'B',
+    titulo: 'Visión Artificial y Deep Learning para la Gestión del Riesgo', instructor: 'Ernesto Gutiérrez — Semillero GIS & GR', fecha: '22 Ago (sáb)', duracion: '4 hr · 8 AM–12 M', cupos: 30, tier: 'B',
     form: 'https://docs.google.com/forms/d/e/1FAIpQLSffvtJs1TiQ10g9tVsnpEDDQXJhPCwsckMr2AXjmHkAncCzsQ/viewform' },
   { id: 'c7', folder: 'Introducción a la Geocronología y Termocronología Aplicada', imgs: 3,
     titulo: 'Introducción a la Geocronología y Termocronología Aplicada', instructor: 'Mauricio Bermúdez y Carolina Sandoval', fecha: '22 Ago', duracion: '6 hr · 9 AM–5 PM', cupos: 14, tier: 'A',
     form: 'https://docs.google.com/forms/d/e/1FAIpQLSeH63Ax6RICob3xbRX948E73VAZtoJsJ5qAGu8mBF1vesJPwg/viewform' },
   { id: 'c8', folder: 'Aplicaciones de los foraminíferos en ambientes recientes y pasados', imgs: 3,
-    titulo: 'Aplicaciones de los foraminíferos en ambientes recientes y pasados', instructor: 'Germán David Patarroyo Camargo', fecha: '16 Ago', duracion: '7 hr · 9 AM–4 PM', cupos: 17, tier: 'A',
+    titulo: 'Aplicaciones de los foraminíferos en ambientes recientes y pasados', instructor: 'Germán David Patarroyo Camargo', fecha: '17 Ago (lun)', duracion: '7 hr · 9 AM–4 PM', cupos: 17, tier: 'A',
     form: 'https://docs.google.com/forms/d/e/1FAIpQLSfs8IZ3v7gWl9485CJH9zFck-rUNhn_cAf805lNYYVUAzDxSw/viewform' },
   { id: 'c9', folder: 'Petrografía Aplicada a la Construcción Alcances, Aplicaciones y Fundamentos de la Inspección Petrográfica bajo ASTM C295-19 y ASTM C856-25', imgs: 3,
-    titulo: 'Petrografía Aplicada a la Construcción (ASTM C295/C856)', instructor: 'Julián Esteban Hernández Roca', fecha: '17 Ago', duracion: '8 hr · 8 AM–6 PM', cupos: 17, tier: 'A',
+    titulo: 'Petrografía Aplicada a la Construcción (ASTM C295/C856)', instructor: 'Julián Esteban Hernández Roca', fecha: '18 Ago (mar)', duracion: '8 hr · 8 AM–6 PM', cupos: 17, tier: 'A',
     form: 'https://docs.google.com/forms/d/e/1FAIpQLSfwE39muZW2iGZo0PUMzTrev9yJzxJI7psGOWzjfaTRPAE9nQ/viewform' },
   { id: 'c10', folder: 'Condicionantes físicos de la fracturación de macizos rocosos que actúan como reservorios de fluidos energéticos', imgs: 3,
     titulo: 'Condicionantes físicos de la fracturación de macizos rocosos', instructor: 'Eduardo Rossello — Universidad de Buenos Aires', fecha: '17 Ago', duracion: '8 hr · 8 AM–6 PM', cupos: 30, tier: 'ANCLA',
     form: 'https://docs.google.com/forms/d/e/1FAIpQLSf5btwUkotGgJUEhtMKIaj_Bz0y5p8jWGRVZswR7fuBHv2RuA/viewform' },
   { id: 'c11', folder: 'Principios de exploración geológica en yacimientos en Colombia y bases del modelamiento geológico', imgs: 2,
-    titulo: 'Principios de exploración geológica en yacimientos en Colombia', instructor: 'Geo Consultores SFM S.A.S.', fecha: '17–18 Ago', duracion: '16 hr · teórica + práctica en campo', cupos: null, tier: 'A',
+    titulo: 'Principios de exploración geológica en yacimientos en Colombia', instructor: 'Geo Consultores SFM S.A.S.', fecha: '17–18 Ago', duracion: '16 hr · teórica + práctica en campo', cupos: null, tier: 'A', agotado: true,
     precios: { est: '120K', egr: '150K', prof: '170K' },
     form: 'https://docs.google.com/forms/d/e/1FAIpQLSc3J9oWu72jck3weSDETqygHHjtCk59OL4bUFe-R8eQtEp3yA/viewform' },
 ];
 
 const SALIDAS_RAW: SalidaRaw[] = [
   { id: 's1', folder: 'Nevado del Cocuy - Güican', imgs: 2,
-    titulo: 'Nevado del Cocuy – Güicán', instructor: 'Ing. Ernesto Gutiérrez', fecha: '15–16–17 Ago', cupos: 25, casiAgotado: true,
+    titulo: 'Nevado del Cocuy – Güicán', instructor: 'Ing. Ernesto Gutiérrez', fecha: '16–17–18 Ago', cupos: 25, agotado: true,
     precios: { est: '400K', egr: '450K', prof: '500K' },
     form: 'https://docs.google.com/forms/d/e/1FAIpQLSf3eWKnC37X720WseIqyJn27TO3under-ejZ_VmblWttxACAQ/viewform' },
   { id: 's2', folder: 'Estilos estructurales en la zona axial de la Cordillera Oriental de Colombia', imgs: 2,
@@ -129,11 +132,13 @@ const SALIDAS_RAW: SalidaRaw[] = [
     titulo: 'Borde Llanero', instructor: 'Jorge Mariño', fecha: '22–23 Ago', cupos: 28,
     precios: { est: '330K', egr: '380K', prof: '430K' },
     form: 'https://docs.google.com/forms/d/e/1FAIpQLSd1sSbdaVv_CQYcxoes3mGe4OQ7kwtNHTGF6-1oZZz0VQV6FQ/viewform' },
-  { id: 's5', titulo: 'Floresta', instructor: 'Por confirmar', fecha: '18 Ago (tentativo)', cupos: 23, placeholder: true,
+  { id: 's5', titulo: 'Floresta', instructor: 'Por confirmar', fecha: '18 Ago (tentativo)', cupos: 23, placeholder: true, cancelado: true,
     precios: { est: '100K', egr: '150K', prof: '170K' } },
-  { id: 's6', titulo: 'Villa de Leyva', instructor: 'Por confirmar', fecha: '17 Ago (tentativo)', cupos: 23, placeholder: true,
-    precios: { est: '100K', egr: '150K', prof: '170K' } },
-  { id: 's7', titulo: 'Siderúrgica Paz de Río (tren)', instructor: 'Acerías Paz de Río', fecha: '18 Ago (tentativo, aún por confirmar)', cupos: 28, placeholder: true,
+  { id: 's6', folder: 'VILLA DE LEYVA', imgs: 2,
+    titulo: 'Estratigrafía Arcabuco – Villa de Leyva – Tunja', instructor: 'Pedro Calixto Roberto Patarroyo Gama', fecha: '22–23 Ago', cupos: 18,
+    precios: { est: '330K', egr: '380K', prof: '430K' },
+    form: 'https://docs.google.com/forms/d/e/1FAIpQLSdW6QmR_KxVldXf9f1KQlG9tTSnsDVT6Uh3KckGJ7WNdFqDuA/viewform' },
+  { id: 's7', titulo: 'Siderúrgica Paz de Río (tren)', instructor: 'Acerías Paz de Río', fecha: '18 Ago (tentativo, aún por confirmar)', cupos: 28, placeholder: true, retirada: true,
     precios: { est: '100K', egr: '150K', prof: '170K' } },
 ];
 
@@ -162,6 +167,13 @@ const ESPECIALES_RAW: CharlaRaw[] = [
 const PANELES_RAW: { kind: string; folder: string; titulo: string; instructor: string; fecha: string }[] = [
   { kind: 'panel', folder: 'Geología en Vivo Dos Expertos, Un Viaje al Corazón de la Tierra', titulo: 'Geología en Vivo: Dos Expertos, Un Viaje al Corazón de la Tierra', instructor: 'Italo Reyes y Manuel García', fecha: '20 Ago · Auditorio Cacique Suamox' },
 ];
+
+const SALON_CURSO: Record<string, string> = {
+  c3: 'Lab. Geomática', c4: 'Salón Rojo · Edif. Administrativo',
+  c5: 'Salón 1.er piso · Edif. AAA', c6: 'Lab. Geomática',
+  c8: 'Lab. Mineralogía', c9: 'Lab. Petrografía y Mineralogía',
+  c10: 'Lab. Geomática · Edif. Artes 2.º piso', c11: 'Salón 1.er piso · Edif. AAA'
+};
 
 @Component({
   selector: 'app-cursos',
@@ -199,27 +211,46 @@ export class CursosComponent implements AfterViewInit {
   ) {
     this.deckItems.cursos = CURSOS_RAW.map(c => {
       const p = c.precios || TIERS[c.tier];
+      const salon = SALON_CURSO[c.id];
+      const isCancelled = !!c.cancelado;
+      const isAgotado = !!c.agotado;
+      const extra = `${c.fecha} · ${c.duracion}${salon ? ' · ' + salon : ''}`;
       return {
         kind: 'curso' as const, folder: c.folder, imgs: c.imgs, titulo: c.titulo, sub: c.instructor,
-        extra: `${c.fecha} · ${c.duracion}`, cupos: c.cupos,
-        badge: c.tier === 'ANCLA' ? 'Insignia' : null, waitlist: false,
+        extra, cupos: (isCancelled || isAgotado) ? null : c.cupos,
+        badge: isCancelled ? 'Cancelado' : (isAgotado ? 'Cupos agotados' : (c.tier === 'ANCLA' ? 'Insignia' : null)),
+        waitlist: isAgotado,
         prices: [['Estudiante', p.est], ['Egresado', p.egr], ['Profesional', p.prof]] as [string, string][],
-        note: 'Cupo limitado · certificado con horas académicas',
-        cta: c.form
-          ? { href: c.form, label: 'Inscribirme →', ghost: false }
-          : { href: this.mailtoLink('Aviso ' + c.titulo), label: 'Quiero que me avisen →', ghost: true }
+        note: isCancelled ? 'Este curso fue cancelado.'
+          : (isAgotado ? 'Sin cupos disponibles: el curso se llenó.'
+                       : 'Cupo limitado · certificado con horas académicas'),
+        cta: (isCancelled || isAgotado) ? null as { href: string; label: string; ghost: boolean } | null
+          : (c.form
+            ? { href: c.form, label: 'Inscribirme →', ghost: false }
+            : { href: this.mailtoLink('Aviso ' + c.titulo), label: 'Quiero que me avisen →', ghost: true })
       };
     });
-    this.deckItems.salidas = SALIDAS_RAW.map(s => ({
-      kind: 'salida' as const, folder: s.folder || '', imgs: s.imgs || 0, titulo: s.titulo, sub: s.instructor,
-      extra: s.fecha, cupos: s.cupos,
-      badge: s.casiAgotado ? 'Casi agotado' : null, waitlist: !!s.casiAgotado,
-      prices: [['Estudiante', s.precios.est], ['Egresado', s.precios.egr], ['Profesional', s.precios.prof]] as [string, string][],
-      note: 'Cupo limitado · el detalle completo está en el flyer',
-      cta: s.form
-        ? { href: s.form, label: 'Inscribirme →', ghost: false }
-        : { href: this.mailtoLink('Interés salida ' + s.titulo, true), label: 'Preguntar por cupo →', ghost: true }
-    }));
+    this.deckItems.salidas = SALIDAS_RAW.map(s => {
+      const isCancelled = !!s.cancelado;
+      const isRetirada = !!s.retirada;
+      const isAgotado = !!s.agotado;
+      const removed = isCancelled || isRetirada;
+      return {
+        kind: 'salida' as const, folder: s.folder || '', imgs: s.imgs || 0, titulo: s.titulo, sub: s.instructor,
+        extra: s.fecha, cupos: (removed || isAgotado) ? null : s.cupos,
+        badge: isCancelled ? 'Cancelado' : (isRetirada ? 'Retirada' : (isAgotado ? 'Cupos agotados' : (s.casiAgotado ? 'Casi agotado' : null))),
+        waitlist: isAgotado || !!s.casiAgotado,
+        prices: [['Estudiante', s.precios.est], ['Egresado', s.precios.egr], ['Profesional', s.precios.prof]] as [string, string][],
+        note: isCancelled ? 'Esta salida fue cancelada.'
+          : (isRetirada ? 'Esta salida fue retirada de la programación.'
+            : (isAgotado ? 'Sin cupos disponibles: la salida se llenó.'
+                         : 'Cupo limitado · el detalle completo está en el flyer')),
+        cta: removed ? null as { href: string; label: string; ghost: boolean } | null
+          : (s.form
+            ? { href: s.form, label: 'Inscribirme →', ghost: false }
+            : { href: this.mailtoLink('Interés salida ' + s.titulo, true), label: 'Preguntar por cupo →', ghost: true })
+      };
+    });
     this.deckItems.charlas = CHARLAS_MAG_RAW.map(ch => ({
       kind: 'charla' as const, folder: ch.folder || '', imgs: ch.folder ? 1 : 0, titulo: ch.titulo,
       sub: ch.tbd ? 'Espacio institucional · por confirmar' : ch.instructor,
@@ -292,13 +323,16 @@ export class CursosComponent implements AfterViewInit {
     const prices = item.prices
       ? `<div class="hero-prices">${item.prices.map(([l, v]) => `<span>${l} <b>${v}</b> COP</span>`).join('')}</div>`
       : '';
+    const cta = item.cta
+      ? `<a class="hero-cta${item.cta.ghost ? ' ghost' : ''}" href="${item.cta.href}"${item.cta.href.startsWith('http') ? ' target="_blank" rel="noopener"' : ''} data-track-kind="${this.esc(item.kind)}" data-track-title="${this.esc(item.titulo)}">${item.cta.label}</a>`
+      : '';
     const html = `<div class="hero-kind">${kindLabel}</div>
     <div class="hero-title">${this.esc(item.titulo)}</div>
     <div class="hero-sub">${this.esc(item.sub)}</div>
     <div class="hero-extra">${this.esc(item.extra)}</div>
     ${prices}
     <div class="hero-note">${item.note}</div>
-    <a class="hero-cta${item.cta.ghost ? ' ghost' : ''}" href="${item.cta.href}"${item.cta.href.startsWith('http') ? ' target="_blank" rel="noopener"' : ''} data-track-kind="${this.esc(item.kind)}" data-track-title="${this.esc(item.titulo)}">${item.cta.label}</a>`;
+    ${cta}`;
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
