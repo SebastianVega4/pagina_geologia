@@ -136,7 +136,53 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
         .join('');
     };
 
-    const GC = '55px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr';
+    const ponBlk = (col: number | [number, number], dayId: string) => {
+      const day = DAYS.find((d: any) => d.id === dayId);
+      if (!day) return '';
+      const min = (t: string) => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
+      let n = 0, ini: string | null = null, fin: string | null = null;
+      const salas = new Set<string>(), durs = new Set<number>();
+      for (const row of (day.rows || [])) {
+        for (const [sala, lst] of Object.entries(row.cells || {})) {
+          if (!lst || !(lst as any[]).length) continue;
+          salas.add(sala);
+          for (const p of lst as any[]) {
+            if (!p) continue;
+            n++;
+            if (!p.time) continue;
+            const [a, b] = p.time.split('–');
+            if (ini === null || min(a) < min(ini)) ini = a;
+            if (fin === null || min(b) > min(fin)) fin = b;
+            durs.add(min(b) - min(a));
+          }
+        }
+      }
+      if (!n || !ini) return '';
+      const d = [...durs].sort((x, y) => y - x).join(' y ');
+      return blk(col, ini!, fin!, 'hb-pon', 'PONENCIAS', `${n} ponencias · ${salas.size} salas · ${d} min`);
+    };
+
+    const horaRefrigerio = (dayId: string, ordinal: string): string | null => {
+      const day = DAYS.find((d: any) => d.id === dayId);
+      if (!day) return null;
+      const esEse = (t: any) => /refrigerio/i.test(t || '') && new RegExp(ordinal, 'i').test(t || '');
+      for (const row of (day.rows || [])) {
+        if (row.type === 'info' && esEse(row.title)) return row.time as string;
+        for (const c of ((row.auditorio || {}).cms || [])) {
+          if (!c.code && esEse(c.title)) return c.time as string;
+        }
+      }
+      return null;
+    };
+
+    const brk = (col: number | [number, number], dayId: string, ordinal: string, label: string) => {
+      const t = horaRefrigerio(dayId, ordinal);
+      if (!t) return '';
+      const p = t.split(/[^\d:]+/);
+      return blk(col, p[0], p[1], 'hb-brk', 'BREAK', label);
+    };
+
+    const GC = '55px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr';
     const tls = [
       '8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30',
       '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30',
@@ -151,62 +197,74 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
 
     const mie = [
       blk([2, 2], '8:00', '9:00', 'hb-reg', 'REGISTRO', ''),
-      blk([2, 2], '9:00', '10:00', 'hb-ap', 'BIENVENIDA', 'Apertura del evento'),
-      cmBlks([2, 2], 'mie', ['CE-1', 'CE-2', 'CE-3']),
-      cmBlks(2, 'mie', ['CM-1', 'CM-2']),
-      blk(2, '10:40', '11:20', 'hb-brk', 'BREAK', 'Primer refrigerio'),
+      blk([2, 2], '9:00', '10:30', 'hb-ap', 'BIENVENIDA', 'Apertura del evento'),
+      cmBlks(2, 'mie', ['CM-3', 'CE-2', 'CE-3', 'CE-10', 'CE-11']),
+      cmBlks([2, 3], 'mie', ['CM-1', 'CM-2', 'CE-2', 'CE-3', 'CE-10', 'CE-11']),
+      blk(2, '14:00', '16:00', 'hb-cm hb-cm-esp', 'MINERÍA, INDUSTRIA E INNOVACIÓN', '4 charlas · toca para ver'),
+      blk(4, '9:00', '12:30', 'hb-retx', 'RETRANSMISIÓN AUDITORIO', 'Salones Pangea y Gondwana'),
+      blk(4, '14:00', '16:00', 'hb-pangea', 'SALÓN PANGEA', '4 charlas · toca para ver'),
+      brk(2, 'mie', 'primer', 'Primer refrigerio'),
       blk(3, '10:30', '12:30', 'hb-geo', 'GEOLIMPIADAS', ''),
-      blk([2, 8], '12:30', '14:00', 'hb-alm', 'ALMUERZO', ''),
-      blk(3, '14:00', '16:00', 'hb-pon', 'PONENCIAS', '35 ponencias · 6 salas · 20 min'),
-      blk([2, 2], '16:00', '16:30', 'hb-brk', 'BREAK', 'Segundo refrigerio'),
-      blk([2, 2], '17:10', '18:10', 'hb-pos', 'PÓSTERS', '58 pósters · 2 salones\nSalón A: Energía · CO₂/H₂ · Petrología · Mineralogía\nSalón B: Estructural · Geofísica · Sedimentología · Paleontología'),
-      blk([2, 2], '18:10', '19:00', 'hb-cie', 'TERMALES', '6:00 PM · máx. 7:00 PM'),
+      blk([2, 9], '12:30', '14:00', 'hb-alm', 'ALMUERZO', ''),
+      ponBlk(3, 'mie'),
+      brk([2, 3], 'mie', 'segundo', 'Segundo refrigerio'),
+      blk([2, 3], '17:10', '18:10', 'hb-pos', 'PÓSTERS', '60 pósters · 2 salones<br>Salón Pangea: Energía · CO₂/H₂ · Petrología · Mineralogía<br>Salón Gondwana: Estructural · Geofísica · Sedimentología · Paleontología'),
+      blk([2, 3], '18:10', '19:00', 'hb-cie', 'TERMALES', '6:00 PM · máx. 7:00 PM'),
     ].join('');
 
     const sgc = [
-      blk(6, '8:00', '12:30', 'hb-sgc', 'Salón 110 años', 'Servicio Geológico Colombiano'),
-      blk(6, '14:00', '19:00', 'hb-sgc', 'Salón 110 años', ''),
+      blk(7, '8:00', '12:30', 'hb-sgc', '110 años del servicio geológico', 'Salón Pangea'),
+      blk(7, '14:00', '19:00', 'hb-sgc', '110 años del servicio geológico', 'Salón Pangea'),
     ].join('');
 
     const acggp = [
-      blk(9, '8:00', '12:30', 'hb-sgc', 'ACGGP', '1 salón edificio de Artes<br>(mañana)'),
-      blk(9, '14:00', '16:10', 'hb-scg', 'SCG', 'Sociedad Colombiana<br>de Geotecnia<br>1 salón edificio de Artes'),
+      blk(10, '8:00', '12:30', 'hb-sgc', 'ACGGP', '1 salón edificio de Artes<br>(mañana)'),
     ].join('');
 
     const jue = [
-      cmBlks([4, 2], 'jue', ['CE-4', 'CE-5']),
-      cmBlks(4, 'jue', ['CM-3', 'CM-4', 'CE-6']),
-      blk(5, '8:10', '9:10', 'hb-pon', 'PONENCIAS', '18 ponencias · 6 salas · 20 min'),
-      blk([4, 2], '10:30', '11:00', 'hb-brk', 'BREAK', 'Tercer refrigerio'),
-      blk([4, 2], '11:00', '12:30', 'hb-pan', 'PANEL — GESTIÓN DEL RIESGO', 'Panel de discusión'),
-      blk([4, 2], '14:00', '15:00', 'hb-pan', 'GEOLOGÍA EN VIVO', 'Dos Expertos, Un Viaje al Corazón de la Tierra'),
-      blk([4, 2], '15:00', '15:30', 'hb-brk', 'BREAK', 'Cuarto refrigerio'),
-      blk([4, 2], '17:10', '18:20', 'hb-pos', 'PÓSTERS', '28 pósters · 1 salón<br>Hidrogeología · Geoeducación · Geotecnia'),
-      blk([4, 2], '18:30', '20:00', 'hb-cie', 'CANELAZO', '6:30 – 8:00 PM'),
+      cmBlks([5, 2], 'jue', ['CE-4', 'CE-5']),
+      cmBlks(5, 'jue', ['CM-4', 'CM-5', 'CE-6']),
+      ponBlk(6, 'jue'),
+      brk([5, 2], 'jue', 'tercer', 'Tercer refrigerio'),
+      blk([5, 2], '11:00', '12:30', 'hb-pan', 'GEOLOGÍA EN VIVO', 'Dos Expertos, Un Viaje al Corazón de la Tierra'),
+      blk([5, 2], '14:00', '15:00', 'hb-pan', 'PANEL — GESTIÓN DEL RIESGO', 'Panel de discusión'),
+      brk([5, 2], 'jue', 'cuarto', 'Cuarto refrigerio'),
+      blk([5, 2], '17:10', '18:20', 'hb-pos', 'PÓSTERS', '31 pósters · Salón Gondwana<br>Hidrogeología · Geoeducación · Geotecnia'),
+      blk([5, 2], '18:30', '20:00', 'hb-cie', 'CANELAZO', '6:30 – 8:00 PM'),
     ].join('');
 
     const vie = [
-      cmBlks([7, 2], 'vie', ['CE-7', 'CE-8']),
-      cmBlks(7, 'vie', ['CM-5', 'CM-6', 'CM-7', 'CE-9']),
-      blk(8, '8:10', '9:10', 'hb-pon', 'PONENCIAS', '18 ponencias · 6 salas · 20 min'),
-      blk([7, 2], '10:30', '11:00', 'hb-brk', 'BREAK', 'Quinto refrigerio'),
-      blk([7, 2], '11:00', '12:30', 'hb-pan', 'PANEL · ANH', 'Energías, territorio y decisiones'),
-      blk([7, 2], '16:10', '16:40', 'hb-brk', 'BREAK', 'Sexto refrigerio'),
-      blk([7, 2], '16:50', '19:00', 'hb-cie', 'EVENTO DE CIERRE', '4:50 PM'),
-      blk([7, 2], '20:00', '20:40', 'hb-cie', 'FIESTA FINAL', '8:00 PM →'),
+      cmBlks([8, 2], 'vie', ['CE-7', 'CE-8', 'SCG']),
+      cmBlks(8, 'vie', ['CM-6', 'CM-7', 'SCG']),
+      `<div class="hblk hb-scg" style="grid-column:8 / span 2;grid-row:${r('14:00')}/${r('16:20')};justify-content:center;align-items:center;text-align:center;padding:4px 8px;">
+        <div class="ht" style="width:100%;text-align:center;font-size:8px;opacity:.8;">${fmt('14:00')} – ${fmt('16:20')}</div>
+        <div class="hn" style="text-align:center;font-size:11px;">Jornada SCG</div>
+        <div class="hs" style="text-align:center;">Soc. Colombiana de Geotecnia · 11 charlas · toca para ver</div>
+      </div>`,
+      ponBlk(9, 'vie'),
+      brk([8, 2], 'vie', 'quinto', 'Quinto refrigerio'),
+      blk([8, 2], '11:00', '12:30', 'hb-pan', 'PANEL · ANH', 'Energías, territorio y decisiones'),
+      brk(10, 'vie', 'sexto', 'Sexto refrigerio'),
+      blk(10, '16:20', '19:00', 'hb-retx', 'RETRANSMISIÓN AUDITORIO', 'Salones Pangea y Gondwana'),
+      blk([8, 2], '17:00', '19:00', 'hb-cie', 'EVENTO DE CIERRE', '5:00 PM'),
+      `<div class="hblk hb-cie" style="grid-column:8 / span 2;grid-row:${r('19:00')}/${r('20:00')};justify-content:center;align-items:center;text-align:center;">
+        <div class="ht">8:00 PM →</div>
+        <div class="hn">FIESTA FINAL</div>
+      </div>`,
     ].join('');
 
-    const hdrMain = `<div style="display:grid;grid-template-columns:${GC};background:var(--night-2);border-bottom:2px solid var(--border);min-width:940px;">
+    const hdrMain = `<div style="display:grid;grid-template-columns:${GC};background:var(--night-2);border-bottom:2px solid var(--border);min-width:1050px;">
       <div class="hh">Hora</div>
-      <div class="hh" style="grid-column:2/span 2">Miércoles 19 Ago</div>
-      <div class="hh" style="grid-column:4/span 3">Jueves 20 Ago</div>
-      <div class="hh" style="grid-column:7/span 3">Viernes 21 Ago</div>
+      <div class="hh" style="grid-column:2/span 3">Miércoles 19 Ago</div>
+      <div class="hh" style="grid-column:5/span 3">Jueves 20 Ago</div>
+      <div class="hh" style="grid-column:8/span 3">Viernes 21 Ago</div>
     </div>`;
 
-    const hdrSub = `<div style="display:grid;grid-template-columns:${GC};background:var(--night-2);border-bottom:1px solid var(--border);min-width:940px;">
+    const hdrSub = `<div style="display:grid;grid-template-columns:${GC};background:var(--night-2);border-bottom:1px solid var(--border);min-width:1050px;">
       <div></div>
       <div class="hh hs-c">Charlas · Actividades</div>
       <div class="hh hs-p">Ponencias · Pósters</div>
+      <div class="hh hs-pangea">Salón Pangea</div>
       <div class="hh hs-c">Charlas · Actividades</div>
       <div class="hh hs-p">Ponencias · Pósters</div>
       <div class="hh hs-g">110 años · SGC</div>
@@ -217,7 +275,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
 
     return `<div style="overflow-x:auto;border:1px solid var(--border);border-radius:8px;">
       ${hdrMain}${hdrSub}
-      <div style="display:grid;grid-template-columns:${GC};grid-template-rows:repeat(760,2px);position:relative;min-width:940px;">
+      <div style="display:grid;grid-template-columns:${GC};grid-template-rows:repeat(760,2px);position:relative;min-width:1050px;">
         ${tlHtml}${mie}${sgc}${jue}${acggp}${vie}
       </div>
     </div>`;

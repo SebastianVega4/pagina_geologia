@@ -273,6 +273,10 @@
 .official-root .hb-cie { background: var(--c-soc); border: none; color: #fff; }
 .official-root .hb-pon { background: var(--c-pon); border: none; color: #fff; }
 .official-root .hb-scg { background: var(--c-inst); border: none; color: #fff; }
+.official-root .hb-pangea { background: #be123c; border: none; color: #fff; }
+.official-root .hb-retx { background: #475569; border: none; color: #fff; }
+
+.official-root .hh.hs-pangea { font-size: 7.5px; padding: 3px 5px; letter-spacing: 0; color: #be123c; opacity: .9; }
 
 .official-root .day-sections {
   display: flex;
