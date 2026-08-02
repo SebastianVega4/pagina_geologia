@@ -72,6 +72,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     });
 
     this.selectDay(0);
+    this.renderStats();
   }
 
   // ============================================================
@@ -311,27 +312,25 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
 
     // SGC Charlas list
     if (day.sgcCharlas && day.sgcCharlas.length) {
-      const groups: Record<string, any[]> = {};
-      day.sgcCharlas.forEach((ch: any) => {
-        const g = ch.direccion || 'Otras';
-        (groups[g] = groups[g] || []).push(ch);
+      const _sm2 = (t: string) => { const x = (t || '').match(/(\d{1,2}):(\d{2})/); return x ? (+x[1]) * 60 + (+x[2]) : 0; };
+      const parts = (t: string) => { const p = (t || '').split('–'); return { s: (p[0] || '').trim(), e: (p[1] || p[0] || '').trim(), sm: _sm2(p[0]), em: _sm2(p[1] || p[0]) }; };
+      const lista = day.sgcCharlas.slice().sort((a: any, b: any) => _sm2(a.time) - _sm2(b.time));
+      let html = '', buff: string[] = [], prevEnd: number | null = null, prevEndStr = '';
+      const flush = () => { if (buff.length) { html += '<div class="sgc-grid">' + buff.join('') + '</div>'; buff = []; } };
+      lista.forEach((ch: any) => {
+        const p = parts(ch.time);
+        if (prevEnd !== null && p.sm > prevEnd) {
+          flush();
+          const lbl = (p.sm - prevEnd) >= 60 ? 'Almuerzo' : 'Receso';
+          html += `<div class="sgc-break">${lbl} · ${this.escapeHtml(prevEndStr)}–${this.escapeHtml(p.s)}</div>`;
+        }
+        buff.push(`<div class="sgc-item"><div class="si-title">${ch.time ? `<b class="si-time">${this.escapeHtml(ch.time)}</b> ` : ''}${this.escapeHtml(ch.title)}</div><div class="si-exp">${this.escapeHtml(ch.expositor || 'Por confirmar')}</div>${ch.direccion ? `<div class="si-tags">${this.escapeHtml(ch.direccion)}</div>` : ''}</div>`);
+        prevEnd = p.em; prevEndStr = p.e;
       });
-      let html = '';
-      Object.keys(groups).forEach((g) => {
-        html += `<div class="sgc-group">${this.escapeHtml(g)} <span class="sgc-gn">(${groups[g].length})</span></div>`;
-        html +=
-          '<div class="sgc-grid">' +
-          groups[g]
-            .map(
-              (ch: any) =>
-                `<div class="sgc-item"><div class="si-title">${this.escapeHtml(ch.title)}</div><div class="si-exp">${this.escapeHtml(ch.expositor || 'Por confirmar')}</div>${ch.linea || ch.area ? `<div class="si-tags">${this.escapeHtml([ch.linea, ch.area].filter(Boolean).join(' · '))}</div>` : ''}</div>`,
-            )
-            .join('') +
-          '</div>';
-      });
+      flush();
       const box = this.renderer.createElement('div');
       this.renderer.addClass(box, 'sgc-list-box');
-      box.innerHTML = `<div class="pm-head">Programación del Salón 110 años (SGC) — ${day.sgcCharlas.length} charlas</div><details><summary>Ver listado de charlas</summary><div class="poster-list">${html}</div></details>`;
+      box.innerHTML = `<div class="pm-head">110 años del Servicio Geológico (SGC) · Salón Pangea — ${day.sgcCharlas.length} charlas</div><details><summary>Ver programación completa · 08:00–17:40</summary><div class="poster-list">${html}</div></details>`;
       this.renderer.appendChild(wrap, box);
     }
 
@@ -458,7 +457,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     );
     const g = this.renderer.createElement('div');
     this.renderer.addClass(g, 'dt-grid');
-    g.style.gridTemplateColumns = `58px 1fr repeat(${rooms.length}, minmax(0,1fr))`;
+    g.style.gridTemplateColumns = `58px 1fr repeat(${rooms.length}, minmax(0,1fr))${row.pangea ? ' minmax(0,1.35fr)' : ''}`;
 
     const place = (el: HTMLElement, col: string, rw: string) => {
       el.style.gridColumn = col;
@@ -526,6 +525,31 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
         }
         place(cell, `${3 + ci}`, String(i + 2));
       });
+    }
+
+    if (row.pangea) {
+      const pc = 3 + rooms.length;
+      const ph = this.renderer.createElement('div');
+      this.renderer.addClass(ph, 'pon-room');
+      this.renderer.addClass(ph, 'pangea-head');
+      ph.innerHTML = `<div class="pr-num">${this.escapeHtml(row.pangea.title || 'Salón Pangea')}</div><div class="pr-theme">${this.escapeHtml(row.pangea.sub || 'Charlas especiales')}</div>`;
+      place(ph, String(pc), '1');
+      const pcell = this.renderer.createElement('div');
+      this.renderer.addClass(pcell, 'dt-audcol');
+      (row.pangea.charlas || []).forEach((ch: any) => {
+        const s = this.renderer.createElement('div');
+        this.renderer.addClass(s, 'aud-cell');
+        this.renderer.addClass(s, 'pangea-cell');
+        this.renderer.addClass(s, 'clickable');
+        s.innerHTML = `<div class="ac-badge">Divulgación</div><div class="ac-time">${this.escapeHtml(ch.time || '')}</div><div class="ac-title">${this.escapeHtml(ch.title)}</div>`;
+        this.listeners.push(
+          this.renderer.listen(s, 'click', () => {
+            this.matomo.trackEvent('Event', 'schedule_pangea_click', ch.title?.slice(0, 80));
+          }),
+        );
+        this.renderer.appendChild(pcell, s);
+      });
+      place(pcell, String(pc), `2 / span ${maxSlots}`);
     }
 
     return g;
@@ -806,6 +830,39 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     const themeLabel = root.querySelector('#themeLabel');
     if (themeIcon) themeIcon.textContent = '☀️';
     if (themeLabel) themeLabel.textContent = 'Modo día';
+  }
+
+  // ============================================================
+  //  STATS
+  // ============================================================
+  private renderStats(): void {
+    const root = this.officialRoot.nativeElement;
+    const statsEl = root.querySelector('#stats');
+    if (!statsEl) return;
+
+    let pon = 0, pos = 0;
+    const cms = new Set<string>(), ces = new Set<string>();
+    for (const d of DAYS as any[]) {
+      for (const row of (d.rows || [])) {
+        for (const lst of Object.values(row.cells || {})) {
+          pon += ((lst as any[]) || []).filter(Boolean).length;
+        }
+        pos += (row.posterBatch || []).length;
+        for (const c of ((row.auditorio || {}).cms || [])) {
+          if (!c.code) continue;
+          (c.code.indexOf('CM') === 0 ? cms : ces).add(c.code);
+        }
+      }
+    }
+
+    const statCard = (n: number, l: string) =>
+      `<div class="stat"><div class="num">${n}</div><div class="lbl">${this.escapeHtml(l)}</div></div>`;
+    statsEl.innerHTML = [
+      [pon, 'Ponencias'],
+      [cms.size, 'Charlas magistrales'],
+      [ces.size, 'Charlas especiales'],
+      [pos, 'Pósters'],
+    ].map(([n, l]) => statCard(n as number, l as string)).join('');
   }
 
   // ============================================================
