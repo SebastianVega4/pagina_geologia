@@ -230,6 +230,7 @@
   flex: none;
   font-size: 1rem;
   line-height: 1.4;
+  font-family: 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
 }
 
 .av-tag {
@@ -438,7 +439,9 @@
     opacity: 0;
     filter: blur(4px);
   }
+}
 
+:host ::ng-deep .deck-info {
   .hero-kind {
     font-family: var(--ff-mono);
     font-size: 0.6rem;
@@ -886,15 +889,23 @@
   --sand-lt: #94A3B8;
   --muted: #94A3B8;
 
-  --border: rgba(245, 158, 11, 0.08);
-  --cta-border: rgba(245, 158, 11, 0.3);
+  --border: rgba(245, 158, 11, 0.15);
+  --cta-border: rgba(245, 158, 11, 0.4);
   --cta-hover: rgba(245, 158, 11, 0.05);
   --nav-bg: rgba(0, 61, 94, 0.92);
-  --glow-bg: rgba(245, 158, 11, 0.07);
+  --glow-bg: rgba(245, 158, 11, 0.12);
+
+  .deck-frame {
+    border-color: rgba(245, 158, 11, 0.5);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55), 0 0 50px rgba(245, 158, 11, 0.12);
+  }
 
   .deck-nav {
     background: rgba(0, 61, 94, 0.72);
     color: #F8FAFC;
+    &:hover {
+      box-shadow: 0 0 22px rgba(245, 158, 11, 0.25);
+    }
   }
 
   .m-badge,
@@ -912,6 +923,10 @@
   .stack-name {
     background: linear-gradient(transparent, rgba(0, 42, 66, 0.96) 65%);
     color: var(--sand);
+  }
+
+  .dl-item.is-active .dl-title {
+    color: var(--gold-lt);
   }
 
   .dl-item {

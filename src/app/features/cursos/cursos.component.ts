@@ -79,12 +79,13 @@ const TIERS: Record<'A' | 'B' | 'ANCLA', Tier> = {
 };
 
 const CURSOS_RAW: CursoRaw[] = [
-  { id: 'c1', folder: 'Isótopos radiogénicos en paleoceanografía aplicaciones al estudio de la circulación oceánica y el cambio climático', imgs: 3,
+  /*{ id: 'c1', folder: 'Isótopos radiogénicos en paleoceanografía aplicaciones al estudio de la circulación oceánica y el cambio climático', imgs: 3,
     titulo: 'Isótopos radiogénicos en paleoceanografía', instructor: 'Paloma Olarte', fecha: '22 Ago', duracion: '9 hr · 8 AM–5 PM', cupos: 25, tier: 'A', cancelado: true,
     form: 'https://docs.google.com/forms/d/e/1FAIpQLSehNeRjj3HyW8y5rmf6s5njJrCEJAkO8M-_pfBTd0oJIobXAg/viewform' },
   { id: 'c2', folder: 'Introducción a la termobarometría', imgs: 3,
     titulo: 'Introducción a la termobarometría', instructor: 'Astrid Siachoque Velandia', fecha: '18 Ago', duracion: '8 hr · 8 AM–4 PM', cupos: 18, tier: 'A', cancelado: true,
     form: 'https://docs.google.com/forms/d/e/1FAIpQLSe9-9SQln1TgICk38Js7y_-r-wY77qum5B4EGm0SwllPZdZSw/viewform' },
+  */
   { id: 'c3', folder: 'Diseño de levantamientos sísmicos 3D', imgs: 3,
     titulo: 'Diseño de levantamientos sísmicos 3D', instructor: 'Jaime Checa', fecha: '18 Ago (mar)', duracion: '4–6 hr · 9 AM–4 PM', cupos: 20, tier: 'A',
     form: 'https://docs.google.com/forms/d/e/1FAIpQLScWjMMXThNnFRMln4t3JlIT3U1SQ7ozI-hTzamqfF1VzyXiSg/viewform' },
