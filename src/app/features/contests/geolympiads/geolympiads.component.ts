@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, HostListener, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, Trophy, ChevronLeft, ChevronRight } from 'lucide-angular';
+import { LucideAngularModule, Trophy, ChevronLeft, ChevronRight, X } from 'lucide-angular';
 import { RouterModule } from '@angular/router';
 import { TrackClickDirective } from '../../../shared/directives/track-click.directive';
 import { MatomoService } from '../../../core/services/matomo.service';
@@ -15,6 +15,8 @@ const IMAGES: GeoImage[] = [
   { src: 'assets/Geoolimpiadas/Geolimpiadas2.jpg', alt: 'Geolimpiadas 2026 - Imagen 2' },
   { src: 'assets/Geoolimpiadas/Geolimpiadas3.jpg', alt: 'Geolimpiadas 2026 - Imagen 3' },
   { src: 'assets/Geoolimpiadas/Geolimpiadas4.jpg', alt: 'Geolimpiadas 2026 - Imagen 4' },
+  { src: 'assets/Geoolimpiadas/Geolimpiadas5.jpg', alt: 'Geolimpiadas 2026 - Imagen 5' },
+  { src: 'assets/Geoolimpiadas/Geolimpiadas6.jpg', alt: 'Geolimpiadas 2026 - Imagen 6' },
 ];
 
 @Component({
@@ -27,10 +29,11 @@ const IMAGES: GeoImage[] = [
 export class GeolympiadsComponent implements OnInit, AfterViewInit {
   private matomo = inject(MatomoService);
   private cdr = inject(ChangeDetectorRef);
-  readonly icons = { Trophy, ChevronLeft, ChevronRight };
+  readonly icons = { Trophy, ChevronLeft, ChevronRight, X };
   readonly images = IMAGES;
 
   currentIdx = 0;
+  lightboxOpen = false;
   private swapTimer: ReturnType<typeof setTimeout> | null = null;
   private deckCards: HTMLElement[] = [];
 
@@ -81,6 +84,44 @@ export class GeolympiadsComponent implements OnInit, AfterViewInit {
       this.matomo.trackEvent('Event', 'geolimpiads_nav', 'keyboard_next');
       this.nextImage();
     }
+  }
+
+  openLightbox(): void {
+    this.lightboxOpen = true;
+    this.matomo.trackEvent('Event', 'geolimpiads_lightbox_open', 'image ' + (this.currentIdx + 1));
+  }
+
+  closeLightbox(): void {
+    this.lightboxOpen = false;
+    this.matomo.trackEvent('Event', 'geolimpiads_lightbox_close');
+  }
+
+  prevLightbox(): void {
+    this.currentIdx = (this.currentIdx - 1 + this.images.length) % this.images.length;
+    this.layoutDeck();
+    this.cdr.markForCheck();
+    this.matomo.trackEvent('Event', 'geolimpiads_lightbox_nav', 'prev');
+  }
+
+  nextLightbox(): void {
+    this.currentIdx = (this.currentIdx + 1) % this.images.length;
+    this.layoutDeck();
+    this.cdr.markForCheck();
+    this.matomo.trackEvent('Event', 'geolimpiads_lightbox_nav', 'next');
+  }
+
+  onBackdropClick(event: MouseEvent): void {
+    if ((event.target as HTMLElement).classList.contains('geo-lightbox')) {
+      this.closeLightbox();
+    }
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  onLightboxKeydown(event: KeyboardEvent): void {
+    if (!this.lightboxOpen) return;
+    if (event.key === 'Escape') this.closeLightbox();
+    else if (event.key === 'ArrowLeft') this.prevLightbox();
+    else if (event.key === 'ArrowRight') this.nextLightbox();
   }
 
   private initDeck(): void {

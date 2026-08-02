@@ -38,8 +38,9 @@
       </div>
 
       <!-- Mobile: single image -->
-      <div class="mobile-stage">
+      <div class="mobile-stage" (click)="openLightbox()">
         <img [src]="images[currentIdx].src" [alt]="images[currentIdx].alt">
+        <span class="zoom-hint">Click para ampliar</span>
       </div>
 
       <!-- Desktop: deck carousel -->
@@ -49,13 +50,36 @@
             *ngFor="let img of images; let i = index"
             class="geo-card"
             [class.is-hero]="i === currentIdx"
-            (click)="onCardClick(i)">
+            (click)="i === currentIdx ? openLightbox() : onCardClick(i)">
             <img [src]="img.src" [alt]="img.alt" loading="lazy">
+            <span class="card-zoom" *ngIf="i === currentIdx">Click para ampliar</span>
           </div>
         </div>
       </div>
 
     </div>
 
+  </div>
+
+  <!-- Lightbox -->
+  <div
+    class="geo-lightbox"
+    [class.open]="lightboxOpen"
+    (click)="onBackdropClick($event)">
+    <button class="glb-close" (click)="closeLightbox()">
+      <lucide-angular [img]="icons.X" class="w-5 h-5"></lucide-angular>
+    </button>
+    <button class="glb-prev" (click)="prevLightbox(); $event.stopPropagation()">
+      <lucide-angular [img]="icons.ChevronLeft" class="w-6 h-6"></lucide-angular>
+    </button>
+    <img
+      *ngIf="lightboxOpen"
+      [src]="images[currentIdx].src"
+      [alt]="images[currentIdx].alt"
+      class="glb-img">
+    <button class="glb-next" (click)="nextLightbox(); $event.stopPropagation()">
+      <lucide-angular [img]="icons.ChevronRight" class="w-6 h-6"></lucide-angular>
+    </button>
+    <span class="glb-count">{{ currentIdx + 1 }} / {{ images.length }}</span>
   </div>
 </section>
