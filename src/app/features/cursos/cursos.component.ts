@@ -381,7 +381,7 @@ export class CursosComponent implements AfterViewInit {
     return { x, y: p.y, s: p.s, ry: side > 0 ? -p.ry : p.ry, z: side > 0 ? p.zR : p.zL, op: Math.abs(rel) <= 3 ? 1 : 0 };
   }
 
-  private layoutDeck(deckId: DeckId) {
+  private layoutDeck(deckId: DeckId, scrollActive = false) {
     const el = this.deckEls[deckId];
     if (!el) return;
     const m = this.metrics(deckId);
@@ -402,7 +402,7 @@ export class CursosComponent implements AfterViewInit {
     if (act && el.marker) {
       el.marker.style.transform = `translateY(${act.offsetTop}px)`;
       el.marker.style.height = act.offsetHeight + 'px';
-      act.scrollIntoView({ block: 'nearest' });
+      if (scrollActive) act.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
   }
 
@@ -415,7 +415,7 @@ export class CursosComponent implements AfterViewInit {
     state.cur = idx;
     const item = this.deckItems[deckId][idx];
     this.matomo.trackEvent('Event', 'deck_nav', deckId + ' · ' + (item?.titulo?.slice(0, 60) || ''), prev < idx ? 1 : -1);
-    this.layoutDeck(deckId);
+    this.layoutDeck(deckId, true);
     this.currentInfoHTML[deckId] = this.buildInfoHTML(this.deckItems[deckId][idx]);
     state.isSwapping = true;
     clearTimeout(state.infoTimer!);

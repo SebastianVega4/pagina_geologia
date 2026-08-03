@@ -6,12 +6,11 @@ export const STATUS_LABEL = {
 };
 
 export const CHARLA_FLYERS: Record<string, string> = {
-  'CM-1': 'Simulando la corteza y el manto en el laboratorio uso de la petrología experimental para entender la distribución de los elementos químicos',
-  'CM-3': 'Artificial Intelligence and Seismic Networks in the Ecuador-Colombia Subduction Zone',
-  'CM-4': 'La temperatura un factor subestimado en la interpretación estructural',
-  'CM-5': 'The Changing Role of Geosciences in the Energy Transition',
+  'CM-3': 'Simulando la corteza y el manto en el laboratorio uso de la petrología experimental para entender la distribución de los elementos químicos',
+  'CM-4': 'Artificial Intelligence and Seismic Networks in the Ecuador-Colombia Subduction Zone',
+  'CM-5': 'La temperatura un factor subestimado en la interpretación estructural',
+  'CM-6': 'The Changing Role of Geosciences in the Energy Transition',
   'CM-7': 'Territorio, energía y decisiones las geociencias como brújula del Estado',
-  'CE-1': 'Tectónica y fuentes sismogénicas el NE de Colombia',
   'CE-4': 'La otra falla geológica nuestra relación con las comunidades y el ingreso a territorio',
   'CE-6': 'Elementos para entender el fracking en Colombia',
   'CE-7': 'Minerales Estratégicos y Transición Energética Nuevas Oportunidades',
