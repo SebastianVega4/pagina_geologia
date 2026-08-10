@@ -98,9 +98,11 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
       cat: string,
       name: string,
       sub?: string,
+      onclick?: string,
     ) => {
       const cs = Array.isArray(col) ? `${col[0]} / span ${col[1]}` : `${col}`;
-      return `<div class="hblk ${cat}" style="grid-column:${cs};grid-row:${r(t1)}/${r(t2)}">
+      const cls = 'hblk ' + cat + (onclick ? ' hb-click' : '');
+      return `<div class="${cls}" style="grid-column:${cs};grid-row:${r(t1)}/${r(t2)}"${onclick ? ` data-onclick="${this.escapeHtml(onclick)}"` : ''}>
         <div class="ht">${fmt(t1)}&thinsp;–&thinsp;${fmt(t2)}</div>
         <div class="hn">${name}</div>${sub ? `<div class="hs">${sub}</div>` : ''}
       </div>`;
@@ -201,16 +203,15 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
       blk([2, 2], '9:00', '10:30', 'hb-ap', 'BIENVENIDA', 'Apertura del evento'),
       cmBlks(2, 'mie', ['CM-3', 'CE-2', 'CE-3', 'CE-10', 'CE-11']),
       cmBlks([2, 3], 'mie', ['CM-1', 'CM-2', 'CE-2', 'CE-3', 'CE-10', 'CE-11']),
-      blk(2, '14:00', '16:00', 'hb-cm hb-cm-esp', 'MINERÍA, INDUSTRIA E INNOVACIÓN', '4 charlas · toca para ver'),
+      blk(2, '14:00', '16:00', 'hb-cm hb-cm-esp', 'MINERÍA, INDUSTRIA E INNOVACIÓN', '4 charlas · toca para ver', 'openMineriaModal()'),
       blk(4, '9:00', '12:30', 'hb-retx', 'RETRANSMISIÓN AUDITORIO', 'Salones Pangea y Gondwana'),
-      blk(4, '14:00', '16:00', 'hb-pangea', 'SALÓN PANGEA', '4 charlas · toca para ver'),
+      blk(4, '14:00', '16:00', 'hb-pangea', 'SALÓN PANGEA', '4 charlas · toca para ver', "openPangeaListModal('mie')"),
       brk(2, 'mie', 'primer', 'Primer refrigerio'),
       blk(3, '10:30', '12:30', 'hb-geo', 'GEOLIMPIADAS', ''),
       blk([2, 9], '12:30', '14:00', 'hb-alm', 'ALMUERZO', ''),
       ponBlk(3, 'mie'),
       brk([2, 3], 'mie', 'segundo', 'Segundo refrigerio'),
-      blk([2, 3], '17:10', '18:10', 'hb-pos', 'PÓSTERS', '60 pósters · 2 salones<br>Salón Pangea: Energía · CO₂/H₂ · Petrología · Mineralogía<br>Salón Gondwana: Estructural · Geofísica · Sedimentología · Paleontología'),
-      blk([2, 3], '18:10', '19:00', 'hb-cie', 'TERMALES', '6:00 PM · máx. 7:00 PM'),
+      blk([2, 3], '17:10', '18:00', 'hb-cie', 'TERMALES', 'Salida 6:00 PM'),
     ].join('');
 
     const sgc = [
@@ -219,7 +220,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     ].join('');
 
     const acggp = [
-      blk(10, '8:00', '12:30', 'hb-sgc', 'ACGGP', '1 salón edificio de Artes<br>(mañana)'),
+      blk(10, '8:00', '12:30', 'hb-sgc', 'Jornada ACGGP', '1 salón edificio de Artes<br>5 espacios · toca para ver', "openSgcModal('acggp')"),
     ].join('');
 
     const jue = [
@@ -228,9 +229,10 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
       ponBlk(6, 'jue'),
       brk([5, 2], 'jue', 'tercer', 'Tercer refrigerio'),
       blk([5, 2], '11:00', '12:30', 'hb-pan', 'GEOLOGÍA EN VIVO', 'Dos Expertos, Un Viaje al Corazón de la Tierra'),
-      blk([5, 2], '14:00', '15:00', 'hb-pan', 'PANEL — GESTIÓN DEL RIESGO', 'Panel de discusión'),
+      blk(5, '14:00', '15:00', 'hb-pan', 'PANEL — GESTIÓN DEL RIESGO', 'Panel de discusión'),
+      blk(6, '14:00', '15:00', 'hb-pangea', 'SALÓN GONDWANA', '2 charlas de 30 min · toca para ver', "openPangeaListModal('jue')"),
       brk([5, 2], 'jue', 'cuarto', 'Cuarto refrigerio'),
-      blk([5, 2], '17:10', '18:20', 'hb-pos', 'PÓSTERS', '31 pósters · Salón Gondwana<br>Hidrogeología · Geoeducación · Geotecnia'),
+      blk([5, 2], '17:10', '18:20', 'hb-pos', 'PÓSTERS', '34 pósters · Salón Gondwana<br>Hidrogeología · Geoeducación · Geotecnia'),
       blk([5, 2], '18:30', '20:00', 'hb-cie', 'CANELAZO', '6:30 – 8:00 PM'),
     ].join('');
 
@@ -246,6 +248,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
       brk([8, 2], 'vie', 'quinto', 'Quinto refrigerio'),
       blk([8, 2], '11:00', '12:30', 'hb-pan', 'PANEL · ANH', 'Energías, territorio y decisiones'),
       brk(10, 'vie', 'sexto', 'Sexto refrigerio'),
+      blk(10, '14:20', '15:30', 'hb-pos', 'PÓSTERS', '59 pósters · 2 salones<br>Salón Pangea · Salón Gondwana'),
       blk(10, '16:20', '19:00', 'hb-retx', 'RETRANSMISIÓN AUDITORIO', 'Salones Pangea y Gondwana'),
       blk([8, 2], '17:00', '19:00', 'hb-cie', 'EVENTO DE CIERRE', '5:00 PM'),
       `<div class="hblk hb-cie" style="grid-column:8 / span 2;grid-row:${r('19:00')}/${r('20:00')};justify-content:center;align-items:center;text-align:center;">
@@ -334,6 +337,26 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
       this.renderer.appendChild(wrap, box);
     }
 
+    // ACGGP / SCG clickable boxes for Friday
+    [
+      { k: 'acggpPrograma', which: 'acggp', t: 'Jornada ACGGP — Asoc. Colombiana de Geólogos y Geofísicos de la Energía', h: '8:00 AM – 12:30 PM · 1 salón del edificio de Artes' },
+      { k: 'scgPrograma', which: 'scg', t: 'Jornada SCG — Sociedad Colombiana de Geotecnia', h: '2:00 – 5:00 PM · 1 salón del edificio de Artes' },
+    ].forEach((cfg: any) => {
+      const lista = day[cfg.k];
+      if (!lista || !lista.length) return;
+      const box = this.renderer.createElement('div');
+      this.renderer.addClass(box, 'sgc-list-box');
+      this.renderer.addClass(box, 'clickable');
+      (box as HTMLElement).style.cursor = 'pointer';
+      box.innerHTML = `<div class="pm-head">${this.escapeHtml(cfg.t)} — ${lista.length} espacios</div>`
+        + `<div class="pm-title" style="padding:10px 12px">${this.escapeHtml(cfg.h)} · `
+        + `<span style="text-decoration:underline">toca para ver la programación</span></div>`;
+      this.listeners.push(
+        this.renderer.listen(box, 'click', () => this.openSgcModal(cfg.which)),
+      );
+      this.renderer.appendChild(wrap, box);
+    });
+
     // Rows
     (day.rows || []).forEach((row: any) => {
       if (row.type === 'info') {
@@ -356,6 +379,8 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
         this.renderer.appendChild(wrap, this.actBlock(row, altReal, cms));
       } else if (row.posterBatch && row.posterBatch.length) {
         this.renderer.appendChild(wrap, this.rowStrip(row.time, this.posterNode(row)));
+      } else if (row.pangea) {
+        this.renderer.appendChild(wrap, this.rowStrip(row.time, this.pangeaNode(row)));
       } else {
         cms.slice().sort((a: any, b: any) => this._sm(a.time) - this._sm(b.time)).forEach((cm: any) => {
           if (cm.code) {
@@ -410,7 +435,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
       );
     }
     d.innerHTML =
-      `<div class="ch-head"><span class="ch-badge">${mag ? 'Charla magistral' : 'Charla especial'}${cm.code ? ' · ' + this.escapeHtml(cm.code) : ''}</span><span class="ch-time">Auditorio</span></div>` +
+      `<div class="ch-head"><span class="ch-badge">${mag ? 'Charla magistral' : 'Charla especial'}${cm.code ? ' · ' + this.escapeHtml(cm.code) : ''}</span><span class="ch-time">Auditorio · Edif. de Artes</span></div>` +
       `<div class="ch-title">${this.escapeHtml(cm.title)}</div>` +
       `<div class="ch-speaker">${this.escapeHtml(cm.speaker || 'Por confirmar')}${cm.org ? ' · ' + this.escapeHtml(cm.org) : ''}</div>`;
     return d;
@@ -545,6 +570,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
         this.listeners.push(
           this.renderer.listen(s, 'click', () => {
             this.matomo.trackEvent('Event', 'schedule_pangea_click', ch.title?.slice(0, 80));
+            this.openPangeaModal(ch);
           }),
         );
         this.renderer.appendChild(pcell, s);
@@ -636,6 +662,29 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     return d;
   }
 
+  private pangeaNode(row: any): HTMLElement {
+    const d = this.renderer.createElement('div');
+    this.renderer.addClass(d, 'poster-seg');
+    const items = (row.pangea.charlas || []).map((ch: any, i: number) =>
+      `<div class="p-item pangea-charla-item" data-i="${i}" style="cursor:pointer">`
+      + `<b style="color:#be123c">${this.escapeHtml(ch.time || '')}</b> ${this.escapeHtml(ch.title)}`
+      + (ch.speaker ? `<br><span style="opacity:.7">${this.escapeHtml(ch.speaker)}</span>` : '')
+      + `</div>`).join('');
+    d.innerHTML = `<div class="pm-head">${this.escapeHtml(row.pangea.title || 'Salón Pangea')} &mdash; `
+      + `${this.escapeHtml(row.pangea.sub || 'Charlas especiales')}</div>`
+      + `<div class="poster-merged-cell"><div class="pm-title">`
+      + `En paralelo a las actividades del auditorio</div>${items}</div>`;
+    d.querySelectorAll('.pangea-charla-item').forEach((el: Element) => {
+      this.listeners.push(
+        this.renderer.listen(el, 'click', () => {
+          const idx = parseInt((el as HTMLElement).dataset['i'] || '0', 10);
+          this.openPangeaModal((row.pangea.charlas || [])[idx]);
+        }),
+      );
+    });
+    return d;
+  }
+
   // ============================================================
   //  CLICK LISTENERS
   // ============================================================
@@ -647,6 +696,27 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
       if (code) {
         this.listeners.push(
           this.renderer.listen(block, 'click', () => this.openCharla(code)),
+        );
+      }
+    });
+    const onclickBlocks = root.querySelectorAll('[data-onclick]');
+    onclickBlocks.forEach((block) => {
+      const action = (block as HTMLElement).dataset['onclick'];
+      if (action && action.startsWith('openPangeaListModal(')) {
+        const match = action.match(/openPangeaListModal\('(\w+)'\)/);
+        const dayId = match ? match[1] : undefined;
+        this.listeners.push(
+          this.renderer.listen(block, 'click', () => this.openPangeaListModal(dayId)),
+        );
+      } else if (action && action.startsWith('openSgcModal(')) {
+        const match = action.match(/openSgcModal\('(\w+)'\)/);
+        const which = match ? match[1] : 'sgc';
+        this.listeners.push(
+          this.renderer.listen(block, 'click', () => this.openSgcModal(which)),
+        );
+      } else if (action === 'openMineriaModal()') {
+        this.listeners.push(
+          this.renderer.listen(block, 'click', () => this.openMineriaModal()),
         );
       }
     });
@@ -759,6 +829,189 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
       this.renderer.removeClass(modalBg, 'show');
     }
     this.matomo.trackEvent('Event', 'schedule_modal_close');
+  }
+
+  private openPangeaModal(ch: any): void {
+    const root = this.officialRoot.nativeElement;
+    const modalBg = root.querySelector('#modalBg') as HTMLElement;
+    if (!modalBg) return;
+
+    const modalBadge = modalBg.querySelector('#modalBadge') as HTMLElement;
+    const modalTitle = modalBg.querySelector('#modalTitle') as HTMLElement;
+    const modalRoom = modalBg.querySelector('#modalRoom') as HTMLElement;
+    const modalAuthors = modalBg.querySelector('#modalAuthors') as HTMLElement;
+    const modalNote = modalBg.querySelector('#modalNote') as HTMLElement;
+    const modalFlyerWrap = modalBg.querySelector('#modalFlyerWrap') as HTMLElement;
+    const modalFlyer = modalBg.querySelector('#modalFlyer') as HTMLImageElement;
+
+    modalBadge.style.display = '';
+    modalBadge.className = 'badge confirmado';
+    const _sal = ch.salon || 'Salón Pangea';
+    modalBadge.textContent = 'Charla especial · ' + _sal;
+    modalTitle.textContent = ch.title;
+    modalRoom.innerHTML = `<b>${this.escapeHtml(ch.dia || 'Miércoles')} · ${this.escapeHtml(ch.time || '')} · ${this.escapeHtml(_sal)}</b>`;
+    modalAuthors.innerHTML = (ch.speaker ? `<b>Ponente:</b> ${this.escapeHtml(ch.speaker)}` : '') + (ch.coautores ? `<div style="margin-top:6px"><b>Coautores:</b> ${this.escapeHtml(ch.coautores)}</div>` : '');
+    if (modalNote) modalNote.innerHTML = '';
+
+    if (modalFlyerWrap) {
+      modalFlyerWrap.style.display = 'none';
+      if (modalFlyer) modalFlyer.removeAttribute('src');
+    }
+
+    this.renderer.addClass(modalBg, 'show');
+  }
+
+  private openPangeaListModal(dayId?: string): void {
+    const targetDay = dayId || 'mie';
+    const day = (DAYS as any[]).find((d: any) => d.id === targetDay);
+    let charlas: any[] = [];
+    (day ? day.rows : []).forEach((row: any) => {
+      if (row.pangea && row.pangea.charlas) charlas = charlas.concat(row.pangea.charlas);
+    });
+
+    const root = this.officialRoot.nativeElement;
+    const modalBg = root.querySelector('#modalBg') as HTMLElement;
+    if (!modalBg) return;
+
+    const modalBadge = modalBg.querySelector('#modalBadge') as HTMLElement;
+    const modalTitle = modalBg.querySelector('#modalTitle') as HTMLElement;
+    const modalRoom = modalBg.querySelector('#modalRoom') as HTMLElement;
+    const modalAuthors = modalBg.querySelector('#modalAuthors') as HTMLElement;
+    const modalNote = modalBg.querySelector('#modalNote') as HTMLElement;
+    const modalFlyerWrap = modalBg.querySelector('#modalFlyerWrap') as HTMLElement;
+    const modalFlyer = modalBg.querySelector('#modalFlyer') as HTMLImageElement;
+
+    modalBadge.style.display = '';
+    modalBadge.className = 'badge confirmado';
+    const _label = targetDay === 'jue' ? 'Salón Gondwana · Charlas especiales' : 'Salón Pangea · Charlas de divulgación';
+    modalBadge.textContent = _label;
+    modalTitle.textContent = targetDay === 'jue' ? 'Salón Gondwana' : 'Salón Pangea';
+    const _dayLabel = targetDay === 'jue' ? 'Jueves 20' : 'Miércoles 19';
+    modalRoom.innerHTML = `<b>${_dayLabel} · ${charlas.length > 0 ? charlas[0].time || '' : ''} · ${targetDay === 'jue' ? 'Salón Gondwana' : 'Salón Pangea'}</b>`;
+    modalAuthors.innerHTML = '';
+
+    const items = charlas.map((ch: any) => {
+      const _t = ch.time ? `<b style="color:#be123c">${this.escapeHtml(ch.time)}</b> ` : '';
+      const _sp = ch.speaker ? ` — <span style="opacity:.75">${this.escapeHtml(ch.speaker)}</span>` : '';
+      return `<div style="padding:7px 0;border-bottom:1px solid rgba(128,128,128,.25)">${_t}${this.escapeHtml(ch.title)}${_sp}</div>`;
+    }).join('');
+    if (modalNote) modalNote.innerHTML = `<div style="max-height:52vh;overflow:auto;text-align:left;margin-top:6px">${items}</div>`;
+
+    if (modalFlyerWrap) {
+      modalFlyerWrap.style.display = 'none';
+      if (modalFlyer) modalFlyer.removeAttribute('src');
+    }
+
+    this.renderer.addClass(modalBg, 'show');
+  }
+
+  private openSgcModal(which: string): void {
+    this.matomo.trackEvent('Event', 'schedule_item_click', 'sgc_' + which);
+    const jue = (DAYS as any[]).find((d: any) => d.id === 'jue');
+    const vie = (DAYS as any[]).find((d: any) => d.id === 'vie');
+    let titulo: string, sub: string, lista: any[];
+
+    if (which === 'acggp') {
+      titulo = 'Jornada ACGGP — Asoc. Colombiana de Geólogos y Geofísicos de la Energía';
+      sub = 'Viernes · 8:00 AM–12:30 PM · 1 salón del edificio de Artes';
+      lista = (vie && vie.acggpPrograma) || [];
+    } else if (which === 'scg') {
+      titulo = 'Jornada SCG — Sociedad Colombiana de Geotecnia';
+      sub = 'Viernes · 2:00–5:00 PM · 1 salón del edificio de Artes';
+      lista = (vie && vie.scgPrograma) || [];
+    } else {
+      titulo = '110 años del Servicio Geológico Colombiano';
+      sub = 'Jueves · 8:00 AM–7:00 PM · Salón Pangea';
+      lista = (jue && jue.sgcCharlas) || [];
+    }
+
+    const root = this.officialRoot.nativeElement;
+    const modalBg = root.querySelector('#modalBg') as HTMLElement;
+    if (!modalBg) return;
+
+    const modalBadge = modalBg.querySelector('#modalBadge') as HTMLElement;
+    const modalTitle = modalBg.querySelector('#modalTitle') as HTMLElement;
+    const modalRoom = modalBg.querySelector('#modalRoom') as HTMLElement;
+    const modalAuthors = modalBg.querySelector('#modalAuthors') as HTMLElement;
+    const modalNote = modalBg.querySelector('#modalNote') as HTMLElement;
+    const modalFlyerWrap = modalBg.querySelector('#modalFlyerWrap') as HTMLElement;
+    const modalFlyer = modalBg.querySelector('#modalFlyer') as HTMLImageElement;
+
+    modalBadge.style.display = '';
+    modalBadge.className = 'badge confirmado';
+    modalBadge.textContent = 'Jornada institucional';
+    modalTitle.textContent = titulo;
+    modalRoom.innerHTML = `<b>${this.escapeHtml(sub)}</b>`;
+    modalAuthors.innerHTML = '';
+
+    const items = lista.map((ch: any) => {
+      const _t = ch.time ? `<b style="color:var(--green,#3fbf6b)">${this.escapeHtml(ch.time)}</b> ` : '';
+      const _sp = ch.expositor ? ` — <span style="opacity:.75">${this.escapeHtml(ch.expositor)}</span>` : '';
+      const _dir = ch.direccion ? `<div style="font-size:11px;opacity:.6;margin-top:2px">${this.escapeHtml(ch.direccion)}</div>` : '';
+      return `<div style="padding:7px 0;border-bottom:1px solid rgba(128,128,128,.25)">${_t}${this.escapeHtml(ch.title)}${_sp}${_dir}</div>`;
+    }).join('');
+    if (modalNote) modalNote.innerHTML = `<div style="max-height:52vh;overflow:auto;text-align:left;margin-top:6px">${items}</div>`;
+
+    if (modalFlyerWrap) {
+      modalFlyerWrap.style.display = 'none';
+      if (modalFlyer) modalFlyer.removeAttribute('src');
+    }
+
+    this.renderer.addClass(modalBg, 'show');
+  }
+
+  private openMineriaModal(): void {
+    this.matomo.trackEvent('Event', 'schedule_item_click', 'mineria_bloque');
+    const mie = (DAYS as any[]).find((d: any) => d.id === 'mie');
+    if (!mie) return;
+    let cms: any[] = [];
+    for (const row of mie.rows || []) {
+      for (const cm of (row.auditorio?.cms || [])) {
+        if (cm.code && cm.code.startsWith('CE') && /miner|industria|innov/i.test(cm.title || '')) {
+          cms.push(cm);
+        }
+      }
+    }
+    // Fallback: get CEs from the 14:00–16:00 block
+    if (!cms.length) {
+      for (const row of mie.rows || []) {
+        if (row.time === '14:00–16:00' && row.auditorio?.cms) {
+          cms = row.auditorio.cms.filter((c: any) => c.code && c.code.startsWith('CE'));
+        }
+      }
+    }
+
+    const root = this.officialRoot.nativeElement;
+    const modalBg = root.querySelector('#modalBg') as HTMLElement;
+    if (!modalBg) return;
+
+    const modalBadge = modalBg.querySelector('#modalBadge') as HTMLElement;
+    const modalTitle = modalBg.querySelector('#modalTitle') as HTMLElement;
+    const modalRoom = modalBg.querySelector('#modalRoom') as HTMLElement;
+    const modalAuthors = modalBg.querySelector('#modalAuthors') as HTMLElement;
+    const modalNote = modalBg.querySelector('#modalNote') as HTMLElement;
+    const modalFlyerWrap = modalBg.querySelector('#modalFlyerWrap') as HTMLElement;
+    const modalFlyer = modalBg.querySelector('#modalFlyer') as HTMLImageElement;
+
+    modalBadge.style.display = '';
+    modalBadge.className = 'badge confirmado';
+    modalBadge.textContent = 'Bloque de charlas especiales';
+    modalTitle.textContent = 'Minería, industria e innovación';
+    modalRoom.innerHTML = '<b>Miércoles · 2:00–4:00 PM · Auditorio (Edif. de Artes)</b>';
+    modalAuthors.innerHTML = '';
+    const items = cms.map((cm: any) => {
+      const _t = cm.time ? `<b style="color:var(--green,#3fbf6b)">${this.escapeHtml(cm.time)}</b> ` : '';
+      const _sp = cm.speaker ? ` — <span style="opacity:.75">${this.escapeHtml(cm.speaker)}</span>` : '';
+      return `<div style="padding:7px 0;border-bottom:1px solid rgba(128,128,128,.25)">${_t}${this.escapeHtml(cm.title)}${_sp}</div>`;
+    }).join('');
+    if (modalNote) modalNote.innerHTML = `<div style="max-height:52vh;overflow:auto;text-align:left;margin-top:6px">${items}</div>`;
+
+    if (modalFlyerWrap) {
+      modalFlyerWrap.style.display = 'none';
+      if (modalFlyer) modalFlyer.removeAttribute('src');
+    }
+
+    this.renderer.addClass(modalBg, 'show');
   }
 
   private setupModalClose(): void {
