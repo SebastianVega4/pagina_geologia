@@ -6,9 +6,13 @@ import { MatomoService } from '../../../../core/services/matomo.service';
 interface PodiumSponsor {
   src: string;
   alt: string;
-  tier: 'oro' | 'cuarzo';
+  tier: 'esmeralda' | 'oro' | 'cuarzo';
   label: string;
 }
+
+const ESMERALDA_SPONSORS: PodiumSponsor[] = [
+  { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorEsmeralda.webp', alt: 'Patrocinador Esmeralda', tier: 'esmeralda', label: 'Esmeralda' },
+];
 
 const ORO_SPONSORS: PodiumSponsor[] = [
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO.jpg', alt: 'Patrocinador Oro', tier: 'oro', label: 'Oro' },
@@ -18,6 +22,8 @@ const ORO_SPONSORS: PodiumSponsor[] = [
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO4.jpg', alt: 'Patrocinador Oro 4', tier: 'oro', label: 'Oro' },
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO5.webp', alt: 'Patrocinador Oro 5', tier: 'oro', label: 'Oro' },
   { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO6.webp', alt: 'Patrocinador Oro 6', tier: 'oro', label: 'Oro' },
+  { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO7.webp', alt: 'Patrocinador Oro 7', tier: 'oro', label: 'Oro' },
+  { src: 'assets/PodiumPatrocinadores_destacados/patrocinadorORO8.webp', alt: 'Patrocinador Oro 8', tier: 'oro', label: 'Oro' },
 ];
 
 const CUARZO_SPONSORS: PodiumSponsor[] = [
@@ -37,9 +43,11 @@ export class PodiumSponsorsComponent implements OnInit {
   private matomo = inject(MatomoService);
   readonly icons = { Trophy, ChevronLeft, ChevronRight, X };
 
+  readonly esmeraldaSponsors = ESMERALDA_SPONSORS;
   readonly oroSponsors = ORO_SPONSORS;
   readonly cuarzoSponsors = CUARZO_SPONSORS;
 
+  esmeraldaIdx = 0;
   oroIdx = 0;
   cuarzoIdx = 0;
 
@@ -49,6 +57,16 @@ export class PodiumSponsorsComponent implements OnInit {
 
   ngOnInit(): void {
     this.matomo.trackEvent('Event', 'view_podium_sponsors');
+  }
+
+  prevEsmeralda(): void {
+    this.esmeraldaIdx = (this.esmeraldaIdx - 1 + this.esmeraldaSponsors.length) % this.esmeraldaSponsors.length;
+    this.matomo.trackEvent('Event', 'podium_carousel_nav', 'esmeralda_prev');
+  }
+
+  nextEsmeralda(): void {
+    this.esmeraldaIdx = (this.esmeraldaIdx + 1) % this.esmeraldaSponsors.length;
+    this.matomo.trackEvent('Event', 'podium_carousel_nav', 'esmeralda_next');
   }
 
   prevOro(): void {
@@ -71,8 +89,10 @@ export class PodiumSponsorsComponent implements OnInit {
     this.matomo.trackEvent('Event', 'podium_carousel_nav', 'cuarzo_next');
   }
 
-  selectThumb(tier: 'oro' | 'cuarzo', idx: number): void {
-    if (tier === 'oro') {
+  selectThumb(tier: 'esmeralda' | 'oro' | 'cuarzo', idx: number): void {
+    if (tier === 'esmeralda') {
+      this.esmeraldaIdx = idx;
+    } else if (tier === 'oro') {
       this.oroIdx = idx;
     } else {
       this.cuarzoIdx = idx;

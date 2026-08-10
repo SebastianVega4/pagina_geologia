@@ -15,6 +15,40 @@
       </p>
     </div>
 
+    <!-- Tier: Esmeralda -->
+    <div class="tier-viewer esmeralda" data-aos="fade-right" data-aos-delay="50">
+      <div class="tier-label">
+        <span class="tier-dot esmeralda"></span>
+        <h3>Patrocinadores <strong>Esmeralda</strong></h3>
+        <div class="tier-line esmeralda"></div>
+      </div>
+      <div class="hero-view">
+        <button class="hv-nav" (click)="prevEsmeralda()" aria-label="Anterior">
+          <lucide-angular [img]="icons.ChevronLeft" class="w-6 h-6"></lucide-angular>
+        </button>
+        <div class="hv-main" (click)="openLightbox(esmeraldaSponsors, esmeraldaIdx)">
+          <img [src]="esmeraldaSponsors[esmeraldaIdx].src" [alt]="esmeraldaSponsors[esmeraldaIdx].alt">
+          <span class="hv-badge esmeralda">
+            <lucide-angular [img]="icons.Trophy" class="w-3 h-3"></lucide-angular>
+            Esmeralda
+          </span>
+          <span class="hv-count">{{ esmeraldaIdx + 1 }} / {{ esmeraldaSponsors.length }}</span>
+        </div>
+        <button class="hv-nav" (click)="nextEsmeralda()" aria-label="Siguiente">
+          <lucide-angular [img]="icons.ChevronRight" class="w-6 h-6"></lucide-angular>
+        </button>
+      </div>
+      <div class="thumb-row">
+        <button
+          *ngFor="let sp of esmeraldaSponsors; let i = index"
+          class="thumb"
+          [class.active]="i === esmeraldaIdx"
+          (click)="selectThumb('esmeralda', i)">
+          <img [src]="sp.src" [alt]="sp.alt" loading="lazy">
+        </button>
+      </div>
+    </div>
+
     <!-- Tier: Oro -->
     <div class="tier-viewer oro" data-aos="fade-right" data-aos-delay="100">
       <div class="tier-label">
@@ -106,6 +140,7 @@
     </button>
     <span class="plb-tier"
       *ngIf="lightboxOpen && currentLightboxItem"
+      [class.esmeralda]="currentLightboxItem.tier === 'esmeralda'"
       [class.oro]="currentLightboxItem.tier === 'oro'"
       [class.cuarzo]="currentLightboxItem.tier === 'cuarzo'">
       {{ currentLightboxItem.label }}

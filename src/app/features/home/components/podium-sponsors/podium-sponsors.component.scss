@@ -125,6 +125,11 @@
     background: #94A3B8;
     box-shadow: 0 0 12px rgba(148, 163, 184, 0.4);
   }
+
+  &.esmeralda {
+    background: #10B981;
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+  }
 }
 
 .tier-line {
@@ -133,6 +138,7 @@
 
   &.oro { background: linear-gradient(90deg, rgba(245, 158, 11, 0.4), transparent); }
   &.cuarzo { background: linear-gradient(90deg, rgba(148, 163, 184, 0.3), transparent); }
+  &.esmeralda { background: linear-gradient(90deg, rgba(16, 185, 129, 0.4), transparent); }
 }
 
 /* ══ HERO VIEW ══ */
@@ -215,6 +221,11 @@
   &:hover { border-color: rgba(148, 163, 184, 0.3); }
 }
 
+.tier-viewer.esmeralda .hv-main {
+  border-color: rgba(16, 185, 129, 0.2);
+  &:hover { border-color: rgba(16, 185, 129, 0.4); box-shadow: 0 10px 60px rgba(16, 185, 129, 0.1); }
+}
+
 .hv-badge {
   position: absolute;
   top: 1rem;
@@ -233,6 +244,7 @@
 
   &.oro { background: rgba(245, 158, 11, 0.9); color: #001824; }
   &.cuarzo { background: rgba(148, 163, 184, 0.85); color: #001824; }
+  &.esmeralda { background: rgba(16, 185, 129, 0.9); color: #001824; }
 }
 
 .hv-count {
@@ -291,6 +303,11 @@
   box-shadow: 0 0 12px rgba(148, 163, 184, 0.3);
 }
 
+.tier-viewer.esmeralda .thumb.active {
+  border-color: #10B981;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+
 /* ══ LIGHTBOX ══ */
 .podium-lightbox {
   position: fixed;
@@ -347,6 +364,7 @@
 
   &.oro { background: rgba(245, 158, 11, 0.9); color: #001824; }
   &.cuarzo { background: rgba(148, 163, 184, 0.85); color: #001824; }
+  &.esmeralda { background: rgba(16, 185, 129, 0.9); color: #001824; }
 }
 
 .plb-count {
