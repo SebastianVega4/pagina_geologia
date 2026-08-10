@@ -215,8 +215,8 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     ].join('');
 
     const sgc = [
-      blk(7, '8:00', '12:30', 'hb-sgc', '110 años del servicio geológico', 'Salón Pangea'),
-      blk(7, '14:00', '19:00', 'hb-sgc', '110 años del servicio geológico', 'Salón Pangea'),
+      blk(7, '8:00', '12:30', 'hb-sgc', '110 años del servicio geológico', 'Salón Pangea', "openSgcModal('sgc')"),
+      blk(7, '14:00', '19:00', 'hb-sgc', '110 años del servicio geológico', 'Salón Pangea', "openSgcModal('sgc')"),
     ].join('');
 
     const acggp = [
@@ -228,7 +228,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
       cmBlks(5, 'jue', ['CM-4', 'CM-5', 'CE-6']),
       ponBlk(6, 'jue'),
       brk([5, 2], 'jue', 'tercer', 'Tercer refrigerio'),
-      blk([5, 2], '11:00', '12:30', 'hb-pan', 'GEOLOGÍA EN VIVO', 'Dos Expertos, Un Viaje al Corazón de la Tierra'),
+      blk([5, 2], '11:00', '12:30', 'hb-pan', 'GEOLOGÍA EN VIVO', 'Dos Expertos, Un Viaje al Corazón de la Tierra', "openPanelPorTitulo('Geología en Vivo')"),
       blk(5, '14:00', '15:00', 'hb-pan', 'PANEL — GESTIÓN DEL RIESGO', 'Panel de discusión'),
       blk(6, '14:00', '15:00', 'hb-pangea', 'SALÓN GONDWANA', '2 charlas de 30 min · toca para ver', "openPangeaListModal('jue')"),
       brk([5, 2], 'jue', 'cuarto', 'Cuarto refrigerio'),
@@ -239,7 +239,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     const vie = [
       cmBlks([8, 2], 'vie', ['CE-7', 'CE-8', 'SCG']),
       cmBlks(8, 'vie', ['CM-6', 'CM-7', 'SCG']),
-      `<div class="hblk hb-scg" style="grid-column:8 / span 2;grid-row:${r('14:00')}/${r('16:20')};justify-content:center;align-items:center;text-align:center;padding:4px 8px;">
+      `<div class="hblk hb-scg" style="grid-column:8 / span 2;grid-row:${r('14:00')}/${r('16:20')};cursor:pointer;justify-content:center;align-items:center;text-align:center;padding:4px 8px;" data-onclick="openSgcModal('scg')">
         <div class="ht" style="width:100%;text-align:center;font-size:8px;opacity:.8;">${fmt('14:00')} – ${fmt('16:20')}</div>
         <div class="hn" style="text-align:center;font-size:11px;">Jornada SCG</div>
         <div class="hs" style="text-align:center;">Soc. Colombiana de Geotecnia · 11 charlas · toca para ver</div>
@@ -427,15 +427,24 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     const mag = (cm.code || '').indexOf('CM') === 0;
     const d = this.renderer.createElement('div');
     this.renderer.addClass(d, 'charla-strip');
-    this.renderer.addClass(d, mag ? 'mag' : 'esp');
-    if (cm.code) {
+    if (cm.sgcModal) {
+      this.renderer.addClass(d, 'esp');
       this.renderer.addClass(d, 'clickable');
       this.listeners.push(
-        this.renderer.listen(d, 'click', () => this.openCharla(cm.code)),
+        this.renderer.listen(d, 'click', () => this.openSgcModal('scg')),
       );
+    } else {
+      this.renderer.addClass(d, mag ? 'mag' : 'esp');
+      if (cm.code) {
+        this.renderer.addClass(d, 'clickable');
+        this.listeners.push(
+          this.renderer.listen(d, 'click', () => this.openCharla(cm.code)),
+        );
+      }
     }
+    const badge = cm.sgcModal ? 'Jornada institucional' : (mag ? 'Charla magistral' : 'Charla especial') + (cm.code ? ' · ' + this.escapeHtml(cm.code) : '');
     d.innerHTML =
-      `<div class="ch-head"><span class="ch-badge">${mag ? 'Charla magistral' : 'Charla especial'}${cm.code ? ' · ' + this.escapeHtml(cm.code) : ''}</span><span class="ch-time">Auditorio · Edif. de Artes</span></div>` +
+      `<div class="ch-head"><span class="ch-badge">${badge}</span><span class="ch-time">Auditorio · Edif. de Artes</span></div>` +
       `<div class="ch-title">${this.escapeHtml(cm.title)}</div>` +
       `<div class="ch-speaker">${this.escapeHtml(cm.speaker || 'Por confirmar')}${cm.org ? ' · ' + this.escapeHtml(cm.org) : ''}</div>`;
     return d;
@@ -449,6 +458,12 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
       `<div class="ch-head"><span class="ch-badge">Panel de discusión</span></div>` +
       `<div class="ch-title">${this.escapeHtml(row.title)}</div>` +
       (row.note ? `<div class="ch-speaker">${this.escapeHtml(row.note)}</div>` : '');
+    if (row.flyer) {
+      this.renderer.addClass(d, 'clickable');
+      this.listeners.push(
+        this.renderer.listen(d, 'click', () => this.openPanel(row)),
+      );
+    }
     return d;
   }
 
@@ -537,11 +552,17 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
           this.renderer.addClass(cell, 'empty');
         } else {
           this.renderer.addClass(cell, 'pon-cell');
+          const _star = cData.destacada ? '<span title="Reconocimiento especial" style="color:#FEC601">\u2605 </span>' : '';
           cell.innerHTML =
-            `<div class="pc-title">${this.escapeHtml(cData.title)}</div>` +
+            `<div class="pc-title">${_star}${this.escapeHtml(cData.title)}</div>` +
             (cData.authors
               ? `<div class="pc-aut">${this.escapeHtml(cData.authors.split(/[,;]/)[0])}</div>`
               : '');
+          if (cData.destacada) {
+            (cell as HTMLElement).style.border = '2px solid #FEC601';
+            (cell as HTMLElement).style.boxShadow = '0 0 6px rgba(254,198,1,.4)';
+            (cell as HTMLElement).style.borderRadius = '6px';
+          }
           this.listeners.push(
             this.renderer.listen(cell, 'click', () =>
               this.openModal(r, cData.time || row.time, cData),
@@ -584,7 +605,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
   private actBlock(row: any, act: any, cms: any[]): HTMLElement {
     const g = this.renderer.createElement('div');
     this.renderer.addClass(g, 'dt-grid');
-    g.style.gridTemplateColumns = '58px 1fr minmax(0,6fr)';
+    g.style.gridTemplateColumns = act.balanced ? '58px 1fr 1fr' : '58px 1fr minmax(0,6fr)';
 
     const hg = this.renderer.createElement('div');
     this.renderer.addClass(hg, 'dt-hora');
@@ -606,12 +627,19 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     const main = this.renderer.createElement('div');
     this.renderer.addClass(main, 'act-main');
     this.renderer.addClass(main, 'seg-strip');
-    this.renderer.addClass(main, 'cat-actividad');
+    this.renderer.addClass(main, 'cat-geolimpiadas');
     main.style.gridColumn = '3';
     main.style.gridRow = '1';
     main.innerHTML =
       `<span class="seg-title">${this.escapeHtml(act.title)}</span>` +
-      (act.sub ? `<span class="seg-sub">${this.escapeHtml(act.sub)}</span>` : '');
+      (act.sub ? `<span class="seg-sub">${this.escapeHtml(act.sub)}</span>` : '') +
+      (act.onclick ? `<span class="seg-sub" style="margin-top:6px;opacity:.9">▸ Ver programación</span>` : '');
+    if (act.onclick) {
+      (main as HTMLElement).style.cursor = 'pointer';
+      this.listeners.push(
+        this.renderer.listen(main, 'click', () => this.openPanelPorTitulo(act.title)),
+      );
+    }
     this.renderer.appendChild(g, main);
 
     return g;
@@ -718,6 +746,12 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
         this.listeners.push(
           this.renderer.listen(block, 'click', () => this.openMineriaModal()),
         );
+      } else if (action && action.startsWith("openPanelPorTitulo('")) {
+        const match = action.match(/openPanelPorTitulo\('(.+)'\)/);
+        const prefijo = match ? match[1] : '';
+        this.listeners.push(
+          this.renderer.listen(block, 'click', () => this.openPanelPorTitulo(prefijo)),
+        );
       }
     });
     const charlaStrips = root.querySelectorAll('.charla-strip.clickable');
@@ -765,6 +799,14 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     modalRoom.innerHTML = `<b>Salón / Hora:</b> ${this.escapeHtml(room)} · ${this.escapeHtml(time)}`;
     modalAuthors.innerHTML = cell.authors ? `<b>Autor(es):</b> ${this.escapeHtml(cell.authors)}` : '';
 
+    const modalNote = modalBg.querySelector('#modalNote') as HTMLElement;
+    if (modalNote) {
+      modalNote.innerHTML = '';
+      if (cell.reconocimiento) {
+        modalNote.innerHTML = `<div style="margin-top:10px;padding:12px 14px;border-left:3px solid #FEC601;background:rgba(254,198,1,0.10);border-radius:0 6px 6px 0;font-size:13px;line-height:1.6"><b style="color:#D4A017">\u2605 Reconocimiento especial</b><br>${this.escapeHtml(cell.reconocimiento)}</div>`;
+      }
+    }
+
     if (modalFlyerWrap) {
       modalFlyerWrap.style.display = 'none';
       if (modalFlyer) modalFlyer.removeAttribute('src');
@@ -801,6 +843,9 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
         modalTitle.textContent = cm.title;
         modalRoom.innerHTML = `<b>Día / Hora:</b> ${this.escapeHtml(day.label)} · ${this.escapeHtml(cm.time)} · Auditorio`;
         modalAuthors.innerHTML = `<b>Ponente:</b> ${this.escapeHtml(cm.speaker || 'Por confirmar')}${cm.org ? ' · ' + this.escapeHtml(cm.org) : ''}`;
+
+        const modalNote = modalBg.querySelector('#modalNote') as HTMLElement;
+        if (modalNote) modalNote.innerHTML = '';
 
         const flyerName = CHARLA_FLYERS[code];
         if (modalFlyerWrap && modalFlyer && flyerName) {
@@ -862,12 +907,16 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
   }
 
   private openPangeaListModal(dayId?: string): void {
-    const targetDay = dayId || 'mie';
-    const day = (DAYS as any[]).find((d: any) => d.id === targetDay);
-    let charlas: any[] = [];
-    (day ? day.rows : []).forEach((row: any) => {
-      if (row.pangea && row.pangea.charlas) charlas = charlas.concat(row.pangea.charlas);
+    const dias = (DAYS as any[]).filter((d: any) => !dayId || d.id === dayId);
+    const grupos: any[] = [];
+    dias.forEach((d: any) => {
+      (d.rows || []).forEach((row: any) => {
+        if (row.pangea && (row.pangea.charlas || []).length) {
+          grupos.push({ dia: d.label, salon: row.pangea.title || 'Salón Pangea', hora: row.time || '', charlas: row.pangea.charlas });
+        }
+      });
     });
+    if (!grupos.length) return;
 
     const root = this.officialRoot.nativeElement;
     const modalBg = root.querySelector('#modalBg') as HTMLElement;
@@ -881,19 +930,26 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     const modalFlyerWrap = modalBg.querySelector('#modalFlyerWrap') as HTMLElement;
     const modalFlyer = modalBg.querySelector('#modalFlyer') as HTMLImageElement;
 
+    const total = grupos.reduce((n: number, g: any) => n + g.charlas.length, 0);
+    const uno = grupos.length === 1 ? grupos[0] : null;
+
     modalBadge.style.display = '';
     modalBadge.className = 'badge confirmado';
-    const _label = targetDay === 'jue' ? 'Salón Gondwana · Charlas especiales' : 'Salón Pangea · Charlas de divulgación';
-    modalBadge.textContent = _label;
-    modalTitle.textContent = targetDay === 'jue' ? 'Salón Gondwana' : 'Salón Pangea';
-    const _dayLabel = targetDay === 'jue' ? 'Jueves 20' : 'Miércoles 19';
-    modalRoom.innerHTML = `<b>${_dayLabel} · ${charlas.length > 0 ? charlas[0].time || '' : ''} · ${targetDay === 'jue' ? 'Salón Gondwana' : 'Salón Pangea'}</b>`;
+    modalBadge.textContent = 'Charlas especiales · Edificio de Artes';
+    modalTitle.textContent = uno ? uno.salon : [...new Set(grupos.map((g: any) => g.salon))].join(' y ');
+    modalRoom.innerHTML = uno
+      ? `<b>${this.escapeHtml(uno.dia)} · ${this.escapeHtml(uno.hora)} · ${total} charlas</b>`
+      : `<b>${total} charlas · ${this.escapeHtml(grupos.map((g: any) => g.dia).join(' y '))}</b>`;
     modalAuthors.innerHTML = '';
 
-    const items = charlas.map((ch: any) => {
-      const _t = ch.time ? `<b style="color:#be123c">${this.escapeHtml(ch.time)}</b> ` : '';
-      const _sp = ch.speaker ? ` — <span style="opacity:.75">${this.escapeHtml(ch.speaker)}</span>` : '';
-      return `<div style="padding:7px 0;border-bottom:1px solid rgba(128,128,128,.25)">${_t}${this.escapeHtml(ch.title)}${_sp}</div>`;
+    const items = grupos.map((g: any) => {
+      const fila = g.charlas.map((ch: any) => {
+        const _t = ch.time ? `<b style="color:#be123c">${this.escapeHtml(ch.time)}</b> ` : '';
+        const _sp = ch.speaker ? ` — <span style="opacity:.75">${this.escapeHtml(ch.speaker)}</span>` : '';
+        return `<div style="padding:7px 0;border-bottom:1px solid rgba(128,128,128,.25)">${_t}${this.escapeHtml(ch.title)}${_sp}</div>`;
+      }).join('');
+      const cab = uno ? '' : `<div style="margin-top:10px;font-weight:700;opacity:.8">${this.escapeHtml(g.dia)} · ${this.escapeHtml(g.salon)}</div>`;
+      return cab + fila;
     }).join('');
     if (modalNote) modalNote.innerHTML = `<div style="max-height:52vh;overflow:auto;text-align:left;margin-top:6px">${items}</div>`;
 
@@ -921,7 +977,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
       lista = (vie && vie.scgPrograma) || [];
     } else {
       titulo = '110 años del Servicio Geológico Colombiano';
-      sub = 'Jueves · 8:00 AM–7:00 PM · Salón Pangea';
+      sub = 'Jueves · todo el día · Salón Pangea';
       lista = (jue && jue.sgcCharlas) || [];
     }
 
@@ -939,18 +995,19 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
 
     modalBadge.style.display = '';
     modalBadge.className = 'badge confirmado';
-    modalBadge.textContent = 'Jornada institucional';
+    modalBadge.textContent = 'Programación institucional';
     modalTitle.textContent = titulo;
     modalRoom.innerHTML = `<b>${this.escapeHtml(sub)}</b>`;
     modalAuthors.innerHTML = '';
 
-    const items = lista.map((ch: any) => {
-      const _t = ch.time ? `<b style="color:var(--green,#3fbf6b)">${this.escapeHtml(ch.time)}</b> ` : '';
-      const _sp = ch.expositor ? ` — <span style="opacity:.75">${this.escapeHtml(ch.expositor)}</span>` : '';
-      const _dir = ch.direccion ? `<div style="font-size:11px;opacity:.6;margin-top:2px">${this.escapeHtml(ch.direccion)}</div>` : '';
-      return `<div style="padding:7px 0;border-bottom:1px solid rgba(128,128,128,.25)">${_t}${this.escapeHtml(ch.title)}${_sp}${_dir}</div>`;
+    const items = lista.map((it: any) => {
+      const _t = it.time ? `<b style="color:var(--green,#3fbf6b)">${this.escapeHtml(it.time)}</b> ` : '';
+      const _q = it.expositor || it.speaker;
+      const _m = _q ? ` — <span style="opacity:.75">${this.escapeHtml(_q)}</span>` : '';
+      const _a = it.area ? `<br><span style="opacity:.55;font-size:11px">${this.escapeHtml(it.area)}</span>` : '';
+      return `<div style="padding:5px 0;border-bottom:1px solid rgba(128,128,128,.25)">${_t}${this.escapeHtml(it.title)}${_m}${_a}</div>`;
     }).join('');
-    if (modalNote) modalNote.innerHTML = `<div style="max-height:52vh;overflow:auto;text-align:left;margin-top:6px">${items}</div>`;
+    if (modalNote) modalNote.innerHTML = `<div style="max-height:52vh;overflow:auto;text-align:left;margin-top:6px">${items || 'Programación por confirmar.'}</div>`;
 
     if (modalFlyerWrap) {
       modalFlyerWrap.style.display = 'none';
@@ -964,22 +1021,15 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     this.matomo.trackEvent('Event', 'schedule_item_click', 'mineria_bloque');
     const mie = (DAYS as any[]).find((d: any) => d.id === 'mie');
     if (!mie) return;
+    const codes = ['CE-2', 'CE-3', 'CE-11', 'CE-10'];
+    const _m = (t: string) => { const x = (t || '').match(/(\d{1,2}):(\d{2})/); return x ? (+x[1]) * 60 + (+x[2]) : 9999; };
     let cms: any[] = [];
-    for (const row of mie.rows || []) {
-      for (const cm of (row.auditorio?.cms || [])) {
-        if (cm.code && cm.code.startsWith('CE') && /miner|industria|innov/i.test(cm.title || '')) {
-          cms.push(cm);
-        }
-      }
-    }
-    // Fallback: get CEs from the 14:00–16:00 block
-    if (!cms.length) {
-      for (const row of mie.rows || []) {
-        if (row.time === '14:00–16:00' && row.auditorio?.cms) {
-          cms = row.auditorio.cms.filter((c: any) => c.code && c.code.startsWith('CE'));
-        }
-      }
-    }
+    (mie.rows || []).forEach((row: any) => {
+      ((row.auditorio || {}).cms || []).forEach((cm: any) => {
+        if (codes.indexOf(cm.code) >= 0) cms.push(cm);
+      });
+    });
+    cms.sort((a: any, b: any) => _m(a.time) - _m(b.time));
 
     const root = this.officialRoot.nativeElement;
     const modalBg = root.querySelector('#modalBg') as HTMLElement;
@@ -1001,12 +1051,70 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     modalAuthors.innerHTML = '';
     const items = cms.map((cm: any) => {
       const _t = cm.time ? `<b style="color:var(--green,#3fbf6b)">${this.escapeHtml(cm.time)}</b> ` : '';
-      const _sp = cm.speaker ? ` — <span style="opacity:.75">${this.escapeHtml(cm.speaker)}</span>` : '';
-      return `<div style="padding:7px 0;border-bottom:1px solid rgba(128,128,128,.25)">${_t}${this.escapeHtml(cm.title)}${_sp}</div>`;
+      return `<div data-code="${this.escapeHtml(cm.code)}" style="padding:7px 0;border-bottom:1px solid rgba(128,128,128,.25);cursor:pointer">${_t}${this.escapeHtml(cm.title)} <span style="opacity:.5;font-size:11px">· ${this.escapeHtml(cm.code)}</span></div>`;
     }).join('');
-    if (modalNote) modalNote.innerHTML = `<div style="max-height:52vh;overflow:auto;text-align:left;margin-top:6px">${items}</div>`;
+    if (modalNote) modalNote.innerHTML = `<div style="max-height:52vh;overflow:auto;text-align:left;margin-top:6px">${items || 'Por confirmar.'}</div>`;
+
+    // Attach click listeners for each charla item
+    if (modalNote) {
+      modalNote.querySelectorAll('[data-code]').forEach((el) => {
+        this.listeners.push(
+          this.renderer.listen(el, 'click', () => {
+            const code = (el as HTMLElement).dataset['code'];
+            if (code) this.openCharla(code);
+          }),
+        );
+      });
+    }
 
     if (modalFlyerWrap) {
+      modalFlyerWrap.style.display = 'none';
+      if (modalFlyer) modalFlyer.removeAttribute('src');
+    }
+
+    this.renderer.addClass(modalBg, 'show');
+  }
+
+  private openPanelPorTitulo(prefijo: string): void {
+    for (const day of DAYS as any[]) {
+      for (const row of (day.rows || [])) {
+        if (row.type === 'panel' && row.title && row.title.indexOf(prefijo) === 0) {
+          this.openPanel(row);
+          return;
+        }
+      }
+    }
+  }
+
+  private openPanel(row: any): void {
+    this.matomo.trackEvent('Event', 'schedule_item_click', 'panel_' + (row.title || '').slice(0, 40));
+    const root = this.officialRoot.nativeElement;
+    const modalBg = root.querySelector('#modalBg') as HTMLElement;
+    if (!modalBg) return;
+
+    const modalBadge = modalBg.querySelector('#modalBadge') as HTMLElement;
+    const modalTitle = modalBg.querySelector('#modalTitle') as HTMLElement;
+    const modalRoom = modalBg.querySelector('#modalRoom') as HTMLElement;
+    const modalAuthors = modalBg.querySelector('#modalAuthors') as HTMLElement;
+    const modalNote = modalBg.querySelector('#modalNote') as HTMLElement;
+    const modalFlyerWrap = modalBg.querySelector('#modalFlyerWrap') as HTMLElement;
+    const modalFlyer = modalBg.querySelector('#modalFlyer') as HTMLImageElement;
+
+    modalBadge.style.display = '';
+    modalBadge.className = 'badge confirmado';
+    modalBadge.textContent = 'Panel de discusión';
+    modalTitle.textContent = row.title;
+    modalRoom.innerHTML = `<b>Hora:</b> ${this.escapeHtml(row.time || '')}`;
+    modalAuthors.innerHTML = row.note ? `<b>Participan:</b> ${this.escapeHtml(row.note)}` : '';
+    if (modalNote) modalNote.innerHTML = '';
+
+    if (modalFlyerWrap && modalFlyer && row.flyer) {
+      const src = encodeURI(row.flyer);
+      modalFlyer.src = src;
+      modalFlyer.onclick = () => window.open(src, '_blank');
+      modalFlyer.onerror = () => { modalFlyerWrap.style.display = 'none'; };
+      modalFlyerWrap.style.display = '';
+    } else if (modalFlyerWrap) {
       modalFlyerWrap.style.display = 'none';
       if (modalFlyer) modalFlyer.removeAttribute('src');
     }
