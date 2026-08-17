@@ -20,7 +20,7 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   showVideoModal = false;
   isPromoMuted = true;
 
-  registeredParticipants = 489;
+  registeredParticipants = 498;
   totalCapacity = 500;
 
   get progressPercentage() {
@@ -35,7 +35,7 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   };
 
   // Fecha tentativa del congreso
-  private targetDate = new Date('2026-08-21T08:00:00');
+  private targetDate = new Date('2026-08-19T08:00:00');
   private timerId: any;
 
   ngOnInit() {

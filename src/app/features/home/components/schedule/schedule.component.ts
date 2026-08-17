@@ -120,8 +120,10 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
         .flatMap((row: any) =>
           (row.auditorio?.cms || []).map((cm: any) => {
             if (!cm.code || exc.has(cm.code)) return '';
-            const pts = cm.time.split(/[^\d:]+/);
+            const pts = (cm.gridTime || cm.time).split(/[^\d:]+/);
+            const lbl = cm.time.split(/[^\d:]+/);
             const [t1, t2] = [pts[0], pts[1]];
+            const [l1, l2] = [lbl[0] || pts[0], lbl[1] || pts[1]];
             if (!t1 || !t2) return '';
             const cs = Array.isArray(col)
               ? `${col[0]} / span ${col[1]}`
@@ -130,7 +132,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
             const clamp = r(t2) - r(t1) >= 40 ? 2 : 1;
             const magCls = cm.code.indexOf('CM') === 0 ? 'hb-cm-mag' : 'hb-cm-esp';
             return `<div class="hblk hb-cm ${magCls}" style="grid-column:${cs};grid-row:${r(t1)}/${r(t2)};justify-content:center;align-items:center;text-align:center;" data-code="${this.escapeHtml(cm.code)}">
-              <div class="ht" style="width:100%;text-align:center">${fmt(t1)}\u2009\u2013\u2009${fmt(t2)} \u00b7 ${this.escapeHtml(cm.code)}</div>
+              <div class="ht" style="width:100%;text-align:center">${fmt(l1)}\u2009\u2013\u2009${fmt(l2)} \u00b7 ${this.escapeHtml(cm.code)}</div>
               <div class="hn" style="line-height:1.25;color:#fff;display:-webkit-box;-webkit-line-clamp:${clamp};-webkit-box-orient:vertical;overflow:hidden;">${this.escapeHtml(cm.title)}</div>
               ${spOk ? `<div class="hs" style="font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;">${this.escapeHtml(cm.speaker)}</div>` : ''}
             </div>`;
@@ -208,15 +210,10 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
       blk(4, '14:00', '16:00', 'hb-pangea', 'SALÓN PANGEA', '4 charlas · toca para ver', "openPangeaListModal('mie')"),
       brk(2, 'mie', 'primer', 'Primer refrigerio'),
       blk(3, '10:30', '12:30', 'hb-geo', 'GEOLIMPIADAS', ''),
-      blk([2, 9], '12:30', '14:00', 'hb-alm', 'ALMUERZO', ''),
+      blk([2, 9], '12:30', '14:00', 'hb-alm', 'ALMUERZO LIBRE', ''),
       ponBlk(3, 'mie'),
       brk([2, 3], 'mie', 'segundo', 'Segundo refrigerio'),
       blk([2, 3], '17:10', '18:00', 'hb-cie', 'TERMALES', 'Salida 6:00 PM'),
-    ].join('');
-
-    const sgc = [
-      blk(7, '8:00', '12:30', 'hb-sgc', '110 años del servicio geológico', 'Salón Pangea', "openSgcModal('sgc')"),
-      blk(7, '14:00', '19:00', 'hb-sgc', '110 años del servicio geológico', 'Salón Pangea', "openSgcModal('sgc')"),
     ].join('');
 
     const acggp = [
@@ -230,17 +227,19 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
       brk([5, 2], 'jue', 'tercer', 'Tercer refrigerio'),
       blk([5, 2], '11:00', '12:30', 'hb-pan', 'GEOLOGÍA EN VIVO', 'Dos Expertos, Un Viaje al Corazón de la Tierra', "openPanelPorTitulo('Geología en Vivo')"),
       blk(5, '14:00', '15:00', 'hb-pan', 'PANEL — GESTIÓN DEL RIESGO', 'Panel de discusión'),
-      blk(6, '14:00', '15:00', 'hb-pangea', 'SALÓN GONDWANA', '2 charlas de 30 min · toca para ver', "openPangeaListModal('jue')"),
+      blk(7, '8:10', '12:30', 'hb-retx', 'RETRANSMISIÓN AUDITORIO', 'Salón Pangea'),
+      blk(7, '14:00', '17:00', 'hb-retx', 'RETRANSMISIÓN AUDITORIO', 'Salón Pangea'),
+      blk(6, '14:00', '15:00', 'hb-pangea', 'SALÓN GONDWANA', '1 charla especial · toca para ver', "openPangeaListModal('jue')"),
       brk([5, 2], 'jue', 'cuarto', 'Cuarto refrigerio'),
-      blk([5, 2], '17:10', '18:20', 'hb-pos', 'PÓSTERS', '34 pósters · Salón Gondwana<br>Hidrogeología · Geoeducación · Geotecnia'),
+      blk([5, 2], '17:10', '18:20', 'hb-pos', 'PÓSTERS', '35 pósters · Salón Gondwana<br>Hidrogeología · Geoeducación · Geotecnia'),
       blk([5, 2], '18:30', '20:00', 'hb-cie', 'CANELAZO', '6:30 – 8:00 PM'),
     ].join('');
 
     const vie = [
       cmBlks([8, 2], 'vie', ['CE-7', 'CE-8', 'SCG']),
       cmBlks(8, 'vie', ['CM-6', 'CM-7', 'SCG']),
-      `<div class="hblk hb-scg" style="grid-column:8 / span 2;grid-row:${r('14:00')}/${r('16:20')};cursor:pointer;justify-content:center;align-items:center;text-align:center;padding:4px 8px;" data-onclick="openSgcModal('scg')">
-        <div class="ht" style="width:100%;text-align:center;font-size:8px;opacity:.8;">${fmt('14:00')} – ${fmt('16:20')}</div>
+      `<div class="hblk hb-scg" style="grid-column:8 / span 2;grid-row:${r('14:00')}/${r('16:40')};cursor:pointer;justify-content:center;align-items:center;text-align:center;padding:4px 8px;" data-onclick="openSgcModal('scg')">
+        <div class="ht" style="width:100%;text-align:center;font-size:8px;opacity:.8;">${fmt('14:00')} – ${fmt('16:40')}</div>
         <div class="hn" style="text-align:center;font-size:11px;">Jornada SCG</div>
         <div class="hs" style="text-align:center;">Soc. Colombiana de Geotecnia · 11 charlas · toca para ver</div>
       </div>`,
@@ -248,10 +247,10 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
       brk([8, 2], 'vie', 'quinto', 'Quinto refrigerio'),
       blk([8, 2], '11:00', '12:30', 'hb-pan', 'PANEL · ANH', 'Energías, territorio y decisiones'),
       brk(10, 'vie', 'sexto', 'Sexto refrigerio'),
-      blk(10, '14:20', '15:30', 'hb-pos', 'PÓSTERS', '59 pósters · 2 salones<br>Salón Pangea · Salón Gondwana'),
-      blk(10, '16:20', '19:00', 'hb-retx', 'RETRANSMISIÓN AUDITORIO', 'Salones Pangea y Gondwana'),
-      blk([8, 2], '17:00', '19:00', 'hb-cie', 'EVENTO DE CIERRE', '5:00 PM'),
-      `<div class="hblk hb-cie" style="grid-column:8 / span 2;grid-row:${r('19:00')}/${r('20:00')};justify-content:center;align-items:center;text-align:center;">
+      blk(10, '14:20', '15:30', 'hb-pos', 'PÓSTERS', '58 pósters · 2 salones<br>Salón Pangea · Salón Gondwana'),
+      blk(10, '16:40', '19:20', 'hb-retx', 'RETRANSMISIÓN AUDITORIO', 'Salones Pangea y Gondwana'),
+      blk([8, 2], '17:20', '19:20', 'hb-cie', 'EVENTO DE CIERRE', '5:20 – 7:20 PM'),
+      `<div class="hblk hb-cie" style="grid-column:8 / span 2;grid-row:${r('19:20')}/${r('20:00')};justify-content:center;align-items:center;text-align:center;">
         <div class="ht">8:00 PM →</div>
         <div class="hn">FIESTA FINAL</div>
       </div>`,
@@ -271,7 +270,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
       <div class="hh hs-pangea">Salón Pangea</div>
       <div class="hh hs-c">Charlas · Actividades</div>
       <div class="hh hs-p">Ponencias · Pósters</div>
-      <div class="hh hs-g">110 años · SGC</div>
+      <div class="hh hs-retx">Retransmisión</div>
       <div class="hh hs-c">Charlas · Actividades</div>
       <div class="hh hs-p">Ponencias</div>
       <div class="hh hs-g">ACGGP / SCG</div>
@@ -280,7 +279,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     return `<div style="overflow-x:auto;border:1px solid var(--border);border-radius:8px;">
       ${hdrMain}${hdrSub}
       <div style="display:grid;grid-template-columns:${GC};grid-template-rows:repeat(760,2px);position:relative;min-width:1050px;">
-        ${tlHtml}${mie}${sgc}${jue}${acggp}${vie}
+        ${tlHtml}${mie}${jue}${acggp}${vie}
       </div>
     </div>`;
   }
@@ -340,7 +339,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     // ACGGP / SCG clickable boxes for Friday
     [
       { k: 'acggpPrograma', which: 'acggp', t: 'Jornada ACGGP — Asoc. Colombiana de Geólogos y Geofísicos de la Energía', h: '8:00 AM – 12:30 PM · 1 salón del edificio de Artes' },
-      { k: 'scgPrograma', which: 'scg', t: 'Jornada SCG — Sociedad Colombiana de Geotecnia', h: '2:00 – 5:00 PM · 1 salón del edificio de Artes' },
+      { k: 'scgPrograma', which: 'scg', t: 'Jornada SCG — Sociedad Colombiana de Geotecnia', h: '2:00 – 4:40 PM · 1 salón del edificio de Artes' },
     ].forEach((cfg: any) => {
       const lista = day[cfg.k];
       if (!lista || !lista.length) return;
@@ -444,7 +443,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     }
     const badge = cm.sgcModal ? 'Jornada institucional' : (mag ? 'Charla magistral' : 'Charla especial') + (cm.code ? ' · ' + this.escapeHtml(cm.code) : '');
     d.innerHTML =
-      `<div class="ch-head"><span class="ch-badge">${badge}</span><span class="ch-time">Auditorio · Edif. de Artes</span></div>` +
+      `<div class="ch-head"><span class="ch-badge">${badge}</span><span class="ch-time">Auditorio Cacique Sugamuxi · Edif. de Artes</span></div>` +
       `<div class="ch-title">${this.escapeHtml(cm.title)}</div>` +
       `<div class="ch-speaker">${this.escapeHtml(cm.speaker || 'Por confirmar')}${cm.org ? ' · ' + this.escapeHtml(cm.org) : ''}</div>`;
     return d;
@@ -512,7 +511,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
 
     const ah = this.renderer.createElement('div');
     this.renderer.addClass(ah, 'dt-audhead');
-    ah.textContent = 'Auditorio';
+    ah.textContent = 'Auditorio Cacique Sugamuxi';
     place(ah, '2', '1');
 
     rooms.forEach((r: string, ci: number) => {
@@ -841,7 +840,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
         modalBadge.textContent =
           (esMag ? 'Charla magistral' : 'Charla especial') + ' · ' + code;
         modalTitle.textContent = cm.title;
-        modalRoom.innerHTML = `<b>Día / Hora:</b> ${this.escapeHtml(day.label)} · ${this.escapeHtml(cm.time)} · Auditorio`;
+        modalRoom.innerHTML = `<b>Día / Hora:</b> ${this.escapeHtml(day.label)} · ${this.escapeHtml(cm.time)} · Auditorio Cacique Sugamuxi`;
         modalAuthors.innerHTML = `<b>Ponente:</b> ${this.escapeHtml(cm.speaker || 'Por confirmar')}${cm.org ? ' · ' + this.escapeHtml(cm.org) : ''}`;
 
         const modalNote = modalBg.querySelector('#modalNote') as HTMLElement;
@@ -973,12 +972,12 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
       lista = (vie && vie.acggpPrograma) || [];
     } else if (which === 'scg') {
       titulo = 'Jornada SCG — Sociedad Colombiana de Geotecnia';
-      sub = 'Viernes · 2:00–5:00 PM · 1 salón del edificio de Artes';
+      sub = 'Viernes · 2:00–4:40 PM · 1 salón del edificio de Artes';
       lista = (vie && vie.scgPrograma) || [];
     } else {
       titulo = '110 años del Servicio Geológico Colombiano';
       sub = 'Jueves · todo el día · Salón Pangea';
-      lista = (jue && jue.sgcCharlas) || [];
+      lista = (jue && (jue.sgcCharlasArchivo || jue.sgcCharlas)) || [];
     }
 
     const root = this.officialRoot.nativeElement;
@@ -1047,7 +1046,7 @@ export class ScheduleComponent implements AfterViewInit, OnDestroy {
     modalBadge.className = 'badge confirmado';
     modalBadge.textContent = 'Bloque de charlas especiales';
     modalTitle.textContent = 'Minería, industria e innovación';
-    modalRoom.innerHTML = '<b>Miércoles · 2:00–4:00 PM · Auditorio (Edif. de Artes)</b>';
+    modalRoom.innerHTML = '<b>Miércoles · 2:00–4:00 PM · Auditorio Cacique Sugamuxi (Edif. de Artes)</b>';
     modalAuthors.innerHTML = '';
     const items = cms.map((cm: any) => {
       const _t = cm.time ? `<b style="color:var(--green,#3fbf6b)">${this.escapeHtml(cm.time)}</b> ` : '';
