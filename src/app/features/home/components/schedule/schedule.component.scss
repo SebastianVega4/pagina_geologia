@@ -236,6 +236,7 @@
 .official-root .hh.hs-c { font-size: 7.5px; padding: 3px 5px; letter-spacing: 0; color: var(--gold); opacity: .9; }
 .official-root .hh.hs-p { font-size: 7.5px; padding: 3px 5px; letter-spacing: 0; color: var(--blue); opacity: .9; }
 .official-root .hh.hs-g { font-size: 7.5px; padding: 3px 5px; letter-spacing: 0; color: var(--green); opacity: .9; }
+.official-root .hh.hs-retx { font-size: 7.5px; padding: 3px 5px; letter-spacing: 0; color: var(--text-dim); opacity: .9; }
 
 .official-root .hblk {
   margin: 2px 3px;
@@ -256,8 +257,9 @@
 .official-root .hblk .ht { font-family: 'DM Mono', monospace; font-size: 8px; opacity: .6; letter-spacing: .2px; margin-bottom: 2px; }
 
 .official-root .hb-reg,
-.official-root .hb-ap,
-.official-root .hb-geo { background: var(--c-act); border: none; color: #fff; }
+.official-root .hb-ap { background: var(--c-act); border: none; color: #fff; }
+
+.official-root .hb-geo { background: #65a30d; border: none; color: #fff; }
 
 .official-root .hb-pos { background: var(--c-pos); border: none; color: #fff; }
 
@@ -379,6 +381,7 @@
 .official-root .seg-strip.cat-panel { background: var(--c-pan); }
 .official-root .seg-strip.cat-poster { background: var(--c-pos); }
 .official-root .seg-strip.cat-sgc { background: var(--c-inst); }
+.official-root .seg-strip.cat-geolimpiadas { background: #65a30d; }
 .official-root .seg-strip.cat-info { background: var(--night-2); color: var(--text); border: 1px solid var(--border); text-shadow: none; }
 
 .official-root .charla-strip {
