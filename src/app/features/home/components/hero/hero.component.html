@@ -14,72 +14,218 @@
                  class="w-full max-w-sm md:max-w-xl h-auto mb-2 object-contain">
         </div>
 
-        <!-- Countdown Timer -->
-        <div class="flex flex-wrap justify-center gap-3 md:gap-4 py-4 md:py-8 animate-fade-in">
-            <div
-                class="flex flex-col items-center bg-white/5 backdrop-blur-md border border-white/10 p-4 md:p-6 rounded-2xl w-20 md:w-32 shadow-2xl">
-                <span class="text-2xl md:text-4xl font-bold text-white">{{ countdown.days }}</span>
-                <span class="text-[10px] md:text-sm text-gray-400 uppercase tracking-wider">Días</span>
-            </div>
-            <div
-                class="flex flex-col items-center bg-white/5 backdrop-blur-md border border-white/10 p-4 md:p-6 rounded-2xl w-20 md:w-32 shadow-2xl">
-                <span class="text-2xl md:text-4xl font-bold text-white">{{ countdown.hours }}</span>
-                <span class="text-[10px] md:text-sm text-gray-400 uppercase tracking-wider">Horas</span>
-            </div>
-            <div
-                class="flex flex-col items-center bg-white/5 backdrop-blur-md border border-white/10 p-4 md:p-6 rounded-2xl w-20 md:w-32 shadow-2xl">
-                <span class="text-2xl md:text-4xl font-bold text-white">{{ countdown.minutes }}</span>
-                <span class="text-[10px] md:text-sm text-gray-400 uppercase tracking-wider">Min</span>
-            </div>
-            <div
-                class="flex flex-col items-center bg-white/5 backdrop-blur-md border border-white/10 p-4 md:p-6 rounded-2xl w-20 md:w-32 shadow-2xl">
-                <span class="text-2xl md:text-4xl font-bold text-white">{{ countdown.seconds }}</span>
-                <span class="text-[10px] md:text-sm text-gray-400 uppercase tracking-wider">Seg</span>
-            </div>
-        </div>
-
-        <!-- Actions -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 md:pt-4 animate-fade-in-up">
-            <button (click)="scrollToRegistration()"
-                class="group flex items-center justify-center gap-3 px-8 py-4 bg-brand-accent hover:bg-brand-accent/90 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-brand-accent/20 hover:-translate-y-1 w-full sm:w-auto">
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- STATE: BEFORE — Countdown                   -->
+        <!-- ═══════════════════════════════════════════ -->
+        @if (eventState === 'before') {
+            <!-- Countdown Timer -->
+            <div class="flex flex-wrap justify-center gap-3 md:gap-4 py-4 md:py-8 animate-fade-in">
                 <div
-                    class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <lucide-angular [img]="icons.Mail" class="w-4 h-4"></lucide-angular>
+                    class="flex flex-col items-center bg-white/5 backdrop-blur-md border border-white/10 p-4 md:p-6 rounded-2xl w-20 md:w-32 shadow-2xl">
+                    <span class="text-2xl md:text-4xl font-bold text-white">{{ countdown.days }}</span>
+                    <span class="text-[10px] md:text-sm text-gray-400 uppercase tracking-wider">Días</span>
                 </div>
-                Asegura tu lugar
-            </button>
-            <a routerLink="/cronograma" appTrackClick="hero_view_schedule"
-                class="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl backdrop-blur-md border border-white/10 transition-all w-full sm:w-auto">
-                Ver Cronograma
-            </a>
-        </div>
+                <div
+                    class="flex flex-col items-center bg-white/5 backdrop-blur-md border border-white/10 p-4 md:p-6 rounded-2xl w-20 md:w-32 shadow-2xl">
+                    <span class="text-2xl md:text-4xl font-bold text-white">{{ countdown.hours }}</span>
+                    <span class="text-[10px] md:text-sm text-gray-400 uppercase tracking-wider">Horas</span>
+                </div>
+                <div
+                    class="flex flex-col items-center bg-white/5 backdrop-blur-md border border-white/10 p-4 md:p-6 rounded-2xl w-20 md:w-32 shadow-2xl">
+                    <span class="text-2xl md:text-4xl font-bold text-white">{{ countdown.minutes }}</span>
+                    <span class="text-[10px] md:text-sm text-gray-400 uppercase tracking-wider">Min</span>
+                </div>
+                <div
+                    class="flex flex-col items-center bg-white/5 backdrop-blur-md border border-white/10 p-4 md:p-6 rounded-2xl w-20 md:w-32 shadow-2xl">
+                    <span class="text-2xl md:text-4xl font-bold text-white">{{ countdown.seconds }}</span>
+                    <span class="text-[10px] md:text-sm text-gray-400 uppercase tracking-wider">Seg</span>
+                </div>
+            </div>
 
-        <!-- Scarcity Signal with Progress Bar -->
-        <div class="max-w-md mx-auto space-y-4 animate-fade-in pt-4">
-            <div class="flex items-center justify-between text-xs md:text-sm font-bold tracking-wide">
-                <div class="flex items-center gap-2 text-gray-300">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-accent opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-accent"></span>
+            <!-- Actions (before) -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 md:pt-4 animate-fade-in-up">
+                <button (click)="scrollToRegistration()"
+                    class="group flex items-center justify-center gap-3 px-8 py-4 bg-brand-accent hover:bg-brand-accent/90 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-brand-accent/20 hover:-translate-y-1 w-full sm:w-auto">
+                    <div
+                        class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <lucide-angular [img]="icons.Mail" class="w-4 h-4"></lucide-angular>
+                    </div>
+                    Asegura tu lugar
+                </button>
+                <a routerLink="/cronograma" appTrackClick="hero_view_schedule"
+                    class="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl backdrop-blur-md border border-white/10 transition-all w-full sm:w-auto">
+                    Ver Cronograma
+                </a>
+            </div>
+
+            <!-- Scarcity Signal with Progress Bar -->
+            <div class="max-w-md mx-auto space-y-4 animate-fade-in pt-4">
+                <div class="flex items-center justify-between text-xs md:text-sm font-bold tracking-wide">
+                    <div class="flex items-center gap-2 text-gray-300">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-accent opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-accent"></span>
+                        </span>
+                        Cupos Reservados
+                    </div>
+                    <div class="text-brand-accent">
+                        {{ registeredParticipants }} / {{ totalCapacity }} lugares
+                    </div>
+                </div>
+
+                <!-- Progress Track -->
+                <div class="h-2.5 w-full bg-white/10 rounded-full overflow-hidden border border-white/5 backdrop-blur-sm">
+                    <div class="h-full bg-gradient-to-r from-brand-accent to-orange-500 rounded-full transition-all duration-1000 ease-out"
+                         [style.width.%]="progressPercentage">
+                    </div>
+                </div>
+
+                <p class="text-[10px] md:text-xs text-gray-400 font-medium uppercase tracking-[0.2em]">
+                    Actualizado cada 24 horas · Los cupos se agotan por orden de inscripción
+                </p>
+            </div>
+        }
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- STATE: DURING — Live Schedule                -->
+        <!-- ═══════════════════════════════════════════ -->
+        @if (eventState === 'during' && currentSlot) {
+            <div class="animate-fade-in space-y-5 py-4 md:py-6 max-w-2xl mx-auto">
+
+                <!-- Live badge + day -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <span class="live-badge inline-flex items-center gap-2 px-4 py-1.5 bg-red-500/20 border border-red-500/40 rounded-full text-red-300 text-xs font-bold uppercase tracking-widest">
+                        <span class="live-dot h-2 w-2 rounded-full bg-red-500"></span>
+                        En Vivo
                     </span>
-                    Cupos Reservados
+                    <span class="text-gray-300 text-sm font-semibold">{{ currentDayLabel }}</span>
                 </div>
-                <div class="text-brand-accent">
-                    {{ registeredParticipants }} / {{ totalCapacity }} lugares
+
+                <!-- Primary activity card -->
+                @if (primaryActivity) {
+                    <div class="glass-card bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 md:p-6 text-left shadow-2xl">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">{{ getActivityIcon(primaryActivity.type) }}</span>
+                            <div>
+                                <p class="text-xs text-gray-400 font-bold uppercase tracking-wider">
+                                    {{ currentSlot.start }} – {{ currentSlot.end }}
+                                </p>
+                            </div>
+                        </div>
+                        <h3 class="text-white text-lg md:text-xl font-bold mb-2 leading-snug">
+                            {{ primaryActivity.title }}
+                        </h3>
+                        @if (primaryActivity.location) {
+                            <div class="flex items-center gap-1.5 text-gray-400 text-sm">
+                                <lucide-angular [img]="icons.MapPin" class="w-3.5 h-3.5"></lucide-angular>
+                                {{ primaryActivity.location }}
+                            </div>
+                        }
+
+                        <!-- Activity progress bar -->
+                        <div class="mt-4 h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-brand-accent to-orange-400 rounded-full transition-all duration-1000 ease-out"
+                                 [style.width.%]="dayElapsedPercent">
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <!-- Parallel activities indicator -->
+                @if (parallelActivities.length > 0) {
+                    <div class="text-left">
+                        <button (click)="toggleParallel()"
+                            class="flex items-center gap-2 text-gray-400 hover:text-gray-200 text-xs font-bold uppercase tracking-wider transition-colors group">
+                            <span>+{{ parallelActivities.length }} actividad{{ parallelActivities.length > 1 ? 'es' : '' }} en simultáneo</span>
+                            <lucide-angular [img]="showParallel ? icons.ChevronUp : icons.ChevronDown"
+                                class="w-4 h-4 transition-transform"></lucide-angular>
+                        </button>
+
+                        @if (showParallel) {
+                            <div class="mt-3 space-y-2 animate-fade-in">
+                                @for (act of parallelActivities; track act.title) {
+                                    <div class="flex items-start gap-3 bg-white/5 backdrop-blur-sm border border-white/5 rounded-xl px-4 py-3">
+                                        <span class="text-base mt-0.5">{{ getActivityIcon(act.type) }}</span>
+                                        <div class="min-w-0">
+                                            <p class="text-white text-sm font-semibold leading-snug">{{ act.title }}</p>
+                                            @if (act.location) {
+                                                <p class="text-gray-500 text-xs mt-0.5">{{ act.location }}</p>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+
+                <!-- Next activity -->
+                @if (nextSlot) {
+                    <div class="bg-white/[0.03] border border-white/5 rounded-xl px-5 py-4 text-left">
+                        <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-1.5">Siguiente</p>
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center gap-1.5 text-brand-accent text-sm font-bold">
+                                <lucide-angular [img]="icons.Clock" class="w-3.5 h-3.5"></lucide-angular>
+                                {{ nextSlot.start }}
+                            </div>
+                            <p class="text-gray-300 text-sm font-medium truncate">
+                                {{ nextSlot.activities[0].title }}
+                            </p>
+                        </div>
+                    </div>
+                }
+
+                <!-- Day timeline progress -->
+                <div class="pt-2">
+                    <div class="flex items-center justify-between text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-1.5">
+                        <span>8:00 AM</span>
+                        <span>6:00 PM</span>
+                    </div>
+                    <div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-brand-primary/60 via-brand-accent to-brand-secondary/60 rounded-full transition-all duration-1000 ease-out"
+                             [style.width.%]="dayElapsedPercent">
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Progress Track -->
-            <div class="h-2.5 w-full bg-white/10 rounded-full overflow-hidden border border-white/5 backdrop-blur-sm">
-                <div class="h-full bg-gradient-to-r from-brand-accent to-orange-500 rounded-full transition-all duration-1000 ease-out"
-                     [style.width.%]="progressPercentage">
+            <!-- Actions (during) -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 animate-fade-in-up">
+                <a routerLink="/cronograma" appTrackClick="hero_view_schedule"
+                    class="group flex items-center justify-center gap-3 px-8 py-4 bg-brand-accent hover:bg-brand-accent/90 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-brand-accent/20 hover:-translate-y-1 w-full sm:w-auto">
+                    <lucide-angular [img]="icons.Radio" class="w-5 h-5"></lucide-angular>
+                    Ver Cronograma en Vivo
+                </a>
+            </div>
+        }
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- STATE: AFTER — Event finished                -->
+        <!-- ═══════════════════════════════════════════ -->
+        @if (eventState === 'after') {
+            <div class="animate-fade-in space-y-6 py-6 md:py-10 max-w-lg mx-auto">
+                <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 shadow-2xl text-center">
+                    <div class="text-5xl mb-4">🎉</div>
+                    <h3 class="text-white text-2xl md:text-3xl font-black mb-3" style="font-family: 'Montserrat', sans-serif;">
+                        Evento Finalizado
+                    </h3>
+                    <p class="text-gray-400 text-sm md:text-base mb-6">
+                        La XVII Semana Técnica de Geología, Ingeniería Geológica y Geociencias ha concluido.
+                        ¡Gracias por participar!
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                        <a routerLink="/cronograma"
+                            class="px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl backdrop-blur-md border border-white/10 transition-all w-full sm:w-auto text-sm">
+                            Ver Cronograma Completo
+                        </a>
+                        <a routerLink="/galeria"
+                            class="px-6 py-3 bg-brand-accent hover:bg-brand-accent/90 text-white font-bold rounded-xl transition-all shadow-lg w-full sm:w-auto text-sm">
+                            Ver Galería
+                        </a>
+                    </div>
                 </div>
             </div>
-
-            <p class="text-[10px] md:text-xs text-gray-400 font-medium uppercase tracking-[0.2em]">
-                Actualizado cada 24 horas · Los cupos se agotan por orden de inscripción
-            </p>
-        </div>
+        }
     </div>
 
     <!-- Video Modal Overlay -->

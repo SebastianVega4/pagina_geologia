@@ -1,0 +1,93 @@
+:host {
+  display: block;
+}
+
+// ─── Live badge pulse animation ───
+@keyframes livePulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+  }
+}
+
+.live-badge {
+  animation: livePulse 2s ease-in-out infinite;
+}
+
+.live-dot {
+  animation: livePulse 1.5s ease-in-out infinite;
+}
+
+// ─── Glass card hover effect ───
+.glass-card {
+  transition: border-color 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+  }
+}
+
+// ─── Smooth state transitions ───
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeSlideIn 0.6s ease-out both;
+}
+
+// ─── Tailwind animation utilities (fallback for AOT) ───
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown 0.8s ease-out both;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out both;
+}
+
+.animate-zoom-in {
+  animation: zoomIn 0.4s ease-out both;
+}
