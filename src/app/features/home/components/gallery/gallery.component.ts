@@ -25,7 +25,14 @@ export class GalleryComponent {
 
   items: GalleryItem[] = [
     { url: 'assets/gallery/actual/Historia ROKO.jpg', title: 'Historia ROKO', category: 'actual' },
-    { url: 'assets/gallery/actual/XVII Semana Tecnica.jpg', title: 'XVII Semana Tecnica', category: 'actual' }
+    { url: 'assets/gallery/actual/XVII Semana Tecnica.jpg', title: 'XVII Semana Tecnica', category: 'actual' },
+    { url: 'assets/gallery/actual/nevado_resultado.webp', title: 'Salida al Nevado del Cocuy', category: 'actual' },
+    { url: 'assets/gallery/actual/nevado1_resultado.webp', title: 'Salida al Nevado del Cocuy', category: 'actual' },
+    { url: 'assets/gallery/actual/nevado2_resultado.webp', title: 'Salida al Nevado del Cocuy', category: 'actual' },
+    { url: 'assets/gallery/actual/nevado3_resultado.webp', title: 'Salida al Nevado del Cocuy', category: 'actual' },
+    { url: 'assets/gallery/actual/nevado4_resultado.webp', title: 'Salida al Nevado del Cocuy', category: 'actual' },
+    { url: 'assets/gallery/actual/nevado5_resultado.webp', title: 'Salida al Nevado del Cocuy', category: 'actual' },
+    { url: 'assets/gallery/actual/nevado6_resultado.webp', title: 'Salida al Nevado del Cocuy', category: 'actual' }
     // Galería Histórica (Vacia por ahora según estructura de carpetas)
   ];
 
