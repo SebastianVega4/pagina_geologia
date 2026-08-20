@@ -69,7 +69,7 @@ export const HERO_TIMELINE: readonly HeroTimeSlot[] = [
     day: 'mie', dayLabel: 'Miércoles 19 de Agosto', date: '2026-08-19',
     start: '14:00', end: '16:00',
     activities: [
-      { title: 'CE-2: Charla especial', location: 'Auditorio', type: 'especial' },
+      { title: 'CE-2: Procesos de acopio y comercialización de carbones', location: 'Auditorio', type: 'especial' },
       { title: 'CE-3: Collective Mining', location: 'Auditorio', type: 'especial' },
       { title: 'CE-11: Rocas y minerales industriales — Sumicol', location: 'Auditorio', type: 'especial' },
       { title: 'CE-10: Perforación diamantina — Coprocarbon', location: 'Auditorio', type: 'especial' },
@@ -104,47 +104,32 @@ export const HERO_TIMELINE: readonly HeroTimeSlot[] = [
   // ═══════════════════════════════════════════
   {
     day: 'jue', dayLabel: 'Jueves 20 de Agosto', date: '2026-08-20',
-    start: '08:10', end: '09:10',
+    start: '08:10', end: '09:30',
     activities: [
       { title: 'CE-4: La otra falla geológica — Comunidades y territorio', location: 'Auditorio', type: 'especial' },
-      { title: 'CE-5: Charla especial', location: 'Auditorio', type: 'especial' },
+      { title: 'CE-5: Geodesia espacial GNSS', location: 'Auditorio', type: 'especial' },
       { title: 'Ponencias: 6 salas (201-206)', location: 'Salones 201-206', type: 'ponencias' },
     ]
   },
   {
     day: 'jue', dayLabel: 'Jueves 20 de Agosto', date: '2026-08-20',
-    start: '09:10', end: '09:30',
-    activities: [
-      { title: 'Ponencias: 6 salas (201-206)', location: 'Salones 201-206', type: 'ponencias' },
-    ]
-  },
-  {
-    day: 'jue', dayLabel: 'Jueves 20 de Agosto', date: '2026-08-20',
-    start: '09:30', end: '09:50',
-    activities: [
-      { title: 'Break — tercer refrigerio', location: 'Vestíbulo', type: 'break' },
-    ]
-  },
-  {
-    day: 'jue', dayLabel: 'Jueves 20 de Agosto', date: '2026-08-20',
-    start: '09:50', end: '10:40',
+    start: '09:50', end: '10:30',
     activities: [
       { title: 'CM-4: Inteligencia Artificial y redes sísmicas — Zona de subducción Ecuador-Colombia', location: 'Auditorio', type: 'magistral' },
     ]
   },
   {
     day: 'jue', dayLabel: 'Jueves 20 de Agosto', date: '2026-08-20',
-    start: '10:40', end: '11:00',
+    start: '10:30', end: '11:00',
     activities: [
-      { title: 'Break — cuarto refrigerio', location: 'Vestíbulo', type: 'break' },
+      { title: 'Break — tercer refrigerio', location: 'Vestíbulo', type: 'break' },
     ]
   },
   {
     day: 'jue', dayLabel: 'Jueves 20 de Agosto', date: '2026-08-20',
     start: '11:00', end: '12:30',
     activities: [
-      { title: 'Panel de discusión: Gestión del Riesgo', location: 'Auditorio', type: 'panel' },
-      { title: 'SGC — Jornada completa', location: 'Salón Gondwana', type: 'actividad' },
+      { title: 'Geología en Vivo: Dos Expertos, Un Viaje al Corazón de la Tierra', location: 'Auditorio', type: 'panel' },
     ]
   },
   {
@@ -156,10 +141,17 @@ export const HERO_TIMELINE: readonly HeroTimeSlot[] = [
   },
   {
     day: 'jue', dayLabel: 'Jueves 20 de Agosto', date: '2026-08-20',
-    start: '14:00', end: '15:30',
+    start: '14:00', end: '15:00',
     activities: [
-      { title: 'Geología en Vivo', location: 'Auditorio', type: 'actividad' },
-      { title: 'SGC — Continúa', location: 'Salón Gondwana', type: 'actividad' },
+      { title: 'Panel — Gestión del Riesgo', location: 'Auditorio', type: 'panel' },
+      { title: 'CE: Offshore Colombiano — Energía para el futuro', location: 'Salón Gondwana', type: 'especial' },
+    ]
+  },
+  {
+    day: 'jue', dayLabel: 'Jueves 20 de Agosto', date: '2026-08-20',
+    start: '15:00', end: '15:30',
+    activities: [
+      { title: 'Break — cuarto refrigerio', location: 'Vestíbulo', type: 'break' },
     ]
   },
   {
@@ -180,7 +172,14 @@ export const HERO_TIMELINE: readonly HeroTimeSlot[] = [
     day: 'jue', dayLabel: 'Jueves 20 de Agosto', date: '2026-08-20',
     start: '17:10', end: '18:20',
     activities: [
-      { title: 'Sesión de pósters — 35 pósters', location: 'Salón Gondwana', type: 'actividad' },
+      { title: 'Sesión de pósters — 36 pósters', location: 'Salón Gondwana', type: 'actividad' },
+    ]
+  },
+  {
+    day: 'jue', dayLabel: 'Jueves 20 de Agosto', date: '2026-08-20',
+    start: '18:30', end: '20:00',
+    activities: [
+      { title: 'Canelazo — cierre del día', location: '', type: 'cierre' },
     ]
   },
 
@@ -189,20 +188,12 @@ export const HERO_TIMELINE: readonly HeroTimeSlot[] = [
   // ═══════════════════════════════════════════
   {
     day: 'vie', dayLabel: 'Viernes 21 de Agosto', date: '2026-08-21',
-    start: '08:10', end: '09:10',
+    start: '08:10', end: '09:40',
     activities: [
       { title: 'CE-7: Minerales estratégicos y transición energética', location: 'Auditorio', type: 'especial' },
       { title: 'CE-8: Caracterización de rezumaderos — Ecopetrol', location: 'Auditorio', type: 'especial' },
       { title: 'Ponencias: 6 salas (201-206)', location: 'Salones 201-206', type: 'ponencias' },
-      { title: 'ACGGP — Jornada en la mañana', location: 'Edificio de Artes', type: 'actividad' },
-    ]
-  },
-  {
-    day: 'vie', dayLabel: 'Viernes 21 de Agosto', date: '2026-08-21',
-    start: '09:10', end: '09:40',
-    activities: [
-      { title: 'Ponencias: 6 salas (201-206)', location: 'Salones 201-206', type: 'ponencias' },
-      { title: 'ACGGP — Continúa', location: 'Edificio de Artes', type: 'actividad' },
+      { title: 'ACGGP — Jornada en la mañana', location: '1 salón edificio de Artes', type: 'actividad' },
     ]
   },
   {
@@ -235,25 +226,17 @@ export const HERO_TIMELINE: readonly HeroTimeSlot[] = [
   },
   {
     day: 'vie', dayLabel: 'Viernes 21 de Agosto', date: '2026-08-21',
-    start: '14:00', end: '16:40',
+    start: '14:00', end: '15:30',
     activities: [
-      { title: 'SCG — Sociedad Colombiana de Geotecnia (11 charlas)', location: 'Edificio de Artes', type: 'actividad' },
-      { title: 'Pósters — 58 pósters', location: 'Pangea + Gondwana', type: 'actividad' },
+      { title: 'SCG — Sociedad Colombiana de Geotecnia (11 charlas)', location: 'Auditorio Cacique Sugamuxi', type: 'actividad' },
+      { title: 'Sesión de pósters — 57 pósters', location: 'Pangea + Gondwana', type: 'actividad' },
     ]
   },
   {
     day: 'vie', dayLabel: 'Viernes 21 de Agosto', date: '2026-08-21',
-    start: '14:20', end: '15:30',
+    start: '15:40', end: '16:10',
     activities: [
-      { title: 'SCG — Sociedad Colombiana de Geotecnia', location: 'Edificio de Artes', type: 'actividad' },
-      { title: 'Sesión de pósters — Pangea + Gondwana', location: 'Salones Pangea y Gondwana', type: 'actividad' },
-    ]
-  },
-  {
-    day: 'vie', dayLabel: 'Viernes 21 de Agosto', date: '2026-08-21',
-    start: '15:30', end: '16:40',
-    activities: [
-      { title: 'SCG — Continúa', location: 'Edificio de Artes', type: 'actividad' },
+      { title: 'Break — sexto refrigerio', location: 'Vestíbulo', type: 'break' },
     ]
   },
   {

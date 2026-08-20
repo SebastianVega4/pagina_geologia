@@ -24,7 +24,7 @@ export const DAYS = [
     "label": "Cronograma General",
     "type": "dashboard",
     "sub": "Vista general del programa por bloques — XVII STG 2026",
-    "desc": "Cronograma actualizado (jul-2026) según el nuevo esquema general: 7 charlas magistrales (CM-1 a CM-7) y 10 charlas especiales (CE-1 a CE-10), la mayoría en paralelo con otras actividades. Ponencias: miércoles un bloque único 2:00–4:00 PM (6×20 min por sala); jueves y viernes en la mañana 8:10–9:10 (3×20 min por sala). Pósters: miércoles 5:10–6:10 PM (54, 2 salones) y jueves 5:10–6:20 PM (30, 1 salón). SGC todo el día jueves; ACGGP viernes en la mañana y SCG viernes en la tarde (salones del edificio de Artes).",
+    "desc": "Cronograma actualizado (jul-2026) según el nuevo esquema general: 7 charlas magistrales (CM-1 a CM-7) y 10 charlas especiales (CE-1 a CE-10), la mayoría en paralelo con otras actividades. Ponencias: miércoles un bloque único 2:00–4:00 PM (6×20 min por sala); jueves y viernes en la mañana 8:10–9:10 (3×20 min por sala). Pósters: miércoles 5:10–6:10 PM (54, 2 salones) y jueves 5:10–6:20 PM (30, 1 salón). SGC todo el día jueves; ACGGP viernes en la mañana en un salón del edificio de Artes y SCG viernes en la tarde en el auditorio Cacique Sugamuxi.",
     "registro": {
       "formularioIndividual": {
         "personas": 186,
@@ -944,7 +944,7 @@ export const DAYS = [
           {
             "title": "“Mi libro secreto de la Tierra”: Estrategia de Geoeducación para la Enseñanza de las Geociencias y su Apropiación Social en la Infancia",
             "status": "confirmado",
-            "authors": "Giselle Cordoba, Gabriela Florez, Samuel Ospino, William Ruiz, Jose Sotelo",
+            "authors": "Giselle Cordoba, Gabriela Florez, Samuel Ospino, William Ruiz, Jose Sotelo, Durlandy David Meza Mejía",
             "salon": "Gondwana"
           },
           {
@@ -999,6 +999,12 @@ export const DAYS = [
             "title": "Detección, segmentación y análisis espacio-temporal de manchas de hidrocarburos en imágenes SAR mediante aprendizaje profundo",
             "status": "confirmado",
             "authors": "David Güiza-Vanegas; Juan Vesga-Figueroa; María Roa-Archila; Thomás Quiñonez- Pineda; Sanin Celedón del Prado; Kevin Tarazona-Balaguera; Adrián Pérez-Montejo; Sait Khurama-Velásquez",
+            "salon": "Gondwana"
+          },
+          {
+            "title": "Integración de fotogrametría y modelado 3D para la comprensión y el análisis de la geología estructural",
+            "status": "confirmado",
+            "authors": "Angélica María Cappacho Alvarez - Thomás Leopoldo Quiñonez Pineda",
             "salon": "Gondwana"
           }
         ]
@@ -1226,8 +1232,8 @@ export const DAYS = [
   {
     "id": "vie",
     "label": "Viernes 21",
-    "sub": "6 salas (mañana) · CM-5 a CM-7 · CE-7 a CE-9 · Panel ANH · cierre · ACGGP AM / SCG PM",
-    "desc": "Actualizado jul-2026: ponencias en la mañana (3×20 min por sala, 8:10–9:10) con CE-7 y CE-8 en paralelo; CM-5 a las 9:40; Panel ANH 11:00–12:30; en la tarde CM-6, CE-9 y CM-7; break 4:10 PM; evento de cierre 4:50 PM y fiesta final 8:00 PM. Salón ACGGP en la mañana y SCG en la tarde (1 salón del edificio de Artes).",
+    "sub": "6 salas (mañana) · CM-5 a CM-7 · CE-7 a CE-9 · Panel ANH · cierre · ACGGP AM · SCG PM (auditorio)",
+    "desc": "Actualizado jul-2026: ponencias en la mañana (3×20 min por sala, 8:10–9:10) con CE-7 y CE-8 en paralelo; CM-5 a las 9:40; Panel ANH 11:00–12:30; en la tarde CM-6, CE-9 y CM-7; break 4:10 PM; evento de cierre 5:20–7:20 PM y fiesta final 8:00 PM. Salón ACGGP en la mañana (1 salón del edificio de Artes) y jornada SCG en la tarde en el auditorio Cacique Sugamuxi (2:00–4:40 PM).",
     "rooms": [
       "201",
       "202",
@@ -1245,7 +1251,7 @@ export const DAYS = [
       "206": "Geología Estructural · Evolución Tectónica"
     },
     "sgcColumn": true,
-    "sgcHeader": "ACGGP / SCG",
+    "sgcHeader": "ACGGP · Salones de Artes",
     "rows": [
       {
         "type": "block",
@@ -1364,10 +1370,9 @@ export const DAYS = [
               "time": "8:10–8:30"
             },
             {
-              "title": "Actualización del análisis de vulnerabilidad, amenaza y peligro a la contaminación de las aguas subterráneas en la Bucaramanga, Santander mediante la metodología GOD",
-              "authors": "David Blanco Quiroga, María Juliana Chacón Porras",
-              "linea": "Hidrogeología · Recursos Hídricos",
+              "title": "GeoTools Field App: Libreta Digital de campo y geovisor web",
               "status": "confirmado",
+              "authors": "Ing. Andrés Merchán",
               "time": "8:30–8:50"
             },
             {
@@ -1420,7 +1425,7 @@ export const DAYS = [
               "time": "8:10–8:50",
               "title": "Minerales Estratégicos y Transición Energética: Nuevas Oportunidades",
               "speaker": "Ing. Esteban Castillo",
-              "org": "exANM"
+              "org": "Consultor"
             },
             {
               "code": "CE-8",
@@ -1768,12 +1773,6 @@ export const DAYS = [
             "title": "Historia de exhumación del Plutón de Pance y Danubio: implicaciones para la historia de deformación Miocena de la cordillera occidental de Colombia.",
             "status": "confirmado",
             "authors": "Lina María Mogollón Gómez, Natalia Gonzalez Rojas",
-            "salon": "Gondwana"
-          },
-          {
-            "title": "Integración de fotogrametría y modelado 3D para la comprensión y el análisis de la geología estructural",
-            "status": "confirmado",
-            "authors": "Angélica María Cappacho Alvarez - Thomás Leopoldo Quiñonez Pineda",
             "salon": "Gondwana"
           },
           {
